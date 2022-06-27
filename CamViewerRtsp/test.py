@@ -28,8 +28,11 @@ class ServerGui(Gtk.Window):
         builder=Gtk.Builder
         hostname = socket.gethostname()
         IPAddress = socket.gethostbyname(hostname)
+        ip_ard=socket.getfqdn(IPAddress)
+        #pubIp= commands.getoutput("hostname -I")
         print("Your Computer Name is:" + hostname)    
-        print("Your Computer IP Address is:" + IPAddress) 
+       # print("Your Computer IP Address is: " + pubIp) 
+        print("Your Computer IP Address is: " + IPAddress) 
 
         Gtk.Window.__init__(self, title="Server of "+ hostname)
         print (Gtk.Window().get_screen().get_width())
@@ -85,7 +88,7 @@ class ServerGui(Gtk.Window):
              print("state: ",state)
              
         hostname = socket.gethostname()
-        ipAddr = socket.gethostbyname(hostname)
+        ipAddr =socket.gethostbyname(hostname)
         
 
         server = GstRtspServer.RTSPServer.new()

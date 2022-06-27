@@ -1,11 +1,15 @@
+""""
+this is the file were the option for the module gst are define 
+"""
+
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 screenWidth = str(Gtk.Window().get_screen().get_width())
 screenHeight = str(Gtk.Window().get_screen().get_height())
 # camera option
-v4l2srcLaunch = f"v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0"
-rpicamsrc = f"rpicamsrc bitrate=8000000 preview=flase ! videoconvert ! video/x-h264, width={screenWidth}, height={screenHeight} ! h264parse ! queue ! rtph264pay name=pay0"
+v4l2srcLaunch = "v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0"
+rpicamsrc = "rpicamsrc bitrate=8000000 preview=true ! videoconvert ! h264parse ! rtph264pay name=pay0 pt=96"
 
 #network option 
 port = "8554"
@@ -37,4 +41,4 @@ spokes = "spokes"
 gradient = "gradient"
 colors = "colors"
 smpterp219 = "smpte-rp-219"
-defaultPattern = smpterp219
+defaultPattern = "smpte-rp-219"

@@ -13,7 +13,7 @@ Gst.init(None)
 class UI(Gtk.Window):
     def __init__(self):
         builder=Gtk.Builder
-        super().__init__(title="Mode")
+        Gtk.Window.__init__(self, title="Mode ")
         self.set_default_size(400, 200)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
        
