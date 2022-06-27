@@ -225,10 +225,10 @@ class Player(Gtk.Window):
         user = os.getlogin()
         domain = 7
         code = 8130
-        print(Gst.error_get_message (7, 8130))
+       # print(Gst.error_get_message (7, 8130))
         #set special message if error occur
-        if Gst.error_get_message():
-            self.MessageBox("Error penis",f"{user}(Host) was unable to connect to the server","error")
+        if Gst.error_get_message(1,8130):
+            self.MessageBox("Error",f"{user}(Host) was unable to connect to the server","error")
         
         # set full erro message
         else:
