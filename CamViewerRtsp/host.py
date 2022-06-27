@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
+
 from cProfile import label, run
+from curses.ascii import NUL
 from ipaddress import ip_address
 #import string
 from telnetlib import IP
@@ -8,8 +10,9 @@ from tokenize import String
 from typing import Pattern
 import gi
 import traceback
-from os import path
+from os import devnull, path
 import socket
+import os
 #import cv2 # Opencv librairy
 import sys
 import numpy
@@ -43,6 +46,29 @@ class Player(Gtk.Window):
     global is_active
 
     def __init__(self):
+        print(os.getlogin())
+        #os.system('which apt-get')
+        pacmanCheck = os.system('command -v pacman >/dev/null')
+        aptCheck = os.system('command -v apt >/dev/null')
+        #devZero = os.system('/dev/null')
+        print(pacmanCheck)
+        print(aptCheck) 
+        if aptCheck != 256:
+            listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
+            'gstreamer-plugins-ugly gstreamer-libav'
+            'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
+            if listPackage != 256:
+                #print(listPackage)
+                print("completed")
+            else:
+                print("Please verify if all of thos package are install "+ listPackage)
+        elif pacmanCheck != 256 :
+            listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
+            if listPackage != 256:
+                #print(listPackage)
+                print("completed")
+            else:
+                print("Please verify if all of thos package are install "+ listPackage)
         #basic window creation
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Third Eye")
