@@ -2,10 +2,10 @@
 
 
 from cProfile import label, run
-from curses.ascii import NUL
 from ipaddress import ip_address
 #import string
 from telnetlib import IP
+
 from tokenize import String
 from typing import Pattern
 import gi
@@ -45,7 +45,23 @@ Gst.init(None)
 class Player(Gtk.Window):
     global is_active
 
-    def __init__(self):
+    def MessageBox(self,title=str,text=str):
+        dialog = dialog = Gtk.MessageDialog(
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.INFO,
+            buttons=Gtk.ButtonsType.OK,
+            text=title,
+        )
+        dialog.format_secondary_text(
+            text
+        )
+        dialog.run()
+        print("INFO dialog closed")
+
+        dialog.destroy()
+
+    def package_check(self):
         print(os.getlogin())
         #os.system('which apt-get')
         pacmanCheck = os.system('command -v pacman >/dev/null')
@@ -53,22 +69,29 @@ class Player(Gtk.Window):
         #devZero = os.system('/dev/null')
         print(pacmanCheck)
         print(aptCheck) 
+        
         if aptCheck != 256:
             listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
             'gstreamer-plugins-ugly gstreamer-libav'
             'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
             if listPackage != 256:
-                #print(listPackage)
+                self.MessageBox("sucess","all packages are there")
                 print("completed")
+                #print(listPackage)
             else:
                 print("Please verify if all of thos package are install "+ listPackage)
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
             if listPackage != 256:
                 #print(listPackage)
+                self.MessageBox("sucess","all packages are there")
                 print("completed")
             else:
+                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install")
+                
                 print("Please verify if all of thos package are install "+ listPackage)
+    
+    def __init__(self):
         #basic window creation
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Third Eye")
@@ -78,6 +101,7 @@ class Player(Gtk.Window):
         self.set_default_size(800, 550)
         self.set_border_width(10)
 
+        self.package_check()
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
         #self.drawingarea.set_margin(10)
@@ -125,6 +149,7 @@ class Player(Gtk.Window):
         
         # Create GStreamer pipeline
         grid.attach_next_to(link,entry,Gtk.PositionType.RIGHT,2,1)
+    
 
 
     #for webcam
