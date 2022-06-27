@@ -1,13 +1,4 @@
 #!/usr/bin/env python3
-
-
-from cProfile import label, run
-from ipaddress import ip_address
-#import string
-from telnetlib import IP
-
-from tokenize import String
-from typing import Pattern
 import gi
 import traceback
 from os import devnull, path
@@ -25,11 +16,6 @@ gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject,Gst, Gtk
 from gi.repository import GdkX11, GstVideo
 
-
-
-#Rtsp info var
-#ip = 'IPADDRESS'
-
 Gst.init(None)
 
 #		list things to do
@@ -45,52 +31,6 @@ Gst.init(None)
 class Player(Gtk.Window):
     global is_active
 
-    def MessageBox(self,title=str,text=str):
-        dialog = dialog = Gtk.MessageDialog(
-            transient_for=self,
-            flags=0,
-            message_type=Gtk.MessageType.INFO,
-            buttons=Gtk.ButtonsType.OK,
-            text=title,
-        )
-        dialog.format_secondary_text(
-            text
-        )
-        dialog.run()
-        print("INFO dialog closed")
-
-        dialog.destroy()
-
-    def package_check(self):
-        print(os.getlogin())
-        #os.system('which apt-get')
-        pacmanCheck = os.system('command -v pacman >/dev/null')
-        aptCheck = os.system('command -v apt >/dev/null')
-        #devZero = os.system('/dev/null')
-        print(pacmanCheck)
-        print(aptCheck) 
-        
-        if aptCheck != 256:
-            listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
-            'gstreamer-plugins-ugly gstreamer-libav'
-            'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
-            if listPackage != 256:
-                self.MessageBox("sucess","all packages are there")
-                print("completed")
-                #print(listPackage)
-            else:
-                print("Please verify if all of thos package are install "+ listPackage)
-        elif pacmanCheck != 256 :
-            listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
-            if listPackage != 256:
-                #print(listPackage)
-                self.MessageBox("sucess","all packages are there")
-                print("completed")
-            else:
-                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install")
-                
-                print("Please verify if all of thos package are install "+ listPackage)
-    
     def __init__(self):
         #basic window creation
         builder=Gtk.Builder
@@ -101,6 +41,7 @@ class Player(Gtk.Window):
         self.set_default_size(800, 550)
         self.set_border_width(10)
 
+        #verify if gstreamer is install with package manager
         self.package_check()
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
@@ -218,7 +159,52 @@ class Player(Gtk.Window):
         print(Gtk.main_level())
 
 
+    def MessageBox(self,title=str,text=str,type=str):
+        dialog = dialog = Gtk.MessageDialog(
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.INFO,
+            buttons=Gtk.ButtonsType.OK,
+            text=title,
+        )
+        dialog.format_secondary_text(
+            text
+        )
+        dialog.run()
+        print( type+" dialog closed")
 
+        dialog.destroy()
+
+    def package_check(self):
+        print(os.getlogin())
+        pacmanCheck = os.system('command -v pacman >/dev/null')
+        aptCheck = os.system('command -v apt >/dev/null')
+        print(pacmanCheck)
+        print(aptCheck) 
+        
+        if aptCheck != 256:
+            listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
+            'gstreamer-plugins-ugly gstreamer-libav'
+            'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
+            
+            if listPackage != 256:
+                self.MessageBox("sucess","all packages are there","sucess")
+                print("completed")
+                
+            else:
+                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+                print("Please verify if all of thos package are install "+ listPackage)
+    
+        elif pacmanCheck != 256 :
+            listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
+            
+            if listPackage != 256: 
+                self.MessageBox("sucess","all packages are there","sucess")
+                print("completed")
+
+            else:
+                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+                print("Please verify if all of thos package are install "+ listPackage)
 
 
     def on_sync_message(self, bus, msg):
@@ -233,8 +219,20 @@ class Player(Gtk.Window):
             Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT,
             0
         )
-
+    
+        
     def on_error(self, bus, msg):
+        user = os.getlogin()
+        domain = 7
+        code = 8130
+        print(Gst.error_get_message (7, 8130))
+        #set special message if error occur
+        if Gst.error_get_message():
+            self.MessageBox("Error penis",f"{user}(Host) was unable to connect to the server","error")
+        
+        # set full erro message
+        else:
+            self.MessageBox("Error",str(msg.parse_error()),"error")
         print('on_error():', msg.parse_error())
 
 p= Player()
