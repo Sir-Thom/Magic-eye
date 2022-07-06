@@ -20,8 +20,8 @@ Gst.init(None)
 
 #		list things to do
 #1: fix socket path at launch (Gstreamer)
-#2: make a GTK UI for host side
-#3: make a GTK UI for client sie
+#2: make a GTK UI for host side [x]
+#3: make a GTK UI for client sie [x]
 #4: add code for camera pantilt hat to move the camera rigth, left, up, down
 #5: fix power consumpution  (maybe power supply or make an ups system)
 #6: test app in Window and maybe Osx
@@ -29,11 +29,14 @@ Gst.init(None)
 
 
 class Player(Gtk.Window):
+    
     global is_active
 
     def __init__(self):
+        
         #basic window creation
         builder=Gtk.Builder
+        os.environ['Gdk_BACKEND'] ='x11'
         Gtk.Window.__init__(self, title="Third Eye")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
@@ -188,7 +191,7 @@ class Player(Gtk.Window):
             'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
             
             if listPackage != 256:
-                self.MessageBox("sucess","all packages are there","sucess")
+              #  self.MessageBox("sucess","all packages are there","sucess")
                 print("completed")
                 
             else:
@@ -199,7 +202,7 @@ class Player(Gtk.Window):
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
             
             if listPackage != 256: 
-                self.MessageBox("sucess","all packages are there","sucess")
+              #  self.MessageBox("sucess","all packages are there","sucess")
                 print("completed")
 
             else:
