@@ -5,6 +5,7 @@ import numpy
 import subprocess
 import os
 from subprocess import call
+import configparser
 
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
@@ -18,6 +19,9 @@ Gst.init(None)
 
 class UI(Gtk.Window):
     def __init__(self):
+        app_name = "CamViewerRtsp"
+        config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
+        config = configparser.ConfigParser()
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Mode ")
         self.set_default_size(400, 200)

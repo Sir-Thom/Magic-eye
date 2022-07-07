@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import configparser
 import gi
 import traceback
 from os import devnull, path
@@ -7,6 +8,8 @@ import os
 #import cv2 # Opencv librairy
 import sys
 import numpy
+from settings import Config 
+
 import settings
 #gi.require_version('GstRtspServer', '1.0')
 gi.require_version('GdkX11', '3.0')
@@ -33,9 +36,20 @@ class Player(Gtk.Window):
     global is_active
 
     def __init__(self):
-        
+        Config.create_config(self)
         #basic window creation
         builder=Gtk.Builder
+        setting = Config.load_config
+        print(setting)
+        app_name = "CamViewerRtsp"
+        config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
+        settings_file = "settings.conf"
+        full_config_file_path = os.path.join(config_folder, settings_file)
+        config = configparser.ConfigParser()
+        config.read(full_config_file_path)
+        
+        portcfg=config.get('NETWORK_OPTION',"port")
+        print(portcfg)
         os.environ['Gdk_BACKEND'] ='x11'
         Gtk.Window.__init__(self, title="Third Eye")
         screenWidth = Gtk.Window().get_screen().get_width()
@@ -130,9 +144,22 @@ class Player(Gtk.Window):
         ipard = self.entry.get_text()
         port = "8554"
         mount_point = "/tmp"
+        Config.create_config(self)
+        #basic window creation
+        builder=Gtk.Builder
+        setting = Config.load_config(self)
+        print(setting)
+        Config.load_config(self)
+        
+        config = configparser.ConfigParser()
+        config.read(settings.Config.full_config_file_path)
+        
+        portcfg=config.get('NETWORK_OPTION',"port")
+        print(portcfg)
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
-        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/tmp ! decodebin   ! videoconvert ! autovideosink sync=false")
+        print(portcfg)
+        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{portcfg}/tmp ! decodebin   ! videoconvert ! autovideosink sync=false")
         
         #error message
         bus = self.pipeline.get_bus()
