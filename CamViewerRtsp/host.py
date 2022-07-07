@@ -10,7 +10,7 @@ import sys
 import numpy
 from settings import Config 
 
-import settings
+#import settings
 #gi.require_version('GstRtspServer', '1.0')
 gi.require_version('GdkX11', '3.0')
 gi.require_version('Gst','1.0')
@@ -113,17 +113,21 @@ class Player(Gtk.Window):
     #for webcam
     
     def no_cam_feed(self):
-        patternChoice = settings.defaultPattern
+        config = configparser.ConfigParser()
+        config.read(Config.full_config_file_path)
+        patternChoice = config.get('PATTERN_OPTION',"defaultPattern") #settings.defaultPattern
         screenWidth = str(Gtk.Window().get_screen().get_width())
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print (screenWidth , screenHeight)
+        print(config.options('PATTERN_OPTION')[1])
+        config.options('PATTERN_OPTION')
         is_active=False
         print(is_active)
         print(patternChoice)
         self.show_all()
         self.xid = self.drawingarea.get_property('window').get_xid()
         self.fps = 60
-        self.pipeline = Gst.parse_launch(f"videotestsrc  pattern={settings.defaultPattern} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight} ! deinterlace ! xvimagesink")
+        self.pipeline = Gst.parse_launch(f"videotestsrc  pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight} ! deinterlace ! xvimagesink")
 
         # Create bus to get events from GStreamer pipeline
         bus = self.pipeline.get_bus()
@@ -137,29 +141,27 @@ class Player(Gtk.Window):
 
     # will connect the device to the host server (the one with the cam)
     def connexion_rtsp(self,ipard):
+        config = configparser.ConfigParser()
+        config.read(Config.full_config_file_path)
         is_active=True
         print(is_active)
         self.pipeline.set_state(Gst.State.NULL)
         self.show_all()
         ipard = self.entry.get_text()
-        port = "8554"
-        mount_point = "/tmp"
+        port = config.get('NETWORK_OPTION',"port")#"8554"
+        mount_point = config.get('NETWORK_OPTION',"mount_point")  #"/tmp"
         Config.create_config(self)
         #basic window creation
         builder=Gtk.Builder
         setting = Config.load_config(self)
-        print(setting)
-        Config.load_config(self)
+       
+     
         
-        config = configparser.ConfigParser()
-        config.read(settings.Config.full_config_file_path)
-        
-        portcfg=config.get('NETWORK_OPTION',"port")
-        print(portcfg)
+    
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
-        print(portcfg)
-        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{portcfg}/tmp ! decodebin   ! videoconvert ! autovideosink sync=false")
+        
+        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/tmp ! decodebin   ! videoconvert ! autovideosink sync=false")
         
         #error message
         bus = self.pipeline.get_bus()

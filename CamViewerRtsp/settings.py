@@ -4,6 +4,8 @@ this is the file were the option for the module gst are define
 from importlib.resources import path
 import os
 import gi
+gi.require_version('Gtk','3.0')
+from gi.repository import Gtk
 import configparser
 class Config():
     app_name = "CamViewerRtsp"
@@ -17,12 +19,13 @@ class Config():
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()
+       # config['DEFAULT']= {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0',"port":"8554",'mount_point':'/stream','defaultPattern': 'smpte-rp-219'}
         config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0',
                             'rpicamsrc': 'rpicamsrc bitrate=8000000 preview=true ! videoconvert ! h264parse ! rtph264pay name=pay0 pt=96',
                             }
         config['NETWORK_OPTION'] = {}
         config['NETWORK_OPTION']["port"]="8554"
-        config['NETWORK_OPTION']['mount_point']='/tmp'
+        config['NETWORK_OPTION']['mount_point']='/stream'
         config['PATTERN_OPTION'] = {'smpte' : 'smpte',
                                                     'snow' : "snow",
                                                     'black' : "black",
@@ -50,18 +53,19 @@ class Config():
                                                     'smpterp219':'smpte-rp-219',
                                                     'defaultPattern': 'smpte-rp-219',
                                                 }
+                                                #config.update()
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:
                 config.write(configfile)
+
     def load_config(self):
         app_name = "CamViewerRtsp"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
-        config = configparser.ConfigParser()
-        u=config.read(full_config_file_path)
-        i= [u]
-        return i
+        #config = configparser.ConfigParser()
+        #u=config.read(full_config_file_path)
+        
         #user var 
         #v4l2srcLaunch = config['CAMERA_OPTION'].setdefault('v4l2srcLaunch')
         #rpicamsrc = config['CAMERA_OPTION'].setdefault('rpicamsrclaunch')
@@ -69,7 +73,7 @@ class Config():
         #mount=config['NETWORK OPTION']['mount_point']
 
 
-gi.require_version('Gtk','3.0')
+""" gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 screenWidth = str(Gtk.Window().get_screen().get_width())
 screenHeight = str(Gtk.Window().get_screen().get_height())
@@ -108,3 +112,4 @@ gradient = "gradient"
 colors = "colors"
 smpterp219 = "smpte-rp-219"
 defaultPattern = "smpte-rp-219"
+ """

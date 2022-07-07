@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import gi
+from settings import Config 
+import configparser
 import socket 
 import numpy
 gi.require_version('GstVideo', '1.0')
@@ -14,6 +16,7 @@ import settings
 Gst.init(None)
 
 class ServerGui(Gtk.Window):
+
     launchMode =""
     global state
     global port
@@ -61,6 +64,8 @@ class ServerGui(Gtk.Window):
         print(CamMode.get_active())
     
     def on_button_toggled(self,CamMode, name):
+        config = configparser.ConfigParser()
+        config.read(Config.full_config_file_path)
         global state 
         if CamMode.get_active() and name == "v4l2src":
             state = "v4l2src"
@@ -80,9 +85,10 @@ class ServerGui(Gtk.Window):
         global state 
         print("state: ",state)
         print("launchMethod: ",self.launchMode)
-
+        config = configparser.ConfigParser()
+        config.read(Config.full_config_file_path)
         if state == "v4l2src":
-             self.launchMode =  settings.v4l2srcLaunch
+             self.launchMode =  config.get("CAMERA_OPTION",'v4l2srcLaunch')#settings.v4l2srcLaunch
              print("state: ",state)
         if state == "rpicamsrc":
              self.launchMode =  settings.rpicamsrc
