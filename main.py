@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import gi
 import numpy
 import subprocess
@@ -7,24 +8,30 @@ from subprocess import call
 import configparser
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
-gi.require_version('GstRtspServer', '1.0')
-gi.require_version('GdkX11', '3.0')
+#gi.require_version('GstRtspServer', '1.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
+gi.require_version('Polkit','1.0')
 from gi.repository import Polkit
-from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk
-from gi.repository import GdkX11, GstVideo
+from gi.repository import Gst, GLib, GObject,Gtk
+from gi.repository import Gdk, GstVideo
 Gst.init(None)
 
 class UI(Gtk.Window):
     def __init__(self):
+        print(Gdk.set_allowed_backends("wayland,x11"))
+        os.environ['GDK_BACKEND'] = 'x11'
+        print(os.environ)
+        Gdk.set_allowed_backends("wayland,x11")
         app_name = "CamViewerRtsp"
+
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         config = configparser.ConfigParser()
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Mode ")
         self.set_default_size(400, 200)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
-    
+        self.package_check()
         self.set_border_width(10)
        
     
@@ -46,6 +53,75 @@ class UI(Gtk.Window):
         file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)
+    
+    def MessageBox(self,title=str,text=str,type=str):
+        if(type=="error"):
+            dialog = Gtk.MessageDialog(
+                transient_for=self,
+                flags=0,
+                message_type=Gtk.MessageType.INFO,
+                buttons=Gtk.ButtonsType.OK,
+                text=title,
+            )
+            dialog.format_secondary_text(
+                text
+            )
+            dialog.run()
+        elif(type == "Confirmation"):
+                dialog = Gtk.MessageDialog(
+                transient_for=self,
+                flags=0,
+                message_type=Gtk.MessageType.INFO,
+                buttons=Gtk.ButtonsType.YES_NO,
+                text=title,
+            )
+                dialog.format_secondary_text(
+                    text
+                )
+                response = dialog.run()
+                if response == Gtk.ResponseType.YES:
+                    #os.system('pkexec')
+                    os.system('pkexec pacman -S gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server --noconfirm')
+                    #os.system('y')
+            
+
+
+       
+        
+        print( type +": dialog closed")
+
+        dialog.destroy()
+
+    def package_check(self):
+        print(os.getlogin())
+        pacmanCheck = os.system('command -v pacman >/dev/null')
+        aptCheck = os.system('command -v apt >/dev/null')
+        print(pacmanCheck)
+        print(aptCheck) 
+        
+        if aptCheck != 256:
+            listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
+            'gstreamer-plugins-ugly gstreamer-libav'
+            'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
+            
+            if listPackage != 256:
+             
+                print("completed")
+                
+            else:
+                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+                print("Please verify if all of thos package are install ")
+    
+        elif pacmanCheck != 256 :
+            listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
+            
+            if listPackage != 256: 
+                print("completed")
+                #self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
+            else:
+                self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
+                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+                print("Please verify if all of thos package are install ")
 
 win = UI()
 win.connect("destroy", Gtk.main_quit)

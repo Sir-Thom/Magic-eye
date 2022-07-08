@@ -25,8 +25,8 @@ class ServerGui(Gtk.Window):
     config = configparser.ConfigParser()
     config.read(Config.full_config_file_path)
   
-    port =  config.get('NETWORK_OPTION',"port")#"8554" #settings.port
-    mount_point = config.get('NETWORK_OPTION',"mount_point")#settings.mount_point
+    port =  config.get('NETWORK_OPTION',"port")
+    mount_point = config.get('NETWORK_OPTION',"mount_point")
     
     def __init__(self):
        
@@ -87,10 +87,10 @@ class ServerGui(Gtk.Window):
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         if state == "v4l2src":
-             self.launchMode =  config.get("CAMERA_OPTION",'v4l2srcLaunch')#settings.v4l2srcLaunch
+             self.launchMode =  config.get("CAMERA_OPTION",'v4l2srcLaunch')
              print("state: ",state)
         if state == "rpicamsrc":
-             self.launchMode =  config.get("CAMERA_OPTION",'rpicamsrcLaunch')#settings.rpicamsrc
+             self.launchMode =  config.get("CAMERA_OPTION",'rpicamsrcLaunch')
              print("state: ",state)
              
         hostname = socket.gethostname()

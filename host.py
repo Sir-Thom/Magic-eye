@@ -5,6 +5,7 @@ import traceback
 from os import devnull, path
 import socket
 import os
+from settings import Config 
 #import cv2 # Opencv librairy
 import sys
 import numpy
@@ -12,12 +13,12 @@ from settings import Config
 
 #import settings
 #gi.require_version('GstRtspServer', '1.0')
-gi.require_version('GdkX11', '3.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gst','1.0')
 gi.require_version('Gtk','3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject,Gst, Gtk
-from gi.repository import GdkX11, GstVideo
+from gi.repository import Gdk, GstVideo
 
 Gst.init(None)
 
@@ -36,21 +37,20 @@ class Player(Gtk.Window):
     global is_active
 
     def __init__(self):
-        Config.create_config(self)
+       
         #basic window creation
         builder=Gtk.Builder
-        setting = Config.load_config
-        print(setting)
+        Gdk.Backend = 'x11'
         app_name = "CamViewerRtsp"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()
         config.read(full_config_file_path)
-        
+        Config.create_config(self)
         portcfg=config.get('NETWORK_OPTION',"port")
         print(portcfg)
-        os.environ['Gdk_BACKEND'] ='x11'
+        os.environ['Gdk_BACKEND'] ='X11'
         Gtk.Window.__init__(self, title="Third Eye")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
@@ -113,6 +113,7 @@ class Player(Gtk.Window):
     #for webcam
     
     def no_cam_feed(self):
+        os.environ['Gdk_BACKEND'] ='x11'
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         patternChoice = config.get('PATTERN_OPTION',"defaultPattern") #settings.defaultPattern
@@ -181,6 +182,7 @@ class Player(Gtk.Window):
         print(Gtk.main_level())
 
     def run(self):
+        os.environ['Gdk_BACKEND'] ='x11'
         self.show_all()
         text = self.entry.get_text()
         Gtk.main()
@@ -226,7 +228,7 @@ class Player(Gtk.Window):
                 
             else:
                 self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
-                print("Please verify if all of thos package are install "+ listPackage)
+                print("Please verify if all of thos package are install ")
     
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
@@ -236,7 +238,7 @@ class Player(Gtk.Window):
 
             else:
                 self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
-                print("Please verify if all of thos package are install "+ listPackage)
+                print("Please verify if all of thos package are install ")
 
 
     def on_sync_message(self, bus, msg):

@@ -1,7 +1,6 @@
 """"
 this is the file were the option for the module gst are define 
 """
-from importlib.resources import path
 import os
 import gi
 gi.require_version('Gtk','3.0')
