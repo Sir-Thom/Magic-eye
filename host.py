@@ -148,9 +148,10 @@ class Player(Gtk.Window):
         self.pipeline.set_state(Gst.State.NULL)
         self.show_all()
         ipard = self.entry.get_text()
-        port = config.get('NETWORK_OPTION',"port")#"8554"
-        mount_point = config.get('NETWORK_OPTION',"mount_point")  #"/tmp"
+        port = config.get('NETWORK_OPTION',"port")
+        mount_point = config.get('NETWORK_OPTION',"mount_point")  
         Config.create_config(self)
+        
         #basic window creation
         builder=Gtk.Builder
         setting = Config.load_config(self)
@@ -220,7 +221,7 @@ class Player(Gtk.Window):
             'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
             
             if listPackage != 256:
-              #  self.MessageBox("sucess","all packages are there","sucess")
+             
                 print("completed")
                 
             else:
@@ -231,7 +232,6 @@ class Player(Gtk.Window):
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
             
             if listPackage != 256: 
-              #  self.MessageBox("sucess","all packages are there","sucess")
                 print("completed")
 
             else:
@@ -257,12 +257,11 @@ class Player(Gtk.Window):
         user = os.getlogin()
         domain = 7
         code = 8130
-       # print(Gst.error_get_message (7, 8130))
         #set special message if error occur
         if Gst.error_get_message(1,8130):
             self.MessageBox("Error",f"{user}(Host) was unable to connect to the server","error")
         
-        # set full erro message
+        # set full error message
         else:
             self.MessageBox("Error",str(msg.parse_error()),"error")
         print('on_error():', msg.parse_error())

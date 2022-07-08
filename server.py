@@ -22,10 +22,11 @@ class ServerGui(Gtk.Window):
     global port
     global mount_point
     state =""
-    print(settings.v4l2srcLaunch)
+    config = configparser.ConfigParser()
+    config.read(Config.full_config_file_path)
   
-    port = settings.port
-    mount_point = settings.mount_point
+    port =  config.get('NETWORK_OPTION',"port")#"8554" #settings.port
+    mount_point = config.get('NETWORK_OPTION',"mount_point")#settings.mount_point
     
     def __init__(self):
        
@@ -33,9 +34,7 @@ class ServerGui(Gtk.Window):
         hostname = socket.gethostname()
         IPAddress = socket.gethostbyname(hostname)
         ip_ard=socket.getfqdn(IPAddress)
-        #pubIp= commands.getoutput("hostname -I")
-        print("Your Computer Name is:" + hostname)    
-       # print("Your Computer IP Address is: " + pubIp) 
+        print("Your Computer Name is:" + hostname)     
         print("Your Computer IP Address is: " + IPAddress) 
 
         Gtk.Window.__init__(self, title="Server of "+ hostname)
@@ -69,10 +68,10 @@ class ServerGui(Gtk.Window):
         global state 
         if CamMode.get_active() and name == "v4l2src":
             state = "v4l2src"
-            self.launchMode = settings.v4l2srcLaunch
+            self.launchMode = config.get("CAMERA_OPTION",'v4l2srcLaunch')#settings.v4l2srcLaunch
         elif CamMode.get_active() and name == "rpicamsrc":
             state = "rpicamsrc"
-            self.launchMode = settings.rpicamsrc
+            self.launchMode = config.get("CAMERA_OPTION",'rpicamsrcLaunch')#settings.rpicamsrc
             print(self.launchMode)
             print(state)
         else:
@@ -91,7 +90,7 @@ class ServerGui(Gtk.Window):
              self.launchMode =  config.get("CAMERA_OPTION",'v4l2srcLaunch')#settings.v4l2srcLaunch
              print("state: ",state)
         if state == "rpicamsrc":
-             self.launchMode =  settings.rpicamsrc
+             self.launchMode =  config.get("CAMERA_OPTION",'rpicamsrcLaunch')#settings.rpicamsrc
              print("state: ",state)
              
         hostname = socket.gethostname()
@@ -107,7 +106,7 @@ class ServerGui(Gtk.Window):
         factory.set_launch(self.launchMode)
         mounts.add_factory(mount_point, factory)
        
-        #  start serving
+        #  start server
         if self.launchMode == "":
                 print("launchMode is empty")
         else:
