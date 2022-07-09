@@ -24,7 +24,7 @@ class Config():
                             }
         config['NETWORK_OPTION'] = {}
         config['NETWORK_OPTION']["port"]="8554"
-        config['NETWORK_OPTION']['mount_point']='/stream'
+        config['NETWORK_OPTION']['mount_point']='/tmp'
         config['PATTERN_OPTION'] = {'smpte' : 'smpte',
                                                     'snow' : "snow",
                                                     'black' : "black",

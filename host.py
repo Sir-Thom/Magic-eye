@@ -10,15 +10,14 @@ from settings import Config
 import sys
 import numpy
 from settings import Config 
-
 #import settings
 #gi.require_version('GstRtspServer', '1.0')
-gi.require_version('Gdk', '3.0')
+gi.require_version('GdkX11', '3.0')
 gi.require_version('Gst','1.0')
 gi.require_version('Gtk','3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject,Gst, Gtk
-from gi.repository import Gdk, GstVideo
+from gi.repository import GdkX11, GstVideo
 
 Gst.init(None)
 
@@ -40,14 +39,12 @@ class Player(Gtk.Window):
        
         #basic window creation
         builder=Gtk.Builder
-        Gdk.Backend = 'x11'
-        app_name = "CamViewerRtsp"
-        config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
-        settings_file = "settings.conf"
-        full_config_file_path = os.path.join(config_folder, settings_file)
+        
+       # Gdk.set_allowed_backends("x11")
         config = configparser.ConfigParser()
-        config.read(full_config_file_path)
-        Config.create_config(self)
+        config.read(Config.full_config_file_path)
+       
+        
         portcfg=config.get('NETWORK_OPTION',"port")
         print(portcfg)
         os.environ['Gdk_BACKEND'] ='X11'
@@ -113,7 +110,7 @@ class Player(Gtk.Window):
     #for webcam
     
     def no_cam_feed(self):
-        os.environ['Gdk_BACKEND'] ='x11'
+        
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         patternChoice = config.get('PATTERN_OPTION',"defaultPattern") #settings.defaultPattern
@@ -155,7 +152,7 @@ class Player(Gtk.Window):
         
         #basic window creation
         builder=Gtk.Builder
-        setting = Config.load_config(self)
+        #setting = Config.load_config(self)
        
      
         

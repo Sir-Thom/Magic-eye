@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-
+import sys
 import gi
 import numpy
 import subprocess
 import os
 from subprocess import call
 import configparser
+
+from settings import Config
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 #gi.require_version('GstRtspServer', '1.0')
@@ -15,26 +17,33 @@ gi.require_version('Polkit','1.0')
 from gi.repository import Polkit
 from gi.repository import Gst, GLib, GObject,Gtk,Gio
 from gi.repository import Gdk, GstVideo
+import xml.etree.ElementTree as ET
+
 Gst.init(None)
 
+
 class UI(Gtk.Window):
+    
     def __init__(self):
-        print(Gdk.set_allowed_backends("wayland,x11"))
-        os.environ['GDK_BACKEND'] = 'x11'
-        print(os.environ)
+        #print(Gdk.allowed_backends("wayland,x11"))
+        
+        #Gtk.init_check(sys.argv)
+        #os.environ['GDK_BACKEND'] ='X11'
         Gdk.set_allowed_backends("wayland,x11")
-        app_name = "CamViewerRtsp"
-            
-        config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
+       # print("Gdk Backend : ",Gtk.init_check(os.environ['GDK_BACKEND']))
+       
+        print(os.environ)    
+        
         config = configparser.ConfigParser()
+        config.read(Config.full_config_file_path)
+        Config.create_config(self)
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Mode ")
         self.set_default_size(400, 200)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
         self.package_check()
         self.set_border_width(10)
-       
-    
+        print(Gdk.get_display())
         hostBtn = Gtk.Button(label="Host")
         hostBtn.connect("clicked",self.loadHost)
         
@@ -54,7 +63,9 @@ class UI(Gtk.Window):
         #button = Gtk.Button()
         self.popover = Gtk.Popover()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        vbox.pack_start(Gtk.ModelButton(label="About"), False, True, 10)
+        aboutBtn=Gtk.Button(label="About")
+        vbox.pack_start(aboutBtn, False, True, 10)
+        aboutBtn.connect("clicked",self.onLoad)
         vbox.pack_start(Gtk.Label(label="Item 2"), False, True, 10)
         vbox.show_all()
         self.popover.add(vbox)
@@ -77,12 +88,21 @@ class UI(Gtk.Window):
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
       
+    def onLoad(self,window):
+        aboutSection = Gtk.AboutDialog()
+        aboutSection.add_credit_section("About","me")
+        aboutSection.present()
+
+
     def loadHost(file,shellBool):
+        
+        os.environ['GDK_BACKEND'] = 'x11'
         file=os.path.dirname(os.path.abspath(__file__))+"/host.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)
     
     def loadServer(file,shellBool):
+        os.environ['GDK_BACKEND'] = 'x11'
         file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)

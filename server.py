@@ -7,16 +7,18 @@ import numpy
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('GstRtspServer', '1.0')
-gi.require_version('GdkX11', '3.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
 from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk
-from gi.repository import GdkX11, GstVideo
+from gi.repository import Gdk, GstVideo
 import settings
 
 Gst.init(None)
 
 class ServerGui(Gtk.Window):
-
+    global entry
+    entry = Gtk.Entry()
+    Gdk.set_allowed_backends("wayland,x11")
     launchMode =""
     global state
     global port
@@ -47,6 +49,9 @@ class ServerGui(Gtk.Window):
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
         
+        entry.set_editable(False)
+        grid.attach(entry, 2,0, 2, 1)
+
         CamMode = Gtk.CheckButton(label="v4l2src")
         CamMode.connect("toggled", self.on_button_toggled, "v4l2src")
         print(CamMode.get_active())
@@ -111,7 +116,8 @@ class ServerGui(Gtk.Window):
                 print("launchMode is empty")
         else:
              print("launchMethod: ",self.launchMode)
-             print ("stream ready at rtsp://"+ ipAddr +":" + port + "/tmp") 
+             print ("stream ready at rtsp://"+ ipAddr +":" + port + mount_point) 
+             entry.set_text(ipAddr)
              server.attach()
 
 
