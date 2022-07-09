@@ -13,7 +13,7 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
 gi.require_version('Polkit','1.0')
 from gi.repository import Polkit
-from gi.repository import Gst, GLib, GObject,Gtk
+from gi.repository import Gst, GLib, GObject,Gtk,Gio
 from gi.repository import Gdk, GstVideo
 Gst.init(None)
 
@@ -24,7 +24,7 @@ class UI(Gtk.Window):
         print(os.environ)
         Gdk.set_allowed_backends("wayland,x11")
         app_name = "CamViewerRtsp"
-
+            
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         config = configparser.ConfigParser()
         builder=Gtk.Builder
@@ -40,6 +40,39 @@ class UI(Gtk.Window):
         
         serverBtn = Gtk.Button(label="Server")
         serverBtn.connect("clicked",self.loadServer)
+
+        aboutSection = Gtk.AboutDialog()
+        aboutSection.add_credit_section("About","me")
+     
+     
+
+        hb = Gtk.HeaderBar()
+        hb.set_show_close_button(True)
+        hb.props.title = "Mode"
+        self.set_titlebar(hb)
+        
+        #button = Gtk.Button()
+        self.popover = Gtk.Popover()
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        vbox.pack_start(Gtk.ModelButton(label="About"), False, True, 10)
+        vbox.pack_start(Gtk.Label(label="Item 2"), False, True, 10)
+        vbox.show_all()
+        self.popover.add(vbox)
+        self.popover.set_position(Gtk.PositionType.BOTTOM)
+
+        button = Gtk.MenuButton(popover=self.popover)
+        icon = Gio.ThemedIcon(name="open-menu-symbolic")
+        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
+        button.add(image)
+        hb.pack_end(button)
+        
+
+        
+
+        #button = Gtk.MenuButton(label="Click Me", popover=self.popover)
+        #outerbox.pack_start(button, False, True, 0)
+
+       # grid.add(aboutSection)
         grid.add(hostBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
@@ -82,7 +115,11 @@ class UI(Gtk.Window):
                 if response == Gtk.ResponseType.YES:
                     #os.system('pkexec')
                     os.system('pkexec pacman -S gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server --noconfirm')
+                    #dialog.a
+                    #spinner = Gtk.Spinner()
+                    #spinner.start()
                     #os.system('y')
+                    
             
 
 
