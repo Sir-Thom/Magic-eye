@@ -160,7 +160,7 @@ class Player(Gtk.Window):
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
         
-        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/tmp ! decodebin   ! videoconvert ! autovideosink sync=false")
+        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/tmp ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
         
         #error message
         bus = self.pipeline.get_bus()
