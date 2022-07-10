@@ -39,7 +39,7 @@ class UI(Gtk.Window):
         Config.create_config(self)
         builder=Gtk.Builder
         Gtk.Window.__init__(self, title="Mode ")
-        self.set_default_size(400, 200)
+        self.set_default_size(800, 450)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
         self.package_check()
         self.set_border_width(10)

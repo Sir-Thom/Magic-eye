@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from curses import window
 import gi
 from settings import Config 
 import configparser
@@ -38,33 +39,45 @@ class ServerGui(Gtk.Window):
         ip_ard=socket.getfqdn(IPAddress)
         print("Your Computer Name is:" + hostname)     
         print("Your Computer IP Address is: " + IPAddress) 
-
+       
         Gtk.Window.__init__(self, title="Server of "+ hostname)
         print (Gtk.Window().get_screen().get_width())
         self.set_default_size(800, 450)
         self.set_border_width(10)
+       # self.set_resizable(False)
+     
 
-        grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = False)
+        grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
+        grid.set_row_homogeneous(False)
+        #grid.insert_column(5)
+        #self.set_content_height = 450
+        #self.set_content_width = 800
+        print(grid)
+        grid.set_vexpand(True)
+        grid.set_hexpand(True)
+       # print(grid.get_baseline_column())
         self.add(grid)
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
         
         entry.set_editable(False)
-        grid.attach(entry, 2,0, 2, 1)
+        grid.attach(entry,5 ,9, 1, 1)
 
         CamMode = Gtk.CheckButton(label="v4l2src")
         CamMode.connect("toggled", self.on_button_toggled, "v4l2src")
         print(CamMode.get_active())
 
-        grid.attach(CamMode,0,2,2,1)
+        #separator = Gtk.Separator(orientation=1)
+        #grid.attach(separator,0,0,1,10)
+        grid.attach(CamMode,0,0,2,1)
         
         connectButton = Gtk.Button(label="start stream")
         connectButton.connect("clicked", self.Connect)
         
-        grid.attach(connectButton, 1,0, 1, 1)
+        grid.attach(connectButton, 5,6, 1, 1)
         CamMode = Gtk.CheckButton(label="rpicamsrc")
         CamMode.connect("toggled", self.on_button_toggled, "rpicamsrc")
-        grid.attach(CamMode,0,3,2,1)
+        grid.attach(CamMode,0,1,2,1)
         print(CamMode.get_active())
     
     def on_button_toggled(self,CamMode, name):
