@@ -120,6 +120,7 @@ class UI(Gtk.Window):
                 text
             )
             dialog.run()
+            
         elif(type == "Confirmation"):
                 dialog = Gtk.MessageDialog(
                 transient_for=self,
@@ -133,12 +134,8 @@ class UI(Gtk.Window):
                 )
                 response = dialog.run()
                 if response == Gtk.ResponseType.YES:
-                    #os.system('pkexec')
                     os.system('pkexec pacman -S gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server --noconfirm')
-                    #dialog.a
-                    #spinner = Gtk.Spinner()
-                    #spinner.start()
-                    #os.system('y')
+                 
                     
             
 
@@ -166,8 +163,11 @@ class UI(Gtk.Window):
                 print("completed")
                 
             else:
-                self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+                self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
+                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
+                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
+              #  print("Please verify if all of thos package are install ")
     
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')

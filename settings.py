@@ -19,7 +19,7 @@ class Config():
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()
        # config['DEFAULT']= {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0',"port":"8554",'mount_point':'/stream','defaultPattern': 'smpte-rp-219'}
-        config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0 ! omxtheoraenc bitrate=8000000 ',
+        config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert ! video/x-raw,width=1280,height=720 ! theoraenc bitrate=8000000 quality=30 ! queue ! rtptheorapay name=pay0 ',
                             'rpicamsrc': 'rpicamsrc bitrate=8000000 preview=true ! videoconvert ! h264parse ! rtph264pay name=pay0 pt=96',
                             }
         config['NETWORK_OPTION'] = {}
