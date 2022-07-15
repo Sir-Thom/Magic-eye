@@ -59,9 +59,11 @@ class Player(Gtk.Window):
         self.package_check()
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
+       # print(self.drawingarea.get_orientation())
         #self.drawingarea.set_margin(10)
         self.drawingarea.set_content_height = screenHeight
         self.drawingarea.set_content_width = screenWidth
+        #self.drawingarea.set_angle(180)
 
         # Create a grid for the DrawingArea and buttons
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = False)
@@ -69,6 +71,7 @@ class Player(Gtk.Window):
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
         grid.attach(self.drawingarea, 0, 1, 8,1)
+        print(grid.get_child_at (1, 1))
        # grid.attach(self.drawingarea, 0, -100, 60, 70)
         self.drawingarea.set_hexpand(True)
         self.drawingarea.set_vexpand(True)
@@ -160,7 +163,7 @@ class Player(Gtk.Window):
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
         
-        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/tmp ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
+        self.pipeline = Gst.parse_launch(f"rtspsrc latency=1000 buffer-mode=1 drop-on-latency=True location=rtsp://{ipard}:{port}/tmp ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
         
         #error message
         bus = self.pipeline.get_bus()

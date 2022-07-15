@@ -17,7 +17,7 @@ gi.require_version('Polkit','1.0')
 from gi.repository import Polkit
 from gi.repository import Gst, GLib, GObject,Gtk,Gio
 from gi.repository import Gdk, GstVideo
-import xml.etree.ElementTree as ET
+
 
 Gst.init(None)
 
@@ -37,8 +37,10 @@ class UI(Gtk.Window):
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         Config.create_config(self)
-        builder=Gtk.Builder
-        Gtk.Window.__init__(self, title="Mode ")
+        builder=Gtk.Builder()
+        
+        
+        Gtk.Window.__init__(self, title="headerBar")
         self.set_default_size(800, 450)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
         self.package_check()
@@ -53,20 +55,20 @@ class UI(Gtk.Window):
         aboutSection = Gtk.AboutDialog()
         aboutSection.add_credit_section("About","me")
      
-     
+       
+        
 
-        hb = Gtk.HeaderBar()
-        hb.set_show_close_button(True)
-        hb.props.title = "Mode"
-        self.set_titlebar(hb)
+        headerBar = Gtk.HeaderBar()
+        headerBar.set_show_close_button(True)
+        headerBar.props.title = "Mode"
+        self.set_titlebar(headerBar)
         
         #button = Gtk.Button()
         self.popover = Gtk.Popover()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        aboutBtn=Gtk.Button(label="About")
+        aboutBtn=Gtk.Button(label="About",relief=2)
         vbox.pack_start(aboutBtn, False, True, 10)
         aboutBtn.connect("clicked",self.onLoad)
-        vbox.pack_start(Gtk.Label(label="Item 2"), False, True, 10)
         vbox.show_all()
         self.popover.add(vbox)
         self.popover.set_position(Gtk.PositionType.BOTTOM)
@@ -75,7 +77,7 @@ class UI(Gtk.Window):
         icon = Gio.ThemedIcon(name="open-menu-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
-        hb.pack_end(button)
+        headerBar.pack_end(button)
         
 
         
