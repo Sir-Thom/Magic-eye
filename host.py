@@ -6,11 +6,9 @@ from os import devnull, path
 import socket
 import os
 from settings import Config 
-#import cv2 # Opencv librairy
 import sys
 import numpy
 from settings import Config 
-#import settings
 #gi.require_version('GstRtspServer', '1.0')
 gi.require_version('GdkX11', '3.0')
 gi.require_version('Gst','1.0')
@@ -21,16 +19,6 @@ from gi.repository import GdkX11, GstVideo
 
 Gst.init(None)
 
-#		list things to do
-#1: fix socket path at launch (Gstreamer)
-#2: make a GTK UI for host side [x]
-#3: make a GTK UI for client sie [x]
-#4: add code for camera pantilt hat to move the camera rigth, left, up, down
-#5: fix power consumpution  (maybe power supply or make an ups system)
-#6: test app in Window and maybe Osx
-
-
-
 class Player(Gtk.Window):
     
     global is_active
@@ -39,8 +27,6 @@ class Player(Gtk.Window):
        
         #basic window creation
         builder=Gtk.Builder
-        
-       # Gdk.set_allowed_backends("x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
        
@@ -145,15 +131,11 @@ class Player(Gtk.Window):
         mount_point = config.get('NETWORK_OPTION',"mount_point")  
         Config.create_config(self)
         
-      
-       
-     
-        
     
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
         
-        self.pipeline = Gst.parse_launch(f"rtspsrc latency=1000 buffer-mode=1 drop-on-latency=True location=rtsp://{ipard}:{port}/tmp ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
+        self.pipeline = Gst.parse_launch(f"rtspsrc latency=1000 buffer-mode=1 drop-on-latency=True location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
         
         #error message
         bus = self.pipeline.get_bus()
@@ -174,7 +156,6 @@ class Player(Gtk.Window):
     def run(self):
         os.environ['Gdk_BACKEND'] ='x11'
         self.show_all()
-        text = self.entry.get_text()
         Gtk.main()
 
     def quit(self, window):
@@ -200,6 +181,8 @@ class Player(Gtk.Window):
 
         dialog.destroy()
 
+    #Check Package manger apt or pacman 
+
     def package_check(self):
         print(os.getlogin())
         pacmanCheck = os.system('command -v pacman >/dev/null')
@@ -207,6 +190,9 @@ class Player(Gtk.Window):
         print(pacmanCheck)
         print(aptCheck) 
         
+        """
+        Apt section start
+        """
         if aptCheck != 256:
             listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
             'gstreamer-plugins-ugly gstreamer-libav'
@@ -219,7 +205,15 @@ class Player(Gtk.Window):
             else:
                 self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
-    
+            """
+            Apt section end
+            """
+
+            
+
+            """
+            Pacman section start
+            """
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
             
@@ -230,6 +224,9 @@ class Player(Gtk.Window):
                 self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
 
+            """
+            Pacman section end
+            """
 
     def on_sync_message(self, bus, msg):
         if msg.get_structure().get_name() == 'prepare-window-handle':
@@ -240,15 +237,11 @@ class Player(Gtk.Window):
         print('on_eos(): seeking to start of video')
         self.pipeline.seek_simple(
             Gst.Format.TIME,
-            Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT,
-            0
-        )
+            Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT,1)
     
         
     def on_error(self, bus, msg):
         user = os.getlogin()
-        domain = 7
-        code = 8130
         #set special message if error occur
         if Gst.error_get_message(7,8130):
             self.MessageBox("Error",f"{user}(Host) was unable to connect to the server","error")
