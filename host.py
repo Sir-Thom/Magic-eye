@@ -57,13 +57,12 @@ class Player(Gtk.Window):
 
         #verify if gstreamer is install with package manager
         self.package_check()
+
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
-       # print(self.drawingarea.get_orientation())
-        #self.drawingarea.set_margin(10)
         self.drawingarea.set_content_height = screenHeight
         self.drawingarea.set_content_width = screenWidth
-        #self.drawingarea.set_angle(180)
+        
 
         # Create a grid for the DrawingArea and buttons
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = False)
@@ -72,14 +71,13 @@ class Player(Gtk.Window):
         grid.set_row_spacing(5)
         grid.attach(self.drawingarea, 0, 1, 8,1)
         print(grid.get_child_at (1, 1))
-       # grid.attach(self.drawingarea, 0, -100, 60, 70)
         self.drawingarea.set_hexpand(True)
         self.drawingarea.set_vexpand(True)
        
        #get device ip adress
         hostname = socket.gethostname()
         ipadr = socket.gethostbyname(hostname)
-        ip_ard=socket.getfqdn(ipadr)
+       
         print(ipadr)
         
         # Quit button
@@ -89,7 +87,6 @@ class Player(Gtk.Window):
         
         #textbox
         entry = Gtk.Entry()
-        #grid.attach(entry,2,1,1,1)
         grid.attach_next_to(entry,quit,Gtk.PositionType.RIGHT,4,1)
         entry.set_placeholder_text("Server IP adress")
         self.entry = entry
@@ -98,13 +95,8 @@ class Player(Gtk.Window):
 
         #link Ip button
         link = Gtk.Button(label="Link ip")
-
-        #grid.attach(link, 1,2, 1, 1)
         link.connect("clicked",self.connexion_rtsp)
 
-        #ip = str(entry.get_text())
-        self.fps = 8
-        
         # Create GStreamer pipeline
         grid.attach_next_to(link,entry,Gtk.PositionType.RIGHT,2,1)
     
@@ -153,9 +145,7 @@ class Player(Gtk.Window):
         mount_point = config.get('NETWORK_OPTION',"mount_point")  
         Config.create_config(self)
         
-        #basic window creation
-        builder=Gtk.Builder
-        #setting = Config.load_config(self)
+      
        
      
         
@@ -260,7 +250,7 @@ class Player(Gtk.Window):
         domain = 7
         code = 8130
         #set special message if error occur
-        if Gst.error_get_message(1,8130):
+        if Gst.error_get_message(7,8130):
             self.MessageBox("Error",f"{user}(Host) was unable to connect to the server","error")
         
         # set full error message
