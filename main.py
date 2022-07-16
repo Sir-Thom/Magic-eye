@@ -78,14 +78,7 @@ class UI(Gtk.Window):
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
         headerBar.pack_end(button)
-        
 
-        
-
-        #button = Gtk.MenuButton(label="Click Me", popover=self.popover)
-        #outerbox.pack_start(button, False, True, 0)
-
-       # grid.add(aboutSection)
         grid.add(hostBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)

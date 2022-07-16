@@ -75,10 +75,10 @@ class ServerGui(Gtk.Window):
         connectButton.connect("clicked", self.Connect)
         
         grid.attach(connectButton, 5,6, 1, 1)
-        CamMode = Gtk.CheckButton(label="rpicamsrc")
-        CamMode.connect("toggled", self.on_button_toggled, "rpicamsrc")
-        grid.attach(CamMode,0,1,2,1)
-        print(CamMode.get_active())
+       # CamMode = Gtk.CheckButton(label="rpicamsrc")
+        #CamMode.connect("toggled", self.on_button_toggled, "rpicamsrc")
+        #grid.attach(CamMode,0,1,2,1)
+        #print(CamMode.get_active())
     
     def on_button_toggled(self,CamMode, name):
         config = configparser.ConfigParser()
