@@ -26,9 +26,9 @@ class UI(Gtk.Window):
     
     def __init__(self):
         #print(Gdk.allowed_backends("wayland,x11"))
-        
+        os.system('QT_QPA_PLATFORM=xcb')
         #Gtk.init_check(sys.argv)
-        #os.environ['GDK_BACKEND'] ='X11'
+        os.environ['GDK_BACKEND'] ='x11'
         Gdk.set_allowed_backends("wayland,x11")
        # print("Gdk Backend : ",Gtk.init_check(os.environ['GDK_BACKEND']))
        

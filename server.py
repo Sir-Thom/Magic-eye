@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from curses import window
 import gi
 from settings import Config 
 import configparser
