@@ -11,12 +11,11 @@ import numpy
 from settings import Config 
 #gi.require_version('GstRtspServer', '1.0')
 gi.require_version('GdkX11', '3.0')
-gi.require_version('Gdk', '3.0')
 gi.require_version('Gst','1.0')
 gi.require_version('Gtk','3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject,Gst, Gtk
-from gi.repository import GdkX11, GstVideo,Gdk
+from gi.repository import GdkX11, GstVideo
 
 Gst.init(None)
 
@@ -30,8 +29,7 @@ class Player(Gtk.Window):
         builder=Gtk.Builder
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
-        os.environ['GDK_BACKEND'] ='x11'
-        Gdk.set_allowed_backends("wayland,x11")
+       
         
         portcfg=config.get('NETWORK_OPTION',"port")
         print(portcfg)
@@ -42,8 +40,6 @@ class Player(Gtk.Window):
         self.connect('destroy', self.quit)
         self.set_default_size(800, 550)
         self.set_border_width(10)
-        Gdk.Window.process_all_updates()
-        
 
         #verify if gstreamer is install with package manager
         self.package_check()

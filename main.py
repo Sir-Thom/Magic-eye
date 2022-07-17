@@ -23,23 +23,24 @@ Gst.init(None)
 
 
 class UI(Gtk.Window):
-    
+
     def __init__(self):
         #print(Gdk.allowed_backends("wayland,x11"))
-        os.system('QT_QPA_PLATFORM=xcb')
+
         #Gtk.init_check(sys.argv)
-        os.environ['GDK_BACKEND'] ='x11'
+        #os.environ['GDK_BACKEND'] ='X11'
         Gdk.set_allowed_backends("wayland,x11")
        # print("Gdk Backend : ",Gtk.init_check(os.environ['GDK_BACKEND']))
-       
-        print(os.environ)    
-        
+
+        #print(os.environ)
+
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
+        print(Config.full_config_file_path)
         Config.create_config(self)
         builder=Gtk.Builder()
-        
-        
+
+
         Gtk.Window.__init__(self, title="headerBar")
         self.set_default_size(800, 450)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
@@ -48,21 +49,21 @@ class UI(Gtk.Window):
         print(Gdk.get_display())
         hostBtn = Gtk.Button(label="Host")
         hostBtn.connect("clicked",self.loadHost)
-        
+
         serverBtn = Gtk.Button(label="Server")
         serverBtn.connect("clicked",self.loadServer)
 
         aboutSection = Gtk.AboutDialog()
         aboutSection.add_credit_section("About","me")
-     
-       
-        
+
+
+
 
         headerBar = Gtk.HeaderBar()
         headerBar.set_show_close_button(True)
         headerBar.props.title = "Mode"
         self.set_titlebar(headerBar)
-        
+
         #button = Gtk.Button()
         self.popover = Gtk.Popover()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -82,7 +83,7 @@ class UI(Gtk.Window):
         grid.add(hostBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
-      
+
     def onLoad(self,window):
         aboutSection = Gtk.AboutDialog()
         aboutSection.add_credit_section("About","me")
@@ -90,18 +91,18 @@ class UI(Gtk.Window):
 
 
     def loadHost(file,shellBool):
-        
+
         os.environ['GDK_BACKEND'] = 'x11'
         file=os.path.dirname(os.path.abspath(__file__))+"/host.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)
-    
+
     def loadServer(file,shellBool):
         os.environ['GDK_BACKEND'] = 'x11'
         file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)
-    
+
     def MessageBox(self,title=str,text=str,type=str):
         if(type=="error"):
             dialog = Gtk.MessageDialog(
@@ -115,7 +116,7 @@ class UI(Gtk.Window):
                 text
             )
             dialog.run()
-            
+
         elif(type == "Confirmation"):
                 dialog = Gtk.MessageDialog(
                 transient_for=self,
@@ -130,13 +131,13 @@ class UI(Gtk.Window):
                 response = dialog.run()
                 if response == Gtk.ResponseType.YES:
                     os.system('pkexec pacman -S gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server --noconfirm')
-                 
-                    
-            
 
 
-       
-        
+
+
+
+
+
         print( type +": dialog closed")
 
         dialog.destroy()
@@ -146,28 +147,28 @@ class UI(Gtk.Window):
         pacmanCheck = os.system('command -v pacman >/dev/null')
         aptCheck = os.system('command -v apt >/dev/null')
         print(pacmanCheck)
-        print(aptCheck) 
-        
+        print(aptCheck)
+
         if aptCheck != 256:
             listPackage= os.system('apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
             'gstreamer-plugins-ugly gstreamer-libav'
             'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
-            
+
             if listPackage != 256:
-             
+
                 print("completed")
-                
+
             else:
                 self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
                 #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
                 #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
               #  print("Please verify if all of thos package are install ")
-    
+
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
-            
-            if listPackage != 256: 
+
+            if listPackage != 256:
                 print("completed")
                 #self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
             else:
