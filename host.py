@@ -135,7 +135,7 @@ class Player(Gtk.Window):
         self.xid = self.drawingarea.get_property('window').get_xid()
         print(ipard)
         
-        self.pipeline = Gst.parse_launch(f"rtspsrc latency=1000 buffer-mode=1 drop-on-latency=True location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  ! rtptheoradepay   !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
+        self.pipeline = Gst.parse_launch(f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
         
         #error message
         bus = self.pipeline.get_bus()
