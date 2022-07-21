@@ -1,9 +1,12 @@
 [build-system]
 build-backend = 'mesonpy'
 requires = [
-  'meson-python',
+ 'meson-python',
 ]
+
+
 [project]
+
 name = 'CamViewerRtsp'
 version = '0.5'
 description = 'CamViewerRtsp gui tool '

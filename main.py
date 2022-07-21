@@ -6,11 +6,9 @@ import subprocess
 import os
 from subprocess import call
 import configparser
-
 from settings import Config
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
-#gi.require_version('GstRtspServer', '1.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
 gi.require_version('Polkit','1.0')
@@ -25,15 +23,8 @@ Gst.init(None)
 class UI(Gtk.Window):
 
     def __init__(self):
-        #print(Gdk.allowed_backends("wayland,x11"))
-
-        #Gtk.init_check(sys.argv)
-        #os.environ['GDK_BACKEND'] ='X11'
+        
         Gdk.set_allowed_backends("wayland,x11")
-       # print("Gdk Backend : ",Gtk.init_check(os.environ['GDK_BACKEND']))
-
-        #print(os.environ)
-
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
@@ -160,20 +151,15 @@ class UI(Gtk.Window):
 
             else:
                 self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
-                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
-                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
-              #  print("Please verify if all of thos package are install ")
 
         elif pacmanCheck != 256 :
             listPackage = os.system('pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
 
             if listPackage != 256:
                 print("completed")
-                #self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
             else:
                 self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
-                #self.MessageBox("Missing Dependancy","Please verify that all dependancy packages are install","error")
                 print("Please verify if all of thos package are install ")
 
 win = UI()

@@ -18,7 +18,6 @@ class Config():
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()
-       # config['DEFAULT']= {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert  ! theoraenc ! queue ! rtptheorapay name=pay0',"port":"8554",'mount_point':'/stream','defaultPattern': 'smpte-rp-219'}
         config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert ! video/x-raw,width=1280,height=720 ! theoraenc bitrate=8000000 quality=30 ! queue ! rtptheorapay name=pay0 ',
                             'rpicamsrc': 'rpicamsrc bitrate=8000000 preview=false vflip=true ! video/x-h264,width=1280,height=720 ! h264parse ! rtph264pay name=pay0 pt=96',
                             }
@@ -52,7 +51,6 @@ class Config():
                                                     'smpterp219':'smpte-rp-219',
                                                     'defaultPattern': 'smpte-rp-219',
                                                 }
-                                                #config.update()
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:
                 config.write(configfile)
