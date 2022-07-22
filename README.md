@@ -4,5 +4,5 @@
 <h1>Installation</h1>
 <p> For now you just have to execute the python file name main.py </p>
  ```
-python main.py
+    python main.py
 ```
