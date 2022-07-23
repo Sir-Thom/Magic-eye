@@ -35,8 +35,8 @@ class UI(Gtk.Window):
         self.package_check()
         self.set_border_width(10)
         print(Gdk.get_display())
-        hostBtn = Gtk.Button(label="Host")
-        hostBtn.connect("clicked",self.loadHost)
+        clientBtn = Gtk.Button(label="client")
+        clientBtn.connect("clicked",self.loadClient)
 
         serverBtn = Gtk.Button(label="Server")
         serverBtn.connect("clicked",self.loadServer)
@@ -68,7 +68,7 @@ class UI(Gtk.Window):
         button.add(image)
         headerBar.pack_end(button)
 
-        grid.add(hostBtn)
+        grid.add(clientBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
 
@@ -78,10 +78,10 @@ class UI(Gtk.Window):
         aboutSection.present()
 
 
-    def loadHost(file,shellBool):
+    def loadClient(file,shellBool):
 
         os.environ['GDK_BACKEND'] = 'x11'
-        file=os.path.dirname(os.path.abspath(__file__))+"/host.py"
+        file=os.path.dirname(os.path.abspath(__file__))+"/client.py"
         shellBool= False
         subprocess.Popen(file, shell=shellBool)
 
