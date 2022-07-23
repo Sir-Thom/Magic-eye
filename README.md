@@ -6,11 +6,11 @@
 
 - [Installation](#installation)
 - [How To use](#how-to-use)
-# Installation
+## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
 ``` 
-# How to use
+## How to use
 go to the application folder and execute this command 
 ```
 python main.py
