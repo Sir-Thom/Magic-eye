@@ -3,6 +3,7 @@ import configparser
 import gi
 from os import devnull, path
 import socket
+import os
 import sys
 import numpy
 from settings import Config
