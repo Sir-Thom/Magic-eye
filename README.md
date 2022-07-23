@@ -4,15 +4,9 @@
 
 ## Table of Contents
 
-<<<<<<< Updated upstream
--[Installation](#installation)
--[How To use](#how-to-use)
-# Installation
-=======
 - [Installation](#installation)
 - [How to use](#how-to-use)
 ## Installation
->>>>>>> Stashed changes
 ```
 git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
 ``` 
