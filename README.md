@@ -1,5 +1,5 @@
 # CamViewerRtsp
-<p align="center">This small application let you stream video with a webcam or the raspberry pi cam. </p>
+<p>This small gui application let you stream video to a other computer with a webcam or the raspberry pi cam. </p>
 
 # Installation
 ```
