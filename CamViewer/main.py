@@ -6,13 +6,10 @@ import subprocess
 import os
 from subprocess import call
 import configparser
-from settings import Config
+from CamViewer.settings import Config
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
-gi.require_version('Gtk','3.0')
-gi.require_version('Polkit','1.0')
-from gi.repository import Polkit
 from gi.repository import Gst, GLib, GObject,Gtk,Gio
 from gi.repository import Gdk, GstVideo
 

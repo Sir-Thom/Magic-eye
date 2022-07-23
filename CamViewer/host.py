@@ -4,10 +4,10 @@ import gi
 from os import devnull, path
 import socket
 import os
-from settings import Config
+from CamViewer.settings import Config
 import sys
 import numpy
-from settings import Config
+from CamViewer.settings import Config
 
 gi.require_version('GdkX11', '3.0')
 gi.require_version('Gst', '1.0')

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import gi
-from settings import Config
+from CamViewer.settings import Config
 import configparser
 import socket
 import numpy
@@ -11,7 +11,7 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
 from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk
 from gi.repository import Gdk, GstVideo
-import settings
+import CamViewer.settings as settings
 
 Gst.init(None)
 
@@ -24,6 +24,7 @@ class ServerGui(Gtk.Window):
     global port
     global mount_point
     state =""
+    
     config = configparser.ConfigParser()
     config.read(Config.full_config_file_path)
 
@@ -43,18 +44,15 @@ class ServerGui(Gtk.Window):
         print (Gtk.Window().get_screen().get_width())
         self.set_default_size(800, 450)
         self.set_border_width(10)
-       # self.set_resizable(False)
+       
 
 
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
         grid.set_row_homogeneous(False)
-        #grid.insert_column(5)
-        #self.set_content_height = 450
-        #self.set_content_width = 800
         print(grid)
         grid.set_vexpand(True)
         grid.set_hexpand(True)
-       # print(grid.get_baseline_column())
+     
         self.add(grid)
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
@@ -66,8 +64,6 @@ class ServerGui(Gtk.Window):
         CamMode.connect("toggled", self.on_button_toggled, "v4l2src")
         print(CamMode.get_active())
 
-        #separator = Gtk.Separator(orientation=1)
-        #grid.attach(separator,0,0,1,10)
         grid.attach(CamMode,0,0,2,1)
 
         connectButton = Gtk.Button(label="start stream")
@@ -85,10 +81,10 @@ class ServerGui(Gtk.Window):
         global state
         if CamMode.get_active() and name == "v4l2src":
             state = "v4l2src"
-            self.launchMode = config.get("CAMERA_OPTION",'v4l2srcLaunch')#settings.v4l2srcLaunch
+            self.launchMode = config.get("CAMERA_OPTION",'v4l2srcLaunch')
         elif CamMode.get_active() and name == "rpicamsrc":
             state = "rpicamsrc"
-            self.launchMode = config.get("CAMERA_OPTION",'rpicamsrc')#settings.rpicamsrc
+            self.launchMode = config.get("CAMERA_OPTION",'rpicamsrc')
             print(self.launchMode)
             print(state)
         else:
