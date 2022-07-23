@@ -6,7 +6,7 @@ import subprocess
 import os
 from subprocess import call
 import configparser
-from CamViewer.settings import Config
+from settings import Config
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')

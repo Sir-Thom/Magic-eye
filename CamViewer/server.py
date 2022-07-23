@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import gi
-from CamViewer.settings import Config
+from settings import Config
 import configparser
 import socket
 import numpy
@@ -24,7 +24,7 @@ class ServerGui(Gtk.Window):
     global port
     global mount_point
     state =""
-    
+
     config = configparser.ConfigParser()
     config.read(Config.full_config_file_path)
 

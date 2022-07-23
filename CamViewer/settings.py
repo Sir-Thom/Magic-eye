@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """"
 this is the file were the option for the module gst are define 
 """
