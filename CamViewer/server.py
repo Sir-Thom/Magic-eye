@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import gi
+import os
 from settings import Config
 import configparser
 import socket
@@ -11,7 +12,7 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
 from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk
 from gi.repository import Gdk, GstVideo
-import CamViewer.settings as settings
+
 
 Gst.init(None)
 
