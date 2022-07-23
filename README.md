@@ -4,8 +4,8 @@
 
 ## Table of Contents
 
--[Installation](#installation)
--[How To use](#how-to-use)
+- [Installation](#installation)
+- [How To use](#how-to-use)
 # Installation
 ```
 git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
