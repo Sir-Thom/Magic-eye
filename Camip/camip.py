@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from re import A
 import sys
 import gi
 import numpy
@@ -10,7 +11,7 @@ from settings import Config
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
-from gi.repository import Gst, GLib, GObject,Gtk,Gio
+from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
 
@@ -42,7 +43,7 @@ class UI(Gtk.Window):
         serverBtn.connect("clicked",self.loadServer)
 
         aboutSection = Gtk.AboutDialog()
-        aboutSection.add_credit_section("About","me")
+       
 
 
 
@@ -57,7 +58,7 @@ class UI(Gtk.Window):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         aboutBtn=Gtk.Button(label="About",relief=2)
         vbox.pack_start(aboutBtn, False, True, 10)
-        aboutBtn.connect("clicked",self.onLoad)
+        aboutBtn.connect("clicked",self.onLoadDialogAbout)
         vbox.show_all()
         self.popover.add(vbox)
         self.popover.set_position(Gtk.PositionType.BOTTOM)
@@ -72,11 +73,22 @@ class UI(Gtk.Window):
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
 
-    def onLoad(self,window):
-        aboutSection = Gtk.AboutDialog()
-        aboutSection.add_credit_section("About","me")
-        aboutSection.present()
-
+    def onLoadDialogAbout(self,window):
+        
+        aboutSection = Gtk.AboutDialog(transient_for=self)
+        aboutSection.set_default_size(350, 300)
+        aboutSection.set_authors('Thomas ')
+        aboutSection.set_license("GPL-2.0 license")
+        aboutSection.set_program_name("Camip")
+        aboutSection.set_version("0.1")
+        aboutSection.set_website("https://github.com/Thomas-Toulouse/CamIp")
+        aboutSection.set_website_label("https://github.com/Thomas-Toulouse/CamIp")
+        print(aboutSection.get_widget_for_response(-7))
+        aboutSection.show_all()
+        aboutSection.run()
+        aboutSection.destroy() 
+        
+       
 
     def loadClient(file,shellBool):
 
