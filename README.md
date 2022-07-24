@@ -9,9 +9,8 @@
 ## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
-cd CamIp
 chmod +x install.sh
-./install.sh
+./install
 ``` 
 # How to use
 open a terminal and execute this command
