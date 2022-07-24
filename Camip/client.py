@@ -74,7 +74,7 @@ class Player(Gtk.Window):
         self.entry = entry
 
         # link Ip button
-        link = Gtk.Button(label="Link ip")
+        link = Gtk.Button(label="Link IP")
         link.connect("clicked", self.connexion_rtsp)
 
         # Create GStreamer pipeline
@@ -232,16 +232,17 @@ class Player(Gtk.Window):
             Gst.SeekFlags.FLUSH | Gst.SeekFlags.KEY_UNIT, 1)
 
     def on_error(self, bus, msg):
+        self.pipeline.set_state(Gst.State.NULL)
         user = os.getlogin()
         # set special message if error occur
-        if Gst.error_get_message(7, 8130):
+        if Gst.error_get_message(1, 8130):
             self.MessageBox("Error", f"{user}(Host) was unable to connect to the server", "error")
 
         # set full error message
         else:
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
-
+        self.no_cam_feed()
 
 p = Player()
 p.no_cam_feed()
