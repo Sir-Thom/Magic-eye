@@ -1,4 +1,4 @@
-# CamViewerRtsp
+# CamIp
 <p>This small gui application let you stream video to a other computer with a webcam or the raspberry pi cam. </p>
 
 
@@ -9,9 +9,13 @@
 ## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
+cd CamIp
+chmod +x install.sh
+./install.sh
 ``` 
 # How to use
-go to the application folder and execute this command 
+open a terminal and execute this command
 ```
-python main.py
+camip
 ```
+or you can just click the icon your desktop
