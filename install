@@ -1,4 +1,4 @@
-#/usr/bin/sh
+#!/bin/sh
 echo "installing Camip..."
 chmod +x Camip.desktop
 cd Camip
