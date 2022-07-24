@@ -57,15 +57,18 @@ class ServerGui(Gtk.Window):
         self.add(grid)
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
-
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         entry.set_editable(False)
-        grid.attach(entry,5 ,9, 1, 1)
+        entry.set_placeholder_text("Server IP adress")
+        grid.attach(entry,5 ,9, 1, 1)   
+        frame = Gtk.Frame(label="Options")
+        CamModeV4l2src = Gtk.CheckButton(label="v4l2src")
+        CamModeV4l2src.connect("toggled", self.on_button_toggled, "v4l2src")
+        vbox.add(CamModeV4l2src)
+        frame.add(vbox)
+        print(CamModeV4l2src.get_active())
 
-        CamMode = Gtk.CheckButton(label="v4l2src")
-        CamMode.connect("toggled", self.on_button_toggled, "v4l2src")
-        print(CamMode.get_active())
-
-        grid.attach(CamMode,0,0,2,1)
+        #grid.attach(frame,0,0,2,2)
 
         connectButton = Gtk.Button(label="start stream")
         connectButton.connect("clicked", self.Connect)
@@ -73,7 +76,9 @@ class ServerGui(Gtk.Window):
         grid.attach(connectButton, 5,6, 1, 1)
         CamMode = Gtk.CheckButton(label="rpicamsrc")
         CamMode.connect("toggled", self.on_button_toggled, "rpicamsrc")
-        grid.attach(CamMode,0,1,2,1)
+        #frame.add(CamMode)
+        grid.attach(frame,0,0,2,1)
+        vbox.add(CamMode)
         print(CamMode.get_active())
 
     def on_button_toggled(self,CamMode, name):
