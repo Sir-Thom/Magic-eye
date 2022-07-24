@@ -78,7 +78,7 @@ class UI(Gtk.Window):
         aboutSection = Gtk.AboutDialog(transient_for=self)
         aboutSection.set_default_size(350, 300)
         aboutSection.set_authors(['Thomas Toulouse'])
-        aboutSection.set_license("GPL-2.0 license")
+        aboutSection.set_license("GPL-3.0 license")
         aboutSection.set_program_name("Camip")
         aboutSection.set_version("0.1")
         aboutSection.set_website("https://github.com/Thomas-Toulouse/CamIp")
