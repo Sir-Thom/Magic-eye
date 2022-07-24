@@ -1,6 +1,7 @@
 [Desktop Entry]
-Comment[en_US]=
-Comment=
+Categories=Network;VideoConference
+Comment[en_US]=A small gui application that let set and use rtsp stream form any computer
+Comment= A small gui application that let set and use rtsp stream form any computer
 Exec=~/.local/bin/Camip/camip.py %U
 GenericName[en_US]=
 GenericName=
