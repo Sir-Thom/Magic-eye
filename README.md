@@ -15,6 +15,6 @@ chmod +x install.sh
 # How to use
 open a terminal and execute this command
 ```
-camip
+magiceye
 ```
 or you can just click the icon your desktop
