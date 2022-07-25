@@ -8,12 +8,12 @@ gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 import configparser
 class Config():
-    app_name = "CamViewerRtsp"
+    app_name = "Camip"
     config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
     settings_file = "settings.conf"
     full_config_file_path = os.path.join(config_folder, settings_file)
     def create_config(self) :
-        app_name = "CamViewerRtsp"
+        app_name = "Camip"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         os.makedirs(config_folder, exist_ok=True)
         settings_file = "settings.conf"

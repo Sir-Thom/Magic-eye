@@ -128,7 +128,7 @@ class Player(Gtk.Window):
         print(ipard)
 
         self.pipeline = Gst.parse_launch(
-            f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin   ! videoconvert ! autovideosink sync=false ")
+            f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! autovideosink sync=false ")
 
         # error message
         bus = self.pipeline.get_bus()
@@ -242,7 +242,7 @@ class Player(Gtk.Window):
         else:
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
-        self.no_cam_feed()
+        #self.no_cam_feed()
 
 p = Player()
 p.no_cam_feed()
