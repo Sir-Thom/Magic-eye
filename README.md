@@ -8,10 +8,10 @@
 - [How to use](#how-to-use)
 ## Installation
 ```
-git clone https://github.com/Thomas-Toulouse/CamViewerRtsp.git
+git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
 chmod +x install.sh
 ./install
-``` 
+```
 # How to use
 open a terminal and execute this command
 ```

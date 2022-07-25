@@ -2,13 +2,13 @@
 Categories=Network;VideoConference
 Comment[en_US]=A small gui application that let set and use rtsp stream form any computer
 Comment= A small gui application that let set and use rtsp stream form any computer
-Exec=~/.local/bin/Camip/camip.py %U
+Exec=~/.local/bin/MagicEye/MagicEye.py %U
 GenericName[en_US]=
 GenericName=
 Icon=/path/to/icon
 MimeType=
-Name[en_US]=Camip
-Name=Camip
+Name[en_US]=MagicEye
+Name=MagicEye
 Path=
 StartupNotify=true
 Terminal=false
