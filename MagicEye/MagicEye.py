@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from re import A
 import sys
 import gi
 import numpy
@@ -79,10 +78,10 @@ class UI(Gtk.Window):
         aboutSection.set_default_size(350, 300)
         aboutSection.set_authors(['Thomas Toulouse'])
         aboutSection.set_license("GPL-3.0 license")
-        aboutSection.set_program_name("Camip")
+        aboutSection.set_program_name("Magic Eye")
         aboutSection.set_version("0.1")
-        aboutSection.set_website("https://github.com/Thomas-Toulouse/CamIp")
-        aboutSection.set_website_label("https://github.com/Thomas-Toulouse/CamIp")
+        aboutSection.set_website("https://github.com/Thomas-Toulouse/Magic-Eye")
+        aboutSection.set_website_label("https://github.com/Thomas-Toulouse/Magic-Eye")
         print(aboutSection.get_widget_for_response(-7))
         aboutSection.show_all()
         aboutSection.run()
