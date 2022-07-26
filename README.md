@@ -1,4 +1,4 @@
-# MagicEye
+# Magic Eye
 <p>This small gui application let you stream video to a other computer with a webcam or the raspberry pi cam. </p>
 
 
@@ -17,4 +17,5 @@ open a terminal and execute this command
 ```
 magiceye
 ```
-or you can just click the icon your desktop
+or you can just click the icon your desktop if you choose to have one
+
