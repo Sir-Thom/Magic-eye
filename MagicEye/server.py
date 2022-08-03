@@ -4,7 +4,7 @@ import os
 from settings import Config
 import configparser
 import socket
-import numpy
+
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('GstRtspServer', '1.0')
@@ -68,7 +68,6 @@ class ServerGui(Gtk.Window):
         frame.add(vbox)
         print(CamModeV4l2src.get_active())
 
-        #grid.attach(frame,0,0,2,2)
 
         connectButton = Gtk.Button(label="start stream")
         connectButton.connect("clicked", self.Connect)
@@ -76,7 +75,6 @@ class ServerGui(Gtk.Window):
         grid.attach(connectButton, 5,6, 1, 1)
         CamMode = Gtk.CheckButton(label="rpicamsrc")
         CamMode.connect("toggled", self.on_button_toggled, "rpicamsrc")
-        #frame.add(CamMode)
         grid.attach(frame,0,0,2,1)
         vbox.add(CamMode)
         print(CamMode.get_active())
@@ -88,11 +86,13 @@ class ServerGui(Gtk.Window):
         if CamMode.get_active() and name == "v4l2src":
             state = "v4l2src"
             self.launchMode = config.get("CAMERA_OPTION",'v4l2srcLaunch')
+
         elif CamMode.get_active() and name == "rpicamsrc":
             state = "rpicamsrc"
             self.launchMode = config.get("CAMERA_OPTION",'rpicamsrc')
             print(self.launchMode)
             print(state)
+            
         else:
             state = ""
             self.launchMode = ""

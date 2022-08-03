@@ -5,7 +5,6 @@ from os import devnull, path
 import socket
 import os
 import sys
-import numpy
 from settings import Config
 
 gi.require_version('GdkX11', '3.0')
@@ -38,9 +37,7 @@ class Player(Gtk.Window):
         self.set_default_size(800, 550)
         self.set_border_width(10)
 
-        # verify if gstreamer is install with package manager
-        self.package_check()
-
+    
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
         self.drawingarea.set_content_height = screenHeight
@@ -175,50 +172,7 @@ class Player(Gtk.Window):
 
     # Check Package manger apt or pacman
 
-    def package_check(self):
-        print(os.getlogin())
-        pacmanCheck = os.system('command -v pacman >/dev/null')
-        aptCheck = os.system('command -v apt >/dev/null')
-        print(pacmanCheck)
-        print(aptCheck)
-
-        """
-        Apt section start
-        """
-        if aptCheck != 256:
-            listPackage = os.system(
-                'apt list --installed gstreamer-plugins-base gstreamer-plugins-good gstreamer-plugins-bad '
-                'gstreamer-plugins-ugly gstreamer-libav'
-                'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
-
-            if listPackage != 256:
-
-                print("completed")
-
-            else:
-                self.MessageBox("Missing Dependancy", "Please verify that all dependancy packages are install", "error")
-                print("Please verify if all of thos package are install ")
-            """
-            Apt section end
-            """
-
-            """
-            Pacman section start
-            """
-        elif pacmanCheck != 256:
-            listPackage = os.system(
-                'pacman -Qe gst-libav gst-plugins-bad gst-plugins-good gst-plugins-ugly gst-rtsp-server')
-
-            if listPackage != 256:
-                print("completed")
-
-            else:
-                self.MessageBox("Missing Dependancy", "Please verify that all dependancy packages are install", "error")
-                print("Please verify if all of thos package are install ")
-
-            """
-            Pacman section end
-            """
+    
 
     def on_sync_message(self, bus, msg):
         if msg.get_structure().get_name() == 'prepare-window-handle':
