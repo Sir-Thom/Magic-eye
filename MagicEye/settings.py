@@ -50,7 +50,7 @@ class Config():
                                                     'gradient': "gradient",
                                                     'colors': "colors",
                                                     'smpterp219':'smpte-rp-219',
-                                                    'defaultPattern': 'smpte-rp-219',
+                                                    
                                                 }
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:

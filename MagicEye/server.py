@@ -41,11 +41,14 @@ class ServerGui(Gtk.Window):
         print("Your Computer Name is:" + hostname)
         print("Your Computer IP Address is: " + IPAddress)
 
-        Gtk.Window.__init__(self, title="Server of "+ hostname)
+        Gtk.Window.__init__(self, title="Magic Eye: Server")
         print (Gtk.Window().get_screen().get_width())
         self.set_default_size(800, 450)
         self.set_border_width(10)
-       
+        headerBar = Gtk.HeaderBar()
+        headerBar.set_show_close_button(True)
+        headerBar.props.title = "Magic Eye"
+        self.set_titlebar(headerBar)
 
 
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)

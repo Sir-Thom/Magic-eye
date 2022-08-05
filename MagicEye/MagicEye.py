@@ -46,7 +46,7 @@ class UI(Gtk.Window):
 
         headerBar = Gtk.HeaderBar()
         headerBar.set_show_close_button(True)
-        headerBar.props.title = "Mode"
+        headerBar.props.title = "Magic Eye"
         self.set_titlebar(headerBar)
 
         self.popover = Gtk.Popover()
@@ -76,7 +76,7 @@ class UI(Gtk.Window):
         aboutSection.set_authors(['Thomas Toulouse'])
         aboutSection.set_license("GPL-3.0 license")
         aboutSection.set_program_name("Magic Eye")
-        aboutSection.set_version("0.4(prerealese)")
+        aboutSection.set_version("0.4(prerelease)")
         aboutSection.set_website("https://github.com/Thomas-Toulouse/Magic-Eye")
         aboutSection.set_website_label("https://github.com/Thomas-Toulouse/Magic-Eye")
         aboutSection.show_all()
@@ -138,9 +138,6 @@ class UI(Gtk.Window):
                                 'libgstrtspserver-1.0-dev gstreamer1.0-rtsp')
                     elif dnfCheck != 256:
                          os.system('pkexec dnf install gstreamer1-devel gstreamer1-plugins-base-tools gstreamer1-doc gstreamer1-plugins-base-devel gstreamer1-plugins-good gstreamer1-plugins-good-extras gstreamer1-plugins-ugly gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-devel gstreamer1-plugins-bad-free-extras gstreamer1-rtsp-server -y')
-
-                        
-
 
                     
         elif(type=="sucess"):

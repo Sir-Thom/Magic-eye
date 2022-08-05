@@ -30,19 +30,26 @@ class Player(Gtk.Window):
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
         os.environ['Gdk_BACKEND'] = 'X11'
-        Gtk.Window.__init__(self, title="Third Eye")
+        Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
         self.connect('destroy', self.quit)
         self.set_default_size(800, 550)
         self.set_border_width(10)
 
-    
+      
+        #headerBar = Gtk.HeaderBar()
+        #headerBar.set_show_close_button(True)
+        #headerBar.props.title = "Magic Eye"
+        #headerBar.set_decoration_layout(None)
+        #self.set_titlebar(headerBar)
+        #self.add(headerBar)
+        
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
         self.drawingarea.set_content_height = screenHeight
         self.drawingarea.set_content_width = screenWidth
-
+      
         # Create a grid for the DrawingArea and buttons
         grid = Gtk.Grid(row_spacing=10, column_spacing=10, column_homogeneous=False)
         self.add(grid)
@@ -60,7 +67,7 @@ class Player(Gtk.Window):
         print(ipadr)
 
         # Quit button
-        quit = Gtk.Button(label="close Third Eye")
+        quit = Gtk.Button(label="close  client")
         quit.connect("clicked", Gtk.main_quit)
         grid.attach(quit, 0, 2, 2, 1)
 
@@ -83,7 +90,7 @@ class Player(Gtk.Window):
 
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
-        patternChoice = config.get('PATTERN_OPTION', "defaultPattern")  # settings.defaultPattern
+        patternChoice = config.get('PATTERN_OPTION', "smpterp219")  
         screenWidth = str(Gtk.Window().get_screen().get_width())
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print(screenWidth, screenHeight)
@@ -196,7 +203,7 @@ class Player(Gtk.Window):
         else:
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
-        #self.no_cam_feed()
+        
 
 p = Player()
 p.no_cam_feed()
