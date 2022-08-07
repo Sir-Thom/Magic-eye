@@ -20,8 +20,8 @@ install:
 	mv 'Magic Eye.desktop' ~/.local/share/applications/
 #	Desktop := "[Desktop Entry]\nCategories=Network;VideoConference\nComment[en_US]=A small gui application that let set and use rtsp stream form any computer\nComment= A small gui application that let set and use rtsp stream form any computer\nExec=/bin/'Magic Eye'\nGenericName=Applications\nIcon=/home/thomas/.local/share/icons/MagicEye/magiceye-06.svg\nMimeType=\nName[en_US]=Magic Eye\nName=Magic Eye"  
 #	echo -e $(Desktop) > 'Magic Eye.desktop'
-	mv -T dist/'Magic Eye' /usr/local/bin
-#mv -T dist/'Magic Eye' /bin
+	cp 'dist/Magic Eye' /usr/local/bin
+#	mv -T dist/'Magic Eye' /bin
 	echo Installation completed
 
 	
