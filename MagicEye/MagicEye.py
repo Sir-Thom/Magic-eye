@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-from typing_extensions import Self
 import gi
 import subprocess
 import os
@@ -8,6 +7,8 @@ import threading
 from subprocess import call
 import configparser
 from settings import Config
+import client 
+import server 
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
@@ -22,6 +23,13 @@ class UI(Gtk.Window):
 
    
     def __init__(self):
+
+        
+        #icon = Gio.ThemedIcon(name="magiceye-02")
+        #self.set_icon(icon)
+        #icon = GdkPixbuf.Pixbuf.new_from_resource("magiceye-02.svg")
+        #print(icon)
+        #self.set_icon(icon)
         tPackage = threading.Thread(target=self.package_check)
         tPackage.start()
         Gdk.set_allowed_backends("wayland,x11")
@@ -35,7 +43,7 @@ class UI(Gtk.Window):
         Gtk.Window.__init__(self, title="headerBar")
         self.set_default_size(800, 450)
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
-        
+
         self.set_border_width(10)
         print(Gdk.get_display())
         clientBtn = Gtk.Button(label="client")
@@ -70,11 +78,14 @@ class UI(Gtk.Window):
         self.add(grid)
 
     def onLoadDialogAbout(self,window):
-        
+        icon_app_path ='/home/thomas/.local/share/icons/MagicEye-icon/magiceye-small.svg'
+        pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)  
         aboutSection = Gtk.AboutDialog(transient_for=self)
         aboutSection.set_default_size(350, 300)
         aboutSection.set_authors(['Thomas Toulouse'])
         aboutSection.set_license("GPL-3.0 license")
+        aboutSection.set_artists(["ei8htz"])
+        aboutSection.set_logo(pixbuf)
         aboutSection.set_program_name("Magic Eye")
         aboutSection.set_version("0.4(prerelease)")
         aboutSection.set_website("https://github.com/Thomas-Toulouse/Magic-Eye")
@@ -85,18 +96,25 @@ class UI(Gtk.Window):
         
        
 
-    def loadClient(file,shellBool):
+    def loadClient(self, window):
 
         os.environ['GDK_BACKEND'] = 'x11'
-        file=os.path.dirname(os.path.abspath(__file__))+"/client.py"
-        shellBool= False
-        subprocess.Popen(file, shell=shellBool)
+        client.main()
+        # Gtk.Window.new(Player)
+        #Gtk.WindowType(0)
+        client.Player.__init__
+        #client.Player.no_cam_feed(client.Player)
+        #file=os.path.dirname(os.path.abspath(__file__))+"/client.py"
+        #shellBool= False
+        #subprocess.Popen(file, shell=shellBool)
 
-    def loadServer(file,shellBool):
+    def loadServer(self, window):
         os.environ['GDK_BACKEND'] = 'x11'
-        file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
-        shellBool= False
-        subprocess.Popen(file, shell=shellBool)
+        server.main()
+        server.ServerGui.__init__
+      #  file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
+       # shellBool= False
+       # subprocess.Popen(file, shell=shellBool)
 
     def MessageBox(self,title=str,text=str,type=str):
         #where every pop-up / messagebox are defines
@@ -200,8 +218,14 @@ class UI(Gtk.Window):
                 print("Please verify if all of thos package are install ")
 
 
+def main():
+    win = UI()
+    icon_app_path ='/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)          
+    win.set_icon(pixbuf)
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
+    return 0
 
-win = UI()
-win.connect("destroy", Gtk.main_quit)
-win.show_all()
-Gtk.main()
+main()

@@ -10,7 +10,7 @@ gi.require_version('Gst', '1.0')
 gi.require_version('GstRtspServer', '1.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk','3.0')
-from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk
+from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
 
@@ -33,6 +33,7 @@ class ServerGui(Gtk.Window):
     mount_point = config.get('NETWORK_OPTION',"mount_point")
 
     def __init__(self):
+       #1 print(Gtk.get_child_visible())
 
         builder=Gtk.Builder
         hostname = socket.gethostname()
@@ -45,19 +46,19 @@ class ServerGui(Gtk.Window):
         print (Gtk.Window().get_screen().get_width())
         self.set_default_size(800, 450)
         self.set_border_width(10)
-        headerBar = Gtk.HeaderBar()
-        headerBar.set_show_close_button(True)
-        headerBar.props.title = "Magic Eye"
-        self.set_titlebar(headerBar)
+        #headerBar = Gtk.HeaderBar()
+        #headerBar.set_show_close_button(True)
+        #headerBar.props.title = "Magic Eye"
+        #self.set_titlebar(headerBar)
 
 
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
         grid.set_row_homogeneous(False)
-        print(grid)
+        #print("d",grid)
         grid.set_vexpand(True)
         grid.set_hexpand(True)
-     
         self.add(grid)
+        #self.add(grid)
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -138,8 +139,16 @@ class ServerGui(Gtk.Window):
              server.attach()
 
 
-app = ServerGui()
-app.connect("destroy", Gtk.main_quit)
-app.show_all()
-Gtk.main()
-app.__init__()
+#app.connect("destroy", Gtk.main_quit)
+#app.show_all()
+def main():
+    app = ServerGui()
+    icon_app_path = '/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
+    app.set_icon(pixbuf)
+    app.show_all()
+    app.__init__()
+if __name__=="__main__":
+    
+   # Gtk.main()
+    main()

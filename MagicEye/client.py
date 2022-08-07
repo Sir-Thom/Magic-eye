@@ -11,7 +11,7 @@ gi.require_version('GdkX11', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('GstVideo', '1.0')
-from gi.repository import GObject, Gst, Gtk
+from gi.repository import GObject, Gst, Gtk,GdkPixbuf
 from gi.repository import GdkX11, GstVideo
 
 Gst.init(None)
@@ -21,7 +21,7 @@ class Player(Gtk.Window):
     global is_active
 
     def __init__(self):
-
+        
         # basic window creation
         builder = Gtk.Builder
         config = configparser.ConfigParser()
@@ -204,6 +204,20 @@ class Player(Gtk.Window):
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
         
+def main():
+    p = Player()
+    icon_app_path = '/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
+    p.set_icon(pixbuf)
+    p.no_cam_feed()
+##p = Player()
 
-p = Player()
-p.no_cam_feed()
+
+if __name__ == "__main__":
+    main()
+    #import gtk
+    # = Player()
+   # Gtk.main()
+    #p.show_all()
+    #p.__init__()
+   # p.no_cam_feed()
