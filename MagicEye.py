@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from multiprocessing.managers import Server
 import sys
 import gi
 import subprocess
@@ -16,14 +17,25 @@ from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
 
+#Gdk.set_allowed_backends("x11")
+
+
 Gst.init(None)
-
-
+Gtk.init(None)
+#print (Gdk.get_display() )
 class UI(Gtk.Window):
-    os.system='Gdk_BACKEND = x11'
+
+    os.system['Gdk_BACKEND'] = 'x11'
     Gdk.set_allowed_backends("x11")
     def __init__(self):
 
+
+       # print(Gdk.wayland_onscreen_get_surface())
+       
+    def __init__(self):
+        os.environ['GDK_BACKEND'] = 'x11'
+        #print(Cogl.wayland_renderer_get_display(self))
+      #  Gdk.wayland.window.get_wl_surface()
         #Gdk.set_allowed_backends("x11")
         #icon = Gio.ThemedIcon(name="magiceye-02")
         #self.set_icon(icon)
@@ -32,7 +44,7 @@ class UI(Gtk.Window):
         #self.set_icon(icon)
         tPackage = threading.Thread(target=self.package_check)
         tPackage.start()
-        Gdk.set_allowed_backends("wayland,x11")
+        Gdk.set_allowed_backends("x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
@@ -45,7 +57,7 @@ class UI(Gtk.Window):
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
 
         self.set_border_width(10)
-        print(Gdk.get_display())
+        #print(Gdk.get_display())
         clientBtn = Gtk.Button(label="client")
         clientBtn.connect("clicked",self.loadClient)
 
@@ -99,6 +111,8 @@ class UI(Gtk.Window):
     def loadClient(self, window):
 
         os.environ['GDK_BACKEND'] = 'x11'
+        os.system = "export GDK_BACKEND=x11"
+        print( os.environ )
         client.main()
         # Gtk.Window.new(Player)
         #Gtk.WindowType(0)
@@ -109,7 +123,11 @@ class UI(Gtk.Window):
         #subprocess.Popen(file, shell=shellBool)
 
     def loadServer(self, window):
-        os.environ['GDK_BACKEND'] = 'x11'
+        print( os.environ )
+        Gdk.set_allowed_backends("x11")
+        os.environ['GDK_BACKEND']="x11" 
+       
+        print( os.environ )
         server.main()
         server.ServerGui.__init__
       #  file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
@@ -220,6 +238,12 @@ class UI(Gtk.Window):
 
 def main():
     win = UI()
+    # if Gdk.get_display() == "wayland-0" :
+    #     print("go here")
+    #     os.environ['GDK_BACKEND']='x11'
+    #     print(os.environ)
+    #     #Gdk.Display.open(":1")
+    #     #os.system="GDK_BACKEND=x11"+str(UI())
     icon_app_path ='/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)          
     win.set_icon(pixbuf)
