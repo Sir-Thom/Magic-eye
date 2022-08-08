@@ -33,15 +33,7 @@ class UI(Gtk.Window):
        # print(Gdk.wayland_onscreen_get_surface())
        
     def __init__(self):
-        os.environ['GDK_BACKEND'] = 'x11'
-        #print(Cogl.wayland_renderer_get_display(self))
-      #  Gdk.wayland.window.get_wl_surface()
-        #Gdk.set_allowed_backends("x11")
-        #icon = Gio.ThemedIcon(name="magiceye-02")
-        #self.set_icon(icon)
-        #icon = GdkPixbuf.Pixbuf.new_from_resource("magiceye-02.svg")
-        #print(icon)
-        #self.set_icon(icon)
+
         tPackage = threading.Thread(target=self.package_check)
         tPackage.start()
         Gdk.set_allowed_backends("x11")
