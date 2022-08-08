@@ -9,15 +9,8 @@ buildFile = pwd
 
 
 build:
-	mkdir ~/.config/MagicEye
-	$(PYTHON) settings.py
-	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile  MagicEye.py
-	mv  MagicEye-icon  ~/.local/share/icons
-	chmod +x 'Magic Eye.desktop'
-	mv 'Magic Eye.desktop' ~/.local/share/applications/
-	cp 'dist/Magic Eye' /usr/local/bin
 
-	echo Installation completed
+	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile  MagicEye.py
 
 
 install:
