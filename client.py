@@ -7,20 +7,21 @@ import os
 import sys
 from settings import Config
 
-gi.require_version('GdkX11', '3.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject, Gst, Gtk,GdkPixbuf
-from gi.repository import GdkX11, GstVideo
-
-Gst.init(None)
-
-
+from gi.repository import Gdk, GstVideo
+Gdk.set_allowed_backends("x11")
+Gtk.init(None)
+print( os.environ )
 class Player(Gtk.Window):
     global is_active
 
     def __init__(self):
+        
+        os.system = "export GDK_BACKEND=x11"
         
         # basic window creation
         builder = Gtk.Builder
@@ -29,7 +30,8 @@ class Player(Gtk.Window):
 
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
-        os.environ['Gdk_BACKEND'] = 'X11'
+        os.environ['GDK_BACKEND'] = 'x11'
+        print( os.environ )
         Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
