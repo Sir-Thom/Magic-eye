@@ -1,5 +1,4 @@
-# Signifies our desired python version
-# Makefile macros (or variables) are defined a little bit differently than traditional bash, keep in mind that in the Makefile there's top-level Makefile-only syntax, and everything else is bash script syntax.
+#This is my first makefile 
 PYTHON = python3
 PIP = pip3
 # .PHONY defines parts of the makefile that are not dependant on any specific file
@@ -7,21 +6,19 @@ PIP = pip3
 .PHONY = install clean
 
 
-test:
-	ls dist
+
 	
 install:
-	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile MagicEye.py 
-#	$(PYTHON) MagicEye.py#
-	mkdir 'MagicEye-icon'
-	mv -T icon/ MagicEye-icon
+	mkdir ~/.config/MagicEye
+	$(PYTHON) settings.py
+	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile  MagicEye.py 
+#	mkdir 'MagicEye-icon'
+#	mv -T icon/ MagicEye-icon
 	mv  MagicEye-icon  ~/.local/share/icons 
 	chmod +x 'Magic Eye.desktop'
 	mv 'Magic Eye.desktop' ~/.local/share/applications/
-#	Desktop := "[Desktop Entry]\nCategories=Network;VideoConference\nComment[en_US]=A small gui application that let set and use rtsp stream form any computer\nComment= A small gui application that let set and use rtsp stream form any computer\nExec=/bin/'Magic Eye'\nGenericName=Applications\nIcon=/home/thomas/.local/share/icons/MagicEye/magiceye-06.svg\nMimeType=\nName[en_US]=Magic Eye\nName=Magic Eye"  
-#	echo -e $(Desktop) > 'Magic Eye.desktop'
 	cp 'dist/Magic Eye' /usr/local/bin
-#	mv -T dist/'Magic Eye' /bin
+	pwd
 	echo Installation completed
 
 	
@@ -32,4 +29,4 @@ install:
 # In this context, the *.project pattern means "anything that has the .project extension"
 clean:
 	rm -rf __pycache__
-	rm -r pwd
+#	rm -r pwd

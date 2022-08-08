@@ -2,17 +2,20 @@
 """"
 this is the file were the option for the module gst are define 
 """
+from logging import root
 import os
-import gi
-gi.require_version('Gtk','3.0')
-from gi.repository import Gtk
 import configparser
+from typing_extensions import Self
+
 class Config():
+
     app_name = "MagicEye"
     config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
     settings_file = "settings.conf"
     full_config_file_path = os.path.join(config_folder, settings_file)
+    
     def create_config(self) :
+        print("start creation")
         app_name = "MagicEye"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
         os.makedirs(config_folder, exist_ok=True)
@@ -55,3 +58,4 @@ class Config():
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:
                 config.write(configfile)
+Config.create_config(Self)
