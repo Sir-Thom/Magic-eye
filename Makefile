@@ -2,7 +2,7 @@
 PYTHON = python3
 PIP = pip3
 # .PHONY defines parts of the makefile that are not dependant on any specific file
-all : build install clean
+all : build install
 # This is most often used to store functions
 .PHONY = all
 buildFile = pwd
