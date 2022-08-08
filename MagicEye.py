@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from multiprocessing.managers import Server
 import sys
 import gi
 import subprocess
