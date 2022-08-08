@@ -5,17 +5,12 @@
 ## Table of Contents
 
 - [Installation](#installation)
-- [How to use](#how-to-use)
+
 ## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
-chmod +x install.sh
-./install
-```
-# How to use
-open a terminal and execute this command
-```
-magiceye
-```
-or you can just click the icon your desktop if you choose to have one
+cd Magic-Eye
+make install
+
+
 
