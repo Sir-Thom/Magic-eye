@@ -27,7 +27,7 @@ class UI(Gtk.Window):
 
     os.system['Gdk_BACKEND'] = 'x11'
     Gdk.set_allowed_backends("x11")
-    def __init__(self):
+
 
 
        # print(Gdk.wayland_onscreen_get_surface())
