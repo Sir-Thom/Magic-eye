@@ -100,10 +100,7 @@ class UI(Gtk.Window):
        
 
     def loadClient(self, window):
-
-        os.environ['GDK_BACKEND'] = 'x11'
-        os.system = "export GDK_BACKEND=x11"
-        print( os.environ )
+        #print( os.environ )
         client.main()
         # Gtk.Window.new(Player)
         #Gtk.WindowType(0)
@@ -114,11 +111,11 @@ class UI(Gtk.Window):
         #subprocess.Popen(file, shell=shellBool)
 
     def loadServer(self, window):
-        print( os.environ )
+        #print( os.environ )
         Gdk.set_allowed_backends("x11")
-        os.environ['GDK_BACKEND']="x11" 
+        #os.environ['GDK_BACKEND']="x11" 
        
-        print( os.environ )
+        ##rint( os.environ )
         server.main()
         server.ServerGui.__init__
       #  file=os.path.dirname(os.path.abspath(__file__))+"/server.py"

@@ -13,7 +13,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject, Gst, Gtk,GdkPixbuf
 from gi.repository import Gdk, GstVideo
-Gdk.set_allowed_backends("x11")
+
 Gtk.init(None)
 print( os.environ )
 class Player(Gtk.Window):
