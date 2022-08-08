@@ -12,8 +12,6 @@ install:
 	mkdir ~/.config/MagicEye
 	$(PYTHON) settings.py
 	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile  MagicEye.py 
-	mkdir 'MagicEye-icon'
-	mv -T icon/ MagicEye-icon
 	mv  MagicEye-icon  ~/.local/share/icons 
 	chmod +x 'Magic Eye.desktop'
 	mv 'Magic Eye.desktop' ~/.local/share/applications/
