@@ -14,13 +14,13 @@ gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
 from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
-Gdk.set_allowed_backends("x11")
+
 
 Gst.init(None)
 
 
 class UI(Gtk.Window):
-    os.system['Gdk_BACKEND'] = 'x11'
+    os.system='Gdk_BACKEND = x11'
     Gdk.set_allowed_backends("x11")
     def __init__(self):
 
