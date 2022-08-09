@@ -24,7 +24,3 @@ install:
 
 
 # In this context, the *.project pattern means "anything that has the .project extension"
-clean:
-	rm -rf __pycache__
-	rm -r buildFile
-do
