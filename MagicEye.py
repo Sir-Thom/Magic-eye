@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!././/bin/env python3
 import sys
 import gi
 import subprocess
@@ -7,11 +7,12 @@ import threading
 from subprocess import call
 import configparser
 from settings import Config
-import client 
-import server 
+import client
+import server
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 Gdk.set_allowed_backends("x11")
@@ -23,20 +24,17 @@ class UI(Gtk.Window):
    
     Gdk.set_allowed_backends("x11")
     def __init__(self):
-
-        #Gdk.set_allowed_backends("x11")
-        #icon = Gio.ThemedIcon(name="magiceye-02")
-        #self.set_icon(icon)
-        #icon = GdkPixbuf.Pixbuf.new_from_resource("magiceye-02.svg")
-        #print(icon)
-        #self.set_icon(icon)
+      
+       
+        
+      
         tPackage = threading.Thread(target=self.package_check)
         tPackage.start()
         Gdk.set_allowed_backends("wayland,x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
-        Config.create_config(self)
+        #Config.create_config(self)
         builder=Gtk.Builder()
 
 
@@ -45,7 +43,7 @@ class UI(Gtk.Window):
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
 
         self.set_border_width(10)
-        print(Gdk.get_display())
+        #print(Gdk.get_display())
         clientBtn = Gtk.Button(label="client")
         clientBtn.connect("clicked",self.loadClient)
 
@@ -72,13 +70,17 @@ class UI(Gtk.Window):
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
         headerBar.pack_end(button)
-
+        window= Gtk.Window
+        #print(Gdk.wayland_window_get_wl_surface(window))
         grid.add(clientBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
 
     def onLoadDialogAbout(self,window):
-        icon_app_path ='/home/thomas/.local/share/icons/MagicEye-icon/magiceye-small.svg'
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-small.svg")
+        print(filename)
+        icon_app_path =filename
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)  
         aboutSection = Gtk.AboutDialog(transient_for=self)
         aboutSection.set_default_size(350, 300)
@@ -177,7 +179,7 @@ class UI(Gtk.Window):
 
     def package_check(self):
         print("hey")
-        print(os.getlogin())
+       # print(os.getlogin())
         pacmanCheck = os.system('command -v pacman >/dev/null')
         aptCheck = os.system('command -v apt >/dev/null')
         dnfCheck = os.system('command -v dnf >/dev/null')
@@ -219,9 +221,13 @@ class UI(Gtk.Window):
 
 
 def main():
+   # os.path.join(os.path.expanduser("usr"),'icons', "MagicEye-icon/magiceye-06.svg")
     win = UI()
-    icon_app_path ='/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
-    pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)          
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-06.svg")
+    print(filename)
+    icon_app_path =filename
+    pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     win.set_icon(pixbuf)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()

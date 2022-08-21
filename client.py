@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!././/bin/env python3
 import configparser
 import gi
 from os import devnull, path
@@ -14,8 +14,10 @@ gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject, Gst, Gtk,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
+Gst.init(None)
+
 Gtk.init(None)
-print( os.environ )
+#print( os.environ )
 class Player(Gtk.Window):
     global is_active
 
@@ -31,7 +33,7 @@ class Player(Gtk.Window):
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
         os.environ['GDK_BACKEND'] = 'x11'
-        print( os.environ )
+       # print( os.environ )
         Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
@@ -39,13 +41,14 @@ class Player(Gtk.Window):
         self.set_default_size(800, 550)
         self.set_border_width(10)
 
-      
+        #self.connect('realize', self._on_realize)
         #headerBar = Gtk.HeaderBar()
         #headerBar.set_show_close_button(True)
         #headerBar.props.title = "Magic Eye"
         #headerBar.set_decoration_layout(None)
         #self.set_titlebar(headerBar)
         #self.add(headerBar)
+        #self._bin = Gst.parse_bin_from_description(pipeline, True)
         
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
@@ -69,8 +72,8 @@ class Player(Gtk.Window):
         print(ipadr)
 
         # Quit button
-        quit = Gtk.Button(label="close  client")
-        quit.connect("clicked", Gtk.main_quit)
+        quit = Gtk.Button(label="disconnect stream  ")
+        quit.connect("clicked", self.exit_Stream)
         grid.attach(quit, 0, 2, 2, 1)
 
         # textbox
@@ -82,11 +85,16 @@ class Player(Gtk.Window):
         # link Ip button
         link = Gtk.Button(label="Link IP")
         link.connect("clicked", self.connexion_rtsp)
-
+       
         # Create GStreamer pipeline
         grid.attach_next_to(link, entry, Gtk.PositionType.RIGHT, 2, 1)
 
     # for webcam
+
+    def exit_Stream(self,w):
+        self.pipeline.set_state(Gst.State.NULL)
+        self.no_cam_feed
+
 
     def no_cam_feed(self):
 
@@ -105,7 +113,7 @@ class Player(Gtk.Window):
         self.xid = self.drawingarea.get_property('window').get_xid()
         self.fps = 60
         self.pipeline = Gst.parse_launch(
-            f"videotestsrc  pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight} ! deinterlace ! xvimagesink")
+            f"videotestsrc   pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight}  ! deinterlace ! xvimagesink")
 
         # Create bus to get events from GStreamer pipeline
         bus = self.pipeline.get_bus()
@@ -117,6 +125,7 @@ class Player(Gtk.Window):
         self.pipeline.set_state(Gst.State.PLAYING)
         self.run()
 
+   
     # will connect the device to the host server (the one with the cam)
     def connexion_rtsp(self, ipard):
         config = configparser.ConfigParser()
@@ -153,7 +162,7 @@ class Player(Gtk.Window):
         print(Gtk.main_level())
 
     def run(self):
-        os.environ['Gdk_BACKEND'] = 'x11'
+        os.environ['GDK_BACKEND'] = 'x11'
         self.show_all()
         Gtk.main()
 
@@ -197,18 +206,27 @@ class Player(Gtk.Window):
     def on_error(self, bus, msg):
         self.pipeline.set_state(Gst.State.NULL)
         user = os.getlogin()
+        err, debug = msg.parse_error()
+        if str(err).startswith("gst-resource-error-quark"):
+            print("I")
+        # resource errors from 1 to 16
+            if str(err).endswith("(7)"):
+#                print("II")
+                self.MessageBox("Error", f"{user}(Host) was unable to connect to the server.", "error")
         # set special message if error occur
-        if Gst.error_get_message(1, 8130):
-            self.MessageBox("Error", f"{user}(Host) was unable to connect to the server", "error")
-
+       
         # set full error message
         else:
+            print("III")
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
         
 def main():
     p = Player()
-    icon_app_path = '/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg'
+   # dirname = os.path.dirname(__file__)
+    filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-06.svg")
+    print(filename)
+    icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
     p.no_cam_feed()
