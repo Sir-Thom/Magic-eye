@@ -5,12 +5,24 @@
 ## Table of Contents
 
 - [Installation](#installation)
+- [Uninstall](#uninstall)
+- [Update](#update)
 
 ## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
 cd Magic-Eye
 make
+```
+## Uninstall
+```
+cd Magic-Eye
+make uninstall
+```
+## Update
+```
+cd Magic-Eye
+make update
 ```
 
 
