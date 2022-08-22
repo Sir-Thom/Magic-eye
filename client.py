@@ -208,36 +208,33 @@ class Player(Gtk.Window):
         user = os.getlogin()
         err, debug = msg.parse_error()
         if str(err).startswith("gst-resource-error-quark"):
-            print("I")
+           
         # resource errors from 1 to 16
             if str(err).endswith("(7)"):
 #                print("II")
-                self.MessageBox("Error", f"{user}(Host) was unable to connect to the server.", "error")
+                self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera.", "error")
+            elif str(err).endswith("(8)"):
+#                print("II")
+                self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera due to a error in the pipeline.", "error")
         # set special message if error occur
        
         # set full error message
         else:
-            print("III")
+           
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
         
 def main():
     p = Player()
-   # dirname = os.path.dirname(__file__)
-    filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-06.svg")
+    filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     print(filename)
     icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
     p.no_cam_feed()
-##p = Player()
+
 
 
 if __name__ == "__main__":
     main()
-    #import gtk
-    # = Player()
-   # Gtk.main()
-    #p.show_all()
-    #p.__init__()
-   # p.no_cam_feed()
+

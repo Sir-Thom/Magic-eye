@@ -149,7 +149,7 @@ class ServerGui(Gtk.Window):
 def main():
     app = ServerGui()
     #dirname = os.path.dirname(__file__)
-    filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-06.svg")
+    filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     print(filename)
     icon_app_path = filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)

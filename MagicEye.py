@@ -34,7 +34,7 @@ class UI(Gtk.Window):
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
-        #Config.create_config(self)
+        Config.create_config(self)
         builder=Gtk.Builder()
 
 
@@ -43,7 +43,6 @@ class UI(Gtk.Window):
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
 
         self.set_border_width(10)
-        #print(Gdk.get_display())
         clientBtn = Gtk.Button(label="client")
         clientBtn.connect("clicked",self.loadClient)
 
@@ -71,14 +70,13 @@ class UI(Gtk.Window):
         button.add(image)
         headerBar.pack_end(button)
         window= Gtk.Window
-        #print(Gdk.wayland_window_get_wl_surface(window))
         grid.add(clientBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
 
     def onLoadDialogAbout(self,window):
         dirname = os.path.dirname(__file__)
-        filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-small.svg")
+        filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-small.svg'
         print(filename)
         icon_app_path =filename
         pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)  
@@ -178,8 +176,7 @@ class UI(Gtk.Window):
         dialog.destroy()
 
     def package_check(self):
-        print("hey")
-       # print(os.getlogin())
+        print("looking package")
         pacmanCheck = os.system('command -v pacman >/dev/null')
         aptCheck = os.system('command -v apt >/dev/null')
         dnfCheck = os.system('command -v dnf >/dev/null')
@@ -223,8 +220,7 @@ class UI(Gtk.Window):
 def main():
    # os.path.join(os.path.expanduser("usr"),'icons', "MagicEye-icon/magiceye-06.svg")
     win = UI()
-    dirname = os.path.dirname(__file__)
-    filename = os.path.join(os.path.expanduser("MagicEye.AppDir/usr/share"),'icons', "MagicEye-icon/magiceye-06.svg")
+    filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     print(filename)
     icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)

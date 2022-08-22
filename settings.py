@@ -61,4 +61,4 @@ class Config():
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:
                 config.write(configfile)
-Config.create_config(Self)
+Config.create_config()
