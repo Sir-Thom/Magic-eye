@@ -1,10 +1,10 @@
 [Desktop Entry]
 Categories=Network;VideoConference
-Comment[en_US]=A small gui application that let set and use rtsp stream form any computer
+Comment=A small gui application that let set and use rtsp stream form any computer
 Comment= A small gui application that let set and use rtsp stream form any computer
 Exec=/usr/local/bin/'Magic Eye'
 GenericName=Applications
 Icon=/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg
 MimeType=
-Name[en_US]=Magic Eye
+Name=Magic Eye
 Name=Magic Eye

@@ -21,5 +21,14 @@ install:
 	mv 'Magic Eye.desktop' ~/.local/share/applications/
 	cp 'dist/Magic Eye' /usr/local/bin
 
+uninstall:
+	rm -rf ~/.config/MagicEye
+	rm -rf ~/.local/share/icons/ MagicEye-icon
+	rm -rf ~/.local/share/applications/'Magic Eye.desktop'
+	rm -rf /usr/local/bin/'Magic Eye'
 
+update:
+	rm -rf /usr/local/bin/'Magic Eye'
+	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile MagicEye.py
+	cp 'dist/Magic Eye' /usr/local/bin
 # In this context, the *.project pattern means "anything that has the .project extension"
