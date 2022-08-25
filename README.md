@@ -24,5 +24,3 @@ make uninstall
 cd Magic-Eye
 make update
 ```
-
-

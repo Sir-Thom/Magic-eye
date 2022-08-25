@@ -17,7 +17,6 @@ from gi.repository import Gdk, GstVideo
 Gst.init(None)
 
 Gtk.init(None)
-#print( os.environ )
 class Player(Gtk.Window):
     global is_active
 
@@ -33,22 +32,12 @@ class Player(Gtk.Window):
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
         os.environ['GDK_BACKEND'] = 'x11'
-       # print( os.environ )
         Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
         self.connect('destroy', self.quit)
         self.set_default_size(800, 550)
         self.set_border_width(10)
-
-        #self.connect('realize', self._on_realize)
-        #headerBar = Gtk.HeaderBar()
-        #headerBar.set_show_close_button(True)
-        #headerBar.props.title = "Magic Eye"
-        #headerBar.set_decoration_layout(None)
-        #self.set_titlebar(headerBar)
-        #self.add(headerBar)
-        #self._bin = Gst.parse_bin_from_description(pipeline, True)
         
         # Create DrawingArea for video widget
         self.drawingarea = Gtk.DrawingArea()
@@ -209,14 +198,13 @@ class Player(Gtk.Window):
         err, debug = msg.parse_error()
         if str(err).startswith("gst-resource-error-quark"):
            
-        # resource errors from 1 to 16
+        # resource errors
             if str(err).endswith("(7)"):
-#                print("II")
+
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera.", "error")
             elif str(err).endswith("(8)"):
-#                print("II")
+
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera due to a error in the pipeline.", "error")
-        # set special message if error occur
        
         # set full error message
         else:

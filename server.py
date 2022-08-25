@@ -33,7 +33,6 @@ class ServerGui(Gtk.Window):
     mount_point = config.get('NETWORK_OPTION',"mount_point")
 
     def __init__(self):
-       #1 print(Gtk.get_child_visible())
 
         builder=Gtk.Builder
         hostname = socket.gethostname()
@@ -46,10 +45,6 @@ class ServerGui(Gtk.Window):
         print (Gtk.Window().get_screen().get_width())
         self.set_default_size(800, 450)
         self.set_border_width(10)
-        #headerBar = Gtk.HeaderBar()
-        #headerBar.set_show_close_button(True)
-        #headerBar.props.title = "Magic Eye"
-        #self.set_titlebar(headerBar)
 
 
         grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
@@ -148,7 +143,6 @@ class ServerGui(Gtk.Window):
 
 def main():
     app = ServerGui()
-    #dirname = os.path.dirname(__file__)
     filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     print(filename)
     icon_app_path = filename

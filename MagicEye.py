@@ -75,7 +75,6 @@ class UI(Gtk.Window):
         self.add(grid)
 
     def onLoadDialogAbout(self,window):
-        dirname = os.path.dirname(__file__)
         filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-small.svg'
         print(filename)
         icon_app_path =filename
@@ -100,22 +99,13 @@ class UI(Gtk.Window):
 
         os.environ['GDK_BACKEND'] = 'x11'
         client.main()
-        # Gtk.Window.new(Player)
-        #Gtk.WindowType(0)
         client.Player.__init__
-        #client.Player.no_cam_feed(client.Player)
-        #file=os.path.dirname(os.path.abspath(__file__))+"/client.py"
-        #shellBool= False
-        #subprocess.Popen(file, shell=shellBool)
 
     def loadServer(self, window):
         os.environ['GDK_BACKEND'] = 'x11'
         server.main()
         server.ServerGui.__init__
-      #  file=os.path.dirname(os.path.abspath(__file__))+"/server.py"
-       # shellBool= False
-       # subprocess.Popen(file, shell=shellBool)
-
+        
     def MessageBox(self,title=str,text=str,type=str):
         #where every pop-up / messagebox are defines
         if(type=="error"):
@@ -218,7 +208,6 @@ class UI(Gtk.Window):
 
 
 def main():
-   # os.path.join(os.path.expanduser("usr"),'icons', "MagicEye-icon/magiceye-06.svg")
     win = UI()
     filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
     print(filename)
