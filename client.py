@@ -132,7 +132,7 @@ class Player(Gtk.Window):
         print(ipard)
 
         self.pipeline = Gst.parse_launch(
-            f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point} ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! autovideosink sync=false ")
+            f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point}  ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! autovideosink sync=false ")
 
         # error message
         bus = self.pipeline.get_bus()
@@ -202,7 +202,7 @@ class Player(Gtk.Window):
             if str(err).endswith("(7)"):
 
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera.", "error")
-            elif str(err).endswith("(8)"):
+            elif str(err).endswith("(9)"):
 
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera due to a error in the pipeline.", "error")
        
