@@ -6,11 +6,6 @@ PIP = pip3
 .PHONY = install
 
 
-
-
-
-
-
 install:
 
 	mkdir ~/.config/MagicEye
