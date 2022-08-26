@@ -18,7 +18,7 @@ install:
 
 uninstall:
 	rm -rf ~/.config/MagicEye
-	rm -rf ~/.local/share/icons/ MagicEye-icon
+	rm -rf ~/.local/share/icons/MagicEye-icon
 	rm -rf ~/.local/share/applications/'Magic Eye.desktop'
 	rm -rf /usr/local/bin/'Magic Eye'
 
