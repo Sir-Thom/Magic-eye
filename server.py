@@ -78,8 +78,8 @@ class ServerGui(Gtk.Window):
         grid.attach(frame,0,0,2,1)
         vbox.add(CamModeRpicam)
 
-        CamModeV4l2src.set_tooltip_text("This option is for camera like a laptop webcam or any other external webcam")
-        CamModeRpicam.set_tooltip_text("This option is made for the camera module of the raspberrypi. ")
+        CamModeV4l2src.set_tooltip_text("This option is for camera like a laptop webcam or any other external webcam and the raspberrypi (64 bits OS)")
+        CamModeRpicam.set_tooltip_text("(Leagacy option )This option is made for the camera module of the raspberrypi.For best result use it if your OS is 32 bits. ")
         print(CamModeRpicam.get_active())
 
 
