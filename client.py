@@ -1,4 +1,4 @@
-#!././/bin/env python3
+#!/bin/env python3
 import configparser
 import gi
 from os import devnull, path

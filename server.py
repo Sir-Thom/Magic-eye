@@ -1,4 +1,4 @@
-#!././/bin/env python3
+#!/bin/env python3
 import gi
 import os
 from settings import Config

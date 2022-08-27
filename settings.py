@@ -1,4 +1,4 @@
-#!././/bin/env python3
+#!/bin/env python3
 """"
 this is the file were the option for the module gst are define 
 """
@@ -18,20 +18,18 @@ class Config():
         print("start creation")
         app_name = "MagicEye"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
-        os.makedirs(config_folder, exist_ok=True)
-        app_config_folder=os.path.join(os.path.expanduser("~"), '.config',app_name,"icons")
         print(app_config_folder)
         os.makedirs(app_config_folder,exist_ok=True)
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()
-        config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert ! video/x-raw,width=1280,height=720 ! theoraenc bitrate=8000000 quality=30 ! queue ! rtptheorapay name=pay0 ! appsink ',
+        config['CAMERA_OPTION'] = {'v4l2srcLaunch': 'v4l2src device=/dev/video0  ! videoconvert ! video/x-raw,width=1280,height=720 ! theoraenc bitrate=8000000 quality=48 ! queue ! rtptheorapay name=pay0  ',
                             'rpicamsrc': 'rpicamsrc bitrate=8000000 preview=false vflip=true ! video/x-h264,width=1280,height=720 ! h264parse ! rtph264pay name=pay0 pt=96',
                             }
         config['NETWORK_OPTION'] = {}
         config['NETWORK_OPTION']["port"]="8554"
         config['NETWORK_OPTION']['mount_point']='/tmp'
-        config['PATTERN_OPTION'] = {'smpte' : 'smpte',
+        config['PATTERN_OPTION'] = {'smpte' : 'smpte', # all videotestsrc patterns choices
                                                     'snow' : "snow",
                                                     'black' : "black",
                                                     'red' : "red",
