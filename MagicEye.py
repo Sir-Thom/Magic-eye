@@ -1,10 +1,8 @@
 #!/bin/env python3
 import sys
 import gi
-import subprocess
 import os
 import threading
-from subprocess import call
 import configparser
 from settings import Config
 import client
@@ -28,8 +26,8 @@ class UI(Gtk.Window):
        
         
       
-        tPackage = threading.Thread(target=self.package_check)
-        tPackage.start()
+       # tPackage = threading.Thread(target=self.package_check)
+        #tPackage.start()
         Gdk.set_allowed_backends("wayland,x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
@@ -69,11 +67,14 @@ class UI(Gtk.Window):
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
         headerBar.pack_end(button)
+        
         window= Gtk.Window
         grid.add(clientBtn)
         grid.attach(serverBtn, 1, 0, 1, 1)
         self.add(grid)
-
+    def on_Quit(self):
+        Gtk.main_quit
+        sys.exit()
     def onLoadDialogAbout(self,window):
         filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-small.svg'
         print(filename)
@@ -214,9 +215,10 @@ def main():
     icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     win.set_icon(pixbuf)
-    win.connect("destroy", Gtk.main_quit)
+    #destroy()
+    win.connect("destroy",Gtk.main_quit)
     win.show_all()
     Gtk.main()
-    return 0
+
 
 main()

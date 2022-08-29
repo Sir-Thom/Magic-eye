@@ -81,7 +81,13 @@ class ServerGui(Gtk.Window):
         CamModeV4l2src.set_tooltip_text("This option is for camera like a laptop webcam or any other external webcam and the raspberrypi (64 bits OS)")
         CamModeRpicam.set_tooltip_text("(Leagacy option )This option is made for the camera module of the raspberrypi.For best result use it if your OS is 32 bits. ")
         print(CamModeRpicam.get_active())
-
+        self.connect('destroy', self.quit)
+        #.connect("destroy",Gtk.main_quit())
+    def quit(self, window):
+        #self.pipeline.set_state(Gst.State.NULL)
+        print(Gtk.main_level())
+        Gtk.main_quit()
+        print(Gtk.main_level())
 
     def on_button_toggled(self,CamMode, name):
         config = configparser.ConfigParser()
@@ -150,6 +156,8 @@ def main():
     app.set_icon(pixbuf)
     app.show_all()
     Gtk.main()
+    print(Gtk.main_level())
+    #app.connect("destroy",Gtk.main_quit())
     app.__init__()
 if __name__=="__main__":
     

@@ -142,7 +142,7 @@ class Player(Gtk.Window):
         bus.enable_sync_message_emission()
         bus.connect('sync-message::element', self.on_sync_message)
         self.pipeline.set_state(Gst.State.PLAYING)
-        Gtk.main_quit()
+        #Gtk.main_quit()
         print("Is connected ")
         print(Gtk.main_level())
 
@@ -220,6 +220,7 @@ def main():
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
     p.no_cam_feed()
+    p.connect("destroy",Gtk.main_quit())
 
 
 

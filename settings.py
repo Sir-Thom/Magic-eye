@@ -18,8 +18,7 @@ class Config():
         print("start creation")
         app_name = "MagicEye"
         config_folder = os.path.join(os.path.expanduser("~"), '.config', app_name)
-        print(app_config_folder)
-        os.makedirs(app_config_folder,exist_ok=True)
+
         settings_file = "settings.conf"
         full_config_file_path = os.path.join(config_folder, settings_file)
         config = configparser.ConfigParser()

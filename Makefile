@@ -4,13 +4,14 @@ PIP = pip3
 # .PHONY defines parts of the makefile that are not dependant on any specific file
 # This is most often used to store functions
 .PHONY = install
+PYINSTALLER= pyinstaller   --hidden-import settings,os,gi  -n 'Magic Eye' --onefile MagicEye.py
 
 
 install:
 
 	mkdir ~/.config/MagicEye
 	$(PYTHON) settings.py
-	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile MagicEye.py
+	$(PYINSTALLER)
 	mv  MagicEye-icon  ~/.local/share/icons
 	chmod +x 'Magic Eye.desktop'
 	mv 'Magic Eye.desktop' ~/.local/share/applications/
@@ -24,6 +25,6 @@ uninstall:
 
 update:
 	rm -rf /usr/local/bin/'Magic Eye'
-	pyinstaller --hidden-import settings  -n 'Magic Eye' --onefile MagicEye.py
+	pyinstaller   --hidden-import settings,os,gi  -n 'Magic Eye' --onefile MagicEye.py
 	cp 'dist/Magic Eye' /usr/local/bin
 # In this context, the *.project pattern means "anything that has the .project extension"
