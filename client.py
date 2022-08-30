@@ -89,7 +89,7 @@ class Player(Gtk.Window):
 
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
-        patternChoice = config.get('PATTERN_OPTION', "smpterp219")  
+        patternChoice = config.get('PATTERN_OPTION', "pattern")
         screenWidth = str(Gtk.Window().get_screen().get_width())
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print(screenWidth, screenHeight)
