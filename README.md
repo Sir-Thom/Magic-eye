@@ -1,7 +1,7 @@
 # Magic Eye
 <p align="center">
   <br>
-  <a href=https://github.com/Sir-Thom <img src="https://img.shields.io/badge/Lead Dev-Thomas Toulouse-blue">/a>
+  <a href=https://github.com/Sir-Thom><img src="https://img.shields.io/badge/Lead Dev-Thomas Toulouse-blue"></a>
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
   <img src="https://img.shields.io/badge/Version-0.80-informational">
   <img src="https://img.shields.io/badge/tested with -Raspberry pi 3 64 bit-sucess">
