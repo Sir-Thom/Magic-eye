@@ -3,6 +3,7 @@
   <br>
   <img src="https://img.shields.io/badge/Lead Dev-Thomas-blue">
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
+  <img src="https://img.shields.io/badge/Version:0.80-Thomas-informational">
   <br>
   <img src=".asset/magiceyeGit.png" width="350" title="hover text">
 </p>
