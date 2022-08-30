@@ -1,6 +1,6 @@
 # Magic Eye
 <p align="center">
-  <img src=".asset/magiceyeGit.png" width="350" title="hover text">
+  <img src=".asset/magiceyeG.png" width="350" title="hover text">
 </p>
 <p>This small gui application let you stream video to a other computer with a webcam or the raspberry pi cam. </p>
 
