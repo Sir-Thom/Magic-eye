@@ -4,12 +4,13 @@
   <img src="https://img.shields.io/badge/Lead Dev-Thomas-blue">
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
   <img src="https://img.shields.io/badge/Version-0.80-informational">
+  <img src="https://img.shields.io/badge/tested with -Raspberry pi 3 64 bit-sucess">
   <br>
   <img src=".asset/magiceyeGit.png" width="350" title="hover text">
 </p>
 <br>
 <h3 align="center">
-<p>This small gui application let you stream video to a other computer with a webcam or the raspberry pi cam. </p>
+<p>This small gui application let you stream a live video to a other computer. </p>
 </h3>
 
 
