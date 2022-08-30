@@ -2,6 +2,7 @@
 """"
 this is the file were the option for the module gst are define 
 """
+from asyncore import write
 from logging import root
 import os
 import configparser
@@ -28,33 +29,11 @@ class Config():
         config['NETWORK_OPTION'] = {}
         config['NETWORK_OPTION']["port"]="8554"
         config['NETWORK_OPTION']['mount_point']='/tmp'
-        config['PATTERN_OPTION'] = {'smpte' : 'smpte', # all videotestsrc patterns choices
-                                                    'snow' : "snow",
-                                                    'black' : "black",
-                                                    'red' : "red",
-                                                    'green' : "green",
-                                                    'blue' : "blue",
-                                                    'checkers1' : "checkers-1",
-                                                    'checkers2' : "checkers-2 ",
-                                                    'checkers4' : "checkers-4",
-                                                    'checkers8' : "checkers-8",
-                                                    'circular' : "circular",
-                                                    'blink' : "blink",
-                                                    'smpte75' : "smpte75",
-                                                    'zoneplate': "zone-plate kx2=20 ky2=20 kt=1",
-                                                    'gamut' : "gamut",
-                                                    'chromazoneplate' : "chroma-zone-plate kx2=20 ky2=20 kt=1",
-                                                    'solidcolor' : "solid-color",
-                                                    'ball' : "ball",
-                                                    'smpte100' : "smpte100",
-                                                    'bar' : "bar",
-                                                    'pinwheel' : "pinwheel kx2=20 ky2=20 kt=1",
-                                                    'spokes':"spokes",
-                                                    'gradient': "gradient",
-                                                    'colors': "colors",
-                                                    'smpterp219':'smpte-rp-219',
-                                                    
+        config['PATTERN_OPTION'] = {
+                                                    'pattern':"smpte-rp-219"
                                                 }
+        config.set('PATTERN_OPTION', '#  there are many pattern for the idle state. for more information on this go to this website',"https://gstreamer.freedesktop.org/documentation/videotestsrc/index.html?gi-language=python#GstVideoTestSrcPattern")
+
         if not os.path.exists(full_config_file_path) or os.stat(full_config_file_path).st_size == 0:
             with open(full_config_file_path, 'w') as configfile:
                 config.write(configfile)
