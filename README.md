@@ -1,6 +1,4 @@
-
 <p align="center">
-# Magic Eye
   <br>
   <a href=https://github.com/Sir-Thom> <img src="https://img.shields.io/badge/Lead Dev-Thomas Toulouse-blue"></a>
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
