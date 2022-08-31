@@ -14,12 +14,31 @@
 <br>
 
 ## Table of Contents
-
+- [Dependancies](#dependancies)
 - [Installation](#installation)
 - [Uninstall](#uninstall)
 - [Update](#update)
 - [Patterns](#patterns)
 
+## Dependancies
+```
+python3
+gtk3
+gstreamer
+gst-plugins-bad
+gst-plugins-base
+gst-plugins-good
+gst-plugins-openh264
+gst-plugins-ugly
+gst-rtsp-server
+pyinstaller
+pip3
+```
+if pyinstaller is not in your distribution repository
+you can install it with this command
+```
+pip install -U pyinstaller
+```
 ## Installation
 ```
 git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
