@@ -1,5 +1,4 @@
 <p align="center">
-  <br>
   <img src=".asset/magiceyeGit.png" width="350" title="hover text">
   <br>
   <br>
