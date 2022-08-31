@@ -56,7 +56,7 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte75.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_zoneplate.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_gamut.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview_Magic_Eye_Client_chromazoneplate.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_chromazoneplate.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_solidcolor.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_ball.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte100.png" width="120" heigth=120>
