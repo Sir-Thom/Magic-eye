@@ -64,5 +64,5 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_pinwheel.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview_Magic_Eye_Client_spokes.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview_Magic_Eye_Client_gradient.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_color.png" width="10" heigth=120>
+| <img src="/.asset/pattern/Preview_Magic_Eye_Client_color.png" width="10" heigth=120>
 
