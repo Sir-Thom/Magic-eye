@@ -51,7 +51,7 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker1.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker2.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker4.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview_Magic_Eye_Client_checker8.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker8.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_circular.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte75.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_zoneplate.png" width="120" heigth=120>
@@ -62,7 +62,7 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte100.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_bar.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_pinwheel.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_spokes.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_gradient.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_colors.png" width="10" heigth=120>
+| <img src="/.asset/pattern/Preview_Magic_Eye_Client_spokes.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview_Magic_Eye_Client_gradient.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_color.png" width="10" heigth=120>
 
