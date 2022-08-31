@@ -34,8 +34,8 @@ gst-rtsp-server
 pyinstaller
 pip3
 ```
-<p>if pyinstaller is not in your distribution repository
-you can install it with this command<p>
+if pyinstaller is not in your distribution repository
+you can install it with this command
 ```
 pip install -U pyinstaller
 ```
