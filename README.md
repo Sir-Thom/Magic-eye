@@ -46,7 +46,7 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_snow.png" width="120" heigth=120>                |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_black.png" width="120" heigth=120>               |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_red.png" width="120" heigth=120>                 |                    |
-| <img src="/.asset/pattern/Magic_Eye_Client_blue.png" width="120" heigth=120>                        |                    |
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_blue.png" width="120" heigth=120>                        |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_green.png" width="120" heigth=120>               |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_checkers1.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_checkers2.png" width="120" heigth=120>
@@ -65,10 +65,4 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_spokes.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_gradient.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_colors.png" width="10" heigth=120>
-|                                                                                                     |                    |
-|                                                                                                     |                    |
-|                                                                                                     |                    |
-|                                                                                                     |                    |
-|                                                                                                     |                    |
-|                                                                                                     |                    |
-|                                                                                                     |                    |
+
