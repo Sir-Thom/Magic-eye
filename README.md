@@ -20,6 +20,7 @@
 - [Installation](#installation)
 - [Uninstall](#uninstall)
 - [Update](#update)
+- [Patterns](#patterns)
 
 ## Installation
 ```
@@ -39,9 +40,9 @@ make update
 ```
 ## Patterns
 
-| Patterns                                                                                            |  config arguments                     |
-|-----------------------------------------------------------------------------------------------------|---------------------------------------|
-| <img src="/.asset/pattern/Preview_Magic_Eye_Client.png" width="120" heigth=120>                     |<p align="center">smpte-rp-219</p>     |
+| Patterns                                                                                            |  config arguments                                          |
+|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------|
+| <img src="/.asset/pattern/Preview_Magic_Eye_Client.png" width="120" heigth=120>                     |<p align="center">smpte-rp-219</p>                          |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte.png" width="120" heigth=120>               |<p align="center">smpte</p>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_snow.png" width="120" heigth=120>                |<p align="center">snow</p>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_black.png" width="120" heigth=120>               |<p align="center">black</p>
