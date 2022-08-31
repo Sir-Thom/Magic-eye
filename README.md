@@ -48,10 +48,10 @@ make update
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_red.png" width="120" heigth=120>                 |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_blue.png" width="120" heigth=120>                        |                    |
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_green.png" width="120" heigth=120>               |                    |
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checkers1.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checkers2.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checkers4.png" width="120" heigth=120>
-| <img src="/.asset/pattern/Preview_Magic_Eye_Client_checkers8.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker1.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker2.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview-Magic_Eye_Client_checker4.png" width="120" heigth=120>
+| <img src="/.asset/pattern/Preview_Magic_Eye_Client_checker8.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_circular.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_smpte75.png" width="120" heigth=120>
 | <img src="/.asset/pattern/Preview-Magic_Eye_Client_zoneplate.png" width="120" heigth=120>
