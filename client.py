@@ -18,6 +18,7 @@ Gst.init(None)
 
 Gtk.init(None)
 class Player(Gtk.Window):
+
     global is_active
 
     def __init__(self):
@@ -32,6 +33,7 @@ class Player(Gtk.Window):
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
         os.environ['GDK_BACKEND'] = 'x11'
+        os.environ.get("GDK_BACKEND")
         Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
@@ -86,15 +88,14 @@ class Player(Gtk.Window):
 
 
     def no_cam_feed(self):
-
+        os.environ['GDK_BACKEND'] = 'x11'
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         patternChoice = config.get('PATTERN_OPTION', "pattern")
         screenWidth = str(Gtk.Window().get_screen().get_width())
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print(screenWidth, screenHeight)
-        print(config.options('PATTERN_OPTION')[1])
-        config.options('PATTERN_OPTION')
+      #
         is_active = False
         print(is_active)
         print(patternChoice)
@@ -220,7 +221,7 @@ def main():
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
     p.no_cam_feed()
-    p.connect("destroy",Gtk.main_quit())
+    p.connect("destroy",Gtk.quit())
 
 
 
