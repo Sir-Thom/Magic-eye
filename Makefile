@@ -8,7 +8,6 @@ PYINSTALLER_arm_64= pyinstaller --target-arch=arm64  --hidden-import settings,os
 
 
 install:
-
 	mkdir ~/.config/MagicEye
 	$(PYTHON) settings.py
 	$(PYINSTALLER_86_64)
@@ -29,4 +28,19 @@ update:
 	$(PYINSTALLER_86_64)
 	#$(PYINSTALLER_AArch_64)
 	cp 'dist/Magic Eye' /usr/local/bin
+
+installArm:
+	mkdir ~/.config/MagicEye
+	$(PYTHON) settings.py
+	$(PYINSTALLER_AArch_64)
+	mv  MagicEye-icon  ~/.local/share/icons
+	chmod +x 'Magic Eye.desktop'
+	mv 'Magic Eye.desktop' ~/.local/share/applications/
+	cp 'dist/Magic Eye' /usr/local/bin
+
+updateArm:
+	rm -rf /usr/local/bin/'Magic Eye'
+	$(PYINSTALLER_AArch_64)
+	cp 'dist/Magic Eye' /usr/local/bin
+
 # In this context, the *.project pattern means "anything that has the .project extension"
