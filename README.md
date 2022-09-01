@@ -4,7 +4,7 @@
   <br>
   <a href=https://github.com/Sir-Thom><img src="https://img.shields.io/badge/Lead Dev-Thomas Toulouse-blue"></a>
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
-  <img src="https://img.shields.io/badge/Version-0.80-informational">
+  <a href=https://github.com/Sir-Thom/Magic-Eye/releases/tag/v0.80><img src="https://img.shields.io/badge/Version-0.80-informational"></a>
   <img src="https://img.shields.io/badge/tested with -Raspberry pi 3 64 bit-sucess">
 </p>
 <br>
