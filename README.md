@@ -40,10 +40,17 @@ you can install it with this command
 pip install -U pyinstaller
 ```
 ## Installation
+for x86_64 architecture
 ```
 git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
 cd Magic-Eye
 make
+```
+for ARM_64 architecture
+```
+git clone https://github.com/Thomas-Toulouse/Magic-Eye.git
+cd Magic-Eye
+make installArm
 ```
 ## Uninstall
 ```
@@ -51,9 +58,15 @@ cd Magic-Eye
 make uninstall
 ```
 ## Update
+for x86_64 architecture
 ```
 cd Magic-Eye
 make update
+```
+for ARM_64 architecture
+```
+cd Magic-Eye
+make updateArm
 ```
 ## Patterns
 
