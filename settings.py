@@ -2,11 +2,11 @@
 """"
 this is the file were the option for the module gst are define 
 """
-from asyncore import write
+
 from logging import root
 import os
 import configparser
-from typing_extensions import Self
+
 
 class Config():
 
