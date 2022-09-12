@@ -1,4 +1,5 @@
 #!/bin/env python3
+from concurrent.futures import process
 import configparser
 import gi
 from os import devnull, path
@@ -6,7 +7,7 @@ import socket
 import os
 import sys
 from settings import Config
-
+import multiprocessing as mp
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
@@ -14,6 +15,7 @@ gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject, Gst, Gtk,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
+print(mp.cpu_count())
 Gst.init(None)
 
 Gtk.init(None)
@@ -226,5 +228,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    proc = Process(main())
+    proc.start()
+    proc.join()
+    #main()
 

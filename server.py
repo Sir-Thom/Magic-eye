@@ -4,7 +4,7 @@ import os
 from settings import Config
 import configparser
 import socket
-
+from Ui import ServerUI as ui
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('GstRtspServer', '1.0')
@@ -34,54 +34,13 @@ class ServerGui(Gtk.Window):
 
     def __init__(self):
 
-        builder=Gtk.Builder
+        ui.Ui(self)
         hostname = socket.gethostname()
         IPAddress = socket.gethostbyname(hostname)
         ip_ard=socket.getfqdn(IPAddress)
         print("Your Computer Name is:" + hostname)
         print("Your Computer IP Address is: " + IPAddress)
 
-        Gtk.Window.__init__(self, title="Magic Eye: Server")
-        print (Gtk.Window().get_screen().get_width())
-        self.set_default_size(800, 450)
-        self.set_border_width(10)
-
-
-        grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
-        grid.set_row_homogeneous(False)
-        grid.set_vexpand(True)
-        grid.set_hexpand(True)
-        self.add(grid)
-        
-        grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        entry.set_editable(False)
-        entry.set_placeholder_text("Server IP adress")
-        grid.attach(entry,5 ,9, 1, 1)   
-        frame = Gtk.Frame(label="Options")
-        CamModeV4l2src = Gtk.CheckButton(label="v4l2src")
-        CamModeV4l2src.connect("toggled", self.on_button_toggled, "v4l2src")
-        vbox.add(CamModeV4l2src)
-        frame.add(vbox)
-        print(CamModeV4l2src.get_active())
-        vbox.set_border_width(10)
-        connectButton = Gtk.Button(label="start stream")
-        connectButton.connect("clicked", self.Connect)
-
-
-        
-
-        grid.attach(connectButton, 5,6, 1, 1)
-        CamModeRpicam = Gtk.CheckButton(label="rpicamsrc")
-        CamModeRpicam.connect("toggled", self.on_button_toggled, "rpicamsrc")
-        grid.attach(frame,0,0,2,1)
-        vbox.add(CamModeRpicam)
-
-        CamModeV4l2src.set_tooltip_text("This option is for camera like a laptop webcam or any other external webcam and the raspberrypi (64 bits OS)")
-        CamModeRpicam.set_tooltip_text("(Leagacy option )This option is made for the camera module of the raspberrypi.For best result use it if your OS is 32 bits. ")
-        print(CamModeRpicam.get_active())
-        self.connect('destroy', self.quit)
         #.connect("destroy",Gtk.main_quit())
     def quit(self, window):
         #self.pipeline.set_state(Gst.State.NULL)

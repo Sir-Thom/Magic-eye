@@ -7,6 +7,7 @@ import configparser
 from settings import Config
 import client
 import server
+from Ui import MainUi as ui
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
@@ -28,50 +29,12 @@ class UI(Gtk.Window):
       
        # tPackage = threading.Thread(target=self.package_check)
         #tPackage.start()
-        Gdk.set_allowed_backends("wayland,x11")
+        #Gdk.set_allowed_backends("wayland,x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
         Config.create_config(self)
-        builder=Gtk.Builder()
-
-
-        Gtk.Window.__init__(self, title="headerBar")
-        self.set_default_size(800, 450)
-        grid = Gtk.Grid(row_spacing =10,column_spacing = 10,column_homogeneous = True)
-
-        self.set_border_width(10)
-        clientBtn = Gtk.Button(label="client")
-        clientBtn.connect("clicked",self.loadClient)
-
-        serverBtn = Gtk.Button(label="Server")
-        serverBtn.connect("clicked",self.loadServer)
-
-        headerBar = Gtk.HeaderBar()
-        headerBar.set_show_close_button(True)
-        headerBar.props.title = "Magic Eye"
-        self.set_titlebar(headerBar)
-
-        self.popover = Gtk.Popover()
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        aboutBtn=Gtk.Button(label="About",relief=2)
-        vbox.pack_start(aboutBtn, False, True, 10)
-        aboutBtn.connect("clicked",self.onLoadDialogAbout)
-        vbox.show_all()
-        self.popover.add(vbox)
-        self.popover.set_position(Gtk.PositionType.BOTTOM)
-
-        button = Gtk.MenuButton(popover=self.popover)
-        #look in user icon dir
-        icon = Gio.ThemedIcon(name="open-menu-symbolic")
-        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
-        button.add(image)
-        headerBar.pack_end(button)
-        
-        window= Gtk.Window
-        grid.add(clientBtn)
-        grid.attach(serverBtn, 1, 0, 1, 1)
-        self.add(grid)
+        ui.GenerateMainUi(self)
     def on_Quit(self):
         Gtk.main_quit
         sys.exit()
