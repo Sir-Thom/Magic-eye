@@ -3,6 +3,7 @@ import sys
 import gi
 import os
 import threading
+from AboutSection import  aboutSection
 import configparser
 from settings import Config
 import client
@@ -18,45 +19,26 @@ Gdk.set_allowed_backends("x11")
 
 Gst.init(None)
 
-
 class UI(Gtk.Window):
    
     Gdk.set_allowed_backends("x11")
-    def __init__(self):
-      
-       
+    def __init__(self):  
+        tPackage = threading.Thread(target=self.package_check)
+        tPackage.start()
         
-      
-       # tPackage = threading.Thread(target=self.package_check)
-        #tPackage.start()
-        #Gdk.set_allowed_backends("wayland,x11")
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
         Config.create_config(self)
+
         ui.GenerateMainUi(self)
+
     def on_Quit(self):
         Gtk.main_quit
         sys.exit()
+
     def onLoadDialogAbout(self,window):
-        filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-small.svg'
-        print(filename)
-        icon_app_path =filename
-        pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)  
-        aboutSection = Gtk.AboutDialog(transient_for=self)
-        aboutSection.set_default_size(350, 300)
-        aboutSection.set_authors(['Thomas Toulouse'])
-        aboutSection.set_license("GPL-3.0 license")
-        aboutSection.set_artists(["ei8htz"])
-        aboutSection.set_logo(pixbuf)
-        aboutSection.set_program_name("Magic Eye")
-        aboutSection.set_version("0.80 (prerelease)")
-        aboutSection.set_website("https://github.com/Thomas-Toulouse/Magic-Eye")
-        aboutSection.set_website_label("https://github.com/Thomas-Toulouse/Magic-Eye")
-        aboutSection.show_all()
-        aboutSection.run()
-        aboutSection.destroy() 
-        
+        aboutSection.About(self)
        
 
     def loadClient(self, window):
@@ -178,10 +160,8 @@ def main():
     icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     win.set_icon(pixbuf)
-    #destroy()
     win.connect("destroy",Gtk.main_quit)
     win.show_all()
     Gtk.main()
-
 
 main()
