@@ -4,7 +4,7 @@ import os
 from settings import Config
 import configparser
 import socket
-from Ui import ServerUI as ui
+from ui.Ui import ServerUI as ui
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('GstRtspServer', '1.0')

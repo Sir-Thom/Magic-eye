@@ -3,12 +3,12 @@ import sys
 import gi
 import os
 import threading
-from AboutSection import  aboutSection
+from ui.AboutSection import  aboutSection
 import configparser
 from settings import Config
-import client
-import server
-from Ui import MainUi as ui
+import client as client
+import server as server
+from ui.Ui import MainUi as ui
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
