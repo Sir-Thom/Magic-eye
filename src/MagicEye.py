@@ -30,9 +30,10 @@ class UI(Gtk.Window):
         config.read(Config.full_config_file_path)
         print(Config.full_config_file_path)
         Config.create_config(self)
-
+        
+        
         ui.GenerateMainUi(self)
-
+        
     def on_Quit(self):
         Gtk.main_quit
         sys.exit()
@@ -42,7 +43,6 @@ class UI(Gtk.Window):
        
 
     def loadClient(self, window):
-
         os.environ['GDK_BACKEND'] = 'x11'
         client.main()
         client.Player.__init__
@@ -51,6 +51,7 @@ class UI(Gtk.Window):
         os.environ['GDK_BACKEND'] = 'x11'
         server.main()
         server.ServerGui.__init__
+        
         
     def MessageBox(self,title=str,text=str,type=str):
         #where every pop-up / messagebox are defines
@@ -130,6 +131,7 @@ class UI(Gtk.Window):
                 print("completed")
 
             else:
+                #MessageBox.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
                 self.MessageBox("Missing Dependancy","Do you want to install the dependancy ?","Confirmation")
                 print("Please verify if all of thos package are install ")
 
