@@ -17,7 +17,7 @@ class aboutSection():
         aboutSection.set_artists(["ei8htz"])
         aboutSection.set_logo(pixbuf)
         aboutSection.set_program_name("Magic Eye")
-        aboutSection.set_version("0.80 (prerelease)")
+        aboutSection.set_version("0.8.1 (prerelease)")
         aboutSection.set_website("https://github.com/Thomas-Toulouse/Magic-Eye")
         aboutSection.set_website_label("https://github.com/Thomas-Toulouse/Magic-Eye")
         aboutSection.show_all()

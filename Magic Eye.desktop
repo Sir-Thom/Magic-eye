@@ -2,7 +2,7 @@
 Categories=Network;VideoConference
 Comment=A small gui application that let set and use rtsp stream form any computer
 Comment= A small gui application that let set and use rtsp stream form any computer
-Exec=/usr/local/bin/'Magic Eye'
+Exec=/usr/local/bin/'Magic Eye'/'Magic Eye'
 GenericName=Applications
 Icon=/home/thomas/.local/share/icons/MagicEye-icon/magiceye-06.svg
 MimeType=
