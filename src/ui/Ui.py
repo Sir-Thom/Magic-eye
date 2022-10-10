@@ -5,7 +5,7 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
-
+import socket
 class MainUi(Gtk.Window):
     def GenerateMainUi(self):
         Gdk.set_allowed_backends("wayland,x11")
@@ -50,7 +50,7 @@ class MainUi(Gtk.Window):
 
 
 class ClientUi(Gtk.Window):
-    def Ui(self):
+    def GenerateClientUi(self):
             Gtk.Window.__init__(self, title="Magic Eye: Client")
             screenWidth = Gtk.Window().get_screen().get_width()
             screenHeight = Gtk.Window().get_screen().get_height()

@@ -1,14 +1,15 @@
 #!/bin/env python3
 from concurrent.futures import process
 import configparser
-import gi
+from ui.Ui import ClientUi as ui
 from os import devnull, path
 import socket
 import os
 import sys
 from settings import Config
 import multiprocessing as mp
-#f#rom ui.UI import ClientUi  as ui
+#gtk and gstreamer dependancies
+import gi
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
@@ -28,60 +29,18 @@ class Player(Gtk.Window):
         
         os.system = "export GDK_BACKEND=x11"
         print(gi.version_info)
-        # basic window creation
+        
         builder = Gtk.Builder
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
 
+        ui.GenerateClientUi(self)
         portcfg = config.get('NETWORK_OPTION', "port")
         print(portcfg)
         os.environ['GDK_BACKEND'] = 'x11'
         os.environ.get("GDK_BACKEND")
-        Gtk.Window.__init__(self, title="Magic Eye: Client")
-        screenWidth = Gtk.Window().get_screen().get_width()
-        screenHeight = Gtk.Window().get_screen().get_height()
-        #self.connect('destroy', self.quit)
-        self.set_default_size(800, 550)
-        self.set_border_width(10)
         
-        # Create DrawingArea for video widget
-        self.drawingarea = Gtk.DrawingArea()
-        self.drawingarea.set_content_height = screenHeight
-        self.drawingarea.set_content_width = screenWidth
-      
-        # Create a grid for the DrawingArea and buttons
-        grid = Gtk.Grid(row_spacing=10, column_spacing=10, column_homogeneous=False)
-        self.add(grid)
-        grid.set_column_spacing(10)
-        grid.set_row_spacing(5)
-        grid.attach(self.drawingarea, 0, 1, 8, 1)
-        print(grid.get_child_at(1, 1))
-        self.drawingarea.set_hexpand(True)
-        self.drawingarea.set_vexpand(True)
-
-        # get device ip adress
-        hostname = socket.gethostname()
-        ipadr = socket.gethostbyname(hostname)
-
-        print(ipadr)
-
-        # Quit button
-        quit = Gtk.Button(label="disconnect stream  ")
-        quit.connect("clicked", self.exit_Stream)
-        grid.attach(quit, 0, 2, 2, 1)
-
-        # textbox
-        entry = Gtk.Entry()
-        grid.attach_next_to(entry, quit, Gtk.PositionType.RIGHT, 4, 1)
-        entry.set_placeholder_text("Server IP adress")
-        self.entry = entry
-
-        # link Ip button
-        link = Gtk.Button(label="Link IP")
-        link.connect("clicked", self.connexion_rtsp)
-       
-        # Create GStreamer pipeline
-        grid.attach_next_to(link, entry, Gtk.PositionType.RIGHT, 2, 1)
+        
 
     # for webcam
 
@@ -98,7 +57,7 @@ class Player(Gtk.Window):
         screenWidth = str(Gtk.Window().get_screen().get_width())
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print(screenWidth, screenHeight)
-      #
+        
         is_active = False
         print(is_active)
         print(patternChoice)
@@ -203,16 +162,14 @@ class Player(Gtk.Window):
         if str(err).startswith("gst-resource-error-quark"):
            
         # resource errors
-            if str(err).endswith("(7)"):
-
+            if str(err).endswith("(7)"):#no connection error
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera.", "error")
-            elif str(err).endswith("(9)"):
-
+            
+            elif str(err).endswith("(9)"): #pipeline error 
                 self.MessageBox("Error", f"{user}(Host) was unable to connect to the camera due to a error in the pipeline.", "error")
        
         # set full error message
-        else:
-           
+        else: 
             self.MessageBox("Error", str(msg.parse_error()), "error")
         print('on_error():', msg.parse_error())
         
