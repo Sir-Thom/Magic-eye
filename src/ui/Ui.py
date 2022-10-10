@@ -6,7 +6,8 @@ gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gst, GLib, GObject,Gtk,Gio,GdkPixbuf
 from gi.repository import Gdk, GstVideo
-import socket
+
+
 class MainUi(Gtk.Window):
     def GenerateMainUi(self):
         Gdk.set_allowed_backends("wayland,x11")
@@ -74,11 +75,6 @@ class ClientUi(Gtk.Window):
             self.drawingarea.set_hexpand(True)
             self.drawingarea.set_vexpand(True)
 
-            # get device ip adress
-            #hostname = socket.gethostname()
-            #ipadr = socket.gethostbyname(hostname)
-
-            #print(ipadr)
 
             # Quit button
             quit = Gtk.Button(label="disconnect stream  ")
@@ -98,6 +94,7 @@ class ClientUi(Gtk.Window):
         
             # Create GStreamer pipeline
             grid.attach_next_to(link, entry, Gtk.PositionType.RIGHT, 2, 1)
+
     def Get_Entry(self,text):
         text = entry.get_text() 
         return text
@@ -145,6 +142,7 @@ class ServerUI(Gtk.Window):
             CamModeRpicam.set_tooltip_text("(Leagacy option )This option is made for the camera module of the raspberrypi.For best result use it if your OS is 32 bits. ")
             print(CamModeRpicam.get_active())
             self.connect('destroy', self.quit)
+
     def Set_Entry(self,ip):
          entry.set_text(ip)
 
