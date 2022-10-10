@@ -23,8 +23,8 @@ class UI(Gtk.Window):
    
     Gdk.set_allowed_backends("x11")
     def __init__(self):  
-        tPackage = threading.Thread(target=self.package_check)
-        tPackage.start()
+        #tPackage = threading.Thread(target=self.package_check)
+        #tPackage.start()
         
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)

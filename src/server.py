@@ -14,11 +14,13 @@ from gi.repository import Gst, GLib, GObject, GstRtspServer,Gtk,GdkPixbuf
 from gi.repository import Gdk, GstVideo
 
 
+
+
 Gst.init(None)
 
 class ServerGui(Gtk.Window):
-    global entry
-    entry = Gtk.Entry()
+    #global entry
+    #entry = Gtk.Entry()
     Gdk.set_allowed_backends("wayland,x11")
     launchMode =""
     global state
@@ -36,14 +38,17 @@ class ServerGui(Gtk.Window):
 
         ui.Ui(self)
         hostname = socket.gethostname()
-        IPAddress = socket.gethostbyname(hostname)
-        ip_ard=socket.getfqdn(IPAddress)
+        
+        #get the server public ip
+        IPAddress = ipadr = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], 
+        [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) 
+        for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
+        
         print("Your Computer Name is:" + hostname)
         print("Your Computer IP Address is: " + IPAddress)
 
-        #.connect("destroy",Gtk.main_quit())
+        
     def quit(self, window):
-        #self.pipeline.set_state(Gst.State.NULL)
         print(Gtk.main_level())
         Gtk.main_quit()
         print(Gtk.main_level())
@@ -82,8 +87,11 @@ class ServerGui(Gtk.Window):
              print("state: ",state)
 
         hostname = socket.gethostname()
-        ipAddr =socket.gethostbyname(hostname)
-
+        #get the server public ip
+        ipAddr = ipadr = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], 
+        [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) 
+        for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]#ip.format(ip)#socket.gethostbyname(hostname)
+        
 
         server = GstRtspServer.RTSPServer.new()
         server.set_service(port)
@@ -100,8 +108,9 @@ class ServerGui(Gtk.Window):
         else:
              print("launchMethod: ",self.launchMode)
              print ("stream ready at rtsp://"+ ipAddr +":" + port + mount_point)
-             entry.set_text(ipAddr)
+             ui.Set_Entry(self,str(ipAddr))
              server.attach()
+             
 
 
 
@@ -116,9 +125,6 @@ def main():
     app.show_all()
     Gtk.main()
     print(Gtk.main_level())
-    #app.connect("destroy",Gtk.main_quit())
     app.__init__()
 if __name__=="__main__":
-    
-    
     main()

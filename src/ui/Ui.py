@@ -1,3 +1,4 @@
+#!/bin/env python3
 import gi
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
@@ -74,10 +75,10 @@ class ClientUi(Gtk.Window):
             self.drawingarea.set_vexpand(True)
 
             # get device ip adress
-            hostname = socket.gethostname()
-            ipadr = socket.gethostbyname(hostname)
+            #hostname = socket.gethostname()
+            #ipadr = socket.gethostbyname(hostname)
 
-            print(ipadr)
+            #print(ipadr)
 
             # Quit button
             quit = Gtk.Button(label="disconnect stream  ")
@@ -85,6 +86,7 @@ class ClientUi(Gtk.Window):
             grid.attach(quit, 0, 2, 2, 1)
 
             # textbox
+            global entry
             entry = Gtk.Entry()
             grid.attach_next_to(entry, quit, Gtk.PositionType.RIGHT, 4, 1)
             entry.set_placeholder_text("Server IP adress")
@@ -96,10 +98,14 @@ class ClientUi(Gtk.Window):
         
             # Create GStreamer pipeline
             grid.attach_next_to(link, entry, Gtk.PositionType.RIGHT, 2, 1)
+    def Get_Entry(self,text):
+        text = entry.get_text() 
+        return text
 
 
 class ServerUI(Gtk.Window):
     def Ui(self):
+            global entry  
             entry = Gtk.Entry()
             Gtk.Window.__init__(self, title="Magic Eye: Server")
             print (Gtk.Window().get_screen().get_width())
@@ -139,5 +145,8 @@ class ServerUI(Gtk.Window):
             CamModeRpicam.set_tooltip_text("(Leagacy option )This option is made for the camera module of the raspberrypi.For best result use it if your OS is 32 bits. ")
             print(CamModeRpicam.get_active())
             self.connect('destroy', self.quit)
+    def Set_Entry(self,ip):
+         entry.set_text(ip)
+
 
 

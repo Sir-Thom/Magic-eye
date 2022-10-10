@@ -86,7 +86,7 @@ class Player(Gtk.Window):
         print(is_active)
         self.pipeline.set_state(Gst.State.NULL)
         self.show_all()
-        ipard = self.entry.get_text()
+        ipard = ui.Get_Entry(self,ipard)
         port = config.get('NETWORK_OPTION', "port")
         mount_point = config.get('NETWORK_OPTION', "mount_point")
         Config.create_config(self)
@@ -105,7 +105,6 @@ class Player(Gtk.Window):
         bus.enable_sync_message_emission()
         bus.connect('sync-message::element', self.on_sync_message)
         self.pipeline.set_state(Gst.State.PLAYING)
-        #Gtk.main_quit()
         print("Is connected ")
         print(Gtk.main_level())
 
