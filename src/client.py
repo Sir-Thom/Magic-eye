@@ -8,13 +8,14 @@ import os
 import sys
 from settings import Config
 import multiprocessing as mp
+#f#rom ui.UI import ClientUi  as ui
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GObject, Gst, Gtk,GdkPixbuf
-from gi.repository import Gdk, GstVideo
-
+from gi.repository import  GstVideo
+from gi.repository import Gdk as gdk
 print(mp.cpu_count())
 Gst.init(None)
 
@@ -26,7 +27,7 @@ class Player(Gtk.Window):
     def __init__(self):
         
         os.system = "export GDK_BACKEND=x11"
-        
+        print(gi.version_info)
         # basic window creation
         builder = Gtk.Builder
         config = configparser.ConfigParser()
@@ -39,7 +40,7 @@ class Player(Gtk.Window):
         Gtk.Window.__init__(self, title="Magic Eye: Client")
         screenWidth = Gtk.Window().get_screen().get_width()
         screenHeight = Gtk.Window().get_screen().get_height()
-        self.connect('destroy', self.quit)
+        #self.connect('destroy', self.quit)
         self.set_default_size(800, 550)
         self.set_border_width(10)
         
@@ -223,7 +224,7 @@ def main():
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
     p.no_cam_feed()
-    p.connect("destroy",Gtk.quit())
+    p.connect("destroy",Gtk.main_quit)
 
 
 
@@ -231,5 +232,5 @@ if __name__ == "__main__":
     proc = Process(main())
     proc.start()
     proc.join()
-    #main()
+    main()
 

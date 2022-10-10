@@ -11,9 +11,9 @@ install:
 	mkdir ~/.config/MagicEye
 	$(PYTHON) src/settings.py
 	$(PYINSTALLER_86_64)
-	cp  MagicEye-icon  ~/.local/share/icons
+	cp -r MagicEye-icon  ~/.local/share/icons
 	chmod +x 'Magic Eye.desktop'
-	cp 'Magic Eye.desktop' ~/.local/share/applications/
+	cp -r 'Magic Eye.desktop' ~/.local/share/applications/
 	cp -r 'dist/Magic Eye' /usr/local/bin
 
 uninstall:
@@ -32,10 +32,10 @@ installArm:
 	mkdir ~/.config/MagicEye
 	$(PYTHON) src/settings.py
 	$(PYINSTALLER_AArch_64)
-	cp  MagicEye-icon  ~/.local/share/icons
+	cp -r MagicEye-icon  ~/.local/share/icons
 	chmod +x 'Magic Eye.desktop'
-	cp 'Magic Eye.desktop' ~/.local/share/applications/
-	cp 'dist/Magic Eye' /usr/local/bin
+	cp -r 'Magic Eye.desktop' ~/.local/share/applications/
+	cp -r 'dist/Magic Eye' /usr/local/bin
 
 updateArm:
 	rm -rf /usr/local/bin/'Magic Eye'
