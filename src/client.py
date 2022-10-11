@@ -28,19 +28,14 @@ class Player(Gtk.Window):
     def __init__(self):
         
         os.system = "export GDK_BACKEND=x11"
-        print(gi.version_info)
         
         builder = Gtk.Builder
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
 
         ui.GenerateClientUi(self)
-        portcfg = config.get('NETWORK_OPTION', "port")
-        print(portcfg)
         os.environ['GDK_BACKEND'] = 'x11'
         os.environ.get("GDK_BACKEND")
-        
-        
 
     # for webcam
 
@@ -63,7 +58,6 @@ class Player(Gtk.Window):
         print(patternChoice)
         self.show_all()
         self.xid = self.drawingarea.get_property('window').get_xid()
-        self.fps = 60
         self.pipeline = Gst.parse_launch(
             f"videotestsrc   pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight}  ! deinterlace ! xvimagesink")
 
@@ -92,7 +86,7 @@ class Player(Gtk.Window):
         Config.create_config(self)
 
         self.xid = self.drawingarea.get_property('window').get_xid()
-        print(ipard)
+        print("ip: "+ipard)
 
         self.pipeline = Gst.parse_launch(
             f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point}  ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! autovideosink sync=false ")
@@ -110,7 +104,7 @@ class Player(Gtk.Window):
 
         # call the execution function
         self.run()
-        print(Gtk.main_level())
+
 
     def run(self):
         os.environ['GDK_BACKEND'] = 'x11'
@@ -175,7 +169,6 @@ class Player(Gtk.Window):
 def main():
     p = Player()
     filename = '/home/'+str(os.getlogin())+'/.local/share/icons/MagicEye-icon/magiceye-06.svg'
-    print(filename)
     icon_app_path =filename
     pixbuf = GdkPixbuf.Pixbuf.new_from_file(icon_app_path)
     p.set_icon(pixbuf)
