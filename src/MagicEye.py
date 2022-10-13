@@ -9,6 +9,7 @@ from settings import Config
 import client as client
 import server as server
 from ui.Ui import MainUi as ui
+from ui.Ui import OptionUI as uiOption
 gi.require_version('GstVideo', '1.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gdk', '3.0')
@@ -40,7 +41,11 @@ class UI(Gtk.Window):
 
     def onLoadDialogAbout(self,window):
         aboutSection.About(self)
-       
+
+    def onLoadOption(self, widget):
+    
+        uiOption(self)
+        #OptionUI.GenerateOptionUi(self);
 
     def loadClient(self, window):
         os.environ['GDK_BACKEND'] = 'x11'

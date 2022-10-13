@@ -35,7 +35,7 @@ pyinstaller
 pip3
 ```
 if pyinstaller is not in your distribution repository
-you can install it with this command
+you can install it with this command  **note: execute them whit sudo**
 ```
 pip install -U pyinstaller
 ```

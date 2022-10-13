@@ -32,13 +32,17 @@ class MainUi(Gtk.Window):
         self.popover = Gtk.Popover()
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         aboutBtn=Gtk.Button(label="About",relief=2)
+        optionBtn=Gtk.Button(label="Option",relief=2)
         vbox.pack_start(aboutBtn, False, True, 10)
+        vbox.pack_end(optionBtn,False, True, 10)
+        optionBtn.connect("clicked",self.onLoadOption)
         aboutBtn.connect("clicked",self.onLoadDialogAbout)
         vbox.show_all()
         self.popover.add(vbox)
         self.popover.set_position(Gtk.PositionType.BOTTOM)
 
         button = Gtk.MenuButton(popover=self.popover)
+        
         #look in user icon dir
         icon = Gio.ThemedIcon(name="open-menu-symbolic")
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
@@ -147,4 +151,14 @@ class ServerUI(Gtk.Window):
          entry.set_text(ip)
 
 
+class OptionUI(Gtk.Dialog):
+        def __init__(self, parent):
+                super().__init__(title="Magic Eye: Option", transient_for=parent, flags=0)
+               
+                self.set_default_size(800, 450)
 
+                label = Gtk.Label(label="In the future this ui will change every options in the config file.")
+
+                box = self.get_content_area()
+                box.add(label)
+                self.show_all()
