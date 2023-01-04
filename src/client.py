@@ -10,6 +10,7 @@ from settings import Config
 import multiprocessing as mp
 #gtk and gstreamer dependancies
 import gi
+from ui.Ui import GstWidget
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
@@ -20,22 +21,21 @@ from gi.repository import Gdk as gdk
 print(mp.cpu_count())
 Gst.init(None)
 
-Gtk.init(None)
+
 class Player(Gtk.Window):
 
     global is_active
 
     def __init__(self):
         
-        os.system = "export GDK_BACKEND=x11"
+        
         
         builder = Gtk.Builder
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
 
         ui.GenerateClientUi(self)
-        os.environ['GDK_BACKEND'] = 'x11'
-        os.environ.get("GDK_BACKEND")
+       
 
     # for webcam
 
@@ -45,7 +45,7 @@ class Player(Gtk.Window):
 
 
     def no_cam_feed(self):
-        os.environ['GDK_BACKEND'] = 'x11'
+        
         config = configparser.ConfigParser()
         config.read(Config.full_config_file_path)
         patternChoice = config.get('PATTERN_OPTION', "pattern")
@@ -53,13 +53,20 @@ class Player(Gtk.Window):
         screenHeight = str(Gtk.Window().get_screen().get_height())
         print(screenWidth, screenHeight)
         
+        #window.add()
         is_active = False
         print(is_active)
         print(patternChoice)
         self.show_all()
-        self.xid = self.drawingarea.get_property('window').get_xid()
-        self.pipeline = Gst.parse_launch(
-            f"videotestsrc   pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight}  ! deinterlace ! xvimagesink")
+        #self.xid = self.drawingarea.get_property('window').get_xid()
+       # window = self.drawingarea.get_property('window').get_effective_parent()
+       # surface_id = gdk.gdk_wayland_window_get_wl_surface_id(window)
+        #self.wid = self.drawingarea.get_property('window').get_wl_surface_id()
+        #window = self.drawingarea.get_property('window').get_effective_parent()
+        #self.id = window.get_id()
+        
+        #self.pipeline = Gst.parse_launch(
+      #      f"videotestsrc   pattern={patternChoice} ! tee name=tee ! queue name=videoqueue !  video/x-raw,width={screenWidth},height={screenHeight}  ! deinterlace ! waylandsink")
 
         # Create bus to get events from GStreamer pipeline
         bus = self.pipeline.get_bus()
@@ -84,13 +91,14 @@ class Player(Gtk.Window):
         port = config.get('NETWORK_OPTION', "port")
         mount_point = config.get('NETWORK_OPTION', "mount_point")
         Config.create_config(self)
-
+        #x11
         self.xid = self.drawingarea.get_property('window').get_xid()
+        #wayland
+       # self.wid = self.drawingarea.get_property('window').get_id()
+
         print("ip: "+ipard)
-
         self.pipeline = Gst.parse_launch(
-            f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point}  ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! autovideosink sync=false ")
-
+     f"rtspsrc location=rtsp://{ipard}:{port}/{mount_point}  ! rtpjitterbuffer post-drop-messages=True do-retransmission=True  !  queue ! decodebin  ! videoconvert ! waylandsink sync=false")
         # error message
         bus = self.pipeline.get_bus()
         bus.add_signal_watch()
@@ -107,7 +115,7 @@ class Player(Gtk.Window):
 
 
     def run(self):
-        os.environ['GDK_BACKEND'] = 'x11'
+       
         self.show_all()
         Gtk.main()
 
