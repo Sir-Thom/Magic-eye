@@ -13,6 +13,7 @@
 </h3>
 <br>
 
+# Note this is a rework to make it into a tauri web app.
 ## Table of Contents
 - [Dependancies](#dependancies)
 - [Installation](#installation)
