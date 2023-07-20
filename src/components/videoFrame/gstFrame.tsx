@@ -59,17 +59,14 @@ export default function VidPlayer({ videoUrl }) {
       >*/}
 
       <div className="flex  h-full w-full  justify-center items-center">
-        <ReactHlsPlayer
-          src={videoUrl}
-          autoPlay={true}
-          controls={true}
+        <ReactPlayer
+          playing={true}
+          loop={true}
+          className="flex  mx-16  mt-16  "
+          url={videoUrl}
           width={width}
-          height="auto"
-          hlsConfig={{
-            maxLoadingDelay: 4,
-            minAutoBitrate: 0,
-            lowLatencyMode: true,
-          }}
+          height={height - 150}
+          controls={true}
         />
       </div>
       <div className="w-full flex justify-center items-center pb-1 mt-6">

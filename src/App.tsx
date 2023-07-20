@@ -1,7 +1,7 @@
 import "./App.css";
 import VidPlayer from "./components/videoFrame/gstFrame";
 import { Titlebar } from "./components/titlebar/titlebar";
-import { motion } from "framer-motion";
+
 //https://www.youtube.com/live/jfKfPfyJRdk?feature=share
 function App() {
   const slideToScreen = {
@@ -35,7 +35,7 @@ function App() {
         exit={"exit"}
       ></motion.div>*/}
 
-      {<VidPlayer videoUrl={"http://172.17.0.2:8000/stream/stream.m3u8"} />}
+      {<VidPlayer videoUrl={"http://127.0.0.1:8080/stream/stream.m3u8"} />}
     </>
   );
 }

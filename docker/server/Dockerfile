@@ -1,13 +1,9 @@
-FROM tiangolo/nginx-rtmp
-
-RUN apt-get install -y curl 
-
+# Use the official NGINX image as the base image
+FROM  tiangolo/nginx-rtmp
 # Remove default nginx configurations
 RUN rm /etc/nginx/nginx.conf
-
-# Copy your custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /www/
+RUN  mkdir -p  www/stream
 
 
-RUN  mkdir www/stream
+
