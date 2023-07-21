@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Titlebar } from "../components/titlebar/titlebar";
-import { Link } from "react-router-dom";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import customData from "./settings.json";
-import "../styles.css";
-import { configDir } from "@tauri-apps/api/path";
-import Dropdown from "../components/dropdowns/dropdown";
+import React, { useState, useEffect } from 'react';
+import { Titlebar } from '../components/titlebar/titlebar';
+import { Link } from 'react-router-dom';
+import { IconArrowLeft } from '@tabler/icons-react';
+import { motion } from 'framer-motion';
+import customData from './settings.json';
+import '../styles.css';
+import { configDir } from '@tauri-apps/api/path';
+import Dropdown from '../components/dropdowns/dropdown';
 
 async function getConfigDirPath() {
-  const configDirPath = (await configDir()) + "Test/settings.json";
+  const configDirPath = (await configDir()) + 'Test/settings.json';
   console.log(configDirPath);
 }
 
 export default function Settings() {
-  const [currentTheme, setCurrentTheme] = useState("Dark");
+  const [currentTheme, setCurrentTheme] = useState('Dark');
   const [themes, setThemes] = useState([]);
 
   useEffect(() => {
@@ -31,22 +31,22 @@ export default function Settings() {
   }
   const slideToScreen = {
     hidden: {
-      x: "100vw",
+      x: '100vw'
     },
     visible: {
-      x: "0",
+      x: '0',
       opacity: 1,
 
       transition: {
         duration: 0.35,
-        type: "tween",
-        anticipate: [0.17, 0.67, 0.83, 0.97],
-      },
+        type: 'tween',
+        anticipate: [0.17, 0.67, 0.83, 0.97]
+      }
     },
     exit: {
-      x: "-100vw",
-      opacity: 0,
-    },
+      x: '-100vw',
+      opacity: 0
+    }
   };
 
   return (
@@ -56,7 +56,7 @@ export default function Settings() {
         variants={slideToScreen}
         initial="hidden"
         animate="visible"
-        exit={"exit"}
+        exit={'exit'}
       >
         <div className=" h-screen">
           <div className="flex    justify-start items-center">
@@ -64,7 +64,7 @@ export default function Settings() {
               className="flex  justify-start items-center w-20   mt-12 "
               to="/"
             >
-              {" "}
+              {' '}
               <IconArrowLeft size={30} />
             </Link>
           </div>
@@ -118,13 +118,13 @@ export default function Settings() {
 
         <div className="flex absolute bottom-0 right-0 mb-4 justify-end items-center">
           <button
-            type={"button"}
+            type={'button'}
             className="flex justify-end items-center  mr-4 text-white font-bold py-2 px-4 rounded"
           >
             Cancel
           </button>
           <button
-            type={"button"}
+            type={'button'}
             className="flex justify-end items-center   mr-4 text-white font-bold py-2 px-4 rounded"
             onClick={getConfigDirPath}
           >

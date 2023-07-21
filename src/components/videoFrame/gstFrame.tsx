@@ -1,78 +1,79 @@
-import { useEffect, useState, useCallback } from "react";
-import ReactPlayer from "react-player";
-import ReactHlsPlayer from "react-hls-player";
-import useWindowDimensions from "../../utils/WindowSize";
-import { invoke } from "@tauri-apps/api";
-//border-[#8e44ad]
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import useWindowDimensions from '../../utils/WindowSize';
+import Toast from '../toast/toast';
+//import { invoke } from '@tauri-apps/api';
 
-const videoUrls = [
-  "http://192.168.0.161:8000/stream",
-  "http://legion:8080/stream/stream.m3u8",
-
-  "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  "./src/assets/test.mp4",
-];
-
-export default function VidPlayer({ videoUrl }) {
+export default function VidPlayer() {
   const { height, width } = useWindowDimensions();
-  const [ip, setip] = useState("");
-  const i = () => {
-    console.log("ip: " + ip);
-    invoke("get_ip", { ip: ip });
+  const [url, seturl] = useState('');
+  const [streamUrl, setStreamUrl] = useState(null || '');
+  const [isConnected, setIsConnected] = useState(false);
+  const [error, setError] = useState('');
+
+  async function get_url() {
+    try {
+      await fetch(url)
+        .then((res) => {
+          if (res.status === 200) {
+            setIsConnected(true);
+            return res;
+          }
+        })
+        .catch(() => {
+          setIsConnected(false);
+
+          throw new Error(
+            'The provided URL is not valid or the stream is down'
+          );
+        });
+
+      setStreamUrl(url);
+      setIsConnected(true);
+      setError('');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setIsConnected(false);
+      setError('An error occurred: ' + String(err.message));
+      handleDisconnect();
+      handlePlayerError(err.message);
+    }
+  }
+
+  const handlePlayerError = (error: unknown) => {
+    setIsConnected(false);
+    setError('An error occurred: ' + error);
   };
 
-  const slideToScreen = {
-    hidden: {
-      x: "100vw",
-    },
-    visible: {
-      x: "0",
-      opacity: 1,
+  function HandleUrlChanged(e: React.ChangeEvent<HTMLInputElement>) {
+    seturl(e.target.value);
+  }
 
-      transition: {
-        duration: 0.35,
-        type: "tween",
-        anticipate: [0.17, 0.67, 0.83, 0.97],
-      },
-    },
-    exit: {
-      x: "-100vw",
-      opacity: 0,
-    },
-  };
+  function handleDisconnect(): void {
+    setIsConnected(false);
+    setStreamUrl(null);
+    setError(null);
+  }
+
   return (
     <>
-      {/*  <ReactPlayer
-          playing={true}
-          loop={true}
-          className="flex  mx-16  mt-16  "
-          url={videoUrl}
-          width={width}
-          height={height - 150}
-          controls={true}
-        />     <motion.div
-        variants={slideToScreen}
-        initial="hidden"
-        animate="visible"
-        exit={"exit"}
-      >*/}
-
-      <div className="flex  h-full w-full  justify-center items-center">
+      <div className="flex h-full w-full justify-center items-center">
         <ReactPlayer
-          playing={true}
+          playing={isConnected}
           loop={true}
-          className="flex  mx-16  mt-16  "
-          url={videoUrl}
+          className="flex mx-16 mt-16"
+          url={streamUrl} // Use the updated streamUrl here
           width={width}
           height={height - 150}
-          controls={true}
+          controls={false}
+          onError={handlePlayerError}
         />
       </div>
       <div className="w-full flex justify-center items-center pb-1 mt-6">
         <button
-          type={"button"}
-          className=" dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-16  font-bold py-2 px-4 rounded"
+          onClick={handleDisconnect}
+          type={'button'}
+          className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-16 font-bold py-2 px-4 rounded"
         >
           Disconnect
         </button>
@@ -80,19 +81,20 @@ export default function VidPlayer({ videoUrl }) {
           <input
             className="w-full border-2 border-gray-400 rounded items-center mt-1 py-2 mb-2 px-4"
             type="text"
-            placeholder="IP address"
-            onChange={(e) => setip(e.target.value)}
+            placeholder="URL "
+            onChange={HandleUrlChanged}
           />
         </div>
         <button
-          onClick={i}
-          type={"button"}
-          className=" bg-accent-color1-700 hover:bg-accent-color1-800 mr-16   font-bold py-2 px-4 rounded"
+          onClick={get_url}
+          type={'button'}
+          className="bg-accent-color1-700 hover:bg-accent-color1-800 mr-16 font-bold py-2 px-4 rounded"
         >
-          Connect
+          Connect to Stream
         </button>
       </div>
-      {/*</motion.div>*/}
+
+      {error && <Toast message={error} />}
     </>
   );
 }

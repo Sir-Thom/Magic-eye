@@ -1,37 +1,37 @@
-import { appWindow } from "@tauri-apps/api/window";
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import { appWindow } from '@tauri-apps/api/window';
+import { useEffect, useState, useCallback } from 'react';
 import {
   IconX,
   IconMenu2,
   IconSettings,
   IconInfoCircle,
-  IconServer,
-} from "@tabler/icons-react";
+  IconServer
+} from '@tabler/icons-react';
 
-import iconApp from "../../../src-tauri/icons/32x32.png";
-import useInterval from "use-interval";
-import iconApp2 from "../../../src-tauri/icons/128x128.png";
-import { AiFillGithub } from "react-icons/ai";
-import Modal from "../modals/modalAbout";
+import iconApp from '../../../src-tauri/icons/32x32.png';
+import useInterval from 'use-interval';
+import iconApp2 from '../../../src-tauri/icons/128x128.png';
+import { AiFillGithub } from 'react-icons/ai';
+import Modal from '../modals/modalAbout';
 import {
   VscChromeRestore,
   VscChromeMaximize,
   VscChromeMinimize,
-  VscChromeClose,
-} from "react-icons/vsc";
-import { Link, useLocation } from "react-router-dom";
-import { getVersion } from "@tauri-apps/api/app";
-import { motion } from "framer-motion";
-import { invoke } from "@tauri-apps/api";
+  VscChromeClose
+} from 'react-icons/vsc';
+import { Link, useLocation } from 'react-router-dom';
+import { getVersion } from '@tauri-apps/api/app';
+import { motion } from 'framer-motion';
+import { invoke } from '@tauri-apps/api';
 
 export function Titlebar() {
-  const [version, setVersion] = useState("");
+  const [version, setVersion] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const [currentLocation, setCurrentLocation] = useState(location.pathname);
+  const [, setCurrentLocation] = useState(location.pathname);
   const [maximized, setMaximized] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
-  const [windowTitle, setWindowTitle] = useState("Magic Eye");
+  const [windowTitle] = useState('Magic Eye');
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ export function Titlebar() {
 
   const ChangeMaximizedIcon = useCallback(() => {
     setMaximized(!maximized);
-    console.log(fullscreen);
+
     if (maximized == true) {
       appWindow.toggleMaximize();
     } else {
@@ -74,14 +74,10 @@ export function Titlebar() {
   }, [maximized]);
 
   const handleMenuClick = useCallback(() => {
-    console.log("Menu clicked");
-
-    console.log(menuOpen);
-
     setMenuOpen(!menuOpen);
   }, [menuOpen]);
   const openBrowser = () => {
-    invoke("open_browser", { url: "https://github.com/Sir-Thom/Magic-eye" });
+    invoke('open_browser', { url: 'https://github.com/Sir-Thom/Magic-eye' });
   };
   return (
     !fullscreen && (
@@ -132,8 +128,8 @@ export function Titlebar() {
           >
             {/* window icons */}
             <button
-              type={"button"}
-              title={"Menu"}
+              type={'button'}
+              title={'Menu'}
               className="inline-flex items-center dark:text-text-dark text-text-light justify-center w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
               onClick={handleMenuClick}
             >
@@ -148,7 +144,7 @@ export function Titlebar() {
                 transition={{ duration: 0.2 }}
               >
                 <a
-                  title={"About"}
+                  title={'About'}
                   href="#"
                   onClick={handleOpen}
                   className="block justify-start item-center rounded-lg  px-4 py-2  dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
@@ -161,7 +157,7 @@ export function Titlebar() {
                 </a>
 
                 <a
-                  title={"Start Server"}
+                  title={'Start Server'}
                   href="#"
                   className="block rounded-lg  px-3 py-2  dark:text-text-dark text-text-light text-md  hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                 >
@@ -172,8 +168,8 @@ export function Titlebar() {
                   Start Server
                 </a>
                 <Link
-                  to={"/settings"}
-                  title={"Setting"}
+                  to={'/settings'}
+                  title={'Setting'}
                   className="block rounded-lg  px-4 py-2 text-md  dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                 >
                   <IconSettings
@@ -193,8 +189,8 @@ export function Titlebar() {
               ></motion.div>
             )}
             <button
-              type={"button"}
-              title={"Minimize"}
+              type={'button'}
+              title={'Minimize'}
               className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600 "
               onClick={() => appWindow.minimize()}
             >
@@ -203,8 +199,8 @@ export function Titlebar() {
             <>
               {maximized ? (
                 <button
-                  type={"button"}
-                  title={"Restore Down"}
+                  type={'button'}
+                  title={'Restore Down'}
                   className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
                   onClick={() => ChangeMaximizedIcon()}
                 >
@@ -212,8 +208,8 @@ export function Titlebar() {
                 </button>
               ) : (
                 <button
-                  type={"button"}
-                  title={"Maximize"}
+                  type={'button'}
+                  title={'Maximize'}
                   className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600 "
                   onClick={() => ChangeMaximizedIcon()}
                 >
@@ -223,8 +219,8 @@ export function Titlebar() {
             </>
 
             <button
-              type={"button"}
-              title={"Close"}
+              type={'button'}
+              title={'Close'}
               className="flex items-center justify-center w-8 h-8 right-4  left-5 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
               onClick={() => appWindow.close()}
             >

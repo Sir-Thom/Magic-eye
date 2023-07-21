@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 function routes() {
   const location = useLocation();
