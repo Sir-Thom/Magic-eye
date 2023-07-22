@@ -76,8 +76,10 @@ export function Titlebar() {
   const handleMenuClick = useCallback(() => {
     setMenuOpen(!menuOpen);
   }, [menuOpen]);
-  const openBrowser = () => {
-    invoke('open_browser', { url: 'https://github.com/Sir-Thom/Magic-eye' });
+  const openBrowser = async () => {
+    await invoke('open_browser', {
+      url: 'https://github.com/Sir-Thom/Magic-eye'
+    });
   };
   return (
     !fullscreen && (
