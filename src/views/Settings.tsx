@@ -68,7 +68,6 @@ export default function Settings() {
       theme: event.target.value
     }));
 
-    console.log(tmpConf);
     setConfig(tmpConf);
     console.log(config);
   }
