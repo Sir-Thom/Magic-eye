@@ -16,7 +16,12 @@ edition = "2021"
 tauri-build = { version = "^1.4", features = [] }
 
 [dependencies]
-tauri = { version = "^1.4.1", features = [ "window-all", "shell-open", "protocol-all", "dialog-all", "path-all",
+tauri = { version = "^1.4.1", features = [
+    "window-all",
+    "shell-open",
+    "protocol-all",
+    "dialog-all",
+    "path-all",
     "http-all",
 ] }
 serde = { version = "^1.0", features = ["derive"] }
@@ -28,7 +33,7 @@ futures = "0.3.28"
 #gstreamer = "0.20.3"
 #gstreamer-app = "0.20.0"
 #gstreamer-player = "^0.20.0"
-webbrowser = "0.8.10"
+open = "5.0.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

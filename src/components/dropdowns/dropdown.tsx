@@ -7,6 +7,7 @@ const Dropdown = ({ options, value, onChange }) => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <div className="relative inline-block">
       <select
@@ -30,7 +31,11 @@ const Dropdown = ({ options, value, onChange }) => {
               | undefined,
             index: React.Key | null | undefined
           ) => (
-            <option onClick={toggleDropdown} key={index} value={option.value}>
+            <option
+              onClick={toggleDropdown}
+              key={index}
+              value={option.valueOf().toString()}
+            >
               {option}
             </option>
           )

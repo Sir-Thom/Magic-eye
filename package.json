@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "lint": "eslint . --ext .ts",
-    "dev": "prettier --config .prettierrc 'src/**/*.ts' --write && eslint . --ext .ts && vite --host",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.tsx' --write",
+    "lint": "eslint . --ext .tsx",
+    "dev": "prettier --config .prettierrc 'src/**/*.tsx' --write  && eslint . --ext .tsx  && vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri"

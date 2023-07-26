@@ -1,8 +1,8 @@
-import './modal.css';
+import "./modal.css";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import { IconX } from '@tabler/icons-react';
+import { IconX } from "@tabler/icons-react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,28 +13,28 @@ interface ModalProps {
 function Modal({ isOpen, onClose, children }: ModalProps) {
   const slideToScreen = {
     hidden: {
-      y: '100vh',
+      y: "100vh",
       opacity: 0
     },
     visible: {
-      y: '0',
+      y: "0",
       opacity: 1,
 
       transition: {
         duration: 0.1,
-        type: 'spring',
+        type: "spring",
         damping: 25,
         stiffness: 500
       }
     },
     exit: {
-      y: '-100vh',
+      y: "-100vh",
       opacity: 0
     }
   };
   const showHideClassName = isOpen
-    ? 'fixed z-10 inset-0 overflow-y-auto'
-    : 'hidden';
+    ? "fixed z-10 inset-0 overflow-y-auto"
+    : "hidden";
   return (
     <div className={showHideClassName}>
       <div className="flex items-center  justify-center min-h-screen pt-4 px-4  text-center">
@@ -45,11 +45,11 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
           variants={slideToScreen}
           initial="hidden"
           animate="visible"
-          exit={'exit'}
+          exit={"exit"}
         >
           <div className="inline-block align-bottom     text-left  shadow-xl  transform transition-all">
             <button
-              type={'button'}
+              type={"button"}
               className="absolute transition ease-in-out delay-150 hover:scale-110 rounded-full top-0 right-0 p-2 dark:text-text-dark text-text-light hover:outline-none hover:text-problem-500"
               onClick={onClose}
             >

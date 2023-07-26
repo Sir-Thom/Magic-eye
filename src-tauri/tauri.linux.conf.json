@@ -93,19 +93,6 @@
       ],
       "identifier": "com.MagicEye.dev",
       "targets": "all",
-      "windows": {
-        "allowDowngrades": true,
-        "certificateThumbprint": null,
-        "digestAlgorithm": null,
-        "timestampUrl": null,
-        "tsp": false,
-        "webviewFixedRuntimePath": null,
-        "webviewInstallMode": {
-          "silent": true,
-          "type": "downloadBootstrapper"
-        },
-        "wix": null
-      },
       "appimage": {
         "bundleMediaFramework": true
       }

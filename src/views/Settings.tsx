@@ -1,50 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import { Titlebar } from '../components/titlebar/titlebar';
-import { Link } from 'react-router-dom';
-import { IconArrowLeft } from '@tabler/icons-react';
-import { motion } from 'framer-motion';
-import customData from './settings.json';
-import '../styles.css';
-import { configDir } from '@tauri-apps/api/path';
-import Dropdown from '../components/dropdowns/dropdown';
+import { useState, useEffect } from "react";
+import { Titlebar } from "../components/titlebar/titlebar";
+import { Link, json } from "react-router-dom";
+import { IconArrowLeft } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import customData from "./settings.json";
+import "../styles.css";
+import Dropdown from "../components/dropdowns/dropdown";
+import { invoke } from "@tauri-apps/api";
 
-async function getConfigDirPath() {
-  const configDirPath = (await configDir()) + 'Test/settings.json';
-  console.log(configDirPath);
+export function getConfigDir() {
+  invoke("get_config_dir")
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+export function GetConfigFile() {
+  invoke("get_config_file")
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+export function GetConfig() {
+  invoke("get_config_file_content")
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+export function SetConfig(new_settings) {
+  invoke(" update_settings_file", { new_settings: new_settings });
 }
 
 export default function Settings() {
-  const [currentTheme, setCurrentTheme] = useState('Dark');
-  const [themes, setThemes] = useState([]);
+  const [currentTheme, setCurrentTheme] = useState("Dark");
+
+  const [config, setConfig] = useState({});
+  const [tmpConf, setTmpConf] = useState({});
 
   useEffect(() => {
-    // Fetch themes from the JSON file or any data source
-    setThemes(customData.theme);
+    async function fetchConfig() {
+      try {
+        const configData = await GetConfig();
+        setConfig(configData);
+        setTmpConf(configData); // Initialize tmpConf with the same value as config
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchConfig();
   }, []);
 
-  console.log(getConfigDirPath());
-
   function handleThemeChange(event) {
-    setThemes(customData.theme);
     setCurrentTheme(event.target.value);
     console.log(currentTheme);
+    // Update the "theme" property with the new value
+    setTmpConf((prevTmpConf) => ({
+      ...prevTmpConf,
+      theme: event.target.value
+    }));
+
+    console.log(tmpConf);
+    setConfig(tmpConf);
+    console.log(config);
   }
   const slideToScreen = {
     hidden: {
-      x: '100vw'
+      x: "100vw"
     },
     visible: {
-      x: '0',
+      x: "0",
       opacity: 1,
 
       transition: {
         duration: 0.35,
-        type: 'tween',
+        type: "tween",
         anticipate: [0.17, 0.67, 0.83, 0.97]
       }
     },
     exit: {
-      x: '-100vw',
+      x: "-100vw",
       opacity: 0
     }
   };
@@ -56,7 +99,7 @@ export default function Settings() {
         variants={slideToScreen}
         initial="hidden"
         animate="visible"
-        exit={'exit'}
+        exit={"exit"}
       >
         <div className=" h-screen">
           <div className="flex    justify-start items-center">
@@ -64,7 +107,7 @@ export default function Settings() {
               className="flex  justify-start items-center w-20   mt-12 "
               to="/"
             >
-              {' '}
+              {" "}
               <IconArrowLeft size={30} />
             </Link>
           </div>
@@ -118,15 +161,20 @@ export default function Settings() {
 
         <div className="flex absolute bottom-0 right-0 mb-4 justify-end items-center">
           <button
-            type={'button'}
+            type={"button"}
             className="flex justify-end items-center  mr-4 text-white font-bold py-2 px-4 rounded"
           >
             Cancel
           </button>
           <button
-            type={'button'}
+            type={"button"}
             className="flex justify-end items-center   mr-4 text-white font-bold py-2 px-4 rounded"
-            onClick={getConfigDirPath}
+            onClick={() => {
+              console.log("new :" + JSON.stringify(tmpConf));
+              invoke("update", {
+                assets: tmpConf
+              });
+            }}
           >
             Apply
           </button>
