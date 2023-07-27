@@ -57,15 +57,11 @@ export default function VidPlayer() {
   }
 
   function handleDisconnect(): void {
-    console.log("Disconnected");
-
     setIsConnected(false);
     setStreamUrl(null);
     if (error && error !== prevErrorRef.current) {
       setError("");
     }
-
-    // Store the current error in the ref for the next comparison
     prevErrorRef.current = error;
   }
 
@@ -108,7 +104,11 @@ export default function VidPlayer() {
       </div>
 
       {error && (
-        <ErrorToast message={error} onDismiss={handleDismissErrorToast} />
+        <ErrorToast
+          message={error}
+          timer={5000}
+          onDismiss={handleDismissErrorToast}
+        />
       )}
     </>
   );

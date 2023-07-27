@@ -6,20 +6,20 @@ import { toastAnimationAppear } from "../../utils/animation/toastAnimation";
 
 type ToastProps = {
   message: string;
+  timer: number; // Duration for which the toast should be visible
   onDismiss: () => void; // New prop to handle the dismiss action
 };
 
-const ErrorToast: React.FC<ToastProps> = ({ message, onDismiss }) => {
+const ErrorToast: React.FC<ToastProps> = ({ message, timer, onDismiss }) => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-    // Show the toast for a certain duration before automatically dismissing it
     const timeout = setTimeout(() => {
       dismissToast();
-    }, 5000); // Change the duration as needed
+    }, timer);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [timer]);
 
   const dismissToast = () => {
     setShow(false);

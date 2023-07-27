@@ -10,7 +10,7 @@ use std::path::Path;
 use tauri::api::path;
 #[derive(Debug, Serialize, Deserialize)]
 
-pub struct Setting {
+struct Setting {
     theme: String,
 }
 impl Setting {
@@ -83,10 +83,19 @@ pub fn get_config_file_content() -> String {
     contents
 }
 #[tauri::command]
-pub fn update_settings_file(new_settings: Setting) {
+pub fn update_settings_file(new_settings: String) -> Result<String, String> {
+    // Deserialize the received JSON data into the Setting struct
+    let new_settings: Setting =
+        serde_json::from_str(&new_settings).map_err(|err| err.to_string())?;
+
     let path_config_file = get_config_file();
-    let json_data = serde_json::to_string_pretty(&new_settings).unwrap();
+    let json_data = serde_json::to_string_pretty(&new_settings).map_err(|err| err.to_string())?;
     println!("json data: {}", json_data);
-    let mut file = File::create(&path_config_file).unwrap();
-    file.write_all(json_data.as_bytes()).unwrap();
+
+    let mut file = File::create(&path_config_file).map_err(|err| err.to_string())?;
+    file.write_all(json_data.as_bytes())
+        .map_err(|err| err.to_string())?;
+
+    // Return the JSON data back to TypeScript
+    Ok(json_data)
 }

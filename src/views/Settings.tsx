@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Titlebar } from "../components/titlebar/titlebar";
 import { Link } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -9,6 +9,12 @@ import Dropdown from "../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../components/alert/sucessAlert";
 import { slideToScreen } from "../utils/animation/screenAnimation";
+
+interface Setting {
+  theme: string;
+  // Add other properties here if needed
+}
+
 export function getConfigDir() {
   invoke("get_config_dir").catch((err) => {
     throw new Error("Error : " + err);
@@ -27,12 +33,22 @@ export async function GetConfig() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return configData as any;
   } catch (err) {
-    throw new Error("Error while reading the configuration file");
+    throw new Error("Error while reading the configuration file" + err);
   }
 }
 
-export function SetConfig(new_settings) {
-  invoke("update_settings_file", { newSettings: new_settings });
+export async function SetConfig(new_settings) {
+  try {
+    await invoke("update_settings_file", {
+      newSettings: new_settings
+    });
+
+    return;
+  } catch (err) {
+    // Rethrow the error here
+
+    throw new Error("Error while updating the configuration file");
+  }
 }
 
 export default function Settings() {
@@ -42,16 +58,18 @@ export default function Settings() {
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [config, setConfig] = useState({});
-  const [tmpConf, setTmpConf] = useState({});
-  const [error, setError] = useState("");
+  const [tmpConf, setTmpConf] = useState<Setting>({ theme: "Dark" });
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     async function fetchConfig() {
       try {
-        const configData = await GetConfig();
+        const configData = GetConfig();
         setConfig(configData);
-        // Initialize the dropdown value with the value from the JSON file
-        setCurrentTheme(configData.theme || "Dark");
+        setTmpConf(await configData);
+        setError(null);
+        setCurrentTheme(JSON.parse(await configData).theme);
       } catch (err) {
         setError(err.message);
       }
@@ -59,18 +77,40 @@ export default function Settings() {
     fetchConfig();
   }, []);
 
+  async function handleDismissErrorToast() {
+    await setError(null);
+  }
+  async function handleCloseAlert() {
+    await setSuccessMessage("");
+  }
+
   function handleThemeChange(event) {
     const newTheme = event.target.value;
     setCurrentTheme(newTheme);
-    // Update the temporary configuration object with the new theme
     setTmpConf((prevTmpConf) => ({
       ...prevTmpConf,
       theme: newTheme
     }));
   }
+  async function handleSaveConfig() {
+    try {
+      const jsonSettings = JSON.stringify(tmpConf); // Serialize the object to JSON
+      const response = await invoke<{ result: string }>(
+        "update_settings_file",
+        {
+          newSettings: jsonSettings
+        }
+      );
+      const newSettingsJSON = response.result;
 
-  function saveConfig() {
-    SetConfig(tmpConf);
+      // Note: Since the response is already a JSON string, there's no need to parse it again
+      // const newSettings = JSON.parse(newSettingsJSON);
+
+      setSuccessMessage("Configuration saved successfully!");
+      setError(null);
+    } catch (err) {
+      setError("An error occurred while saving the configuration. " + err);
+    }
   }
 
   return (
@@ -95,8 +135,16 @@ export default function Settings() {
               />
             </Link>
           </div>
-
-          <h1 className="flex justify-center items-center text-center   font-bold text-3xl ">
+          <div className="fixed top-20 left-0 right-0 z-50">
+            {successMessage && (
+              <SuccessAlert
+                message={successMessage}
+                OnClose={handleCloseAlert}
+                timer={5000}
+              />
+            )}
+          </div>
+          <h1 className="mt-12 flex justify-center items-center text-center   font-bold text-3xl ">
             Setting
           </h1>
           <div className="flex  justify-center items-centerjustify-center items-center my-4 ">
@@ -152,13 +200,19 @@ export default function Settings() {
           <button
             type="button"
             className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-            onClick={saveConfig} // Call the function to update the JSON file
+            onClick={handleSaveConfig} // Call the function to update the JSON file
           >
             Apply
           </button>
         </div>
-        {error && <ErrorToast message={error} />}
       </motion.div>
+      {error && (
+        <ErrorToast
+          message={error}
+          timer={5000}
+          onDismiss={handleDismissErrorToast}
+        />
+      )}
     </>
   );
 }
