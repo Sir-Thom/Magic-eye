@@ -13,13 +13,15 @@
 </h3>
 <br>
 
-# Note this is a rework to make it into a tauri web app.
+# Note the futur main branch will be base on Rework-Tauri
+
 ## Table of Contents
 - [Dependancies](#dependancies)
 - [Installation](#installation)
 - [Uninstall](#uninstall)
 - [Update](#update)
 - [Patterns](#patterns)
+
 
 ## Dependancies
 ```
