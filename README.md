@@ -12,7 +12,7 @@
 <p>This small gui application let you stream a live video to a other computer. </p>
 </h3>
 <br>
-
+# Note the futur main branch will be base on Rework-Tauri
 ## Table of Contents
 - [Dependancies](#dependancies)
 - [Installation](#installation)
