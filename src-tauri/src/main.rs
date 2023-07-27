@@ -9,17 +9,13 @@ mod utils;
 use std::env;
 use tauri::{command, generate_handler, Manager};
 use utils::browser::open_web_browser;
-use utils::config::SettingConf;
+
 use utils::config::{
     create_configuartion_file_setting, get_config_dir, get_config_file, get_config_file_content,
     update_settings_file,
 };
 use utils::os_setup_and_info::{get_os, setup_wayland};
 
-#[tauri::command]
-fn update(assets: SettingConf) {
-    update_settings_file(assets)
-}
 #[command]
 fn test() {
     println!("I was invoked from JS!");
@@ -46,7 +42,7 @@ fn main() {
             get_config_dir,
             get_config_file,
             get_config_file_content,
-            update
+            update_settings_file,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

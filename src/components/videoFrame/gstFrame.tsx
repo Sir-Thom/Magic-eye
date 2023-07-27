@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import useWindowDimensions from "../../utils/WindowSize";
 import ErrorToast from "../toast/errorToast";
@@ -9,8 +9,13 @@ export default function VidPlayer() {
   const [url, seturl] = useState("");
   const [streamUrl, setStreamUrl] = useState(null || "");
   const [isConnected, setIsConnected] = useState(false);
-  const [error, setError] = useState("");
 
+  const prevErrorRef = useRef<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleDismissErrorToast = () => {
+    setError(null);
+  };
   async function get_url() {
     try {
       await fetch(url)
@@ -52,12 +57,16 @@ export default function VidPlayer() {
   }
 
   function handleDisconnect(): void {
-    invoke("test");
-    console.error("Disconnected");
-    setError("An error occurred: " + "Disconnected");
+    console.log("Disconnected");
+
     setIsConnected(false);
-    setStreamUrl("");
-    setError("");
+    setStreamUrl(null);
+    if (error && error !== prevErrorRef.current) {
+      setError("");
+    }
+
+    // Store the current error in the ref for the next comparison
+    prevErrorRef.current = error;
   }
 
   return (
@@ -65,9 +74,8 @@ export default function VidPlayer() {
       <div className="flex h-full w-full justify-center items-center">
         <ReactPlayer
           playing={isConnected}
-          loop={true}
           className="flex mx-16 mt-16"
-          url={streamUrl} // Use the updated streamUrl here
+          url={streamUrl}
           width={width}
           height={height - 150}
           controls={false}
@@ -99,7 +107,9 @@ export default function VidPlayer() {
         </button>
       </div>
 
-      {error && <ErrorToast message={error} />}
+      {error && (
+        <ErrorToast message={error} onDismiss={handleDismissErrorToast} />
+      )}
     </>
   );
 }

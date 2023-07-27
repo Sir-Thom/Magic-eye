@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use serde_json;
-use tauri::Theme;
 
 use std::env;
 use std::env::var;
@@ -10,39 +9,28 @@ use std::io::{Read, Write};
 use std::path::Path;
 use tauri::api::path;
 #[derive(Debug, Serialize, Deserialize)]
+
 pub struct Setting {
-    ip_adress: [u8; 4],
-    theme: [String; 2],
-}
-#[derive(Debug, Serialize, Deserialize)]
-pub struct SettingConf {
     theme: String,
 }
-impl SettingConf {
-    fn new() -> SettingConf {
-        SettingConf {
+impl Setting {
+    fn new() -> Setting {
+        Setting {
             theme: "Dark".to_string(),
         }
     }
-    fn default() -> SettingConf {
-        SettingConf {
+    fn default() -> Setting {
+        Setting {
             theme: "Dark".to_string(),
         }
     }
 }
 
-impl Setting {
-    fn default() -> Setting {
-        Setting {
-            ip_adress: [127, 0, 0, 1],
-            theme: ["Dark".to_string(), "Light".to_string()],
-        }
-    }
-}
 const APP_NAME: &str = "magicEye";
+
 #[tauri::command]
 pub fn create_configuartion_file_setting() {
-    let setting = SettingConf::default();
+    let setting = Setting::default();
     if env::consts::OS == "linux" {
         let config_home = var("XDG_CONFIG_HOME")
             .or_else(|_| var("HOME").map(|home| format!("{}/.config", home)))
@@ -60,7 +48,7 @@ pub fn create_configuartion_file_setting() {
         if !Path::new(&path_config_file).exists() {
             // Create the file if it doesn't exist
             //get all value from setting
-            let json_data = serde_json::to_string_pretty(&setting).unwrap();
+            let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
 
             let mut file = File::create(&path_config_file).unwrap();
             file.write_all(json_data.as_bytes()).unwrap();
@@ -95,10 +83,10 @@ pub fn get_config_file_content() -> String {
     contents
 }
 #[tauri::command]
-pub fn update_settings_file(new_settings: SettingConf) {
+pub fn update_settings_file(new_settings: Setting) {
     let path_config_file = get_config_file();
     let json_data = serde_json::to_string_pretty(&new_settings).unwrap();
-    print!("{}", json_data);
+    println!("json data: {}", json_data);
     let mut file = File::create(&path_config_file).unwrap();
     file.write_all(json_data.as_bytes()).unwrap();
 }
