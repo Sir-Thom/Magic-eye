@@ -14,6 +14,7 @@
 <br>
 
 # Note the futur main branch will be base on Rework-Tauri
+
 ## Table of Contents
 - [Dependancies](#dependancies)
 - [Installation](#installation)
