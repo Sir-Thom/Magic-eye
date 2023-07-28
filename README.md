@@ -13,36 +13,14 @@
 </h3>
 <br>
 
-
 # Note the futur main branch will be base on Rework-Tauri
 
-# Note for running the backend
-here what you need to run the backend of this application.
-## Docker
-to build the docker image run the following command:
-```
-docker build -t nginx_hls_converter .
-docker run -it -p 127.0.0.1:8080:80 -p 127.0.0.1:1935:1935 --name nginx_hls nginx_hls_converter
-```
-for the backend that will deal with rtmp you can use this repo:
-https://github.com/Sir-Thom/rtmpserverMagic-eye
-
-after that you can use the following command to stream a video to the server:
-```
-git clone https://github.com/Sir-Thom/rtmpserverMagic-eye.git
-cd rtmpserverMagic-eye
-cargo run 
-```
 ## Table of Contents
-- [Note the futur main branch will be base on Rework-Tauri](#note-the-futur-main-branch-will-be-base-on-rework-tauri)
-- [Note for running the backend](#note-for-running-the-backend)
-  - [Docker](#docker)
-  - [Table of Contents](#table-of-contents)
-  - [Dependancies](#dependancies)
-  - [Installation](#installation)
-  - [Uninstall](#uninstall)
-  - [Update](#update)
-  - [Patterns](#patterns)
+- [Dependancies](#dependancies)
+- [Installation](#installation)
+- [Uninstall](#uninstall)
+- [Update](#update)
+- [Patterns](#patterns)
 
 
 ## Dependancies
