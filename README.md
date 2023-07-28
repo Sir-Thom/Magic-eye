@@ -13,6 +13,7 @@
 </h3>
 <br>
 
+
 # Note the futur main branch will be base on Rework-Tauri
 
 # Note for running the backend
@@ -32,7 +33,6 @@ git clone https://github.com/Sir-Thom/rtmpserverMagic-eye.git
 cd rtmpserverMagic-eye
 cargo run 
 ```
-
 ## Table of Contents
 - [Note the futur main branch will be base on Rework-Tauri](#note-the-futur-main-branch-will-be-base-on-rework-tauri)
 - [Note for running the backend](#note-for-running-the-backend)
