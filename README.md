@@ -14,6 +14,8 @@
 <br>
 
 # Note the futur main branch will be base on Rework-Tauri
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSir-Thom%2FMagic-eye.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FSir-Thom%2FMagic-eye?ref=badge_shield)
+
 
 # Note for running the backend
 here what you need to run the backend of this application.
@@ -122,3 +124,7 @@ make updateArm
 | <img src="/.asset/pattern/Preview_Magic_Eye_Client_gradient.png" width="120" heigth=120>            |<p align="center">gradient</p>
 | <img src="/.asset/pattern/Preview_Magic_Eye_Client_color.png" width="120" heigth=120>               |<p align="center">colors</p>
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FSir-Thom%2FMagic-eye.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FSir-Thom%2FMagic-eye?ref=badge_large)
