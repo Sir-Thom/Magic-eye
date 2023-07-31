@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Titlebar } from "../components/titlebar/titlebar";
 import { Link } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -10,6 +10,7 @@ import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../components/alert/sucessAlert";
 import { slideToScreen } from "../utils/animation/screenAnimation";
 import { appWindow } from "@tauri-apps/api/window";
+
 interface Setting {
   theme: string;
   // Add other properties here if needed
@@ -18,7 +19,6 @@ interface Setting {
 export async function GetConfig() {
   try {
     const configData = await invoke("get_config_file_content");
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return configData as any;
   } catch (err) {
@@ -35,7 +35,6 @@ export async function SetConfig(new_settings) {
     return;
   } catch (err) {
     // Rethrow the error here
-
     throw new Error("Error while updating the configuration file");
   }
 }
@@ -45,30 +44,34 @@ export default function Settings() {
   const themeLabelData = {
     theme: ["dark", "light"]
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const [config, setConfig] = useState({});
-  const [tmpConf, setTmpConf] = useState<Setting>({ theme: "dark" });
+
+  const [tmpConf, setTmpConf] = useState<Setting>({
+    theme: ""
+  });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     async function fetchConfig() {
       try {
-        const configData = GetConfig();
-        setConfig(configData);
-        setTmpConf(await configData);
+        const configData = await GetConfig();
+        const parsedConfig = JSON.parse(configData);
+        setTmpConf(parsedConfig);
+        setCurrentTheme(parsedConfig.theme);
         setError(null);
-        setCurrentTheme(JSON.parse(await configData).theme);
       } catch (err) {
         setError(err.message);
       }
     }
-    fetchConfig();
+    appWindow.listen("tauri://update_settings_file", () => {
+      fetchConfig();
+    });
   }, []);
 
   async function handleDismissErrorToast() {
     await setError(null);
   }
+
   async function handleCloseAlert() {
     await setSuccessMessage("");
   }
@@ -81,19 +84,11 @@ export default function Settings() {
       theme: newTheme
     }));
   }
+
   async function handleSaveConfig() {
     try {
       const jsonSettings = JSON.stringify(tmpConf); // Serialize the object to JSON
-      const response = await invoke<{ result: string }>(
-        "update_settings_file",
-        {
-          newSettings: jsonSettings
-        }
-      );
-      const newSettingsJSON = response.result;
-
-      // Note: Since the response is already a JSON string, there's no need to parse it again
-      // const newSettings = JSON.parse(newSettingsJSON);
+      await SetConfig(jsonSettings);
 
       setSuccessMessage("Configuration saved successfully!");
       setError(null);

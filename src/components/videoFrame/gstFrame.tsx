@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
-import { useWindowDimensions, resizeWindow } from "../../utils/WindowSize";
+import { useWindowDimensions } from "../../utils/WindowSize";
 import ErrorToast from "../toast/errorToast";
-import { invoke } from "@tauri-apps/api";
 
 export default function VidPlayer() {
   const { height, width } = useWindowDimensions();

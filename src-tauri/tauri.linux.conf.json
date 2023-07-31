@@ -1,6 +1,6 @@
 {
   "build": {
-    "beforeDevCommand": "yarn dev",
+    "beforeDevCommand": "yarn run dev",
     "beforeBuildCommand": "yarn run build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist",
@@ -31,8 +31,8 @@
         "all": true,
         "request": true,
         "scope": [
-          "http://172.17.0.2:8080/",
-          "http://172.17.0.2:8000/stream/*",
+          "http://172.17.0.2:8080/*",
+          "http://127.0.0.1:8080/live/stream",
           "https://www.youtube.com/watch?v=mYBRTi8MM3c"
         ]
       },
@@ -93,19 +93,6 @@
       ],
       "identifier": "com.MagicEye.dev",
       "targets": "all",
-      "windows": {
-        "allowDowngrades": true,
-        "certificateThumbprint": null,
-        "digestAlgorithm": null,
-        "timestampUrl": null,
-        "tsp": false,
-        "webviewFixedRuntimePath": null,
-        "webviewInstallMode": {
-          "silent": true,
-          "type": "downloadBootstrapper"
-        },
-        "wix": null
-      },
       "appimage": {
         "bundleMediaFramework": true
       }
@@ -135,15 +122,14 @@
     "windows": [
       {
         "title": "Magic Eye",
-        "titleBarStyle": "Visible",
+        "titleBarStyle": "Overlay",
         "minWidth": 1000,
         "minHeight": 600,
         "resizable": true,
         "fullscreen": false,
         "visible": true,
         "decorations": false,
-        "alwaysOnTop": false,
-        "theme": "Light"
+        "alwaysOnTop": false
       }
     ]
   }

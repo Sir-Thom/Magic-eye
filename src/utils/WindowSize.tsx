@@ -25,7 +25,7 @@ export function useWindowDimensions() {
   return windowDimensions;
 }
 export function resizeWindow() {
-  if (window.__TAURI__ !== undefined) {
+  if (window.__TAURI_IPC__ !== undefined) {
     useEffect(() => {
       async function HandleResize() {
         const physicalSize = await getCurrent().innerSize();
@@ -33,7 +33,7 @@ export function resizeWindow() {
         const scaleFactor = monitor.scaleFactor;
         const logicalSize = physicalSize.toLogical(scaleFactor);
         const minWidth: number = 1000;
-        const minHeight: number = 600;
+        // const minHeight: number = 600;
         if (logicalSize.width < minWidth) {
           logicalSize.width = minWidth;
 

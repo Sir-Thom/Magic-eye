@@ -110,7 +110,7 @@ export function Titlebar() {
             Developed by Sir Thom
           </p>
           <p className="mb-2 m-auto text-center text-sm dark:text-text-dark text-text-light">
-            GPL-3.0 license
+            MIT license
           </p>
         </Modal>
         {/* window title and controls */}

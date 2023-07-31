@@ -6,6 +6,7 @@
 mod utils;
 //module end here
 
+use serde_json::Value;
 use std::env;
 use tauri::{command, generate_handler, Manager};
 use utils::browser::open_web_browser;
@@ -30,6 +31,15 @@ fn main() {
     }
 
     tauri::Builder::default()
+        .setup(|app| {
+            let window = tauri::WindowBuilder::from_config(
+                app,
+                app.config().tauri.windows.get(0).unwrap().clone(),
+            )
+            .theme(theme());
+
+            Ok(())
+        })
         .invoke_handler(generate_handler![
             test,
             get_config_dir,
@@ -41,4 +51,21 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+fn theme() -> Option<tauri::Theme> {
+    let i = get_config_file_content();
+    let json_value: Value = serde_json::from_str(&i).unwrap_or_default();
+    let dark = Some(tauri::Theme::Dark);
+    let light = Some(tauri::Theme::Light);
+    if let Some(theme_value) = json_value.get("theme").and_then(Value::as_str) {
+        if theme_value == "dark" {
+            println!("{:?}", dark);
+            return dark;
+        } else if theme_value == "light" {
+            println!("{:?}", light);
+            return light;
+        }
+    }
+    return None;
 }

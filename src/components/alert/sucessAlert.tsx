@@ -11,7 +11,7 @@ type SuccessProps = {
 
 const SuccessAlert: React.FC<SuccessProps> = ({ message, timer, OnClose }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const [showAlert, setShowAlert] = useState(true);
+  const [, setShowAlert] = useState(true);
   useEffect(() => {
     const timeout = setTimeout(() => {
       dismissToast();
