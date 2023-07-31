@@ -1,10 +1,8 @@
 use serde::{Deserialize, Serialize};
 use serde_json;
-
 use std::env;
 use std::env::var;
-use std::fs;
-use std::fs::File;
+use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use tauri::api::path;
@@ -16,12 +14,12 @@ struct Setting {
 impl Setting {
     fn new() -> Setting {
         Setting {
-            theme: "Dark".to_string(),
+            theme: "dark".to_string(),
         }
     }
     fn default() -> Setting {
         Setting {
-            theme: "Dark".to_string(),
+            theme: "dark".to_string(),
         }
     }
 }
@@ -41,8 +39,8 @@ pub fn create_configuartion_file_setting() {
 
         // Create the directory if it doesn't exist
         if !Path::new(&conf_dir).exists() {
-            fs::create_dir_all(&conf_dir).expect("failed to create config directory");
-            fs::create_dir_all(&config_home).expect("failed to create config directory");
+            create_dir_all(&conf_dir).expect("failed to create config directory");
+            create_dir_all(&config_home).expect("failed to create config directory");
         }
 
         if !Path::new(&path_config_file).exists() {

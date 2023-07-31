@@ -1,12 +1,12 @@
 {
   "name": "magic-eye",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "prettier-format": "prettier --config .prettierrc 'src/**/*.tsx' --write",
     "lint": "eslint . --ext .tsx",
-    "dev": "prettier --config .prettierrc 'src/**/*.tsx' --write  && eslint . --ext .tsx  && vite --host",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri"

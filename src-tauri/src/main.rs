@@ -18,7 +18,7 @@ use utils::os_setup_and_info::{get_os, setup_wayland};
 
 #[command]
 fn test() {
-    println!("I was invoked from JS!");
+    println!("I  was invoked from JS!");
 }
 
 fn main() {
@@ -30,11 +30,6 @@ fn main() {
     }
 
     tauri::Builder::default()
-        .setup(|app| {
-            #[cfg(debug_assertions)]
-            app.get_window("main").unwrap().open_devtools();
-            Ok(())
-        })
         .invoke_handler(generate_handler![
             test,
             get_config_dir,

@@ -3,7 +3,7 @@ name = "magic_eye"
 version = "0.0.1"
 description = "A Tauri App"
 authors = ["Thomas Toulouse"]
-license = "Gpl2"
+license = "MIT"
 repository = ""
 edition = "2021"
 

@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { alertAnimation } from "../../utils/animation/alertAnimation";
+
 type SuccessProps = {
   message: string;
   timer: number; // Duration for which the toast should be visible
@@ -9,6 +10,7 @@ type SuccessProps = {
 };
 
 const SuccessAlert: React.FC<SuccessProps> = ({ message, timer, OnClose }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [showAlert, setShowAlert] = useState(true);
   useEffect(() => {
     const timeout = setTimeout(() => {

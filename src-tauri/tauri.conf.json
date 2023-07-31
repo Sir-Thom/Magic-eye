@@ -1,10 +1,10 @@
 {
   "build": {
-    "beforeDevCommand": "yarn run dev",
+    "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn run build",
-    "devPath": "http://localhost:1420",
+    "devPath": "http://localhost:1421",
     "distDir": "../dist",
-    "withGlobalTauri": true
+    "withGlobalTauri": false
   },
   "plugins": {
     "gstreamer": {
@@ -82,7 +82,7 @@
       }
     },
     "bundle": {
-      "copyright": "GPL-3.0",
+      "copyright": "MIT",
       "active": true,
       "icon": [
         "icons/32x32.png",
@@ -137,7 +137,6 @@
         "title": "Magic Eye",
         "titleBarStyle": "Visible",
         "minWidth": 1000,
-        "minHeight": 600,
         "resizable": true,
         "fullscreen": false,
         "visible": true,

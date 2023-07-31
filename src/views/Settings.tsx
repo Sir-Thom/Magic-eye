@@ -9,23 +9,12 @@ import Dropdown from "../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../components/alert/sucessAlert";
 import { slideToScreen } from "../utils/animation/screenAnimation";
-
+import { appWindow } from "@tauri-apps/api/window";
 interface Setting {
   theme: string;
   // Add other properties here if needed
 }
 
-export function getConfigDir() {
-  invoke("get_config_dir").catch((err) => {
-    throw new Error("Error : " + err);
-  });
-}
-
-export function GetConfigFile() {
-  invoke("get_config_file").catch(() => {
-    throw new Error("Error while finding the configuration file");
-  });
-}
 export async function GetConfig() {
   try {
     const configData = await invoke("get_config_file_content");
@@ -52,13 +41,13 @@ export async function SetConfig(new_settings) {
 }
 
 export default function Settings() {
-  const [currentTheme, setCurrentTheme] = useState("Dark");
-  const customData = {
-    theme: ["Dark", "Light"]
+  const [currentTheme, setCurrentTheme] = useState("dark");
+  const themeLabelData = {
+    theme: ["dark", "light"]
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const [config, setConfig] = useState({});
-  const [tmpConf, setTmpConf] = useState<Setting>({ theme: "Dark" });
+  const [tmpConf, setTmpConf] = useState<Setting>({ theme: "dark" });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -123,7 +112,7 @@ export default function Settings() {
         animate="visible"
         exit={"exit"}
       >
-        <div className=" h-screen">
+        <div className={`h-screen `}>
           <div className="flex justify-start items-center">
             <Link
               className="flex justify-start items-center w-8 mt-12 dark:text-text-dark text-text-light  h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600 "
@@ -184,7 +173,7 @@ export default function Settings() {
               Themes
             </label>
             <Dropdown
-              options={customData.theme}
+              options={themeLabelData.theme}
               value={currentTheme}
               onChange={handleThemeChange}
             />
