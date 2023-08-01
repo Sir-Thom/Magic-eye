@@ -4,6 +4,7 @@ import colors from "tailwindcss/colors";
 export const content = ["./src/**/*.{js,jsx,ts,tsx}"];
 export const theme = {
   colors: {
+    darkMode: "class",
     green: colors.green,
     white: colors.white,
     primary: "#121212",

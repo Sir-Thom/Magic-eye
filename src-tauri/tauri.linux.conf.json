@@ -32,7 +32,7 @@
         "request": true,
         "scope": [
           "http://172.17.0.2:8080/*",
-          "http://127.0.0.1:8080/live/stream",
+          "http://127.0.0.1:8080/stream/stream.m3u8",
           "https://www.youtube.com/watch?v=mYBRTi8MM3c"
         ]
       },
@@ -105,7 +105,7 @@
             "main",
             "settings"
           ],
-          "domain": "172.17.0.2",
+          "domain": "127.0.0.1",
           "plugins": [
             "trusted-plugin"
           ],
@@ -129,7 +129,8 @@
         "fullscreen": false,
         "visible": true,
         "decorations": false,
-        "alwaysOnTop": false
+        "alwaysOnTop": false,
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115"
       }
     ]
   }

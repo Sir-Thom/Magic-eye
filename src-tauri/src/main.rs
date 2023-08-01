@@ -5,24 +5,32 @@
 //module start here
 mod utils;
 //module end here
-
 use serde_json::Value;
 use std::env;
+
 use tauri::{command, generate_handler, Manager};
+use tauri::{utils::config::AppUrl, window::WindowBuilder, WindowUrl};
 use utils::browser::open_web_browser;
 
+use port_selector::{is_free, Port};
 use utils::config::{
     create_configuartion_file_setting, get_config_dir, get_config_file, get_config_file_content,
     update_settings_file,
 };
 use utils::os_setup_and_info::{get_os, setup_wayland};
-
 #[command]
 fn test() {
     println!("I  was invoked from JS!");
 }
 
 fn main() {
+    let port = 1420; //is_free(1420).then_some(1420).expect("Port is not free");
+
+    let mut context = tauri::generate_context!();
+    let url = format!("http://localhost:{}", port).parse().unwrap();
+    let window_url = WindowUrl::External(url);
+    // rewrite the config so the IPC is enabled on this URL
+    context.config_mut().build.dist_dir = AppUrl::Url(window_url.clone());
     if get_os() == "linux" {
         create_configuartion_file_setting();
         setup_wayland();
@@ -31,15 +39,7 @@ fn main() {
     }
 
     tauri::Builder::default()
-        .setup(|app| {
-            let window = tauri::WindowBuilder::from_config(
-                app,
-                app.config().tauri.windows.get(0).unwrap().clone(),
-            )
-            .theme(theme());
-
-            Ok(())
-        })
+        .plugin(tauri_plugin_localhost::Builder::new(port).build())
         .invoke_handler(generate_handler![
             test,
             get_config_dir,
@@ -49,23 +49,6 @@ fn main() {
             get_config_file_content,
             update_settings_file,
         ])
-        .run(tauri::generate_context!())
+        .run(context)
         .expect("error while running tauri application");
-}
-
-fn theme() -> Option<tauri::Theme> {
-    let i = get_config_file_content();
-    let json_value: Value = serde_json::from_str(&i).unwrap_or_default();
-    let dark = Some(tauri::Theme::Dark);
-    let light = Some(tauri::Theme::Light);
-    if let Some(theme_value) = json_value.get("theme").and_then(Value::as_str) {
-        if theme_value == "dark" {
-            println!("{:?}", dark);
-            return dark;
-        } else if theme_value == "light" {
-            println!("{:?}", light);
-            return light;
-        }
-    }
-    return None;
 }
