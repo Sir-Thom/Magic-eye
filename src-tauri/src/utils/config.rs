@@ -6,25 +6,34 @@ use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use tauri::api::path;
+use tauri::async_runtime::handle;
+use tauri::{AppHandle, PathResolver};
 #[derive(Debug, Serialize, Deserialize)]
 
 struct Setting {
     theme: String,
+    placeholder: String,
 }
 impl Setting {
     fn new() -> Setting {
         Setting {
             theme: "dark".to_string(),
+            placeholder: "$APPDATA/src/asset/placeholder.mp4".to_string(),
         }
     }
     fn default() -> Setting {
         Setting {
             theme: "dark".to_string(),
+            placeholder: "./src/assets/placeholder.mp4".to_string(),
         }
     }
 }
 
 const APP_NAME: &str = "magicEye";
+#[tauri::command]
+pub fn get_ressource_path(path_file: &str) -> String {
+    path_file.to_string()
+}
 
 #[tauri::command]
 pub fn create_configuartion_file_setting() {
@@ -47,7 +56,10 @@ pub fn create_configuartion_file_setting() {
             // Create the file if it doesn't exist
             //get all value from setting
             let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
-
+            println!(
+                "json data: {}",
+                tauri::api::path::app_data_dir(config_home).unwrap()
+            );
             let mut file = File::create(&path_config_file).unwrap();
             file.write_all(json_data.as_bytes()).unwrap();
             println!("{}", serde_json::to_string(&setting).unwrap());
@@ -78,6 +90,7 @@ pub fn get_config_file_content() -> String {
     let mut file = File::open(&path_config_file).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
+    println!("content: {}", contents);
     contents
 }
 #[tauri::command]

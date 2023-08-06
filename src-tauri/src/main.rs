@@ -5,19 +5,20 @@
 //module start here
 mod utils;
 //module end here
-use serde_json::Value;
+
 use std::env;
 
-use tauri::{command, generate_handler, Manager};
-use tauri::{utils::config::AppUrl, window::WindowBuilder, WindowUrl};
+use tauri::{command, generate_handler};
+use tauri::{utils::config::AppUrl, WindowUrl};
 use utils::browser::open_web_browser;
 
-use port_selector::{is_free, Port};
 use utils::config::{
     create_configuartion_file_setting, get_config_dir, get_config_file, get_config_file_content,
     update_settings_file,
 };
 use utils::os_setup_and_info::{get_os, setup_wayland};
+
+use crate::utils::config::get_ressource_path;
 #[command]
 fn test() {
     println!("I  was invoked from JS!");
@@ -40,6 +41,7 @@ fn main() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_localhost::Builder::new(port).build())
+        .setup(|app| Ok(()))
         .invoke_handler(generate_handler![
             test,
             get_config_dir,

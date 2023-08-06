@@ -2,13 +2,18 @@ import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useWindowDimensions } from "../../utils/WindowSize";
 import ErrorToast from "../toast/errorToast";
-
+import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
+import StreamPlaceholder from "./placeholderStream";
+import { BaseDirectory } from "@tauri-apps/api/path";
+import { exists } from "@tauri-apps/api/fs";
 export default function VidPlayer() {
-  const { height, width } = useWindowDimensions();
+  const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
   const [streamUrl, setStreamUrl] = useState(null || "");
   const [isConnected, setIsConnected] = useState(false);
-
+  const test = exists("placeholder.mp4", {
+    dir: BaseDirectory.AppData
+  });
   const prevErrorRef = useRef<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,6 +22,8 @@ export default function VidPlayer() {
   };
   async function get_url() {
     try {
+      await test;
+      console.log(test);
       await fetch(url)
         .then((res) => {
           if (res.status === 200) {
@@ -67,15 +74,23 @@ export default function VidPlayer() {
   return (
     <>
       <div className="flex h-full w-full justify-center items-center">
-        <ReactPlayer
-          playing={isConnected}
-          className="flex mx-16 mt-16"
-          url={streamUrl}
-          width={width}
-          height={height - 150}
-          controls={false}
-          onError={handlePlayerError}
-        />
+        {streamUrl ? (
+          <ReactPlayer
+            playing={isConnected}
+            className="flex mx-16 mt-16"
+            url={streamUrl}
+            width={width}
+            height={height - 150}
+            controls={false}
+            onError={handlePlayerError}
+          />
+        ) : (
+          <StreamPlaceholder
+            width={width}
+            height={height}
+            url={"./src/assets/placeholder.mp4"}
+          />
+        )}
       </div>
       <div className="w-full flex justify-center items-center pb-1 mt-6">
         <button

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { IDropdown } from "../../interfaces/IDropdown";
 
-const Dropdown = ({ options, value, onChange }) => {
+function Dropdown({ options, value, onChange }: IDropdown) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -15,37 +16,21 @@ const Dropdown = ({ options, value, onChange }) => {
         value={value}
         onChange={onChange}
       >
-        {options.map(
-          (
-            option:
-              | string
-              | number
-              | boolean
-              | React.ReactElement<
-                  any,
-                  string | React.JSXElementConstructor<any>
-                >
-              | Iterable<React.ReactNode>
-              | React.ReactPortal
-              | null
-              | undefined,
-            index: React.Key | null | undefined
-          ) => (
-            <option
-              onClick={toggleDropdown}
-              key={index}
-              value={option.valueOf().toString()}
-            >
-              {option}
-            </option>
-          )
-        )}
+        {options.map((option, index) => (
+          <option
+            onClick={toggleDropdown}
+            key={index}
+            value={option.toString()}
+          >
+            {option}
+          </option>
+        ))}
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
         {isOpen ? <RxCaretUp color="white" /> : <RxCaretDown color="white" />}
       </div>
     </div>
   );
-};
+}
 
 export default Dropdown;

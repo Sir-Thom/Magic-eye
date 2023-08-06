@@ -1,16 +1,8 @@
-import "./modal.css";
-
 import { motion } from "framer-motion";
-
 import { IconX } from "@tabler/icons-react";
+import { IModal } from "../../interfaces/IModal";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}
-
-function Modal({ isOpen, onClose, children }: ModalProps) {
+function Modal({ isOpen, onClose, children }: IModal) {
   const slideToScreen = {
     hidden: {
       y: "100vh",

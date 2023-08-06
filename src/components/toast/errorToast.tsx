@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSolidErrorAlt } from "react-icons/bi";
 import { AnimatePresence, motion } from "framer-motion";
 import { toastAnimationAppear } from "../../utils/animation/toastAnimation";
+import { IToast } from "../../interfaces/IToast";
 
-type ToastProps = {
-  message: string;
-  timer: number; // Duration for which the toast should be visible
-  onDismiss: () => void; // New prop to handle the dismiss action
-};
-
-const ErrorToast: React.FC<ToastProps> = ({ message, timer, onDismiss }) => {
+function ErrorToast({ message, timer, onDismiss }: IToast) {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -49,6 +44,6 @@ const ErrorToast: React.FC<ToastProps> = ({ message, timer, onDismiss }) => {
       )}
     </AnimatePresence>
   );
-};
+}
 
 export default ErrorToast;

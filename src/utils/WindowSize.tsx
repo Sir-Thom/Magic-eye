@@ -40,7 +40,7 @@ export function resizeWindow() {
           await getCurrent().setSize(logicalSize);
         }
       }
-      HandleResize().catch(console.error);
+      HandleResize();
     }, []);
   }
 }

@@ -10,11 +10,7 @@ import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../components/alert/sucessAlert";
 import { slideToScreen } from "../utils/animation/screenAnimation";
 import { appWindow } from "@tauri-apps/api/window";
-
-interface Setting {
-  theme: string;
-  // Add other properties here if needed
-}
+import { ISetting } from "../interfaces/ISetting";
 
 export async function GetConfig() {
   try {
@@ -45,7 +41,7 @@ export default function Settings() {
     theme: ["dark", "light"]
   };
 
-  const [tmpConf, setTmpConf] = useState<Setting>({
+  const [tmpConf, setTmpConf] = useState<ISetting>({
     theme: ""
   });
   const [error, setError] = useState<string | null>(null);

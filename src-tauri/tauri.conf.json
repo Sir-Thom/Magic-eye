@@ -44,6 +44,12 @@
         "open": false,
         "save": false
       },
+      "fs": {
+        "all": true,
+        "scope": [
+          "$APPDATA/*"
+        ]
+      },
       "window": {
         "all": true,
         "center": false,
@@ -82,6 +88,9 @@
       }
     },
     "bundle": {
+      "resources": [
+        "../../assets/*.mp4"
+      ],
       "copyright": "MIT",
       "active": true,
       "icon": [
