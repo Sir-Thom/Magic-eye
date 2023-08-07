@@ -1,10 +1,10 @@
 use serde::{Deserialize, Serialize};
 use serde_json;
-use std::env;
 use std::env::var;
 use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::Path;
+use std::{env, fs};
 use tauri::api::path;
 use tauri::async_runtime::handle;
 use tauri::{AppHandle, PathResolver};
@@ -14,25 +14,38 @@ struct Setting {
     theme: String,
     placeholder: String,
 }
+const APP_NAME: &str = "magicEye";
 impl Setting {
     fn new() -> Setting {
         Setting {
             theme: "dark".to_string(),
-            placeholder: "$APPDATA/src/asset/placeholder.mp4".to_string(),
+            placeholder: tauri::api::path::BaseDirectory::Resource
+                .variable()
+                .to_string()
+                + "/asset/placeholder.mp4",
         }
     }
     fn default() -> Setting {
         Setting {
             theme: "dark".to_string(),
-            placeholder: "./src/assets/placeholder.mp4".to_string(),
+            placeholder: tauri::api::path::app_data_dir(&tauri::Config::default())
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .to_string()
+                + APP_NAME
+                + "/asset/placeholder.mp4",
         }
     }
 }
 
-const APP_NAME: &str = "magicEye";
 #[tauri::command]
-pub fn get_ressource_path(path_file: &str) -> String {
-    path_file.to_string()
+pub fn get_ressource_path() -> String {
+    let resource_path = tauri::api::path::BaseDirectory::Resource
+        .variable()
+        .to_string()
+        + "/placeholder.mp4";
+    resource_path
 }
 
 #[tauri::command]
@@ -51,6 +64,16 @@ pub fn create_configuartion_file_setting() {
             create_dir_all(&conf_dir).expect("failed to create config directory");
             create_dir_all(&config_home).expect("failed to create config directory");
         }
+        let i = tauri::api::path::app_data_dir(&tauri::Config::default())
+            .unwrap()
+            .to_str()
+            .unwrap()
+            .to_string()
+            + APP_NAME
+            + "/asset";
+        if !Path::new(&i).exists() {
+            create_dir_all(&i).expect("failed to create config directory");
+        }
 
         if !Path::new(&path_config_file).exists() {
             // Create the file if it doesn't exist
@@ -58,7 +81,10 @@ pub fn create_configuartion_file_setting() {
             let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
             println!(
                 "json data: {}",
-                tauri::api::path::app_data_dir(config_home).unwrap()
+                tauri::api::path::app_data_dir(&tauri::Config::default())
+                    .unwrap()
+                    .display()
+                    .to_string()
             );
             let mut file = File::create(&path_config_file).unwrap();
             file.write_all(json_data.as_bytes()).unwrap();

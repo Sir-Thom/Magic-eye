@@ -6,7 +6,8 @@
 mod utils;
 //module end here
 
-use std::env;
+use std::path::Path;
+use std::{env, fs};
 
 use tauri::{command, generate_handler};
 use tauri::{utils::config::AppUrl, WindowUrl};
@@ -18,7 +19,6 @@ use utils::config::{
 };
 use utils::os_setup_and_info::{get_os, setup_wayland};
 
-use crate::utils::config::get_ressource_path;
 #[command]
 fn test() {
     println!("I  was invoked from JS!");
@@ -41,7 +41,30 @@ fn main() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_localhost::Builder::new(port).build())
-        .setup(|app| Ok(()))
+        .setup(|app| {
+            let resource_path = app
+                .path_resolver()
+                .resolve_resource("./assets/placeholder.mp4")
+                .expect("failed to resolve resource");
+
+            let test = resource_path.as_path().display().to_string();
+            let i = tauri::api::path::app_data_dir(&tauri::Config::default())
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .to_string()
+                + "magiceEye/assets";
+            tauri::api::path::app_data_dir(&tauri::Config::default())
+                .unwrap()
+                .push("magiceEye/assets");
+            println!("test appdata {}", i);
+
+            println!("{}", resource_path.as_path().display()); // This will print 'Guten Tag!' to the terminal
+            println!("{}", resource_path.as_path().display());
+            println!("test {}", test);
+
+            Ok(())
+        })
         .invoke_handler(generate_handler![
             test,
             get_config_dir,

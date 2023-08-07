@@ -5,25 +5,27 @@ import ErrorToast from "../toast/errorToast";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { BaseDirectory } from "@tauri-apps/api/path";
-import { exists } from "@tauri-apps/api/fs";
+import { FileEntry } from "@tauri-apps/api/fs";
+
 export default function VidPlayer() {
   const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
   const [streamUrl, setStreamUrl] = useState(null || "");
   const [isConnected, setIsConnected] = useState(false);
-  const test = exists("placeholder.mp4", {
-    dir: BaseDirectory.AppData
-  });
+  const placeholderUrl = BaseDirectory.Resource;
   const prevErrorRef = useRef<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  console.log(placeholderUrl);
+  const geturlPlaceholder = async () => {
+    await placeholderUrl;
+    console.log(placeholderUrl);
+  };
 
   const handleDismissErrorToast = () => {
     setError(null);
   };
   async function get_url() {
     try {
-      await test;
-      console.log(test);
       await fetch(url)
         .then((res) => {
           if (res.status === 200) {
@@ -88,7 +90,7 @@ export default function VidPlayer() {
           <StreamPlaceholder
             width={width}
             height={height}
-            url={"./src/assets/placeholder.mp4"}
+            url={geturlPlaceholder.toString()}
           />
         )}
       </div>
