@@ -47,7 +47,7 @@
       "fs": {
         "all": true,
         "scope": [
-          "$RESOURCE/assets/**"
+          "$RESOURCE/*"
         ]
       },
       "window": {

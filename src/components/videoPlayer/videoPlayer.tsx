@@ -5,21 +5,21 @@ import ErrorToast from "../toast/errorToast";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { BaseDirectory } from "@tauri-apps/api/path";
-import { FileEntry } from "@tauri-apps/api/fs";
+import { readDir } from "@tauri-apps/api/fs";
+
+// Reads the `$APPDATA/users` directory recursively
 
 export default function VidPlayer() {
   const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
   const [streamUrl, setStreamUrl] = useState(null || "");
   const [isConnected, setIsConnected] = useState(false);
-  const placeholderUrl = BaseDirectory.Resource;
+  const [placeholderUrl, setPlaceholderUrl] = useState(
+    "assets/placeholder.mp4"
+  );
   const prevErrorRef = useRef<string | null>(null);
+
   const [error, setError] = useState<string | null>(null);
-  console.log(placeholderUrl);
-  const geturlPlaceholder = async () => {
-    await placeholderUrl;
-    console.log(placeholderUrl);
-  };
 
   const handleDismissErrorToast = () => {
     setError(null);
@@ -43,6 +43,7 @@ export default function VidPlayer() {
       if (!url.startsWith("http://") && !url.startsWith("https://")) {
         throw new Error("Please enter a valid URL");
       }
+
       setStreamUrl(url);
       setIsConnected(true);
       setError("");
@@ -54,8 +55,20 @@ export default function VidPlayer() {
       handlePlayerError(err.message);
     }
   }
+  const test = async () => {
+    const entries = await readDir("assets", {
+      dir: BaseDirectory.Resource,
+      recursive: false
+    });
+
+    // eslint-disable-next-line no-console
+    console.log(entries[0].path);
+    // reduce the path to a relative path
+    setPlaceholderUrl(entries[0].path);
+  };
 
   const handlePlayerError = (error: unknown) => {
+    test();
     setIsConnected(false);
     setError("An error occurred: " + error);
   };
@@ -72,6 +85,7 @@ export default function VidPlayer() {
     }
     prevErrorRef.current = error;
   }
+  test();
 
   return (
     <>
@@ -90,7 +104,7 @@ export default function VidPlayer() {
           <StreamPlaceholder
             width={width}
             height={height}
-            url={geturlPlaceholder.toString()}
+            url={placeholderUrl}
           />
         )}
       </div>

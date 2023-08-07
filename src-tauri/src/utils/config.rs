@@ -1,13 +1,11 @@
 use serde::{Deserialize, Serialize};
 use serde_json;
+use std::env;
 use std::env::var;
 use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::Path;
-use std::{env, fs};
 use tauri::api::path;
-use tauri::async_runtime::handle;
-use tauri::{AppHandle, PathResolver};
 #[derive(Debug, Serialize, Deserialize)]
 
 struct Setting {

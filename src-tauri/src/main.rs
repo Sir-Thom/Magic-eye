@@ -6,8 +6,7 @@
 mod utils;
 //module end here
 
-use std::path::Path;
-use std::{env, fs};
+use std::env;
 
 use tauri::{command, generate_handler};
 use tauri::{utils::config::AppUrl, WindowUrl};
