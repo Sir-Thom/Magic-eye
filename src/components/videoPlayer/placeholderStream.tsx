@@ -13,8 +13,8 @@ export default function StreamPlaceholder({
         controls={false}
         onContextMenu={(e) => e.preventDefault()}
         muted
-        width={width * 0.6} // Adjust the width as needed
-        height={height * 0.6} // Adjust the height as needed
+        width={width * 0.6}
+        height={height * 0.6}
       >
         <source src={url} type="video/mp4" />
         Your browser does not support the video tag.

@@ -20,7 +20,7 @@ function ErrorToast({ message, timer, onDismiss }: IToast) {
     setShow(false);
     setTimeout(() => {
       onDismiss();
-    }, 300); // Duration of exit animation, adjust as needed
+    }, 300);
   };
 
   return (

@@ -1,5 +1,3 @@
-// all animation object for screen transition
-
 export const slideToScreen = {
   hidden: {
     x: "100vw"

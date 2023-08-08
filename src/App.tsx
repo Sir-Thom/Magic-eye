@@ -10,8 +10,7 @@ function App() {
   return (
     <>
       <Titlebar />
-
-      {<VidPlayer />}
+      <VidPlayer />
     </>
   );
 }

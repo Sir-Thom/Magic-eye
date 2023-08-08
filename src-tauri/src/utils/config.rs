@@ -12,6 +12,11 @@ struct Setting {
     theme: String,
     placeholder: String,
 }
+pub enum Placeholder {
+    Path(String),
+    Resource(String),
+}
+
 const APP_NAME: &str = "magicEye";
 impl Setting {
     fn new() -> Setting {

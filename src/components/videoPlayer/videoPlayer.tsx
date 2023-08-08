@@ -7,8 +7,6 @@ import StreamPlaceholder from "./placeholderStream";
 import { BaseDirectory } from "@tauri-apps/api/path";
 import { readDir } from "@tauri-apps/api/fs";
 
-// Reads the `$APPDATA/users` directory recursively
-
 export default function VidPlayer() {
   const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
