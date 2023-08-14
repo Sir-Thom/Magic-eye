@@ -1,20 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useWindowDimensions } from "../../utils/WindowSize";
 import ErrorToast from "../toast/errorToast";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
-import { BaseDirectory } from "@tauri-apps/api/path";
-import { readDir } from "@tauri-apps/api/fs";
-
+import { resourceDir, join } from "@tauri-apps/api/path";
+import { convertFileSrc } from "@tauri-apps/api/tauri";
 export default function VidPlayer() {
   const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
   const [streamUrl, setStreamUrl] = useState(null || "");
   const [isConnected, setIsConnected] = useState(false);
-  const [placeholderUrl, setPlaceholderUrl] = useState(
-    "assets/placeholder.mp4"
-  );
+  const [placeholderUrl, setPlaceholderUrl] = useState("");
   const prevErrorRef = useRef<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +19,26 @@ export default function VidPlayer() {
   const handleDismissErrorToast = () => {
     setError(null);
   };
+  useEffect(() => {
+    (async () => {
+      // ge
+      fetch("http://localhost:16780/placeholder-smpte.webm").then(
+        (response) => {
+          console.log(response);
+          setPlaceholderUrl("http://localhost:16780/placeholder-smpte.webm");
+        }
+      );
+
+      const resourcePath = await resourceDir();
+      console.log(resourcePath);
+      const vidPath = await join(resourcePath, "assets/placeholder-smpte.webm");
+      console.log(vidPath);
+      const uriVid = convertFileSrc(vidPath);
+      console.log(uriVid);
+      setPlaceholderUrl(uriVid);
+    })();
+  }, []);
+
   async function get_url() {
     try {
       await fetch(url)
@@ -53,20 +70,8 @@ export default function VidPlayer() {
       handlePlayerError(err.message);
     }
   }
-  const test = async () => {
-    const entries = await readDir("assets", {
-      dir: BaseDirectory.Resource,
-      recursive: false
-    });
-
-    // eslint-disable-next-line no-console
-    console.log(entries[0].path);
-    // reduce the path to a relative path
-    setPlaceholderUrl(entries[0].path);
-  };
 
   const handlePlayerError = (error: unknown) => {
-    test();
     setIsConnected(false);
     setError("An error occurred: " + error);
   };
@@ -83,7 +88,6 @@ export default function VidPlayer() {
     }
     prevErrorRef.current = error;
   }
-  test();
 
   return (
     <>

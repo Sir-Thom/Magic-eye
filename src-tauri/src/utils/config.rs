@@ -25,7 +25,7 @@ impl Setting {
             placeholder: tauri::api::path::BaseDirectory::Resource
                 .variable()
                 .to_string()
-                + "/asset/placeholder.mp4",
+                + "/asset/placeholder-smpte.webm",
         }
     }
     fn default() -> Setting {
@@ -37,7 +37,8 @@ impl Setting {
                 .unwrap()
                 .to_string()
                 + APP_NAME
-                + "/asset/placeholder.mp4",
+                +"/asset/placeholder-smpte.webm",
+
         }
     }
 }
@@ -67,15 +68,15 @@ pub fn create_configuartion_file_setting() {
             create_dir_all(&conf_dir).expect("failed to create config directory");
             create_dir_all(&config_home).expect("failed to create config directory");
         }
-        let i = tauri::api::path::app_data_dir(&tauri::Config::default())
+        let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
             .unwrap()
             .to_str()
             .unwrap()
             .to_string()
             + APP_NAME
             + "/asset";
-        if !Path::new(&i).exists() {
-            create_dir_all(&i).expect("failed to create config directory");
+        if !Path::new(&asset_dir_path).exists() {
+            create_dir_all(&asset_dir_path).expect("failed to create config directory");
         }
 
         if !Path::new(&path_config_file).exists() {

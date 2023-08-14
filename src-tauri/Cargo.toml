@@ -16,7 +16,8 @@ edition = "2021"
 tauri-build = { version = "^1.4", features = [] }
 
 [dependencies]
-tauri = { version = "^1.4.1", features = [ "fs-all",
+tauri = { version = "^1.4.1", features = [
+    "fs-all",
     "shell-open",
     "protocol-all",
     "window-all",
@@ -27,7 +28,9 @@ tauri = { version = "^1.4.1", features = [ "fs-all",
 ] }
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
-tokio = { version = "^1", features = ["full"] }
+axum = "0.6.20"
+tokio = { version = "1.29.1", features = ["full"] }
+tower-http = { version = "0.4.3", features = ["fs", "cors"] }
 tauri-plugin-localhost = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 port-selector = "0.1.6"
 open = "5.0.0"

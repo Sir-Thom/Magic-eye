@@ -21,7 +21,8 @@
         "asset": true,
         "all": true,
         "assetScope": [
-          "**"
+          "$RESOURCE/*",
+          "asset://localhost/%2Fhome%2Fthomas%2FDocuments%2FGitHub%2FMagic-eye%2Fsrc-tauri%2Ftarget%2Fdebug%2Fassets%2Fplaceholder-smpte.webm"
         ]
       },
       "path": {
@@ -33,7 +34,8 @@
         "scope": [
           "http://172.17.0.2:8080/",
           "http://172.17.0.2:8000/stream/*",
-          "https://www.youtube.com/watch?v=mYBRTi8MM3c"
+          "https://www.youtube.com/watch?v=mYBRTi8MM3c",
+          "http://localhost:16780/*"
         ]
       },
       "dialog": {

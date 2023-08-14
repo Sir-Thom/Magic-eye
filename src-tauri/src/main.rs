@@ -6,10 +6,14 @@
 mod utils;
 //module end here
 
-use std::env;
+use std::{env, fs, path::PathBuf};
 
+use axum::http::{HeaderValue, Method};
+use axum::Router;
 use tauri::{command, generate_handler};
 use tauri::{utils::config::AppUrl, WindowUrl};
+use tower_http::cors::CorsLayer;
+use tower_http::services::ServeDir;
 use utils::browser::open_web_browser;
 
 use utils::config::{
@@ -23,7 +27,8 @@ fn test() {
     println!("I  was invoked from JS!");
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let port = 1420; //is_free(1420).then_some(1420).expect("Port is not free");
 
     let mut context = tauri::generate_context!();
@@ -31,36 +36,47 @@ fn main() {
     let window_url = WindowUrl::External(url);
     // rewrite the config so the IPC is enabled on this URL
     context.config_mut().build.dist_dir = AppUrl::Url(window_url.clone());
-    if get_os() == "linux" {
-        create_configuartion_file_setting();
-        setup_wayland();
-    } else if get_os() == "windows" {
-        create_configuartion_file_setting();
-    }
+    #[cfg(target_os = "linux")]
+    create_configuartion_file_setting();
+    setup_wayland();
+
+    #[cfg(target_os = "windows")]
+    create_configuartion_file_setting();
 
     tauri::Builder::default()
         .plugin(tauri_plugin_localhost::Builder::new(port).build())
         .setup(|app| {
             let resource_path = app
                 .path_resolver()
-                .resolve_resource("./assets/placeholder.mp4")
+                .resolve_resource("assets")
                 .expect("failed to resolve resource");
 
             let test = resource_path.as_path().display().to_string();
-            let i = tauri::api::path::app_data_dir(&tauri::Config::default())
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string()
-                + "magiceEye/assets";
+
             tauri::api::path::app_data_dir(&tauri::Config::default())
                 .unwrap()
                 .push("magiceEye/assets");
-            println!("test appdata {}", i);
 
-            println!("{}", resource_path.as_path().display()); // This will print 'Guten Tag!' to the terminal
             println!("{}", resource_path.as_path().display());
-            println!("test {}", test);
+
+            // https://github.com/tranxuanthang/lrcget/commit/0a2fe9943e40503a1dc5d9bf291314f31ea66941
+            // https://github.com/tauri-apps/tauri/issues/3725#issuecomment-1552804332
+
+            tokio::spawn(async move {
+                // let current_dir = current_dir().unwrap();
+                //let current_dir_str = current_dir.as_path().to_str().unwrap();
+                let serve_dir = ServeDir::new(resource_path.to_str().unwrap());
+
+                let axum_app = Router::new().nest_service("/", serve_dir).layer(
+                    CorsLayer::new()
+                        .allow_origin("*".parse::<HeaderValue>().unwrap())
+                        .allow_methods([Method::GET]),
+                );
+                axum::Server::bind(&"127.0.0.1:16780".parse().unwrap())
+                    .serve(axum_app.into_make_service())
+                    .await
+                    .unwrap();
+            });
 
             Ok(())
         })

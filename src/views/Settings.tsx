@@ -48,6 +48,9 @@ export default function Settings() {
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
+    fetch("http://localhost:16780/placeholder-smpte.webm").then((response) => {
+      console.log(response);
+    });
     async function fetchConfig() {
       try {
         const configData = await GetConfig();
