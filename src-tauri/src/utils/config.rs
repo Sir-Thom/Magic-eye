@@ -6,51 +6,63 @@ use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use tauri::api::path;
-#[derive(Debug, Serialize, Deserialize)]
 
+#[derive(Debug, Serialize, Deserialize)]
+enum PlaceholderOption {
+    PlaceholderSmpte,
+    PlaceholderSmpte100,
+    PlaceholderSmpte75,
+    PlaceholderBall,
+    PlaceholderBar,
+    // Add more options here...
+    PlaceholderZonePlate,
+}
+#[derive(Debug, Serialize, Deserialize)]
 struct Setting {
     theme: String,
     placeholder: String,
 }
-pub enum Placeholder {
-    Path(String),
-    Resource(String),
-}
+
+
+
 
 const APP_NAME: &str = "magicEye";
+
+
+impl PlaceholderOption {
+
+    pub fn to_path(&self) -> String {
+        match self {
+            PlaceholderOption::PlaceholderSmpte => "placeholder-smpte.webm".to_string(),
+            PlaceholderOption::PlaceholderSmpte100 => "placeholder-smpte100".to_string(),
+            PlaceholderOption::PlaceholderSmpte75 => "placeholder-smpte75".to_string(),
+            PlaceholderOption::PlaceholderBall => "placeholder-ball.webm".to_string(),
+            PlaceholderOption::PlaceholderBar => "placeholder-bar.webm".to_string(),
+            // Add more matches here...
+            PlaceholderOption::PlaceholderZonePlate => "placeholder-zone-plate.webm".to_string(),
+            
+        }
+    }
+}
+
 impl Setting {
     fn new() -> Setting {
         Setting {
             theme: "dark".to_string(),
-            placeholder: tauri::api::path::BaseDirectory::Resource
-                .variable()
-                .to_string()
-                + "/asset/placeholder-smpte.webm",
+            placeholder: PlaceholderOption::PlaceholderSmpte.to_path()
         }
     }
     fn default() -> Setting {
         Setting {
             theme: "dark".to_string(),
-            placeholder: tauri::api::path::app_data_dir(&tauri::Config::default())
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string()
-                + APP_NAME
-                +"/asset/placeholder-smpte.webm",
+            placeholder: PlaceholderOption::PlaceholderSmpte.to_path()
 
         }
     }
 }
 
-#[tauri::command]
-pub fn get_ressource_path() -> String {
-    let resource_path = tauri::api::path::BaseDirectory::Resource
-        .variable()
-        .to_string()
-        + "/placeholder.mp4";
-    resource_path
-}
+
+
 
 #[tauri::command]
 pub fn create_configuartion_file_setting() {

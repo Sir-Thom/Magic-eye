@@ -67,6 +67,18 @@ async fn main() {
                 //let current_dir_str = current_dir.as_path().to_str().unwrap();
                 let serve_dir = ServeDir::new(resource_path.to_str().unwrap());
 
+                //get all files in the directory serve_dir
+                let mut files = fs::read_dir(resource_path.to_str().unwrap())
+                    .unwrap()
+                    .map(|res| res.map(|e| e.path()))
+                    .collect::<Result<Vec<_>, std::io::Error>>()
+                    .unwrap();
+                //print all file names
+
+                files.sort();
+
+                println!("{:?}", files);
+
                 let axum_app = Router::new().nest_service("/", serve_dir).layer(
                     CorsLayer::new()
                         .allow_origin("*".parse::<HeaderValue>().unwrap())

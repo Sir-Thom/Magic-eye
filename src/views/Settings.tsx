@@ -15,6 +15,7 @@ import { ISetting } from "../interfaces/ISetting";
 export async function GetConfig() {
   try {
     const configData = await invoke("get_config_file_content");
+    console.log(configData);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return configData as any;
   } catch (err) {
@@ -37,8 +38,14 @@ export async function SetConfig(new_settings) {
 
 export default function Settings() {
   const [currentTheme, setCurrentTheme] = useState("dark");
+  const [currentPlaceholder, setCurrentPlacholder] = useState(
+    "placeholder-smpte.webm"
+  );
   const themeLabelData = {
     theme: ["dark", "light"]
+  };
+  const placeholderdata = {
+    placeholder: ["placeholder-smpte.webm", "placeholder-ball.webm"]
   };
 
   const [tmpConf, setTmpConf] = useState<ISetting>({
@@ -48,9 +55,6 @@ export default function Settings() {
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:16780/placeholder-smpte.webm").then((response) => {
-      console.log(response);
-    });
     async function fetchConfig() {
       try {
         const configData = await GetConfig();
@@ -84,11 +88,20 @@ export default function Settings() {
     }));
   }
 
+  function handlePlaceholderChange(event) {
+    const newPlaceholder = event.target.value;
+    setCurrentPlacholder(newPlaceholder);
+    setTmpConf((prevTmpConf) => ({
+      ...prevTmpConf,
+      placeholder: event.target.value
+    }));
+  }
   async function handleSaveConfig() {
     try {
-      const jsonSettings = JSON.stringify(tmpConf); // Serialize the object to JSON
+      const jsonSettings = JSON.stringify(tmpConf);
+      console.log(jsonSettings);
+      // Serialize the object to JSON
       await SetConfig(jsonSettings);
-
       setSuccessMessage("Configuration saved successfully!");
       setError(null);
     } catch (err) {
@@ -130,36 +143,8 @@ export default function Settings() {
           <h1 className="mt-12 flex justify-center items-center text-center   font-bold text-3xl ">
             Setting
           </h1>
-          <div className="flex  justify-center items-centerjustify-center items-center my-4 ">
-            <label
-              className="flex justify-center items-center text-center mx-2"
-              htmlFor=""
-            >
-              test
-            </label>
-            <input></input>
-          </div>
 
           <div className="flex justify-center items-center my-4 flex-1 ">
-            <label
-              className="flex justify-center items-center text-center mx-2"
-              htmlFor=""
-            >
-              test
-            </label>
-            <input></input>
-          </div>
-
-          <div className="flex justify-center items-center my-4 flex-1 ">
-            <label
-              className="flex justify-center items-center text-center  mx-2"
-              htmlFor=""
-            >
-              test
-            </label>
-            <input></input>
-          </div>
-          <div className="flex justify-center items-center flex-1 ">
             <label
               className="flex justify-center items-center text-center  mx-2"
               htmlFor=""
@@ -172,7 +157,21 @@ export default function Settings() {
               onChange={handleThemeChange}
             />
           </div>
+          <div className="flex justify-center items-center my-4 flex-1 ">
+            <label
+              className="flex justify-center items-center text-center mx-2"
+              htmlFor=""
+            >
+              Video Placeholder
+            </label>
+            <Dropdown
+              options={placeholderdata.placeholder}
+              value={currentPlaceholder}
+              onChange={handlePlaceholderChange}
+            />
+          </div>
         </div>
+
         <div className="flex absolute bottom-0 right-0 mb-4 justify-end items-center">
           <button
             type="button"
