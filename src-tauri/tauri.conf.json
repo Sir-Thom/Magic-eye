@@ -1,10 +1,10 @@
 {
   "build": {
     "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn run build",
+    "beforeBuildCommand": "yarn build",
     "devPath": "http://localhost:1420",
     "distDir": "../dist",
-    "withGlobalTauri": true
+    "withGlobalTauri": false
   },
   "plugins": {
     "gstreamer": {
@@ -21,8 +21,7 @@
         "asset": true,
         "all": true,
         "assetScope": [
-          "$RESOURCE/*",
-          "asset://localhost/%2Fhome%2Fthomas%2FDocuments%2FGitHub%2FMagic-eye%2Fsrc-tauri%2Ftarget%2Fdebug%2Fassets%2Fplaceholder-smpte.webm"
+          "$RESOURCE/*"
         ]
       },
       "path": {
@@ -153,8 +152,7 @@
         "fullscreen": false,
         "visible": true,
         "decorations": false,
-        "alwaysOnTop": false,
-        "theme": "Light"
+        "alwaysOnTop": false
       }
     ]
   }

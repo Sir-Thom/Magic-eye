@@ -37,22 +37,49 @@ export async function SetConfig(new_settings) {
 }
 
 export default function Settings() {
-  const [currentTheme, setCurrentTheme] = useState("dark");
-  const [currentPlaceholder, setCurrentPlacholder] = useState(
-    "placeholder-smpte.webm"
-  );
+  const [currentTheme, setCurrentTheme] = useState("");
+  const [currentPlaceholder, setCurrentPlacholder] = useState("");
   const themeLabelData = {
     theme: ["dark", "light"]
   };
   const placeholderdata = {
-    placeholder: ["placeholder-smpte.webm", "placeholder-ball.webm"]
+    placeholder: [
+      "placeholder-smpte",
+      "placeholder-smpte100",
+      "placeholder-smpte75",
+      "placeholder-ball",
+      "placeholder-bar",
+      "placeholder-black",
+      "placeholder-blue",
+      "placeholder-white",
+      "placeholder-green",
+      "placeholder-red",
+      "placeholder-solid-color",
+      "placeholder-checkers-1",
+      "placeholder-checkers-2",
+      "placeholder-checkers-4",
+      "placeholder-checkers-8",
+      "placeholder-chroma-zone-plate",
+      "placeholder-circular",
+      "placeholder-gradient",
+      "placeholder-pinwheel",
+      "placeholder-spokes",
+      "placeholder-zone-plate"
+    ]
   };
 
   const [tmpConf, setTmpConf] = useState<ISetting>({
-    theme: ""
+    theme: "",
+    placeholder: ""
   });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [themeOptions, setThemeOptions] = useState<string[]>(
+    themeLabelData.theme
+  );
+  const [placeholderOptions, setPlaceholderOptions] = useState<string[]>(
+    placeholderdata.placeholder
+  );
 
   useEffect(() => {
     async function fetchConfig() {
@@ -61,22 +88,40 @@ export default function Settings() {
         const parsedConfig = JSON.parse(configData);
         setTmpConf(parsedConfig);
         setCurrentTheme(parsedConfig.theme);
+        setCurrentPlacholder(parsedConfig.placeholder);
         setError(null);
+
+        // Update the dropdown options with values from the configuration
+        if (!themeOptions.includes(parsedConfig.theme)) {
+          setThemeOptions((prevOptions) => [
+            ...prevOptions,
+            parsedConfig.theme
+          ]);
+        }
+
+        if (!placeholderOptions.includes(parsedConfig.placeholder)) {
+          setPlaceholderOptions((prevOptions) => [
+            ...prevOptions,
+            parsedConfig.placeholder
+          ]);
+        }
       } catch (err) {
         setError(err.message);
       }
     }
+
+    fetchConfig();
     appWindow.listen("tauri://update_settings_file", () => {
       fetchConfig();
     });
   }, []);
 
   async function handleDismissErrorToast() {
-    await setError(null);
+    setError(null);
   }
 
   async function handleCloseAlert() {
-    await setSuccessMessage("");
+    setSuccessMessage("");
   }
 
   function handleThemeChange(event) {
@@ -93,13 +138,13 @@ export default function Settings() {
     setCurrentPlacholder(newPlaceholder);
     setTmpConf((prevTmpConf) => ({
       ...prevTmpConf,
-      placeholder: event.target.value
+      placeholder: newPlaceholder
     }));
   }
   async function handleSaveConfig() {
     try {
       const jsonSettings = JSON.stringify(tmpConf);
-      console.log(jsonSettings);
+      //console.log(jsonSettings);
       // Serialize the object to JSON
       await SetConfig(jsonSettings);
       setSuccessMessage("Configuration saved successfully!");
@@ -152,7 +197,7 @@ export default function Settings() {
               Themes
             </label>
             <Dropdown
-              options={themeLabelData.theme}
+              options={themeOptions}
               value={currentTheme}
               onChange={handleThemeChange}
             />
@@ -165,7 +210,7 @@ export default function Settings() {
               Video Placeholder
             </label>
             <Dropdown
-              options={placeholderdata.placeholder}
+              options={placeholderOptions}
               value={currentPlaceholder}
               onChange={handlePlaceholderChange}
             />

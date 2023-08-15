@@ -25,7 +25,7 @@ export default function VidPlayer() {
       fetch("http://localhost:16780/placeholder-smpte.webm").then(
         (response) => {
           console.log(response);
-          setPlaceholderUrl("http://localhost:16780/placeholder-smpte.webm");
+          setPlaceholderUrl("placeholder-smpte");
         }
       );
 

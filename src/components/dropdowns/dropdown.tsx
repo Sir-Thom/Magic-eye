@@ -7,7 +7,6 @@ function Dropdown({ options, value, onChange }: IDropdown) {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-
   };
 
   return (

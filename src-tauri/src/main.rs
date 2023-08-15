@@ -20,7 +20,7 @@ use utils::config::{
     create_configuartion_file_setting, get_config_dir, get_config_file, get_config_file_content,
     update_settings_file,
 };
-use utils::os_setup_and_info::{get_os, setup_wayland};
+use utils::os_setup_and_info::{setup_wayland};
 
 #[command]
 fn test() {
@@ -30,6 +30,7 @@ fn test() {
 #[tokio::main]
 async fn main() {
     let port = 1420; //is_free(1420).then_some(1420).expect("Port is not free");
+    // println!("Port is {}", port);
 
     let mut context = tauri::generate_context!();
     let url = format!("http://localhost:{}", port).parse().unwrap();
