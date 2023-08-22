@@ -6,7 +6,7 @@
 mod utils;
 //module end here
 
-use std::{env, fs, path::PathBuf};
+use std::{env, fs};
 
 use axum::http::{HeaderValue, Method};
 use axum::Router;
@@ -20,7 +20,7 @@ use utils::config::{
     create_configuartion_file_setting, get_config_dir, get_config_file, get_config_file_content,
     update_settings_file,
 };
-use utils::os_setup_and_info::{setup_wayland};
+use utils::os_setup_and_info::setup_wayland;
 
 #[command]
 fn test() {
@@ -30,7 +30,7 @@ fn test() {
 #[tokio::main]
 async fn main() {
     let port = 1420; //is_free(1420).then_some(1420).expect("Port is not free");
-    // println!("Port is {}", port);
+                     // println!("Port is {}", port);
 
     let mut context = tauri::generate_context!();
     let url = format!("http://localhost:{}", port).parse().unwrap();
@@ -52,8 +52,6 @@ async fn main() {
                 .resolve_resource("assets")
                 .expect("failed to resolve resource");
 
-            let test = resource_path.as_path().display().to_string();
-
             tauri::api::path::app_data_dir(&tauri::Config::default())
                 .unwrap()
                 .push("magiceEye/assets");
@@ -69,14 +67,12 @@ async fn main() {
                 let serve_dir = ServeDir::new(resource_path.to_str().unwrap());
 
                 //get all files in the directory serve_dir
-                let mut files = fs::read_dir(resource_path.to_str().unwrap())
+                let files = fs::read_dir(resource_path.to_str().unwrap())
                     .unwrap()
                     .map(|res| res.map(|e| e.path()))
                     .collect::<Result<Vec<_>, std::io::Error>>()
                     .unwrap();
                 //print all file names
-
-                files.sort();
 
                 println!("{:?}", files);
 

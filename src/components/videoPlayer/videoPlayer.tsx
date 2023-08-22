@@ -6,6 +6,7 @@ import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { resourceDir, join } from "@tauri-apps/api/path";
 import { convertFileSrc } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api";
 export default function VidPlayer() {
   const { height, width }: IVideoPlayer = useWindowDimensions();
   const [url, seturl] = useState("");
@@ -21,13 +22,22 @@ export default function VidPlayer() {
   };
   useEffect(() => {
     (async () => {
-      // ge
-      fetch("http://localhost:16780/placeholder-smpte.webm").then(
-        (response) => {
-          console.log(response);
-          setPlaceholderUrl("placeholder-smpte");
+      invoke("get_config_file_content").then((res) => {
+        console.log("test" + res.placeholder);
+        try {
+          const jsonObject = JSON.parse(res);
+          const placeholderValue = jsonObject.placeholder;
+          setPlaceholderUrl(placeholderValue.toString());
+          console.log(placeholderValue.toString());
+        } catch (error) {
+          console.error("Error parsing JSON:", error);
         }
-      );
+      });
+      console.log(placeholderUrl);
+      fetch(`http://localhost:16780/${placeholderUrl}`).then((response) => {
+        console.log(response);
+        //setPlaceholderUrl("placeholder-smpte");
+      });
 
       const resourcePath = await resourceDir();
       console.log(resourcePath);
@@ -35,7 +45,7 @@ export default function VidPlayer() {
       console.log(vidPath);
       const uriVid = convertFileSrc(vidPath);
       console.log(uriVid);
-      setPlaceholderUrl(uriVid);
+      //setPlaceholderUrl(uriVid);
     })();
   }, []);
 

@@ -143,6 +143,7 @@ export default function Settings() {
   }
   async function handleSaveConfig() {
     try {
+      console.log(GetConfig());
       const jsonSettings = JSON.stringify(tmpConf);
       //console.log(jsonSettings);
       // Serialize the object to JSON
