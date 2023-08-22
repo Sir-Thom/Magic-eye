@@ -15,7 +15,6 @@ import { ISetting } from "../interfaces/ISetting";
 export async function GetConfig() {
   try {
     const configData = await invoke("get_config_file_content");
-    console.log(configData);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return configData as any;
   } catch (err) {
@@ -55,6 +54,7 @@ export default function Settings() {
       "placeholder-green",
       "placeholder-red",
       "placeholder-solid-color",
+      "placeholder-snow",
       "placeholder-checkers-1",
       "placeholder-checkers-2",
       "placeholder-checkers-4",
@@ -143,9 +143,7 @@ export default function Settings() {
   }
   async function handleSaveConfig() {
     try {
-      console.log(GetConfig());
       const jsonSettings = JSON.stringify(tmpConf);
-      //console.log(jsonSettings);
       // Serialize the object to JSON
       await SetConfig(jsonSettings);
       setSuccessMessage("Configuration saved successfully!");
