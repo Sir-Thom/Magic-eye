@@ -1,3 +1,4 @@
+# this script take save a 10 seconds snapshot of GStreamer pattern of videotestsrc
 import subprocess
 import time
 import signal
