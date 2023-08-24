@@ -2,17 +2,12 @@
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
-    "devPath": "http://127.0.0.1:1420",
+    "devPath": "http://127.0.0.1:1620/",
     "distDir": "../dist",
     "withGlobalTauri": true
   },
-  "plugins": {
-    "gstreamer": {
-      "version": "0.20.2"
-    }
-  },
   "package": {
-    "productName": "magic_eyes",
+    "productName": "Magic Eye",
     "version": "0.0.1"
   },
   "tauri": {
@@ -33,7 +28,7 @@
         "scope": [
           "http://172.17.0.2:8080/",
           "http://172.17.0.2:8000/stream/*",
-          "http://localhost:16780/*"
+          "http://127.0.0.1:16780/*"
         ]
       },
       "dialog": {
@@ -127,9 +122,9 @@
             "main",
             "settings"
           ],
-          "domain": "172.17.0.2",
+          "domain": "localhost",
           "plugins": [
-            "trusted-plugin"
+            "tauri-plugin-localhost"
           ],
           "enableTauriAPI": true
         }

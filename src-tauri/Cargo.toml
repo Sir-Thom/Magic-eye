@@ -17,24 +17,24 @@ tauri-build = { version = "^1.4", features = [] }
 
 [dependencies]
 tauri = { version = "^1.4.1", features = [
-    "fs-all",
     "shell-open",
+    "fs-all",
+    "http-all",
     "protocol-all",
-    "window-all",
     "path-all",
     "dialog-all",
-    "http-all",
-    "devtools",
+    "window-all",
 ] }
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 axum = "0.6.20"
-tokio = { version = "1.29.1", features = ["full"] }
+tokio = { version = "1.31.0", features = ["full"] }
 tower-http = { version = "0.4.3", features = ["fs", "cors"] }
-tauri-plugin-localhost = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
-port-selector = "0.1.6"
+#tauri-plugin-localhost = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+#port-selector = "0.1.6"
 open = "5.0.0"
 
+portpicker = "0.1"
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

@@ -159,17 +159,18 @@ export function Titlebar() {
                   About
                 </a>
 
-                <a
-                  title={"Start Server"}
-                  href="#"
-                  className="block rounded-lg  px-3 py-2  dark:text-text-dark text-text-light text-md  hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                <Link
+                  to={"/server"}
+                  title={"Server"}
+                  className="block rounded-lg  px-4 py-2 text-md  dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                 >
                   <IconServer
                     className="flex justify-center item-center dark:text-text-dark text-text-light text-center  pr-2"
                     size={26}
                   />
-                  Start Server
-                </a>
+                  Server
+                </Link>
+
                 <Link
                   to={"/settings"}
                   title={"Setting"}

@@ -2,6 +2,11 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 
+/*#[cfg(debug_assertions)]
+const USE_LOCALHOST_SERVER: bool = false;
+#[cfg(not(debug_assertions))]
+const USE_LOCALHOST_SERVER: bool = true;*/
+
 //module start here
 mod utils;
 //module end here
@@ -10,8 +15,8 @@ use std::{env, fs};
 
 use axum::http::{HeaderValue, Method};
 use axum::Router;
-use tauri::{command, generate_handler};
-use tauri::{utils::config::AppUrl, WindowUrl};
+use tauri::{generate_handler, Manager};
+//use tauri::{utils::config::AppUrl, WindowUrl};
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
 use utils::browser::open_web_browser;
@@ -22,21 +27,10 @@ use utils::config::{
 };
 use utils::os_setup_and_info::setup_wayland;
 
-#[command]
-fn test() {
-    println!("I  was invoked from JS!");
-}
-
 #[tokio::main]
 async fn main() {
-    let port = 1420; //is_free(1420).then_some(1420).expect("Port is not free");
-                     // println!("Port is {}", port);
+    //let port = 1620;
 
-    let mut context = tauri::generate_context!();
-    let url = format!("http://localhost:{}", port).parse().unwrap();
-    let window_url = WindowUrl::External(url);
-    // rewrite the config so the IPC is enabled on this URL
-    context.config_mut().build.dist_dir = AppUrl::Url(window_url.clone());
     #[cfg(target_os = "linux")]
     create_configuartion_file_setting();
     setup_wayland();
@@ -44,9 +38,27 @@ async fn main() {
     #[cfg(target_os = "windows")]
     create_configuartion_file_setting();
 
-    tauri::Builder::default()
-        .plugin(tauri_plugin_localhost::Builder::new(port).build())
-        .setup(|app| {
+    /*  let window_url = if USE_LOCALHOST_SERVER {
+        WindowUrl::External(format!("http://localhost:{}", port).parse().unwrap())
+    } else {
+        WindowUrl::App("index.html".into())
+    };*/
+
+    let context = tauri::generate_context!();
+    let builder = tauri::Builder::default();
+
+    /*if USE_LOCALHOST_SERVER {
+        // rewrite the config so the IPC is enabled on this URL
+        context.config_mut().build.dist_dir = AppUrl::Url(window_url.clone());
+        context.config_mut().build.dev_path = AppUrl::Url(window_url.clone());
+        builder = builder.plugin(tauri_plugin_localhost::Builder::new(port).build());
+    }*/
+
+    builder
+        .setup(move |app| {
+            let main_window = app.get_window("main").unwrap();
+            println!("main_window url: {}", main_window.url().to_string());
+
             let resource_path = app
                 .path_resolver()
                 .resolve_resource("assets")
@@ -86,7 +98,6 @@ async fn main() {
             Ok(())
         })
         .invoke_handler(generate_handler![
-            test,
             get_config_dir,
             open_web_browser,
             get_config_dir,

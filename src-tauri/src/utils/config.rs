@@ -91,7 +91,7 @@ impl Setting {
 
 #[tauri::command]
 pub fn create_configuartion_file_setting() {
-    let setting = Setting::default();
+    //let setting = Setting::default();
     if env::consts::OS == "linux" {
         let config_home = var("XDG_CONFIG_HOME")
             .or_else(|_| var("HOME").map(|home| format!("{}/.config", home)))
@@ -129,7 +129,7 @@ pub fn create_configuartion_file_setting() {
             );
             let mut file = File::create(&path_config_file).unwrap();
             file.write_all(json_data.as_bytes()).unwrap();
-            println!("{}", serde_json::to_string(&setting).unwrap());
+            // println!("{}", serde_json::to_string(&setting).unwrap());
         }
     } else if env::consts::OS == "windows" {
         println!("no implementation for now");
@@ -160,7 +160,7 @@ pub fn get_config_file_content() -> String {
     let mut file = File::open(&path_config_file).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
-    println!("content: {}", contents);
+    // println!("content: {}", contents);
     contents
 }
 
@@ -172,7 +172,7 @@ pub fn update_settings_file(new_settings: String) -> Result<String, String> {
 
     let path_config_file = get_config_file();
     let json_data = serde_json::to_string_pretty(&new_settings).map_err(|err| err.to_string())?;
-    println!("json data: {}", json_data);
+    //println!("json data: {}", json_data);
 
     let mut file = File::create(&path_config_file).map_err(|err| err.to_string())?;
     file.write_all(json_data.as_bytes())
