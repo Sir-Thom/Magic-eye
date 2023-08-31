@@ -8,13 +8,14 @@ const USE_LOCALHOST_SERVER: bool = false;
 const USE_LOCALHOST_SERVER: bool = true;*/
 
 //module start here
+mod server;
 mod utils;
 //module end here
 
-use std::{env, fs};
-
 use axum::http::{HeaderValue, Method};
 use axum::Router;
+use server::server_config::get_server_config_options;
+use std::{env, fs};
 use tauri::{generate_handler, Manager};
 //use tauri::{utils::config::AppUrl, WindowUrl};
 use tower_http::cors::CorsLayer;
@@ -104,6 +105,7 @@ async fn main() {
             get_config_file,
             get_config_file_content,
             update_settings_file,
+            get_server_config_options,
         ])
         .run(context)
         .expect("error while running tauri application");
