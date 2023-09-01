@@ -81,12 +81,12 @@ impl Setting {
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
         }
     }
-    fn default() -> Setting {
+    /*  fn default() -> Setting {
         Setting {
             theme: "dark".to_string(),
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
         }
-    }
+    }*/
 }
 
 #[tauri::command]

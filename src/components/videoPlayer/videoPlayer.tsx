@@ -78,7 +78,6 @@ export default function VidPlayer() {
   function handleDisconnect(): void {
     setIsConnected(false);
     setStreamUrl("");
-    //console.log("Disconnected:", streamUrl);
     if (error && error !== prevErrorRef.current) {
       setError("");
       setStreamUrl("");
