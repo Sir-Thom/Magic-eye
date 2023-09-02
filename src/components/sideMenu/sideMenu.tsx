@@ -8,8 +8,7 @@ interface SideMenuProps {
 
 const SideMenu: React.FC<SideMenuProps> = ({ menuItems }) => {
   return (
-    <div className="bg-gray-800  h-full w-64 p-4">
-      <h1 className="text-2xl font-semibold mb-4">Side Menu</h1>
+    <div className="bg-gray-800 h-full w-64 ">
       <ul>
         {menuItems.map((menuItem, index) => (
           <li key={index} className="mb-2">

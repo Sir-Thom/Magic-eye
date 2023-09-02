@@ -6,14 +6,15 @@ import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api";
 export default function VidPlayer() {
-  const { height, width }: IVideoPlayer = useWindowDimensions();
-  const [url, seturl] = useState("");
-  const [streamUrl, setStreamUrl] = useState(null || "");
+  const [url, setUrl] = useState("");
+  const [streamUrl, setStreamUrl] = useState("");
   const [isConnected, setIsConnected] = useState(false);
   const [placeholderUrl, setPlaceholderUrl] = useState("");
-  const prevErrorRef = useRef<string | null>(null);
-
   const [error, setError] = useState<string | null>(null);
+
+  const { height, width }: IVideoPlayer = useWindowDimensions();
+
+  const prevErrorRef = useRef<string | null>(null);
 
   const handleDismissErrorToast = () => {
     setError(null);
@@ -36,29 +37,16 @@ export default function VidPlayer() {
 
   async function get_url() {
     try {
-      await fetch(url)
-        .then((res) => {
-          if (res.status === 200) {
-            setIsConnected(true);
-            return res;
-          }
-        })
-        .catch(() => {
-          setIsConnected(false);
+      const response = await fetch(url);
 
-          throw new Error(
-            "The provided URL is not valid or the stream is down"
-          );
-        });
-      if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        throw new Error("Please enter a valid URL");
+      if (response.status === 200) {
+        setIsConnected(true);
+        setStreamUrl(url);
+        setError("");
+      } else {
+        throw new Error("The provided URL is not valid or the stream is down");
       }
-
-      setStreamUrl(url);
-      setIsConnected(true);
-      setError("");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
+    } catch (err) {
       setIsConnected(false);
       setError("An error occurred: " + err.message);
       handleDisconnect();
@@ -71,8 +59,8 @@ export default function VidPlayer() {
     setError("An error occurred: " + error);
   };
 
-  function HandleUrlChanged(e: React.ChangeEvent<HTMLInputElement>) {
-    seturl(e.target.value);
+  function handleUrlChanged(e: React.ChangeEvent<HTMLInputElement>) {
+    setUrl(e.target.value);
   }
 
   function handleDisconnect(): void {
@@ -109,7 +97,7 @@ export default function VidPlayer() {
       <div className="w-full flex justify-center items-center pb-1 mt-6">
         <button
           onClick={handleDisconnect}
-          type={"button"}
+          type="button"
           className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-16 font-bold py-2 px-4 rounded"
         >
           Disconnect
@@ -119,7 +107,7 @@ export default function VidPlayer() {
             className="w-full border-2 border-gray-400 rounded items-center mt-1 py-2 mb-2 px-4"
             type="text"
             placeholder="Stream URL"
-            onChange={HandleUrlChanged}
+            onChange={handleUrlChanged}
           />
         </div>
         <button

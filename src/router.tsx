@@ -1,6 +1,7 @@
 import App from "./App";
 import Settings from "./views/Settings";
-import ServerPage from "./views/Server";
+import HlsSetting from "./views/serverSetting/hlsSetting";
+import ApiSetting from "./views/serverSetting/ApiSetting";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -12,5 +13,6 @@ export const router = createBrowserRouter([
     path: "/",
     element: <App />
   },
-  { path: "server", element: <ServerPage /> }
+  { path: "server/hls", element: <HlsSetting /> },
+  { path: "server/api", element: <ApiSetting /> }
 ]);
