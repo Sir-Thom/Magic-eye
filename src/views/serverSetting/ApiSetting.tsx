@@ -10,6 +10,7 @@ import { Titlebar } from "../../components/titlebar/titlebar";
 import { slideToScreen } from "../../utils/animation/screenAnimation";
 import SideMenu from "../../components/sideMenu/sideMenu";
 import ErrorToast from "../../components/toast/errorToast";
+import Checkbox from "../../components/checkBox/checkBox";
 
 export default function ApiSetting() {
   const [configData, setConfigData] = useState<IServer | null>(null);
@@ -82,14 +83,7 @@ export default function ApiSetting() {
   return (
     <>
       <Titlebar />
-
-      <motion.div
-        variants={slideToScreen}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="flex flex-col h-screen"
-      >
+      <div className="flex flex-col h-screen">
         <div className="flex justify-start h-fit items-center">
           <Link
             className="flex justify-start items-center w-8 mt-12 dark:text-text-dark text-text-light h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
@@ -106,94 +100,98 @@ export default function ApiSetting() {
             <SideMenu menuItems={menuItems} />
           </div>
           <div className="w-3/4 m-auto">
-            {configData && (
-              <div className="mt-12">
-                <h2 className="flex justify-center items-center text-center font-bold text-3xl">
-                  API Setting
-                </h2>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    API Enabled:
-                    <input
-                      type="checkbox"
-                      className="mx-2"
+            <motion.div
+              variants={slideToScreen}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {configData && (
+                <div className="mt-12">
+                  <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+                    API Setting
+                  </h2>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <Checkbox
+                      title="API Enabled"
                       value={apiEnabled.toString()}
                       checked={apiEnabled}
                       onChange={handleApiEnabledChange}
                     />
-                  </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      API Address:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={apiAddress}
+                        onChange={handleApiAddressChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1">
+                    <label>
+                      Auth Methods:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={authMethods}
+                        onChange={handleAuthMethodsChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1">
+                    <label>
+                      Encryption:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={encryption}
+                        onChange={handleEncryptionChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      Log Destinations:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={logDestinations}
+                        onChange={handleLogDestinationsChange}
+                      />
+                    </label>
+                  </div>
+                  <div className=" mt-auto bottom-10 right-0 mb-4 flex justify-end items-center">
+                    <button
+                      type="button"
+                      className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                      onClick={handleSaveConfig}
+                    >
+                      Apply
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    API Address:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={apiAddress}
-                      onChange={handleApiAddressChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1">
-                  <label>
-                    Auth Methods:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={authMethods}
-                      onChange={handleAuthMethodsChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1">
-                  <label>
-                    Encryption:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={encryption}
-                      onChange={handleEncryptionChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    Log Destinations:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={logDestinations}
-                      onChange={handleLogDestinationsChange}
-                    />
-                  </label>
-                </div>
-                <div className=" mt-auto bottom-10 right-0 mb-4 flex justify-end items-center">
-                  <button
-                    type="button"
-                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                    onClick={handleSaveConfig}
-                  >
-                    Apply
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
+            </motion.div>
           </div>
         </div>
-      </motion.div>
-      {error && (
-        <ErrorToast
-          message={error}
-          timer={5000}
-          onDismiss={handleDismissErrorToast}
-        />
-      )}
+
+        {error && (
+          <ErrorToast
+            message={error}
+            timer={5000}
+            onDismiss={handleDismissErrorToast}
+          />
+        )}
+      </div>
     </>
   );
 }

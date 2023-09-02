@@ -23,6 +23,7 @@ import { Link, useLocation } from "react-router-dom";
 import { getVersion } from "@tauri-apps/api/app";
 import { motion } from "framer-motion";
 import { invoke } from "@tauri-apps/api";
+import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
 
 export function Titlebar() {
   const [version, setVersion] = useState("");
@@ -143,9 +144,10 @@ export function Titlebar() {
             {menuOpen && (
               <motion.div
                 className="flex flex-col absolute z-50 mt-10 top-0 right-9 w-56 rounded-lg shadow-lg py-1 dark:bg-window-dark-700 bg-window-light-300"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
+                variants={hamburgerMenuAnimation}
+                initial="hidden"
+                animate="visible"
+                exit={"exit"}
               >
                 <a
                   title="About"
@@ -185,14 +187,7 @@ export function Titlebar() {
                 </Link>
               </motion.div>
             )}
-            {!menuOpen && (
-              <motion.div
-                className="flex flex-col absolute z-50 mt-10 top-0 right-9 w-56 rounded-lg shadow-lg py-1 dark:bg-window-dark-700 bg-window-light-300"
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 0, y: 0 }}
-                transition={{ duration: 0.2 }}
-              ></motion.div>
-            )}
+
             <button
               type="button"
               title="Minimize"

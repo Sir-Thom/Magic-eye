@@ -10,6 +10,7 @@ import { Titlebar } from "../../components/titlebar/titlebar";
 import { slideToScreen } from "../../utils/animation/screenAnimation";
 import SideMenu from "../../components/sideMenu/sideMenu";
 import ErrorToast from "../../components/toast/errorToast";
+import Checkbox from "../../components/checkBox/checkBox";
 
 export default function HlsSetting() {
   const [configData, setConfigData] = useState<IServer | null>(null);
@@ -173,14 +174,7 @@ export default function HlsSetting() {
   return (
     <>
       <Titlebar />
-
-      <motion.div
-        variants={slideToScreen}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="flex flex-col h-screen"
-      >
+      <div className="flex flex-col h-screen">
         <div className="flex justify-start h-fit items-center">
           <Link
             className="flex justify-start items-center w-8 mt-12 dark:text-text-dark text-text-light h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
@@ -196,207 +190,203 @@ export default function HlsSetting() {
           <div className="w-1/4  m-auto  h-full">
             <SideMenu menuItems={menuItems} />
           </div>
+
           <div className="w-3/4 m-auto">
-            {configData && (
-              <div className="mt-12">
-                <h2 className="flex justify-center items-center text-center font-bold text-3xl">
-                  HLS Setting
-                </h2>
-                <div className="flex justify-center items-center my-4 flex-1">
-                  <label>
-                    HLS Enabled:
-                    <input
-                      type="checkbox"
-                      className="mx-2"
+            <motion.div
+              variants={slideToScreen}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {configData && (
+                <div className="mt-12">
+                  <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+                    HLS Setting
+                  </h2>
+                  <div className="flex justify-center items-center my-4 flex-1">
+                    <Checkbox
+                      title="HLS Enabled"
                       value={hlsEnabled.toString()}
                       checked={hlsEnabled}
                       onChange={handleHlsEnabledChange}
                     />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1">
-                  <label>
-                    HLS Address:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsAddress}
-                      onChange={handleHlsAddressChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Allow Origin:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsAllowOrigin}
-                      onChange={handleHlsAllowOriginChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Always Remux:
-                    <input
-                      type="checkbox"
-                      className="mx-2"
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1">
+                    <label>
+                      HLS Address:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsAddress}
+                        onChange={handleHlsAddressChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Allow Origin:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsAllowOrigin}
+                        onChange={handleHlsAllowOriginChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <Checkbox
+                      title={"HLS Always Remux"}
                       value={hlsAlwaysRemux.toString()}
                       onChange={handleHlsAlwaysRemuxChange}
+                      checked={hlsAlwaysRemux}
                     />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Directory:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsDirectory}
-                      onChange={handleHlsDirectoryChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Disable:
-                    <input
-                      type="checkbox"
-                      className="mx-2"
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Directory:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsDirectory}
+                        onChange={handleHlsDirectoryChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <Checkbox
+                      title={"HLS Disable"}
                       value={hlsDisable.toString()}
                       onChange={handleHlsDisableChange}
+                      checked={hlsDisable}
                     />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Encryption:
-                    <input
-                      type="checkbox"
-                      className="mx-2"
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <Checkbox
+                      title={"HLS Encryption"}
                       value={hlsEncryption.toString()}
                       onChange={handleHlsEncryptionChange}
+                      checked={hlsEncryption}
                     />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Part Duration:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsPartDuration}
-                      onChange={handleHlsPartDurationChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Segment Count:
-                    <input
-                      type="number"
-                      className="mx-2"
-                      value={hlsSegmentCount}
-                      onChange={handleHlsSegmentCountChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Segment Duration:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsSegmentDuration}
-                      onChange={handleHlsSegmentDurationChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Segment Max Size:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsSegmentMaxSize}
-                      onChange={handleHlsSegmentMaxSizeChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Server Cert:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsServerCert}
-                      onChange={handleHlsServerCertChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Server Key:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsServerKey}
-                      onChange={handleHlsServerKeyChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1">
-                  <label>
-                    HLS Trusted Proxies:
-                    <textarea
-                      name="hlsTrustedProxies"
-                      style={{ resize: "none" }}
-                      className="mx-2"
-                      value={hlsTrustedProxies}
-                      onChange={handleHlsTrustedProxiesChange}
-                    />
-                  </label>
-                </div>
-                <div className="flex justify-center items-center my-4 flex-1 ">
-                  <label>
-                    HLS Variant:
-                    <input
-                      type="text"
-                      className="mx-2"
-                      value={hlsVariant}
-                      onChange={handleHlsVariantChange}
-                    />
-                  </label>
-                </div>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Part Duration:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsPartDuration}
+                        onChange={handleHlsPartDurationChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Segment Count:
+                      <input
+                        type="number"
+                        className="mx-2"
+                        value={hlsSegmentCount}
+                        onChange={handleHlsSegmentCountChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Segment Duration:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsSegmentDuration}
+                        onChange={handleHlsSegmentDurationChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Segment Max Size:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsSegmentMaxSize}
+                        onChange={handleHlsSegmentMaxSizeChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Server Cert:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsServerCert}
+                        onChange={handleHlsServerCertChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Server Key:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsServerKey}
+                        onChange={handleHlsServerKeyChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1">
+                    <label>
+                      HLS Trusted Proxies:
+                      <textarea
+                        name="hlsTrustedProxies"
+                        style={{ resize: "none" }}
+                        className="mx-2"
+                        value={hlsTrustedProxies}
+                        onChange={handleHlsTrustedProxiesChange}
+                      />
+                    </label>
+                  </div>
+                  <div className="flex justify-center items-center my-4 flex-1 ">
+                    <label>
+                      HLS Variant:
+                      <input
+                        type="text"
+                        className="mx-2"
+                        value={hlsVariant}
+                        onChange={handleHlsVariantChange}
+                      />
+                    </label>
+                  </div>
 
-                <div className=" mt-auto bottom-0 right-0 mb-4 flex justify-end items-end">
-                  <button
-                    type="button"
-                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                    onClick={handleSaveConfig}
-                  >
-                    Apply
-                  </button>
+                  <div className=" mt-auto bottom-0 right-0 mb-4 flex justify-end items-end">
+                    <button
+                      type="button"
+                      className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                      onClick={handleSaveConfig}
+                    >
+                      Apply
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </motion.div>
           </div>
         </div>
-      </motion.div>
-      {error && (
-        <ErrorToast
-          message={error}
-          timer={5000}
-          onDismiss={handleDismissErrorToast}
-        />
-      )}
+
+        {error && (
+          <ErrorToast
+            message={error}
+            timer={5000}
+            onDismiss={handleDismissErrorToast}
+          />
+        )}
+      </div>
     </>
   );
 }
