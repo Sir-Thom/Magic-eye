@@ -1,9 +1,8 @@
 import { FaCheck } from "react-icons/fa";
 
-export default function Checkbox({ checked, onChange, value, title }) {
+export default function Checkbox({ checked, onChange, value }) {
   return (
-    <label className="cursor-pointer flex items-center">
-      {title}
+    <div className="cursor-pointer flex items-center">
       <input
         type="checkbox"
         className="hidden"
@@ -23,6 +22,6 @@ export default function Checkbox({ checked, onChange, value, title }) {
           />
         )}
       </div>
-    </label>
+    </div>
   );
 }

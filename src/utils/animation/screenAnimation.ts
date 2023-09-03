@@ -17,3 +17,20 @@ export const slideToScreen = {
     opacity: 0
   }
 };
+//make fade in animation
+export const fadeIn = {
+  hidden: {
+    opacity: 0.65
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      type: "tween",
+      ease: "easeInOut"
+    }
+  },
+  exit: {
+    opacity: 0
+  }
+};

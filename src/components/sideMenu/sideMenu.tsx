@@ -1,24 +1,42 @@
 import React from "react";
 import { IMenuItem } from "../../interfaces/IMenuItem";
 import { Link } from "react-router-dom";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 interface SideMenuProps {
   menuItems: IMenuItem[];
+  // eslint-disable-next-line no-unused-vars
+  onMenuItemClick: (menuItem: IMenuItem) => void;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ menuItems }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
+  const handleMenuItemClick = (menuItem: IMenuItem) => {
+    onMenuItemClick(menuItem);
+  };
+
   return (
-    <div className="bg-gray-800 h-full w-64 ">
-      <ul>
+    <div className="bg-gray-800   h-screen w-72  overflow-y-auto">
+      <div className="flex sticky h-24 my-auto dark:bg-window-dark-800  bg-window-light-50 justify-start  items-center">
+        <Link
+          className="flex justify-center items-center  w-8 mt-12 dark:text-text-dark text-text-light  rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+          to="/"
+        >
+          <IconArrowLeft
+            size={30}
+            className="flex justify-center items-center dark:text-text-dark text-text-light"
+          />
+        </Link>
+      </div>
+      <ul className=" pl-2">
         {menuItems.map((menuItem, index) => (
-          <li key={index} className="mb-2">
-            <Link
-              to={menuItem.link}
+          <li key={index} className="my-2 mx-2">
+            <button
+              onClick={() => handleMenuItemClick(menuItem)}
               title={menuItem.label}
-              className="block rounded-lg  px-4 py-2 text-md  dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+              className="w-full rounded-lg text-justify py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
             >
               {menuItem.label}
-            </Link>
+            </button>
           </li>
         ))}
       </ul>

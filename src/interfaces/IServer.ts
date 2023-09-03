@@ -142,4 +142,21 @@ interface PathConfig {
   runOnReadRestart: boolean;
 }
 
-export type { IServer, PathConfig, ICEServer };
+interface ILoggingSettings {
+  logLevel: string;
+  logDestinations: string[];
+  logFile: string;
+}
+
+interface IApiSettings {
+  api: boolean;
+  apiAddress: string;
+  metrics: boolean;
+  metricsAddress: string;
+  pprof: boolean;
+  pprofAddress: string;
+  runOnConnect: string;
+  runOnConnectRestart: boolean;
+}
+
+export type { IServer, PathConfig, ICEServer, ILoggingSettings, IApiSettings };

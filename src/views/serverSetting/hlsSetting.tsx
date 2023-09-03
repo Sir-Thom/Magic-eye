@@ -7,7 +7,7 @@ import { invoke } from "@tauri-apps/api";
 
 import { IServer } from "../../interfaces/IServer";
 import { Titlebar } from "../../components/titlebar/titlebar";
-import { slideToScreen } from "../../utils/animation/screenAnimation";
+import { fadeIn } from "../../utils/animation/screenAnimation";
 import SideMenu from "../../components/sideMenu/sideMenu";
 import ErrorToast from "../../components/toast/errorToast";
 import Checkbox from "../../components/checkBox/checkBox";
@@ -187,13 +187,13 @@ export default function HlsSetting() {
           </Link>
         </div>
         <div className="flex ">
-          <div className="w-1/4  m-auto  h-full">
+          <div className="w-1/4  m-auto ">
             <SideMenu menuItems={menuItems} />
           </div>
 
           <div className="w-3/4 m-auto">
             <motion.div
-              variants={slideToScreen}
+              variants={fadeIn}
               initial="hidden"
               animate="visible"
               exit="exit"

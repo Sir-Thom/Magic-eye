@@ -1,8 +1,8 @@
 import App from "./App";
 import Settings from "./views/Settings";
 import HlsSetting from "./views/serverSetting/hlsSetting";
-import ApiSetting from "./views/serverSetting/ApiSetting";
 import { createBrowserRouter } from "react-router-dom";
+import ServerSettings from "./views/serverSetting/ServerSettings";
 
 export const router = createBrowserRouter([
   {
@@ -14,5 +14,6 @@ export const router = createBrowserRouter([
     element: <App />
   },
   { path: "server/hls", element: <HlsSetting /> },
-  { path: "server/api", element: <ApiSetting /> }
+
+  { path: "server", element: <ServerSettings /> }
 ]);

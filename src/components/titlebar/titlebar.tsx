@@ -85,7 +85,7 @@ export function Titlebar() {
 
   return (
     !fullscreen && (
-      <div className="z-50 flex top-0 justify-between items-center h-12 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0">
+      <div className="z-50 flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0">
         <Modal isOpen={isOpen} onClose={handleClose}>
           <img
             className="inline-flex justify-center item-center dark:text-text-dark text-text-light m-auto h-auto ml-[3.78rem] mb-4"
@@ -163,7 +163,7 @@ export function Titlebar() {
                 </a>
 
                 <Link
-                  to="/server/api"
+                  to="/server"
                   title="Server"
                   className="block rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                 >
