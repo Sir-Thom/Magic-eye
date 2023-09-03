@@ -7,6 +7,7 @@ import { invoke } from "@tauri-apps/api";
 import {
   IApiSettings,
   ILoggingSettings,
+  IHlsSettings,
   IServer
 } from "../../interfaces/IServer";
 import SideMenu from "../../components/sideMenu/sideMenu";
@@ -30,6 +31,23 @@ export default function ServerSettings() {
     pprofAddress: configData?.pprofAddress || "127.0.0.1:9999",
     runOnConnect: configData?.runOnConnect || "",
     runOnConnectRestart: configData?.runOnConnectRestart || false
+  });
+  const [hlsSettings, setHlsSettings] = useState<IHlsSettings>({
+    hls: configData?.hls || true,
+    hlsAddress: configData?.hlsAddress || ":8888",
+    hlsAllowOrigin: configData?.hlsAllowOrigin || "*",
+    hlsAlwaysRemux: configData?.hlsAlwaysRemux || false,
+    hlsDirectory: configData?.hlsDirectory || "",
+    hlsDisable: configData?.hlsDisable || false,
+    hlsEncryption: configData?.hlsEncryption || false,
+    hlsPartDuration: configData?.hlsPartDuration || "200ms",
+    hlsSegmentCount: configData?.hlsSegmentCount || 7,
+    hlsSegmentDuration: configData?.hlsSegmentDuration || "1s",
+    hlsSegmentMaxSize: configData?.hlsSegmentMaxSize || "50M",
+    hlsServerCert: configData?.hlsServerCert || "server.crt",
+    hlsServerKey: configData?.hlsServerKey || "server.key",
+    hlsTrustedProxies: configData?.hlsTrustedProxies || [],
+    hlsVariant: configData?.hlsVariant || "lowLatency"
   });
 
   useEffect(() => {
@@ -60,7 +78,7 @@ export default function ServerSettings() {
   return (
     <>
       <Titlebar />
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col  h-screen">
         <div className="flex">
           <div className="w-1/4 mx-auto absolute h-full">
             <SideMenu
@@ -85,6 +103,13 @@ export default function ServerSettings() {
             onSave={(updatedLoggingSettings) =>
               setLoggingSettings(updatedLoggingSettings)
             }
+          />
+        )}
+
+        {currentSetting === "HLS Setting" && (
+          <HlsSetting
+            settings={hlsSettings}
+            onSave={(updatedHlsSettings) => setHlsSettings(updatedHlsSettings)}
           />
         )}
       </div>

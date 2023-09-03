@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
+import Dropdown from "../../components/dropdowns/dropdown";
 
 export default function LoggingSetting({ settings, onSave }) {
   const [logLevel, setLogLevel] = useState(settings.logLevel || "info");
@@ -8,7 +9,7 @@ export default function LoggingSetting({ settings, onSave }) {
     settings.logDestinations || ["stdout"]
   );
   const [logFile, setLogFile] = useState(settings.logFile || "mediamtx.log");
-
+  const logLevels = ["info", "debug", "warning", "error"];
   const handleLogLevelChange = (event) => {
     setLogLevel(event.target.value);
   };
@@ -48,19 +49,20 @@ export default function LoggingSetting({ settings, onSave }) {
               <h2 className="flex justify-center items-center text-center font-bold text-3xl">
                 Logging Settings
               </h2>
-              <div className="flex justify-center items-center my-4 flex-1 ">
-                <label>
+              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
+                <label className="flex text-justify items-center">
                   Log Level:
-                  <input
-                    type="text"
-                    className="mx-2"
-                    value={logLevel}
-                    onChange={handleLogLevelChange}
-                  />
+                  <div className="mx-2">
+                    <Dropdown
+                      options={logLevels}
+                      value={logLevel}
+                      onChange={handleLogLevelChange}
+                    />
+                  </div>
                 </label>
               </div>
-              <div className="flex justify-center items-center my-4 flex-1 ">
-                <label>
+              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
+                <label className="flex text-justify items-center">
                   Log Destinations:
                   <input
                     type="text"
@@ -70,8 +72,8 @@ export default function LoggingSetting({ settings, onSave }) {
                   />
                 </label>
               </div>
-              <div className="flex justify-center items-center my-4 flex-1 ">
-                <label>
+              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
+                <label className="flex text-justify items-center">
                   Log file:
                   <input
                     type="text"

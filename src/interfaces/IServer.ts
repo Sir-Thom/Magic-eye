@@ -159,4 +159,29 @@ interface IApiSettings {
   runOnConnectRestart: boolean;
 }
 
-export type { IServer, PathConfig, ICEServer, ILoggingSettings, IApiSettings };
+interface IHlsSettings {
+  hls: boolean;
+  hlsDisable: boolean;
+  hlsAddress: string;
+  hlsEncryption: boolean;
+  hlsServerKey: string;
+  hlsServerCert: string;
+  hlsAlwaysRemux: boolean;
+  hlsVariant: string;
+  hlsSegmentCount: number;
+  hlsSegmentDuration: string;
+  hlsPartDuration: string;
+  hlsSegmentMaxSize: string;
+  hlsAllowOrigin: string;
+  hlsTrustedProxies: string[];
+  hlsDirectory: string;
+}
+
+export type {
+  IServer,
+  PathConfig,
+  ICEServer,
+  ILoggingSettings,
+  IApiSettings,
+  IHlsSettings
+};
