@@ -5,6 +5,7 @@ import Dropdown from "../../components/dropdowns/dropdown";
 
 export default function LoggingSetting({ settings, onSave }) {
   const [logLevel, setLogLevel] = useState(settings.logLevel || "info");
+
   const [logDestinations, setLogDestinations] = useState(
     settings.logDestinations || ["stdout"]
   );
@@ -83,6 +84,7 @@ export default function LoggingSetting({ settings, onSave }) {
                   />
                 </label>
               </div>
+
               <div className="absolute  mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
                 <button
                   type="button"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ApiSetting from "./ApiSetting";
 import HlsSetting from "./hlsSetting";
+import RtspSetting from "./RtspSetting";
 import LoggingSetting from "./LoggingSetting";
 import { Titlebar } from "../../components/titlebar/titlebar";
 import { invoke } from "@tauri-apps/api";
@@ -50,6 +51,19 @@ export default function ServerSettings() {
     hlsVariant: configData?.hlsVariant || "lowLatency"
   });
 
+  const [rtspSettings, setRtspSettings] = useState({
+    rtsp: configData?.rtsp || true,
+    rtspDisable: configData?.rtspDisable || false,
+    protocols: configData?.protocols || ["multicast", "tcp", "udp"],
+    encryption: configData?.encryption || false,
+    rtspAddress: configData?.rtspAddress || ":8554",
+    rtspsAddress: configData?.rtspsAddress || ":8322",
+    rtpAddress: configData?.rtpAddress || ":8000",
+    rtcpAddress: configData?.rtcpAddress || ":8001",
+    multicastIPRange: configData?.multicastIPRange || "224.1.0.0/16",
+    multicastRTPPort: configData?.multicastRTPPort || 8002,
+    multicastRTCPPort: configData?.multicastRTCPPort || 8003
+  });
   useEffect(() => {
     setError(null);
     const serverUrl = "http://127.0.0.1:9997/v2/config/get"; // Replace with your actual URL
@@ -68,6 +82,7 @@ export default function ServerSettings() {
   const menuItems = [
     { label: "API Setting" },
     { label: "HLS Setting" },
+    { label: "RTSP Setting" },
     { label: "Logging Setting" }
   ];
 
@@ -110,6 +125,14 @@ export default function ServerSettings() {
           <HlsSetting
             settings={hlsSettings}
             onSave={(updatedHlsSettings) => setHlsSettings(updatedHlsSettings)}
+          />
+        )}
+        {currentSetting === "RTSP Setting" && (
+          <RtspSetting
+            settings={rtspSettings}
+            onSave={(updatedRtspSettings) =>
+              setRtspSettings(updatedRtspSettings)
+            }
           />
         )}
       </div>
