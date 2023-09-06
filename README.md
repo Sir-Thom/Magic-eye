@@ -26,7 +26,7 @@ docker build -t nginx_hls_converter .
 docker run -it -p 127.0.0.1:8080:80 -p 127.0.0.1:1935:1935 --name nginx_hls nginx_hls_converter
 ```
 for the backend that will deal with rtmp you can use this repo:
-https://github.com/Sir-Thom/rtmpserverMagic-eye
+[Mediamtx](https://github.com/bluenviron/mediamtx)
 
 after that you can use the following command to stream a video to the server:
 ```
