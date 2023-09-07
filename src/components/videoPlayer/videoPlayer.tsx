@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useWindowDimensions } from "../../utils/WindowSize";
-import ErrorToast from "../toast/errorToast";
+import Toast from "../toast/Toast";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api";
@@ -120,9 +120,10 @@ export default function VidPlayer() {
       </div>
 
       {error && (
-        <ErrorToast
+        <Toast
           message={error}
           timer={5000}
+          type={"error"}
           onDismiss={handleDismissErrorToast}
         />
       )}

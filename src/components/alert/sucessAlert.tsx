@@ -6,6 +6,7 @@ import { IAlert } from "../../interfaces/IAlert";
 
 function SuccessAlert({ message, timer, OnClose }: IAlert) {
   const [, setShowAlert] = useState(true);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       dismissToast();
@@ -34,10 +35,10 @@ function SuccessAlert({ message, timer, OnClose }: IAlert) {
       animate={"visible"}
       exit={"exit"}
       variants={alertAnimation}
-      className="bg-success  text-white px-4 py-3 rounded relative"
+      className="bg-success text-white px-4 py-3 rounded fixed top-10 w-96  m-4 z-50" // Use Tailwind classes for positioning
       role="alert"
     >
-      <strong className="font-bold">Success!</strong>
+      <strong className="font-bold">Success! </strong>
       <span className="block sm:inline">{message}</span>
       <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
         <AiOutlineClose

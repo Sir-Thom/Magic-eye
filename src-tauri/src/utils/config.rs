@@ -1,3 +1,4 @@
+use log::{debug, error, info, trace, warn};
 use serde::{Deserialize, Serialize};
 use serde_json;
 use std::env;
@@ -99,13 +100,19 @@ pub fn create_configuartion_file_setting() {
             let config_home = var("XDG_CONFIG_HOME")
                 .or_else(|_| var("HOME").map(|home| format!("{}/.config", home)))
                 .unwrap();
+            debug!("config_home: {}", config_home);
             let conf_dir = PathBuf::from(&config_home).join(APP_NAME);
             let path_config_file = conf_dir.join(SETTINGS_FILE_NAME);
+            info!("path_config_file: {:?}", path_config_file);
 
             // Create the directory if it doesn't exist
             if !Path::new(&conf_dir).exists() {
                 create_dir_all(&conf_dir).expect("failed to create config directory");
                 create_dir_all(&config_home).expect("failed to create config directory");
+                error!(
+                    "failed to create config directory for linux: {}",
+                    config_home
+                );
             }
             let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
                 .unwrap()
@@ -114,14 +121,20 @@ pub fn create_configuartion_file_setting() {
                 .to_string()
                 + APP_NAME
                 + "/asset";
+            trace!("asset_dir_path: {}", asset_dir_path);
             if !Path::new(&asset_dir_path).exists() {
                 create_dir_all(&asset_dir_path).expect("failed to create config directory");
+                error!(
+                    "failed to create config directory for linux: {}",
+                    asset_dir_path
+                )
             }
 
             if !Path::new(&path_config_file).exists() {
                 // Create the file if it doesn't exist
                 //get all value from setting
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
+                trace!("json data for config file: {}", json_data);
                 println!(
                     "json data: {}",
                     tauri::api::path::app_data_dir(&tauri::Config::default())
@@ -131,13 +144,17 @@ pub fn create_configuartion_file_setting() {
                 );
                 let mut file = File::create(&path_config_file).unwrap();
                 file.write_all(json_data.as_bytes()).unwrap();
+
+                info!("config file created");
                 // println!("{}", serde_json::to_string(&setting).unwrap());
             }
         }
         "windows" => {
+            warn!("No implementation for Windows for now");
             println!("No implementation for Windows for now");
         }
         _ => {
+            error!("Unsupported OS");
             println!("Unsupported OS");
         }
     }
@@ -145,8 +162,8 @@ pub fn create_configuartion_file_setting() {
 
 #[tauri::command]
 pub fn get_config_dir() -> String {
-    print!(
-        "{:?}",
+    debug!(
+        "config directory location: {:?}",
         path::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
     );
     path::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
@@ -154,6 +171,14 @@ pub fn get_config_dir() -> String {
 
 #[tauri::command]
 pub fn get_config_file() -> String {
+    debug!(
+        "config file location: {:?}",
+        path::config_dir().unwrap().to_string_lossy().to_string()
+            + "/"
+            + APP_NAME
+            + "/"
+            + SETTINGS_FILE_NAME
+    );
     path::config_dir().unwrap().to_string_lossy().to_string()
         + "/"
         + APP_NAME
@@ -164,9 +189,12 @@ pub fn get_config_file() -> String {
 #[tauri::command]
 pub fn get_config_file_content() -> String {
     let path_config_file = get_config_file();
+    debug!("config file location: {:?}", path_config_file);
     let mut file = File::open(&path_config_file).unwrap();
+    trace!("file: {:?}", file);
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
+    debug!("content: {}", contents);
     // println!("content: {}", contents);
     contents
 }
@@ -176,15 +204,19 @@ pub fn update_settings_file(new_settings: String) -> Result<String, String> {
     // Deserialize the received JSON data into the Setting struct
     let new_settings: Setting =
         serde_json::from_str(&new_settings).map_err(|err| err.to_string())?;
+    debug!("new_settings: {:?}", new_settings);
 
     let path_config_file = get_config_file();
+    trace!("config file location: {:?}", path_config_file);
     let json_data = serde_json::to_string_pretty(&new_settings).map_err(|err| err.to_string())?;
+    trace!("json data: {}", json_data);
     //println!("json data: {}", json_data);
 
     let mut file = File::create(&path_config_file).map_err(|err| err.to_string())?;
     file.write_all(json_data.as_bytes())
         .map_err(|err| err.to_string())?;
 
+    info!("config file updated");
     // Return the JSON data back to TypeScript
     Ok(json_data)
 }

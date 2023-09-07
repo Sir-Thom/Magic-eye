@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import ErrorToast from "../../components/toast/errorToast";
+import Toast from "../../components/toast/Toast";
 import "../../styles.css";
 import Dropdown from "../../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
@@ -152,28 +152,27 @@ export default function GeneralSetting() {
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center">
+      <div className="w-3/4 my-auto mx-auto flex justify-center items-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          {successMessage && (
-            <SuccessAlert
-              message={successMessage}
-              OnClose={handleCloseAlert}
-              timer={5000}
-            />
-          )}
-
-          <div className="mt-12 mx-auto  ">
-            <h2 className="flex justify-center mx-auto items-center text-center font-bold text-3xl">
+          <div className="mt-24">
+            {successMessage && (
+              <SuccessAlert
+                message={successMessage}
+                OnClose={handleCloseAlert}
+                timer={5000}
+              />
+            )}
+            <h2 className="flex flex-none justify-center my-6 mx-auto items-center text-center font-bold text-3xl">
               Setting
             </h2>
 
-            <div className="flex  justify-between flex-col mx-2  items-center my-4">
-              <label className="flex mx-2  items-center">
+            <div className="flex justify-between flex-col mx-2 items-center my-4">
+              <label className="flex mx-2 items-center">
                 Themes
                 <Dropdown
                   options={themeOptions}
@@ -182,8 +181,8 @@ export default function GeneralSetting() {
                 />
               </label>
             </div>
-            <div className="flex justify-between flex-col mx-2  items-center my-4">
-              <label className="flex mx-2  items-center">
+            <div className="flex justify-between flex-col mx-2 items-center my-4">
+              <label className="flex mx-2 items-center">
                 Video Placeholder
                 <Dropdown
                   options={placeholderOptions}
@@ -210,14 +209,15 @@ export default function GeneralSetting() {
             </div>
           </div>
         </motion.div>
-        {error && (
-          <ErrorToast
-            message={error}
-            timer={5000}
-            onDismiss={handleDismissErrorToast}
-          />
-        )}
       </div>
+      {error && (
+        <Toast
+          message={error}
+          timer={5000}
+          type={"error"}
+          onDismiss={handleDismissErrorToast}
+        />
+      )}
     </>
   );
 }

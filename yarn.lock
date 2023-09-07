@@ -474,7 +474,7 @@
   resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.30.0.tgz#4ea3c4da56fd5653bb9d0be0dc7feaa33602555c"
   integrity sha512-tvtmkI4ALjKThVVORh++sB9JnkFY7eGInKxNy+Df7WVQiF7T85tlvGADzlgX4Ic+CK5MIUzZ0jhOlQ/RRlgXpg==
 
-"@tauri-apps/api@^1.4.0":
+"@tauri-apps/api@1.4.0", "@tauri-apps/api@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.4.0.tgz#b4013ca3d17b853f7df29fe14079ebb4d52dbffa"
   integrity sha512-Jd6HPoTM1PZSFIzq7FB8VmMu3qSSyo/3lSwLpoapW+lQ41CL5Dow2KryLg+gyazA/58DRWI9vu/XpEeHK4uMdw==
@@ -2144,6 +2144,12 @@ tailwindcss@^3.2.7:
     postcss-selector-parser "^6.0.11"
     resolve "^1.22.2"
     sucrase "^3.32.0"
+
+"tauri-plugin-log-api@https://github.com/tauri-apps/tauri-plugin-log#v1":
+  version "0.0.0"
+  resolved "https://github.com/tauri-apps/tauri-plugin-log#9075595196d5a66f8f3265d2aaf7e2ffeb4cb2ab"
+  dependencies:
+    "@tauri-apps/api" "1.4.0"
 
 text-table@^0.2.0:
   version "0.2.0"

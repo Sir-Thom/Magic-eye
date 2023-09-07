@@ -1,9 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-
 use axum::http::{HeaderValue, Method};
 use axum::Router;
+
+use log::{debug, trace};
 use magic_eye::server::server_config::{
     __cmd__get_server_config_options, get_server_config_options,
 };
@@ -16,6 +17,7 @@ use magic_eye::utils::config::{
 };
 use std::{env, fs};
 use tauri::{generate_handler, Manager};
+use tauri_plugin_log::LogTarget;
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
 use utils::config::create_configuartion_file_setting;
@@ -30,19 +32,38 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(target_os = "windows")]
     create_configuartion_file_setting();
-
+    trace!("config directory location: {:?}", get_config_dir());
+    debug!(
+        "{:?}",
+        tauri::api::path::app_log_dir(&tauri::Config::default())
+            .unwrap()
+            .to_str()
+    );
     let context = tauri::generate_context!();
-    let builder = tauri::Builder::default();
+    let builder = tauri::Builder::default().plugin(
+        tauri_plugin_log::Builder::default()
+            .targets([
+                LogTarget::Stdout,
+                LogTarget::Webview,
+                // set et the log folder to the app data folder
+                LogTarget::Folder(
+                    tauri::api::path::app_log_dir(&tauri::Config::default()).unwrap(),
+                ),
+            ])
+            .build(),
+    );
 
     builder
         .setup(move |app| {
             let main_window = app.get_window("main").unwrap();
-            println!("main_window url: {}", main_window.url().to_string());
+            debug!("main_window url: : {:?}", main_window.url());
 
             let resource_path = app
                 .path_resolver()
                 .resolve_resource("assets")
                 .expect("failed to resolve resource");
+
+            debug!("resource_path: {:?}", resource_path);
 
             tauri::api::path::app_data_dir(&tauri::Config::default())
                 .unwrap()
@@ -56,12 +77,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
                 let _files =
                     fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path()));
-
+                debug!("files: {:?}", _files);
                 let axum_app = Router::new().nest_service("/", serve_dir).layer(
                     CorsLayer::new()
                         .allow_origin("*".parse::<HeaderValue>().unwrap())
                         .allow_methods([Method::GET]),
                 );
+                debug!("axum_app: {:?}", axum_app);
 
                 let _ = axum::Server::bind(&format!("127.0.0.1:{}", PORT).parse().unwrap())
                     .serve(axum_app.into_make_service())

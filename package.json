@@ -20,6 +20,7 @@
     "react-icons": "^4.8.0",
     "react-player": "^2.12.0",
     "react-router-dom": "^6.8.2",
+    "tauri-plugin-log-api": "https://github.com/tauri-apps/tauri-plugin-log#v1",
     "use-interval": "^1.4.0"
   },
   "devDependencies": {
