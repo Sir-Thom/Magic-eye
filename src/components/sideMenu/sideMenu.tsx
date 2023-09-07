@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IMenuItem } from "../../interfaces/IMenuItem";
 import { Link } from "react-router-dom";
 import { IconArrowLeft } from "@tabler/icons-react";
@@ -10,8 +10,11 @@ interface SideMenuProps {
 }
 
 const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
+
   const handleMenuItemClick = (menuItem: IMenuItem) => {
     onMenuItemClick(menuItem);
+    setClickedButton(menuItem.label); // Set the clicked button label
   };
 
   return (
@@ -33,7 +36,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
             <button
               onClick={() => handleMenuItemClick(menuItem)}
               title={menuItem.label}
-              className="w-full rounded-lg text-justify py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+              className={`w-full rounded-lg text-justify mx-auto py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600 ${
+                clickedButton === menuItem.label
+                  ? " bg-accent-color1-600" // Change this to the desired background color
+                  : ""
+              }`}
             >
               {menuItem.label}
             </button>

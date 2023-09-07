@@ -128,7 +128,7 @@ export default function RtspSetting({ settings, onSave }) {
                     <textarea
                       name="protocols"
                       style={{ resize: "none" }}
-                      className="mx-2"
+                      className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                       value={protocols}
                       onChange={handleProtocols}
                     />
@@ -150,7 +150,7 @@ export default function RtspSetting({ settings, onSave }) {
                   Rtsp Address:
                   <input
                     type="text"
-                    className="appearance-none py-2 pl-2 pr-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={rtspAddress}
                     onChange={handleRtspAddress}
                   />
@@ -161,7 +161,7 @@ export default function RtspSetting({ settings, onSave }) {
                   Rtsps Address:
                   <input
                     type="text"
-                    className="appearance-none py-2 pl-2 pr-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={rtspsAddress}
                     onChange={handleRtspsAddress}
                   />
@@ -172,7 +172,7 @@ export default function RtspSetting({ settings, onSave }) {
                   Rtp Address:
                   <input
                     type="text"
-                    className="appearance-none py-2 pl-2 pr-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={rtpAddress}
                     onChange={handleRtpAddress}
                   />
@@ -183,7 +183,7 @@ export default function RtspSetting({ settings, onSave }) {
                   Rtcp Address:
                   <input
                     type="text"
-                    className="appearance-none py-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={rtcpAddress}
                     onChange={handleRtcpAddress}
                   />
@@ -194,7 +194,7 @@ export default function RtspSetting({ settings, onSave }) {
                   MulticastIPRange:
                   <input
                     type="text"
-                    className="appearance-none  py-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={multicastIPRange}
                     onChange={handleMulticastIPRange}
                   />

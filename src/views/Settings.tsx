@@ -1,237 +1,144 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import ApiSetting from "./serverSetting/ApiSetting";
+import HlsSetting from "./serverSetting/hlsSetting";
+import RtspSetting from "./serverSetting/RtspSetting";
+import LoggingSetting from "./serverSetting/LoggingSetting";
+import GeneralSetting from "./appSetting/appSetting";
 import { Titlebar } from "../components/titlebar/titlebar";
-import { Link } from "react-router-dom";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { motion } from "framer-motion";
-import ErrorToast from "../components/toast/errorToast";
-import "../styles.css";
-import Dropdown from "../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
-import SuccessAlert from "../components/alert/sucessAlert";
-import { slideToScreen } from "../utils/animation/screenAnimation";
-import { appWindow } from "@tauri-apps/api/window";
-import { ISetting } from "../interfaces/ISetting";
+import {
+  IApiSettings,
+  ILoggingSettings,
+  IHlsSettings,
+  IServer
+} from "../interfaces/IServer";
+import SideMenu from "../components/sideMenu/sideMenu";
+import ErrorToast from "../components/toast/errorToast";
 
-export async function GetConfig() {
-  try {
-    const configData = await invoke("get_config_file_content");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return configData as any;
-  } catch (err) {
-    throw new Error("Error while reading the configuration file" + err);
-  }
-}
-
-export async function SetConfig(new_settings) {
-  try {
-    await invoke("update_settings_file", {
-      newSettings: new_settings
-    });
-
-    return;
-  } catch (err) {
-    // Rethrow the error here
-    throw new Error("Error while updating the configuration file");
-  }
-}
-
-export default function Settings() {
-  const [currentTheme, setCurrentTheme] = useState("");
-  const [currentPlaceholder, setCurrentPlacholder] = useState("");
-  const themeLabelData = {
-    theme: ["dark", "light"]
-  };
-  const placeholderdata = {
-    placeholder: [
-      "placeholder-smpte",
-      "placeholder-smpte100",
-      "placeholder-smpte75",
-      "placeholder-ball",
-      "placeholder-bar",
-      "placeholder-black",
-      "placeholder-blue",
-      "placeholder-white",
-      "placeholder-green",
-      "placeholder-red",
-      "placeholder-solid-color",
-      "placeholder-snow",
-      "placeholder-checkers-1",
-      "placeholder-checkers-2",
-      "placeholder-checkers-4",
-      "placeholder-checkers-8",
-      "placeholder-chroma-zone-plate",
-      "placeholder-circular",
-      "placeholder-gradient",
-      "placeholder-pinwheel",
-      "placeholder-spokes",
-      "placeholder-zone-plate"
-    ]
-  };
-
-  const [tmpConf, setTmpConf] = useState<ISetting>({
-    theme: "",
-    placeholder: ""
-  });
+export default function Setting() {
+  const [configData, setConfigData] = useState<IServer | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [themeOptions, setThemeOptions] = useState<string[]>(
-    themeLabelData.theme
-  );
-  const [placeholderOptions, setPlaceholderOptions] = useState<string[]>(
-    placeholderdata.placeholder
-  );
+  const [currentSetting, setCurrentSetting] = useState("General Setting"); // Initially show the "API Setting" component
+  const [loggingSettings, setLoggingSettings] = useState<ILoggingSettings>({
+    logLevel: configData?.logLevel || "info",
+    logDestinations: configData?.logDestinations || ["stdout"],
+    logFile: configData?.logFile || "mediamtx.log"
+  });
+  const [apiSettings, setApiSettings] = useState<IApiSettings>({
+    api: configData?.api || true,
+    apiAddress: configData?.apiAddress || "127.0.0.1:9997",
+    metrics: configData?.metrics || false,
+    metricsAddress: configData?.metricsAddress || "127.0.0.1:9998",
+    pprof: configData?.pprof || false,
+    pprofAddress: configData?.pprofAddress || "127.0.0.1:9999",
+    runOnConnect: configData?.runOnConnect || "",
+    runOnConnectRestart: configData?.runOnConnectRestart || false
+  });
+  const [hlsSettings, setHlsSettings] = useState<IHlsSettings>({
+    hls: configData?.hls || true,
+    hlsAddress: configData?.hlsAddress || ":8888",
+    hlsAllowOrigin: configData?.hlsAllowOrigin || "*",
+    hlsAlwaysRemux: configData?.hlsAlwaysRemux || false,
+    hlsDirectory: configData?.hlsDirectory || "",
+    hlsDisable: configData?.hlsDisable || false,
+    hlsEncryption: configData?.hlsEncryption || false,
+    hlsPartDuration: configData?.hlsPartDuration || "200ms",
+    hlsSegmentCount: configData?.hlsSegmentCount || 7,
+    hlsSegmentDuration: configData?.hlsSegmentDuration || "1s",
+    hlsSegmentMaxSize: configData?.hlsSegmentMaxSize || "50M",
+    hlsServerCert: configData?.hlsServerCert || "server.crt",
+    hlsServerKey: configData?.hlsServerKey || "server.key",
+    hlsTrustedProxies: configData?.hlsTrustedProxies || [],
+    hlsVariant: configData?.hlsVariant || "lowLatency"
+  });
 
+  const [rtspSettings, setRtspSettings] = useState({
+    rtsp: configData?.rtsp || true,
+    rtspDisable: configData?.rtspDisable || false,
+    protocols: configData?.protocols || ["multicast", "tcp", "udp"],
+    encryption: configData?.encryption || false,
+    rtspAddress: configData?.rtspAddress || ":8554",
+    rtspsAddress: configData?.rtspsAddress || ":8322",
+    rtpAddress: configData?.rtpAddress || ":8000",
+    rtcpAddress: configData?.rtcpAddress || ":8001",
+    multicastIPRange: configData?.multicastIPRange || "224.1.0.0/16",
+    multicastRTPPort: configData?.multicastRTPPort || 8002,
+    multicastRTCPPort: configData?.multicastRTCPPort || 8003
+  });
   useEffect(() => {
-    async function fetchConfig() {
-      try {
-        const configData = await GetConfig();
-        const parsedConfig = JSON.parse(configData);
-        setTmpConf(parsedConfig);
-        setCurrentTheme(parsedConfig.theme);
-        setCurrentPlacholder(parsedConfig.placeholder);
-        setError(null);
-
-        // Update the dropdown options with values from the configuration
-        if (!themeOptions.includes(parsedConfig.theme)) {
-          setThemeOptions((prevOptions) => [
-            ...prevOptions,
-            parsedConfig.theme
-          ]);
-        }
-
-        if (!placeholderOptions.includes(parsedConfig.placeholder)) {
-          setPlaceholderOptions((prevOptions) => [
-            ...prevOptions,
-            parsedConfig.placeholder
-          ]);
-        }
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-
-    fetchConfig();
-    appWindow.listen("tauri://update_settings_file", () => {
-      fetchConfig();
-    });
+    setError(null);
+    const serverUrl = "http://127.0.0.1:9997/v2/config/get"; // Replace with your actual URL
+    invoke("get_server_config_options", { url: serverUrl })
+      .then((response: string) => {
+        const parsedResponse: IServer = JSON.parse(response);
+        setConfigData(parsedResponse);
+      })
+      .catch((error) => {
+        setError(
+          "Unable to connect to the server. Please check your connection."
+        );
+      });
   }, []);
+  const menuItems = [
+    { label: "API Setting" },
+    { label: "HLS Setting" },
+    { label: "RTSP Setting" },
+    { label: "Logging Setting" },
+    { label: "General Setting" }
+  ].sort((a, b) => a.label.localeCompare(b.label));
 
   async function handleDismissErrorToast() {
     setError(null);
   }
 
-  async function handleCloseAlert() {
-    setSuccessMessage("");
-  }
-
-  function handleThemeChange(event) {
-    const newTheme = event.target.value;
-    setCurrentTheme(newTheme);
-    setTmpConf((prevTmpConf) => ({
-      ...prevTmpConf,
-      theme: newTheme
-    }));
-  }
-
-  function handlePlaceholderChange(event) {
-    const newPlaceholder = event.target.value;
-    setCurrentPlacholder(newPlaceholder);
-    setTmpConf((prevTmpConf) => ({
-      ...prevTmpConf,
-      placeholder: newPlaceholder
-    }));
-  }
-  async function handleSaveConfig() {
-    try {
-      const jsonSettings = JSON.stringify(tmpConf);
-      // Serialize the object to JSON
-      await SetConfig(jsonSettings);
-      setSuccessMessage("Configuration saved successfully!");
-      setError(null);
-    } catch (err) {
-      setError("An error occurred while saving the configuration. " + err);
-    }
-  }
-
   return (
     <>
       <Titlebar />
-
-      <motion.div
-        variants={slideToScreen}
-        initial="hidden"
-        animate="visible"
-        exit={"exit"}
-      >
-        <div className={`h-screen `}>
-          <div className="flex justify-start items-center">
-            <Link
-              className="flex justify-start items-center w-8 mt-12 dark:text-text-dark text-text-light  h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600 "
-              to="/"
-            >
-              <IconArrowLeft
-                size={30}
-                className="flex justify-center item-center dark:text-text-dark text-text-light "
-              />
-            </Link>
+      <div className="flex flex-col  h-screen">
+        <div className="flex">
+          <div className="w-1/4 mx-auto  h-full">
+            <SideMenu
+              menuItems={menuItems}
+              onMenuItemClick={(menuItem) => setCurrentSetting(menuItem.label)}
+            />
           </div>
-          <div className="fixed top-20 left-0 right-0 z-50">
-            {successMessage && (
-              <SuccessAlert
-                message={successMessage}
-                OnClose={handleCloseAlert}
-                timer={5000}
+          <div className="w-3/4 mt-6 mr-24">
+            {currentSetting === "General Setting" && <GeneralSetting />}
+            {currentSetting === "API Setting" && (
+              <ApiSetting
+                settings={apiSettings}
+                onSave={(updatedApiSettings) =>
+                  setApiSettings(updatedApiSettings)
+                }
+              />
+            )}
+            {currentSetting === "Logging Setting" && (
+              <LoggingSetting
+                settings={loggingSettings}
+                onSave={(updatedLoggingSettings) =>
+                  setLoggingSettings(updatedLoggingSettings)
+                }
+              />
+            )}
+            {currentSetting === "HLS Setting" && (
+              <HlsSetting
+                settings={hlsSettings}
+                onSave={(updatedHlsSettings) =>
+                  setHlsSettings(updatedHlsSettings)
+                }
+              />
+            )}
+            {currentSetting === "RTSP Setting" && (
+              <RtspSetting
+                settings={rtspSettings}
+                onSave={(updatedRtspSettings) =>
+                  setRtspSettings(updatedRtspSettings)
+                }
               />
             )}
           </div>
-          <h1 className="mt-12 flex justify-center items-center text-center   font-bold text-3xl ">
-            Setting
-          </h1>
-
-          <div className="flex justify-center items-center my-4 flex-1 ">
-            <label
-              className="flex justify-center items-center text-center  mx-2"
-              htmlFor=""
-            >
-              Themes
-            </label>
-            <Dropdown
-              options={themeOptions}
-              value={currentTheme}
-              onChange={handleThemeChange}
-            />
-          </div>
-          <div className="flex justify-center items-center my-4 flex-1 ">
-            <label
-              className="flex justify-center items-center text-center mx-2"
-              htmlFor=""
-            >
-              Video Placeholder
-            </label>
-            <Dropdown
-              options={placeholderOptions}
-              value={currentPlaceholder}
-              onChange={handlePlaceholderChange}
-            />
-          </div>
         </div>
-
-        <div className="flex absolute bottom-0 right-0 mb-4 justify-end items-center">
-          <button
-            type="button"
-            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-            onClick={handleSaveConfig} // Call the function to update the JSON file
-          >
-            Apply
-          </button>
-        </div>
-      </motion.div>
+      </div>
       {error && (
         <ErrorToast
           message={error}

@@ -86,7 +86,7 @@ export default function ApiSetting({ settings, onSave }) {
                 API Setting
               </h2>
               <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex items-center">
+                <label className="flex text-justify items-center">
                   API
                   <Checkbox
                     value={apiEnabled.toString()}
@@ -96,11 +96,11 @@ export default function ApiSetting({ settings, onSave }) {
                 </label>
               </div>
               <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex items-center">
+                <label className="flex text-justify items-center">
                   API Address:
                   <input
                     type="text"
-                    className="mx-4"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={apiAddress}
                     onChange={handleApiAddressChange}
                   />
@@ -121,7 +121,7 @@ export default function ApiSetting({ settings, onSave }) {
                   Metrics Address:
                   <input
                     type="text"
-                    className="mx-4"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={metricsAddress}
                     onChange={handleMetricsAddressChange}
                   />
@@ -142,7 +142,7 @@ export default function ApiSetting({ settings, onSave }) {
                   Pprof Address:
                   <input
                     type="text"
-                    className="mx-4"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={pprofAddress}
                     onChange={handlePprofAddressChange}
                   />
@@ -153,7 +153,7 @@ export default function ApiSetting({ settings, onSave }) {
                   Run On Connect:
                   <input
                     type="text"
-                    className="mx-4"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={runOnConnect}
                     onChange={handleRunOnConnectChange}
                   />

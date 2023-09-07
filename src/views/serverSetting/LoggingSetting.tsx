@@ -67,7 +67,7 @@ export default function LoggingSetting({ settings, onSave }) {
                   Log Destinations:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={logDestinations}
                     onChange={handleLogDestinationsChange}
                   />
@@ -78,7 +78,7 @@ export default function LoggingSetting({ settings, onSave }) {
                   Log file:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={logFile}
                     onChange={handleLogFileChange}
                   />

@@ -10,7 +10,7 @@ function Dropdown({ options, value, onChange }: IDropdown) {
   };
 
   return (
-    <div className="relative  inline-block">
+    <div className="relative mx-2 inline-block">
       <select
         className="appearance-none py-2 pl-2 pr-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
         value={value}

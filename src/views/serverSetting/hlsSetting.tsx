@@ -155,7 +155,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Address:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsAddress}
                     onChange={handleHlsAddressChange}
                   />
@@ -166,7 +166,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Allow Origin:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsAllowOrigin}
                     onChange={handleHlsAllowOriginChange}
                   />
@@ -187,7 +187,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Directory:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsDirectory}
                     onChange={handleHlsDirectoryChange}
                   />
@@ -218,7 +218,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Part Duration:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsPartDuration}
                     onChange={handleHlsPartDurationChange}
                   />
@@ -229,7 +229,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Segment Count:
                   <input
                     type="number"
-                    className="mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsSegmentCount}
                     onChange={handleHlsSegmentCountChange}
                   />
@@ -240,7 +240,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Segment Duration:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsSegmentDuration}
                     onChange={handleHlsSegmentDurationChange}
                   />
@@ -251,8 +251,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Segment Max Size:
                   <input
                     type="text"
-                    className="mx-2"
-                    value={hlsSegmentMaxSize}
+                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     onChange={handleHlsSegmentMaxSizeChange}
                   />
                 </label>
@@ -262,7 +261,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Server Cert:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsServerCert}
                     onChange={handleHlsServerCertChange}
                   />
@@ -273,7 +272,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Server Key:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsServerKey}
                     onChange={handleHlsServerKeyChange}
                   />
@@ -285,7 +284,7 @@ export default function HlsSetting({ settings, onSave }) {
                   <textarea
                     name="hlsTrustedProxies"
                     style={{ resize: "none" }}
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsTrustedProxies}
                     onChange={handleHlsTrustedProxiesChange}
                   />
@@ -296,7 +295,7 @@ export default function HlsSetting({ settings, onSave }) {
                   HLS Variant:
                   <input
                     type="text"
-                    className="mx-2"
+                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                     value={hlsVariant}
                     onChange={handleHlsVariantChange}
                   />

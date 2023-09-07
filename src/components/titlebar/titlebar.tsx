@@ -163,7 +163,7 @@ export function Titlebar() {
                 </a>
 
                 <Link
-                  to="/server"
+                  to="/"
                   title="Server"
                   className="block rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                 >
