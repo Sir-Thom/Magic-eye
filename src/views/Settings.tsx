@@ -4,13 +4,18 @@ import HlsSetting from "./serverSetting/hlsSetting";
 import RtspSetting from "./serverSetting/RtspSetting";
 import LoggingSetting from "./serverSetting/LoggingSetting";
 import GeneralSetting from "./appSetting/appSetting";
+import WebrtcSetting from "./serverSetting/webrtcSetting";
+import RtmpSetting from "./serverSetting/RtspSetting";
 import { Titlebar } from "../components/titlebar/titlebar";
 import { invoke } from "@tauri-apps/api";
 import {
   IApiSettings,
   ILoggingSettings,
   IHlsSettings,
-  IServer
+  IServer,
+  IRtspSettings,
+  IRtmpSettings,
+  IWebrtcSettings
 } from "../interfaces/IServer";
 import SideMenu from "../components/sideMenu/sideMenu";
 import Toast from "../components/toast/Toast";
@@ -52,11 +57,11 @@ export default function Setting() {
     hlsVariant: configData?.hlsVariant || "lowLatency"
   });
 
-  const [rtspSettings, setRtspSettings] = useState({
+  const [rtspSettings, setRtspSettings] = useState<IRtspSettings>({
     rtsp: configData?.rtsp || true,
     rtspDisable: configData?.rtspDisable || false,
     protocols: configData?.protocols || ["multicast", "tcp", "udp"],
-    encryption: configData?.encryption || false,
+    encryption: configData?.encryption || "no",
     rtspAddress: configData?.rtspAddress || ":8554",
     rtspsAddress: configData?.rtspsAddress || ":8322",
     rtpAddress: configData?.rtpAddress || ":8000",
@@ -65,6 +70,33 @@ export default function Setting() {
     multicastRTPPort: configData?.multicastRTPPort || 8002,
     multicastRTCPPort: configData?.multicastRTCPPort || 8003
   });
+
+  const [webrtcSettings, setWebrtcSettings] = useState<IWebrtcSettings>({
+    webrtc: configData?.webrtc || true,
+    webrtcAddress: configData?.webrtcAddress || ":8080",
+    webrtcDisable: configData?.webrtcDisable || false,
+    webrtcEncryption: configData?.webrtcEncryption || false,
+    webrtcServerKey: configData?.webrtcServerKey || "server.key",
+    webrtcServerCert: configData?.webrtcServerCert || "server.crt",
+    webrtcAllowOrigin: configData?.webrtcAllowOrigin || "*",
+    webrtcTrustedProxies: configData?.webrtcTrustedProxies || [],
+    webrtcICEServers: configData?.webrtcICEServers || null,
+    webrtcICEServers2: configData?.webrtcICEServers2 || null,
+    webrtcICEHostNAT1To1IPs: configData?.webrtcICEHostNAT1To1IPs || [],
+    webrtcICEUDPMuxAddress: configData?.webrtcICEUDPMuxAddress || "",
+    webrtcICETCPMuxAddress: configData?.webrtcICETCPMuxAddress || ""
+  });
+
+  const [rtmpSettings, setRtmpSettings] = useState<IRtmpSettings>({
+    rtmp: configData?.rtmp || true,
+    rtmpAddress: configData?.rtmpAddress || ":1935",
+    rtmpDisable: configData?.rtmpDisable || false,
+    rtmpEncryption: configData?.rtmpEncryption || "no",
+    rtmpsAddress: configData?.rtmpsAddress || ":1936",
+    rtmpServerKey: configData?.rtmpServerKey || "server.key",
+    rtmpServerCert: configData?.rtmpServerCert || "server.crt"
+  });
+
   useEffect(() => {
     setError(null);
     const serverUrl = "http://127.0.0.1:9997/v2/config/get";
@@ -84,7 +116,9 @@ export default function Setting() {
     { label: "HLS Setting" },
     { label: "RTSP Setting" },
     { label: "Logging Setting" },
-    { label: "General Setting" }
+    { label: "General Setting" },
+    { label: "RTMP Setting" },
+    { label: "WebRTC Setting" }
   ].sort((a, b) => a.label.localeCompare(b.label));
 
   async function handleDismissErrorToast() {
@@ -133,6 +167,22 @@ export default function Setting() {
                 settings={rtspSettings}
                 onSave={(updatedRtspSettings) =>
                   setRtspSettings(updatedRtspSettings)
+                }
+              />
+            )}
+            {currentSetting === "RTMP Setting" && (
+              <RtmpSetting
+                settings={rtmpSettings}
+                onSave={(updatedRtmpSettings) =>
+                  setRtmpSettings(updatedRtmpSettings)
+                }
+              />
+            )}
+            {currentSetting === "WebRTC Setting" && (
+              <WebrtcSetting
+                settings={webrtcSettings}
+                onSave={(updatWebRtcSettings) =>
+                  setWebrtcSettings(updatWebRtcSettings)
                 }
               />
             )}

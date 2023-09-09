@@ -10,7 +10,7 @@ export default function RtspSetting({ settings, onSave }) {
   const [protocols, setProtocols] = useState(
     settings.protocols || ["multicast", "tcp", "udp"]
   );
-  const [encryption, setEncryption] = useState(settings.encryption || false);
+  const [encryption, setEncryption] = useState(settings.encryption || "no");
   const [rtspAddress, setRtspAddress] = useState(
     settings.rtspAddress || ":8554"
   );
@@ -138,6 +138,7 @@ export default function RtspSetting({ settings, onSave }) {
               <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
                 <label className="flex text-justify items-center">
                   Rtsp Encryption:
+                  {/* make it able to set yes or not */}
                   <Checkbox
                     value={encryption.toString()}
                     onChange={handleEncryption}

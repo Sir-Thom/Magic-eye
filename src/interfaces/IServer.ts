@@ -177,11 +177,54 @@ interface IHlsSettings {
   hlsDirectory: string;
 }
 
+interface IRtspSettings {
+  rtsp: boolean;
+  rtspDisable: boolean;
+  protocols: string[];
+  encryption: string;
+  rtspAddress: string;
+  rtspsAddress: string;
+  rtpAddress: string;
+  rtcpAddress: string;
+  multicastIPRange: string;
+  multicastRTPPort: number;
+  multicastRTCPPort: number;
+}
+
+interface IRtmpSettings {
+  rtmp: boolean;
+  rtmpDisable: boolean;
+  rtmpAddress: string;
+  rtmpEncryption: string;
+  rtmpsAddress: string;
+  rtmpServerKey: string;
+  rtmpServerCert: string;
+}
+
+interface IWebrtcSettings {
+  webrtc: boolean;
+  webrtcDisable: boolean;
+  webrtcAddress: string;
+  webrtcEncryption: boolean;
+  webrtcServerKey: string;
+  webrtcServerCert: string;
+  webrtcAllowOrigin: string;
+  webrtcTrustedProxies: string[];
+  webrtcICEServers: null;
+  webrtcICEServers2: ICEServer[];
+  webrtcICEHostNAT1To1IPs: string[];
+  webrtcICEUDPMuxAddress: string;
+  webrtcICETCPMuxAddress: string;
+}
+
 export type {
   IServer,
   PathConfig,
   ICEServer,
   ILoggingSettings,
   IApiSettings,
-  IHlsSettings
+  IHlsSettings,
+  IRtspSettings,
+  IRtmpSettings,
+  IWebrtcSettings
 };
