@@ -32,11 +32,8 @@ export async function SetConfig(new_settings) {
 }
 
 export default function GeneralSetting() {
-  const [currentTheme, setCurrentTheme] = useState("");
   const [currentPlaceholder, setCurrentPlacholder] = useState("");
-  const themeLabelData = {
-    theme: ["dark", "light"]
-  };
+
   const placeholderdata = {
     placeholder: [
       "placeholder-smpte",
@@ -70,9 +67,7 @@ export default function GeneralSetting() {
   });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState("");
-  const [themeOptions, setThemeOptions] = useState<string[]>(
-    themeLabelData.theme
-  );
+
   const [placeholderOptions, setPlaceholderOptions] = useState<string[]>(
     placeholderdata.placeholder
   );
@@ -83,17 +78,8 @@ export default function GeneralSetting() {
         const configData = await GetConfig();
         const parsedConfig = JSON.parse(configData);
         setTmpConf(parsedConfig);
-        setCurrentTheme(parsedConfig.theme);
         setCurrentPlacholder(parsedConfig.placeholder);
         setError(null);
-
-        // Update the dropdown options with values from the configuration
-        if (!themeOptions.includes(parsedConfig.theme)) {
-          setThemeOptions((prevOptions) => [
-            ...prevOptions,
-            parsedConfig.theme
-          ]);
-        }
 
         if (!placeholderOptions.includes(parsedConfig.placeholder)) {
           setPlaceholderOptions((prevOptions) => [
@@ -118,15 +104,6 @@ export default function GeneralSetting() {
 
   async function handleCloseAlert() {
     setSuccessMessage("");
-  }
-
-  function handleThemeChange(event) {
-    const newTheme = event.target.value;
-    setCurrentTheme(newTheme);
-    setTmpConf((prevTmpConf) => ({
-      ...prevTmpConf,
-      theme: newTheme
-    }));
   }
 
   function handlePlaceholderChange(event) {
@@ -170,16 +147,6 @@ export default function GeneralSetting() {
               Setting
             </h2>
 
-            <div className="flex justify-between flex-col mx-2 items-center my-4">
-              <label className="flex mx-2 items-center">
-                Themes
-                <Dropdown
-                  options={themeOptions}
-                  value={currentTheme}
-                  onChange={handleThemeChange}
-                />
-              </label>
-            </div>
             <div className="flex justify-between flex-col mx-2 items-center my-4">
               <label className="flex mx-2 items-center">
                 Video Placeholder

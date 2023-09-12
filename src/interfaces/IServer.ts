@@ -217,6 +217,11 @@ interface IWebrtcSettings {
   webrtcICETCPMuxAddress: string;
 }
 
+interface ISrtSettings {
+  srt: boolean;
+  srtAddress: string;
+}
+
 export type {
   IServer,
   PathConfig,
@@ -226,5 +231,6 @@ export type {
   IHlsSettings,
   IRtspSettings,
   IRtmpSettings,
-  IWebrtcSettings
+  IWebrtcSettings,
+  ISrtSettings
 };

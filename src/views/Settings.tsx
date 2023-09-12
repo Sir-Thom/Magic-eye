@@ -5,7 +5,7 @@ import RtspSetting from "./serverSetting/RtspSetting";
 import LoggingSetting from "./serverSetting/LoggingSetting";
 import GeneralSetting from "./appSetting/appSetting";
 import WebrtcSetting from "./serverSetting/webrtcSetting";
-import RtmpSetting from "./serverSetting/RtspSetting";
+import RtmpSetting from "./serverSetting/RtmpSetting";
 import { Titlebar } from "../components/titlebar/titlebar";
 import { invoke } from "@tauri-apps/api";
 import {
@@ -15,10 +15,12 @@ import {
   IServer,
   IRtspSettings,
   IRtmpSettings,
-  IWebrtcSettings
+  IWebrtcSettings,
+  ISrtSettings
 } from "../interfaces/IServer";
 import SideMenu from "../components/sideMenu/sideMenu";
 import Toast from "../components/toast/Toast";
+import SrtSetting from "./serverSetting/SrtSetting";
 
 export default function Setting() {
   const [configData, setConfigData] = useState<IServer | null>(null);
@@ -97,6 +99,11 @@ export default function Setting() {
     rtmpServerCert: configData?.rtmpServerCert || "server.crt"
   });
 
+  const [srtSettings, setSrtSettings] = useState<ISrtSettings>({
+    srt: configData?.srt || true,
+    srtAddress: configData?.srtAddress || ":8890"
+  });
+
   useEffect(() => {
     setError(null);
     const serverUrl = "http://127.0.0.1:9997/v2/config/get";
@@ -118,7 +125,8 @@ export default function Setting() {
     { label: "Logging Setting" },
     { label: "General Setting" },
     { label: "RTMP Setting" },
-    { label: "WebRTC Setting" }
+    { label: "WebRTC Setting" },
+    { label: "SRT Setting" }
   ].sort((a, b) => a.label.localeCompare(b.label));
 
   async function handleDismissErrorToast() {
@@ -175,6 +183,14 @@ export default function Setting() {
                 settings={rtmpSettings}
                 onSave={(updatedRtmpSettings) =>
                   setRtmpSettings(updatedRtmpSettings)
+                }
+              />
+            )}
+            {currentSetting === "SRT Setting" && (
+              <SrtSetting
+                settings={srtSettings}
+                onSave={(updatedSrtSettings) =>
+                  setSrtSettings(updatedSrtSettings)
                 }
               />
             )}

@@ -37,7 +37,6 @@ pub enum PlaceholderOption {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Setting {
-    theme: String,
     placeholder: String,
 }
 
@@ -79,7 +78,6 @@ impl PlaceholderOption {
 impl Setting {
     fn new() -> Setting {
         Setting {
-            theme: "dark".to_string(),
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
         }
     }
@@ -87,7 +85,6 @@ impl Setting {
 impl Default for Setting {
     fn default() -> Self {
         Setting {
-            theme: "dark".to_string(),
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
         }
     }
