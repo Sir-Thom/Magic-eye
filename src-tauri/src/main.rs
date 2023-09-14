@@ -1,9 +1,6 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 use axum::http::{HeaderValue, Method};
 use axum::Router;
-
 use log::{debug, trace};
 use magic_eye::server::server_config::{
     __cmd__get_server_config_options, get_server_config_options,
@@ -22,16 +19,16 @@ use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
 use utils::config::create_configuartion_file_setting;
 use utils::os_setup_and_info::setup_wayland;
+
 const PORT: u16 = 16780;
 
-#[tokio::main]
+#[tokio::main(worker_threads = 4)]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    #[cfg(target_os = "linux")]
+    // Reuse resources that don't depend on the target OS
     create_configuartion_file_setting();
+    #[cfg(target_os = "linux")]
     setup_wayland();
 
-    #[cfg(target_os = "windows")]
-    create_configuartion_file_setting();
     trace!("config directory location: {:?}", get_config_dir());
     debug!(
         "{:?}",
@@ -39,6 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .unwrap()
             .to_str()
     );
+
     let context = tauri::generate_context!();
     let builder = tauri::Builder::default().plugin(
         tauri_plugin_log::Builder::default()

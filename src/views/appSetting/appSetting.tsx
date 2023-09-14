@@ -62,7 +62,6 @@ export default function GeneralSetting() {
   };
 
   const [tmpConf, setTmpConf] = useState<ISetting>({
-    theme: "",
     placeholder: ""
   });
   const [error, setError] = useState<string | null>(null);

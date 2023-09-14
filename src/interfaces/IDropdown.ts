@@ -5,4 +5,5 @@ export interface IDropdown {
   options: (string | number)[];
   value: string | number;
   onChange: Event;
+  className?: string;
 }

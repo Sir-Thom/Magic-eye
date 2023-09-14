@@ -50,42 +50,35 @@ export default function LoggingSetting({ settings, onSave }) {
               <h2 className="flex justify-center items-center text-center font-bold text-3xl">
                 Logging Settings
               </h2>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Log Level:
-                  <div className="mx-2">
-                    <Dropdown
-                      options={logLevels}
-                      value={logLevel}
-                      onChange={handleLogLevelChange}
-                    />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Log Destinations:
+              <div className="flex flex-col my-4">
+                <div className="flex my-4   items-center">
+                  <label className="mr-2 text-left">Log Level:</label>
+                  <Dropdown
+                    options={logLevels}
+                    value={logLevel}
+                    onChange={handleLogLevelChange}
+                  />
+                </div>
+                <div className="flex my-4 items-center">
+                  <label className="text-left  mr-2">Log Destinations:</label>
                   <input
                     type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="appearance-none border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={logDestinations}
                     onChange={handleLogDestinationsChange}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Log file:
+                </div>
+                <div className="flex my-4 items-center">
+                  <label className="mr-2 text-left">Log file:</label>
                   <input
                     type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="appearance-none border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={logFile}
                     onChange={handleLogFileChange}
                   />
-                </label>
+                </div>
               </div>
-
-              <div className="absolute  mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
+              <div className="absolute mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
