@@ -20,6 +20,7 @@ export default function ApiSetting({ settings, onSave }) {
   const [runOnConnectRestart, setRunOnConnectRestart] = useState(
     settings.runOnConnectRestart || false
   );
+  console.log(settings);
 
   const handleApiEnabledChange = (event) => {
     setApiEnabled(event.target.checked);
@@ -66,6 +67,7 @@ export default function ApiSetting({ settings, onSave }) {
       runOnConnect: runOnConnect,
       runOnConnectRestart: runOnConnectRestart
     };
+    console.log(updatedSettings);
 
     // Call the onSave prop to save the changes
     onSave(updatedSettings);

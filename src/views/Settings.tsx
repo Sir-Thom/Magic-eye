@@ -22,6 +22,8 @@ import SideMenu from "../components/sideMenu/sideMenu";
 import Toast from "../components/toast/Toast";
 import SrtSetting from "./serverSetting/SrtSetting";
 
+import axios from "axios";
+
 export default function Setting() {
   const [configData, setConfigData] = useState<IServer | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -103,6 +105,7 @@ export default function Setting() {
     srt: configData?.srt || true,
     srtAddress: configData?.srtAddress || ":8890"
   });
+  console.log(apiSettings);
 
   useEffect(() => {
     setError(null);
@@ -111,13 +114,52 @@ export default function Setting() {
       .then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
         setConfigData(parsedResponse);
+        console.log(parsedResponse);
       })
+
       .catch(() => {
         setError(
           "Unable to connect to the server. Please check your connection."
         );
       });
   }, []);
+  async function i() {
+    const response = await axios.post(
+      "http://127.0.0.1:9997/v2/config/set",
+      configData
+    );
+    console.log(response);
+  }
+
+  const updateConfigDataWithProtocol = (fieldName, newValue) => {
+    if (configData) {
+      // Create a new configuration object with the updated field
+      const updatedConfigData = {
+        ...configData,
+        [fieldName]: newValue
+      };
+
+      fetch("http://127.0.0.1:9997/v2/config/set", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedConfigData)
+      })
+        .then((parsedResponse) => {
+          console.log(parsedResponse);
+          setConfigData(parsedResponse);
+          console.log(parsedResponse);
+        })
+        .catch((error) => {
+          setError(
+            "Unable to connect to the server. Please check your connection."
+          );
+          console.error(error);
+        });
+    }
+  };
+
   const menuItems = [
     { label: "API Setting" },
     { label: "HLS Setting" },
@@ -149,9 +191,10 @@ export default function Setting() {
             {currentSetting === "API Setting" && (
               <ApiSetting
                 settings={apiSettings}
-                onSave={(updatedApiSettings) =>
-                  setApiSettings(updatedApiSettings)
-                }
+                onSave={(updatedApiSettings) => {
+                  setApiSettings(updatedApiSettings);
+                  i();
+                }}
               />
             )}
             {currentSetting === "Logging Setting" && (

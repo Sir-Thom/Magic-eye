@@ -3,7 +3,8 @@ use axum::http::{HeaderValue, Method};
 use axum::Router;
 use log::{debug, trace};
 use magic_eye::server::server_config::{
-    __cmd__get_server_config_options, get_server_config_options,
+    __cmd__get_server_config_options, __cmd__post_server_config_options, get_server_config_options,
+    post_server_config_options,
 };
 use magic_eye::utils;
 use magic_eye::utils::browser::{__cmd__open_web_browser, open_web_browser};
@@ -97,6 +98,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             get_config_file_content,
             update_settings_file,
             get_server_config_options,
+            post_server_config_options
         ])
         .run(context)
         .expect("error while running tauri application");

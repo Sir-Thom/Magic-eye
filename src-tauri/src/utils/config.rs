@@ -147,10 +147,59 @@ pub fn create_configuartion_file_setting() {
             }
         }
         "windows" => {
-            warn!("No implementation for Windows for now");
-            println!("No implementation for Windows for now");
+            let app_data_dir = match var("APPDATA") {
+                Ok(appdata) => appdata,
+                Err(_) => {
+                    error!("Failed to retrieve APPDATA environment variable");
+                    return;
+                }
+            };
+
+            debug!("APPDATA directory: {}", app_data_dir);
+            let conf_dir = PathBuf::from(&app_data_dir).join(APP_NAME);
+            let path_config_file = conf_dir.join(SETTINGS_FILE_NAME);
+            info!("Path to config file: {:?}", path_config_file);
+
+            // Create the directory if it doesn't exist
+            if !Path::new(&conf_dir).exists() {
+                create_dir_all(&conf_dir).expect("Failed to create config directory");
+                error!(
+                    "Failed to create config directory for Windows: {:?}",
+                    conf_dir
+                );
+            }
+
+            let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .to_string()
+                + APP_NAME
+                + "/asset";
+            trace!("Asset directory path: {}", asset_dir_path);
+            if !Path::new(&asset_dir_path).exists() {
+                create_dir_all(&asset_dir_path).expect("Failed to create config directory");
+                error!(
+                    "Failed to create config directory for Windows: {:?}",
+                    asset_dir_path
+                );
+            }
+
+            if !Path::new(&path_config_file).exists() {
+                // Create the file if it doesn't exist
+                // Get all values from setting
+                let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
+                trace!("JSON data for config file: {}", json_data);
+
+                let mut file = File::create(&path_config_file).unwrap();
+                file.write_all(json_data.as_bytes()).unwrap();
+
+                info!("Config file created");
+            }
         }
+
         _ => {
+            warn!("no file created for this OS");
             error!("Unsupported OS");
             println!("Unsupported OS");
         }
@@ -192,7 +241,6 @@ pub fn get_config_file_content() -> String {
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
     debug!("content: {}", contents);
-    // println!("content: {}", contents);
     contents
 }
 
@@ -207,7 +255,6 @@ pub fn update_settings_file(new_settings: String) -> Result<String, String> {
     trace!("config file location: {:?}", path_config_file);
     let json_data = serde_json::to_string_pretty(&new_settings).map_err(|err| err.to_string())?;
     trace!("json data: {}", json_data);
-    //println!("json data: {}", json_data);
 
     let mut file = File::create(&path_config_file).map_err(|err| err.to_string())?;
     file.write_all(json_data.as_bytes())
