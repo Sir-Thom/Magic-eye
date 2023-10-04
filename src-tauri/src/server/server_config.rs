@@ -39,7 +39,7 @@ pub async fn get_server_config_options(url: &str) -> Result<String, String> {
 }
 
 #[tauri::command]
-pub async fn post_server_config_options(config_data: Value, url: &str) -> Result<String, String> {
+pub async fn post_server_config_options(config_data: Value, url: &str) -> Result<(),()>  {
     let client = reqwest::Client::new();
     println!("config_data: {:?}", config_data);
 
@@ -55,21 +55,23 @@ pub async fn post_server_config_options(config_data: Value, url: &str) -> Result
         .body(data)
         .send()
         .await
-        .map_err(|err| err.to_string())?;
+        .map_err(|err| err.to_string());
 
     debug!("Response: {:?}", response);
+    Ok(())
 
-    if response.status().is_redirection() {
+   /*  if response.status().is_redirection() {
         warn!("Redirection: {:?}", response);
-    }
+    }*/
 
-    if response.status().is_success() {
+   /*  if response.status().is_success() {
         // Deserialize the JSON response into a Value
         let body_json: serde_json::Value = response.json().await.map_err(|err| err.to_string())?;
 
         // Serialize the Value back to a JSON string
         let body_json_string = serde_json::to_string(&body_json).map_err(|err| err.to_string())?;
         info!("Response body: {}", body_json_string);
+       
         Ok(body_json_string.into())
     } else if response.status().is_server_error() {
         error!(" error: {:?}", response.status());
@@ -79,7 +81,7 @@ pub async fn post_server_config_options(config_data: Value, url: &str) -> Result
         error!("Request was not successful: {:?}", response.status());
 
         Err(format!("Request was not successful: {:?}", response.status()).into())
-    }
+    }*/
     
     
 }

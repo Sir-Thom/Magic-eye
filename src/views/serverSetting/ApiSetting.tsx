@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
@@ -53,6 +53,19 @@ export default function ApiSetting({ settings, onSave }) {
   const handleRunOnConnectRestartChange = (event) => {
     setRunOnConnectRestart(event.target.checked);
   };
+
+  useEffect(() => {
+    if (settings) {
+      setApiEnabled(settings.api);
+      setApiAddress(settings.apiAddress);
+      setMetrics(settings.metrics);
+      setMetricsAddress(settings.metricsAddress);
+      setPprof(settings.pprof);
+      setPprofAddress(settings.pprofAddress);
+      setRunOnConnect(settings.runOnConnect);
+      setRunOnConnectRestart(settings.runOnConnectRestart);
+    }
+  }, [settings]);
 
   const handleSaveConfig = () => {
     // Create an updated settings object with the modified logging settings

@@ -21,12 +21,11 @@ import {
 import SideMenu from "../components/sideMenu/sideMenu";
 import Toast from "../components/toast/Toast";
 import SrtSetting from "./serverSetting/SrtSetting";
-
-import axios from "axios";
-
+import SuccessAlert from "../components/alert/sucessAlert";
 export default function Setting() {
   const [configData, setConfigData] = useState<IServer | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState("");
   const [currentSetting, setCurrentSetting] = useState("General Setting"); // Initially show the "API Setting" component
   const [loggingSettings, setLoggingSettings] = useState<ILoggingSettings>({
     logLevel: configData?.logLevel || "info",
@@ -43,6 +42,7 @@ export default function Setting() {
     runOnConnect: configData?.runOnConnect || "",
     runOnConnectRestart: configData?.runOnConnectRestart || false
   });
+
   const [hlsSettings, setHlsSettings] = useState<IHlsSettings>({
     hls: configData?.hls || true,
     hlsAddress: configData?.hlsAddress || ":8888",
@@ -109,20 +109,29 @@ export default function Setting() {
 
   useEffect(() => {
     setError(null);
-    const serverUrl = "http://10.4.1.205:9997/v2/config/get";
+    const serverUrl = "http://127.0.0.1:9997/v2/config/get";
     invoke("get_server_config_options", { url: serverUrl })
       .then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
         setConfigData(parsedResponse);
-        console.log(parsedResponse);
-      })
 
+        // Update the state variables with the new settings
+        setApiSettings({
+          api: parsedResponse.api || true,
+          apiAddress: parsedResponse.apiAddress || "127.0.0.1:9997",
+          metrics: parsedResponse.metrics || false,
+          metricsAddress: parsedResponse.metricsAddress || "127.0.0.1:9998",
+          pprof: parsedResponse.pprof || false,
+          pprofAddress: parsedResponse.pprofAddress || "127.0.0.1:9999",
+          runOnConnect: parsedResponse.runOnConnect || "",
+          runOnConnectRestart: parsedResponse.runOnConnectRestart || false
+        });
+      })
       .catch(() => {
-        setError(
-          "Unable to connect to the server. Please check your connection."
-        );
+        setError("Unable to connect to the server. Please check your connection.");
       });
   }, []);
+
   const new_config = {
     logLevel: "info",
     logDestinations: ["stdout"],
@@ -153,52 +162,32 @@ export default function Setting() {
     multicastRTCPPort: 8003
   };
 
-  async function i() {
-    await invoke("post_server_config_options", {
-      configData: new_config,
-      url: "http://10.4.1.205:9997/v2/config/set"
-    })
-      .then((response: string) => {
+  async function postSetting() {
+    try {
+      await invoke("post_server_config_options", {
+        configData: new_config,
+        url: "http://127.0.0.1:9997/v2/config/set"
+      }).then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
         setConfigData(parsedResponse);
-        console.log(parsedResponse);
-      })
-      .catch(() => {
-        setError(
-          "Unable to connect to the server. Please check your connection."
+        setSuccessMessage("Settings saved successfully");
+        // get the updated config
+        const serverUrl = "http://127.0.0.1:9997/v2/config/get";
+        invoke("get_server_config_options", { url: serverUrl }).then(
+          (response: string) => {
+            const parsedResponse: IServer = JSON.parse(response);
+            setConfigData(parsedResponse);
+            console.log(parsedResponse);
+          }
         );
       });
-  }
-
-  const updateConfigDataWithProtocol = (fieldName: string, newValue: any) => {
-    if (configData) {
-      // Create a new configuration object with the updated field
-      const updatedConfigData = {
-        ...configData,
-        [fieldName]: newValue
-      };
-
-      fetch("http://127.0.0.1:9997/v2/config/set", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updatedConfigData)
-      })
-        .then((response) => response.json())
-        .then((parsedResponse: IServer) => {
-          console.log(parsedResponse);
-          setConfigData(parsedResponse);
-          console.log(parsedResponse);
-        })
-        .catch((error) => {
-          setError(
-            "Unable to connect to the server. Please check your connection."
-          );
-          console.error(error);
-        });
+    } catch (e) {
+      setError(
+        "Unable to connect to the server. Please check your connection." +
+          e.message
+      );
     }
-  };
+  }
 
   const menuItems = [
     { label: "API Setting" },
@@ -215,57 +204,8 @@ export default function Setting() {
     setError(null);
   }
 
-  async function testapi() {
-    const api_url = "http://10.4.1.205:9997/v2/config/set";
-
-    const headers = {
-      "Allow-Access-Control-Origin": "*",
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    };
-
-    // New configuration data
-    const new_config = {
-      logLevel: "info",
-      logDestinations: ["stdout"],
-      logFile: "mediamtx.log",
-      readTimeout: "10s",
-      writeTimeout: "10s",
-      readBufferCount: 512,
-      udpMaxPayloadSize: 1472,
-      externalAuthenticationURL: "",
-      api: true,
-      apiAddress: "127.0.0.1:9997",
-      metrics: true,
-      metricsAddress: "127.0.0.1:9998",
-      pprof: false,
-      pprofAddress: "127.0.0.1:9999",
-      runOnConnect: "",
-      runOnConnectRestart: false,
-      rtsp: true,
-      rtspDisable: false,
-      protocols: ["multicast", "tcp", "udp"],
-      encryption: "no",
-      rtspAddress: ":8554",
-      rtspsAddress: ":8322",
-      rtpAddress: ":8000",
-      rtcpAddress: ":8001",
-      multicastIPRange: "224.1.0.0/16",
-      multicastRTPPort: 8002,
-      multicastRTCPPort: 8003
-      // Add other configuration options and values as needed
-    };
-
-    // Make a POST request to update the configuration
-    const response = await window.fetch(api_url, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(new_config)
-    });
-
-    const { data, errors } = await response.json();
-    console.log(data);
-    console.log(errors);
+  function handleCloseAlert(): void {
+    setSuccessMessage("");
   }
 
   return (
@@ -280,79 +220,87 @@ export default function Setting() {
             />
           </div>
           <div className="w-3/4 mt-6 mr-24">
-            {currentSetting === "General Setting" && <GeneralSetting />}
-            {currentSetting === "API Setting" && (
-              <ApiSetting
-                settings={apiSettings}
-                onSave={(updatedApiSettings) => {
-                  setApiSettings(updatedApiSettings);
-                  i();
-                }}
-              />
-            )}
-            {currentSetting === "Logging Setting" && (
-              <LoggingSetting
-                settings={loggingSettings}
-                onSave={(updatedLoggingSettings) =>
-                  setLoggingSettings(updatedLoggingSettings)
-                }
-              />
-            )}
-            {currentSetting === "HLS Setting" && (
-              <HlsSetting
-                settings={hlsSettings}
-                onSave={(updatedHlsSettings) =>
-                  setHlsSettings(updatedHlsSettings)
-                }
-              />
-            )}
-            {currentSetting === "RTSP Setting" && (
-              <RtspSetting
-                settings={rtspSettings}
-                onSave={(updatedRtspSettings) =>
-                  setRtspSettings(updatedRtspSettings)
-                }
-              />
-            )}
-            {currentSetting === "RTMP Setting" && (
-              <RtmpSetting
-                settings={rtmpSettings}
-                onSave={(updatedRtmpSettings) =>
-                  setRtmpSettings(updatedRtmpSettings)
-                }
-              />
-            )}
-            {currentSetting === "SRT Setting" && (
-              <SrtSetting
-                settings={srtSettings}
-                onSave={(updatedSrtSettings) =>
-                  setSrtSettings(updatedSrtSettings)
-                }
-              />
-            )}
-            {currentSetting === "WebRTC Setting" && (
-              <WebrtcSetting
-                settings={webrtcSettings}
-                onSave={(updatWebRtcSettings) =>
-                  setWebrtcSettings(updatWebRtcSettings)
-                }
-              />
-            )}
+            <div className="mt-24">
+              {successMessage && (
+                <SuccessAlert
+                  message={successMessage}
+                  OnClose={handleCloseAlert}
+                  timer={5000}
+                />
+              )}
+              {currentSetting === "General Setting" && <GeneralSetting />}
+              {currentSetting === "API Setting" && (
+          <ApiSetting
+            settings={apiSettings}
+            onSave={(updatedApiSettings) => {
+              setApiSettings(updatedApiSettings);
+            }}
+          />
+        )}
+              {currentSetting === "Logging Setting" && (
+                <LoggingSetting
+                  settings={loggingSettings}
+                  onSave={(updatedLoggingSettings) =>
+                    setLoggingSettings(updatedLoggingSettings)
+                  }
+                />
+              )}
+              {currentSetting === "HLS Setting" && (
+                <HlsSetting
+                  settings={hlsSettings}
+                  onSave={(updatedHlsSettings) =>
+                    setHlsSettings(updatedHlsSettings)
+                  }
+                />
+              )}
+              {currentSetting === "RTSP Setting" && (
+                <RtspSetting
+                  settings={rtspSettings}
+                  onSave={(updatedRtspSettings) =>
+                    setRtspSettings(updatedRtspSettings)
+                  }
+                />
+              )}
+              {currentSetting === "RTMP Setting" && (
+                <RtmpSetting
+                  settings={rtmpSettings}
+                  onSave={(updatedRtmpSettings) =>
+                    setRtmpSettings(updatedRtmpSettings)
+                  }
+                />
+              )}
+              {currentSetting === "SRT Setting" && (
+                <SrtSetting
+                  settings={srtSettings}
+                  onSave={(updatedSrtSettings) =>
+                    setSrtSettings(updatedSrtSettings)
+                  }
+                />
+              )}
+              {currentSetting === "WebRTC Setting" && (
+                <WebrtcSetting
+                  settings={webrtcSettings}
+                  onSave={(updatWebRtcSettings) =>
+                    setWebrtcSettings(updatWebRtcSettings)
+                  }
+                />
+              )}
+            </div>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={async () => await postSetting()}
+            ></button>
           </div>
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => i()}
-          ></button>
         </div>
+        {error && (
+          <Toast
+            message={error}
+            timer={5000}
+            type={"error"}
+            onDismiss={handleDismissErrorToast}
+          />
+        )}
       </div>
-      {error && (
-        <Toast
-          message={error}
-          timer={5000}
-          type={"error"}
-          onDismiss={handleDismissErrorToast}
-        />
-      )}
     </>
   );
 }
