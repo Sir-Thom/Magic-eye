@@ -109,7 +109,7 @@ export default function Setting() {
 
   useEffect(() => {
     setError(null);
-    const serverUrl = "http://127.0.0.1:9997/v2/config/get";
+    const serverUrl = "http://10.4.1.205:9997/v2/config/get";
     invoke("get_server_config_options", { url: serverUrl })
       .then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
@@ -123,15 +123,54 @@ export default function Setting() {
         );
       });
   }, []);
+  const new_config = {
+    logLevel: "info",
+    logDestinations: ["stdout"],
+    logFile: "mediamtx.log",
+    readTimeout: "10s",
+    writeTimeout: "10s",
+    readBufferCount: 512,
+    udpMaxPayloadSize: 1472,
+    externalAuthenticationURL: "",
+    api: true,
+    apiAddress: "127.0.0.1:9997",
+    metrics: true,
+    metricsAddress: "127.0.0.1:9998",
+    pprof: false,
+    pprofAddress: "127.0.0.1:9999",
+    runOnConnect: "",
+    runOnConnectRestart: false,
+    rtsp: true,
+    rtspDisable: false,
+    protocols: ["multicast", "tcp", "udp"],
+    encryption: "no",
+    rtspAddress: ":8554",
+    rtspsAddress: ":8322",
+    rtpAddress: ":8000",
+    rtcpAddress: ":8001",
+    multicastIPRange: "224.1.0.0/16",
+    multicastRTPPort: 8002,
+    multicastRTCPPort: 8003
+  };
+
   async function i() {
-    const response = await axios.post(
-      "http://127.0.0.1:9997/v2/config/set",
-      configData
-    );
-    console.log(response);
+    await invoke("post_server_config_options", {
+      configData: new_config,
+      url: "http://10.4.1.205:9997/v2/config/set"
+    })
+      .then((response: string) => {
+        const parsedResponse: IServer = JSON.parse(response);
+        setConfigData(parsedResponse);
+        console.log(parsedResponse);
+      })
+      .catch(() => {
+        setError(
+          "Unable to connect to the server. Please check your connection."
+        );
+      });
   }
 
-  const updateConfigDataWithProtocol = (fieldName, newValue) => {
+  const updateConfigDataWithProtocol = (fieldName: string, newValue: any) => {
     if (configData) {
       // Create a new configuration object with the updated field
       const updatedConfigData = {
@@ -146,7 +185,8 @@ export default function Setting() {
         },
         body: JSON.stringify(updatedConfigData)
       })
-        .then((parsedResponse) => {
+        .then((response) => response.json())
+        .then((parsedResponse: IServer) => {
           console.log(parsedResponse);
           setConfigData(parsedResponse);
           console.log(parsedResponse);
@@ -173,6 +213,59 @@ export default function Setting() {
 
   async function handleDismissErrorToast() {
     setError(null);
+  }
+
+  async function testapi() {
+    const api_url = "http://10.4.1.205:9997/v2/config/set";
+
+    const headers = {
+      "Allow-Access-Control-Origin": "*",
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    };
+
+    // New configuration data
+    const new_config = {
+      logLevel: "info",
+      logDestinations: ["stdout"],
+      logFile: "mediamtx.log",
+      readTimeout: "10s",
+      writeTimeout: "10s",
+      readBufferCount: 512,
+      udpMaxPayloadSize: 1472,
+      externalAuthenticationURL: "",
+      api: true,
+      apiAddress: "127.0.0.1:9997",
+      metrics: true,
+      metricsAddress: "127.0.0.1:9998",
+      pprof: false,
+      pprofAddress: "127.0.0.1:9999",
+      runOnConnect: "",
+      runOnConnectRestart: false,
+      rtsp: true,
+      rtspDisable: false,
+      protocols: ["multicast", "tcp", "udp"],
+      encryption: "no",
+      rtspAddress: ":8554",
+      rtspsAddress: ":8322",
+      rtpAddress: ":8000",
+      rtcpAddress: ":8001",
+      multicastIPRange: "224.1.0.0/16",
+      multicastRTPPort: 8002,
+      multicastRTCPPort: 8003
+      // Add other configuration options and values as needed
+    };
+
+    // Make a POST request to update the configuration
+    const response = await window.fetch(api_url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(new_config)
+    });
+
+    const { data, errors } = await response.json();
+    console.log(data);
+    console.log(errors);
   }
 
   return (
@@ -246,6 +339,10 @@ export default function Setting() {
               />
             )}
           </div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => i()}
+          ></button>
         </div>
       </div>
       {error && (

@@ -45,6 +45,7 @@ response = requests.post(api_url, headers=headers, json=new_config)
 
 # Check the response
 if response.status_code == 200:
+    print('Response:', str(response.json()))
     print('Configuration updated successfully')
 else:
     print('Failed to update configuration')

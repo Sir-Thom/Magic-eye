@@ -1,3 +1,4 @@
+use axum::Json;
 use log::{debug, error, info, warn};
 use reqwest;
 use serde_json::Value;
@@ -24,7 +25,7 @@ pub async fn get_server_config_options(url: &str) -> Result<String, String> {
 
         // Serialize the Value back to a JSON string
         let body_json_string = serde_json::to_string(&body_json).map_err(|err| err.to_string())?;
-        info!("Response body: {}", body_json_string);
+      //  info!("Response body: {}", body_json_string);
         Ok(body_json_string.into())
     } else if response.status().is_server_error() {
         error!(" error: {:?}", response.status());
@@ -44,6 +45,8 @@ pub async fn post_server_config_options(config_data: Value, url: &str) -> Result
 
     // Serialize the JSON data to a string
     let data = config_data.to_string();
+    log::info!("data: {}", data);
+    log::info!("url: {}", url);
 
     // Make the POST request with the serialized data
     let response = client
@@ -69,12 +72,14 @@ pub async fn post_server_config_options(config_data: Value, url: &str) -> Result
         info!("Response body: {}", body_json_string);
         Ok(body_json_string.into())
     } else if response.status().is_server_error() {
-        error!("Error: {:?}", response.status());
-        // If unable to connect to the server or other server error
-        return Err(format!("Error: {:?}", response.status()).into());
+        error!(" error: {:?}", response.status());
+        // if is unable to connect to the
+        return Err(format!("Error:{:?}", response.status()).into());
     } else {
         error!("Request was not successful: {:?}", response.status());
 
         Err(format!("Request was not successful: {:?}", response.status()).into())
     }
+    
+    
 }

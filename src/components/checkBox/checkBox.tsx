@@ -1,7 +1,12 @@
 import { FaCheck } from "react-icons/fa";
 import ICheckbox from "../../interfaces/ICheckbox";
 
-export default function Checkbox({ checked, onChange, value, className }:ICheckbox) {
+export default function Checkbox({
+  checked,
+  onChange,
+  value,
+  className
+}: ICheckbox) {
   const checkboxClassname =
     "outline-none outline-2 focus:outline-accent-color1-700 text-text-dark w-4 h-4 border border-gray-400 rounded-sm transition duration-100 mx-2 ease-in-out " +
     className;
