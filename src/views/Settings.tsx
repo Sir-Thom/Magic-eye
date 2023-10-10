@@ -114,6 +114,7 @@ export default function Setting() {
       .then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
         setConfigData(parsedResponse);
+        console.log("parsed option:" + JSON.stringify(parsedResponse));
 
         // Update the state variables with the new settings
         setApiSettings({
@@ -126,49 +127,76 @@ export default function Setting() {
           runOnConnect: parsedResponse.runOnConnect || "",
           runOnConnectRestart: parsedResponse.runOnConnectRestart || false
         });
+        console.log("api setting: " + JSON.stringify(apiSettings));
+        setLoggingSettings({
+          logLevel: parsedResponse.logLevel || "info",
+          logDestinations: parsedResponse.logDestinations || ["stdout"],
+          logFile: parsedResponse.logFile || "mediamtx.log"
+        });
+        console.log("logging setting: " + JSON.stringify(loggingSettings));
+        setHlsSettings({
+          hls: parsedResponse.hls || true,
+          hlsAddress: parsedResponse.hlsAddress || ":8888",
+          hlsAllowOrigin: parsedResponse.hlsAllowOrigin || "*",
+          hlsAlwaysRemux: parsedResponse.hlsAlwaysRemux || false,
+          hlsDirectory: parsedResponse.hlsDirectory || "",
+          hlsDisable: parsedResponse.hlsDisable || false,
+          hlsEncryption: parsedResponse.hlsEncryption || false,
+          hlsPartDuration: parsedResponse.hlsPartDuration || "200ms",
+          hlsSegmentCount: parsedResponse.hlsSegmentCount || 7,
+          hlsSegmentDuration: parsedResponse.hlsSegmentDuration || "1s",
+          hlsSegmentMaxSize: parsedResponse.hlsSegmentMaxSize || "50M",
+          hlsServerCert: parsedResponse.hlsServerCert || "server.crt",
+          hlsServerKey: parsedResponse.hlsServerKey || "server.key",
+          hlsTrustedProxies: parsedResponse.hlsTrustedProxies || [],
+          hlsVariant: parsedResponse.hlsVariant || "lowLatency"
+        });
+        console.log("hls setting: " + JSON.stringify(hlsSettings));
+        setRtmpSettings({
+          rtmp: parsedResponse.rtmp || true,
+          rtmpAddress: parsedResponse.rtmpAddress || ":1935",
+          rtmpDisable: parsedResponse.rtmpDisable || false,
+          rtmpEncryption: parsedResponse.rtmpEncryption || "no",
+          rtmpsAddress: parsedResponse.rtmpsAddress || ":1936",
+          rtmpServerKey: parsedResponse.rtmpServerKey || "server.key",
+          rtmpServerCert: parsedResponse.rtmpServerCert || "server.crt"
+        });
+        console.log("rtmp setting: " + JSON.stringify(rtmpSettings));
+        setRtspSettings({
+          rtsp: parsedResponse.rtsp || true,
+          rtspDisable: parsedResponse.rtspDisable || false,
+          protocols: parsedResponse.protocols || ["multicast", "tcp", "udp"],
+          encryption: parsedResponse.encryption || "no",
+          rtspAddress: parsedResponse.rtspAddress || ":8554",
+          rtspsAddress: parsedResponse.rtspsAddress || ":8322",
+          rtpAddress: parsedResponse.rtpAddress || ":8000",
+          rtcpAddress: parsedResponse.rtcpAddress || ":8001",
+          multicastIPRange: parsedResponse.multicastIPRange || "224.1.0.0/16",
+          multicastRTPPort: parsedResponse.multicastRTPPort || 8002,
+          multicastRTCPPort: parsedResponse.multicastRTCPPort || 8003
+        });
+        console.log("rtsp setting: " + JSON.stringify(rtspSettings));
       })
-      .catch(() => {
-        setError("Unable to connect to the server. Please check your connection.");
+
+      .catch((e) => {
+        setError(
+          "Unable to connect to the server. Please check your connection. " +
+            e.message
+        );
       });
   }, []);
 
-  const new_config = {
-    logLevel: "info",
-    logDestinations: ["stdout"],
-    logFile: "mediamtx.log",
-    readTimeout: "10s",
-    writeTimeout: "10s",
-    readBufferCount: 512,
-    udpMaxPayloadSize: 1472,
-    externalAuthenticationURL: "",
-    api: true,
-    apiAddress: "127.0.0.1:9997",
-    metrics: true,
-    metricsAddress: "127.0.0.1:9998",
-    pprof: false,
-    pprofAddress: "127.0.0.1:9999",
-    runOnConnect: "",
-    runOnConnectRestart: false,
-    rtsp: true,
-    rtspDisable: false,
-    protocols: ["multicast", "tcp", "udp"],
-    encryption: "no",
-    rtspAddress: ":8554",
-    rtspsAddress: ":8322",
-    rtpAddress: ":8000",
-    rtcpAddress: ":8001",
-    multicastIPRange: "224.1.0.0/16",
-    multicastRTPPort: 8002,
-    multicastRTCPPort: 8003
-  };
-
-  async function postSetting() {
+  async function postSetting(configData) {
     try {
+      if (configData == null) {
+        throw new Error("the configuation data is empty");
+      }
       await invoke("post_server_config_options", {
-        configData: new_config,
+        configData: configData,
         url: "http://127.0.0.1:9997/v2/config/set"
       }).then((response: string) => {
         const parsedResponse: IServer = JSON.parse(response);
+        console.log("parsed option in post:" + JSON.stringify(parsedResponse));
         setConfigData(parsedResponse);
         setSuccessMessage("Settings saved successfully");
         // get the updated config
@@ -176,8 +204,9 @@ export default function Setting() {
         invoke("get_server_config_options", { url: serverUrl }).then(
           (response: string) => {
             const parsedResponse: IServer = JSON.parse(response);
+            console.log(parsedResponse.metrics);
             setConfigData(parsedResponse);
-            console.log(parsedResponse);
+            console.log("new parsed option:" + JSON.stringify(parsedResponse));
           }
         );
       });
@@ -230,19 +259,25 @@ export default function Setting() {
               )}
               {currentSetting === "General Setting" && <GeneralSetting />}
               {currentSetting === "API Setting" && (
-          <ApiSetting
-            settings={apiSettings}
-            onSave={(updatedApiSettings) => {
-              setApiSettings(updatedApiSettings);
-            }}
-          />
-        )}
+                <ApiSetting
+                  settings={apiSettings}
+                  onSave={(updatedApiSettings) => {
+                    setApiSettings(updatedApiSettings);
+                    console.log(
+                      "updated api setting: " +
+                        JSON.stringify(updatedApiSettings)
+                    );
+                  }}
+                  postSetting={postSetting}
+                />
+              )}
               {currentSetting === "Logging Setting" && (
                 <LoggingSetting
                   settings={loggingSettings}
                   onSave={(updatedLoggingSettings) =>
                     setLoggingSettings(updatedLoggingSettings)
                   }
+                  postSetting={postSetting}
                 />
               )}
               {currentSetting === "HLS Setting" && (
@@ -286,10 +321,6 @@ export default function Setting() {
                 />
               )}
             </div>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={async () => await postSetting()}
-            ></button>
           </div>
         </div>
         {error && (

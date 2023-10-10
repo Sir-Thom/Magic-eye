@@ -3,43 +3,39 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function ApiSetting({ settings, onSave }) {
-  const [apiEnabled, setApiEnabled] = useState(settings.api || true);
-  const [apiAddress, setApiAddress] = useState(
-    settings.apiAddress || "127.0.0.1:9997"
+export default function ApiSetting({ settings, onSave, postSetting }) {
+  const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
+  const [apiAddress, setApiAddress] = useState(settings.apiAddress);
+  const [metricsEnabled, setMetricsEnabled] = useState(
+    Boolean(settings.metrics)
   );
-  const [metrics, setMetrics] = useState(settings.metrics || false);
-  const [metricsAddress, setMetricsAddress] = useState(
-    settings.metricsAddress || "127.0.0.1:9998"
-  );
-  const [pprof, setPprof] = useState(settings.pprof || false);
-  const [pprofAddress, setPprofAddress] = useState(
-    settings.pprofAddress || "127.0.0.1:9999"
-  );
-  const [runOnConnect, setRunOnConnect] = useState(settings.runOnConnect || "");
+  const [metricsAddress, setMetricsAddress] = useState(settings.metricsAddress);
+  const [pprofEnabled, setPprofEnabled] = useState(Boolean(settings.pprof));
+  const [pprofAddress, setPprofAddress] = useState(settings.pprofAddress);
+  const [runOnConnect, setRunOnConnect] = useState(settings.runOnConnect);
   const [runOnConnectRestart, setRunOnConnectRestart] = useState(
-    settings.runOnConnectRestart || false
+    Boolean(settings.runOnConnectRestart)
   );
   console.log(settings);
 
-  const handleApiEnabledChange = (event) => {
-    setApiEnabled(event.target.checked);
+  const handleApiEnabledChange = () => {
+    setApiEnabled(!apiEnabled); // Toggle the API state
   };
 
   const handleApiAddressChange = (event) => {
     setApiAddress(event.target.value);
   };
 
-  const handleMetricsChange = (event) => {
-    setMetrics(event.target.checked);
+  const handleMetricsChange = () => {
+    setMetricsEnabled(!metricsEnabled); // Toggle the metrics state
   };
 
   const handleMetricsAddressChange = (event) => {
-    setMetricsAddress(event.target.value);
+    setMetricsAddress(event.target.checked);
   };
 
-  const handlePprofChange = (event) => {
-    setPprof(event.target.checked);
+  const handlePprofChange = () => {
+    setPprofEnabled(!pprofEnabled); // Toggle the Pprof state
   };
 
   const handlePprofAddressChange = (event) => {
@@ -50,21 +46,19 @@ export default function ApiSetting({ settings, onSave }) {
     setRunOnConnect(event.target.value);
   };
 
-  const handleRunOnConnectRestartChange = (event) => {
-    setRunOnConnectRestart(event.target.checked);
+  const handleRunOnConnectRestartChange = () => {
+    setRunOnConnectRestart(!runOnConnectRestart); // Toggle the Run On Connect Restart state
   };
 
   useEffect(() => {
-    if (settings) {
-      setApiEnabled(settings.api);
-      setApiAddress(settings.apiAddress);
-      setMetrics(settings.metrics);
-      setMetricsAddress(settings.metricsAddress);
-      setPprof(settings.pprof);
-      setPprofAddress(settings.pprofAddress);
-      setRunOnConnect(settings.runOnConnect);
-      setRunOnConnectRestart(settings.runOnConnectRestart);
-    }
+    setApiEnabled(Boolean(settings.api));
+    setApiAddress(settings.apiAddress);
+    setMetricsEnabled(Boolean(settings.metrics));
+    setMetricsAddress(settings.metricsAddress);
+    setPprofEnabled(Boolean(settings.pprof));
+    setPprofAddress(settings.pprofAddress);
+    setRunOnConnect(settings.runOnConnect);
+    setRunOnConnectRestart(Boolean(settings.runOnConnectRestart));
   }, [settings]);
 
   const handleSaveConfig = () => {
@@ -73,22 +67,23 @@ export default function ApiSetting({ settings, onSave }) {
       ...settings,
       api: apiEnabled,
       apiAddress: apiAddress,
-      metrics: metrics,
+      metrics: metricsEnabled,
       metricsAddress: metricsAddress,
-      pprof: pprof,
+      pprof: pprofEnabled,
       pprofAddress: pprofAddress,
       runOnConnect: runOnConnect,
       runOnConnectRestart: runOnConnectRestart
     };
-    console.log(updatedSettings);
+    console.log("setting updated: " + JSON.stringify(updatedSettings));
 
     // Call the onSave prop to save the changes
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center ">
+      <div className="w-3/4 mx-auto flex justify-center items-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -96,95 +91,97 @@ export default function ApiSetting({ settings, onSave }) {
           exit="exit"
         >
           {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+            <div className="mt-4">
+              <h2 className="text-center font-bold text-3xl mb-4">
                 API Setting
               </h2>
-              <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex text-justify items-center">
-                  API
-                  <Checkbox
-                    value={apiEnabled.toString()}
-                    checked={apiEnabled}
-                    onChange={handleApiEnabledChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  API Address:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={apiAddress}
-                    onChange={handleApiAddressChange}
-                  />
-                </label>
-              </div>
               <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
                 <label className="flex text-justify items-center">
                   Metrics
                   <Checkbox
-                    value={metrics.toString()}
-                    checked={metrics}
+                    value={apiEnabled.toString()}
+                    checked={metricsEnabled}
                     onChange={handleMetricsChange}
                   />
                 </label>
               </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Metrics Address:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={metricsAddress}
-                    onChange={handleMetricsAddressChange}
-                  />
-                </label>
+              <div className="grid grid-cols-2 gap-4">
+                {/* Labels column */}
+                <div className="col-span-1">
+                  <div className="flex flex-col text-right items-end">
+                    <label className="mb-2">API:</label>
+                    <label className="mb-2">API Address:</label>
+                    <label className="mb-2">Metrics:</label>
+                    <label className="mb-2">Metrics Address:</label>
+                    <label className="mb-2">Pprof:</label>
+                    <label className="mb-2">Pprof Address:</label>
+                    <label className="mb-2">Run On Connect:</label>
+                    <label className="mb-2">Run On Connect Restart:</label>
+                  </div>
+                </div>
+                {/* Inputs column */}
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    {/* Input for API */}
+
+                    <Checkbox
+                      className=""
+                      value={apiEnabled.toString()}
+                      checked={apiEnabled}
+                      onChange={handleApiEnabledChange}
+                    />
+                    <input
+                      type="text"
+                      className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={apiAddress}
+                      onChange={handleApiAddressChange}
+                    />
+                    {/* Input for Metrics */}
+                    <Checkbox
+                      className="my-2"
+                      value={metricsEnabled.toString()}
+                      checked={metricsEnabled}
+                      onChange={handleMetricsChange}
+                    />
+                    <input
+                      type="text"
+                      className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={metricsAddress}
+                      onChange={handleMetricsAddressChange}
+                    />
+
+                    {/* Input for Pprof */}
+                    <Checkbox
+                      className="mb-2"
+                      value={pprofEnabled.toString()}
+                      checked={pprofEnabled}
+                      onChange={handlePprofChange}
+                    />
+                    <input
+                      type="text"
+                      className="mb-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={pprofAddress}
+                      onChange={handlePprofAddressChange}
+                    />
+                    {/* Input for Run On Connect */}
+                    <input
+                      type="text"
+                      className="mb-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={runOnConnect}
+                      onChange={handleRunOnConnectChange}
+                    />
+                    {/* Input for Run On Connect Restart */}
+                    <Checkbox
+                      className="mb-2"
+                      value={runOnConnectRestart.toString()}
+                      checked={runOnConnectRestart}
+                      onChange={handleRunOnConnectRestartChange}
+                    />
+                    {/* Add other inputs here */}
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Pprof
-                  <Checkbox
-                    value={pprof.toString()}
-                    checked={pprof}
-                    onChange={handlePprofChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-2 ">
-                <label className="flex text-justify items-center">
-                  Pprof Address:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={pprofAddress}
-                    onChange={handlePprofAddressChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Run On Connect:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={runOnConnect}
-                    onChange={handleRunOnConnectChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Run On Connect Restart:
-                  <Checkbox
-                    value={runOnConnectRestart.toString()}
-                    checked={runOnConnectRestart}
-                    onChange={handleRunOnConnectRestartChange}
-                  />
-                </label>
-              </div>
-              <div className="my-6 absolute right-0 bottom-0 flex justify-end">
+              <div className="my-6  bottom-0 right-0  absolute flex justify-end">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"

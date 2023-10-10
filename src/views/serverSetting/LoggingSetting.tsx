@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Dropdown from "../../components/dropdowns/dropdown";
 
-export default function LoggingSetting({ settings, onSave }) {
+export default function LoggingSetting({ settings, onSave, postSetting }) {
   const [logLevel, setLogLevel] = useState(settings.logLevel || "info");
 
   const [logDestinations, setLogDestinations] = useState(
@@ -34,6 +34,7 @@ export default function LoggingSetting({ settings, onSave }) {
 
     // Call the onSave prop to save the changes
     onSave(updatedSettings);
+    postSetting();
   };
 
   return (

@@ -142,7 +142,7 @@ export default function GeneralSetting() {
                 timer={5000}
               />
             )}
-            <h2 className="flex flex-none justify-center my-6 mx-auto items-center text-center font-bold text-3xl">
+            <h2 className="flex flex-none justify-center mx-auto items-center text-center font-bold text-3xl">
               Setting
             </h2>
 
