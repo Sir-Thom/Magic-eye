@@ -95,16 +95,6 @@ export default function ApiSetting({ settings, onSave, postSetting }) {
               <h2 className="text-center font-bold text-3xl mb-4">
                 API Setting
               </h2>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Metrics
-                  <Checkbox
-                    value={apiEnabled.toString()}
-                    checked={metricsEnabled}
-                    onChange={handleMetricsChange}
-                  />
-                </label>
-              </div>
               <div className="grid grid-cols-2 gap-4">
                 {/* Labels column */}
                 <div className="col-span-1">

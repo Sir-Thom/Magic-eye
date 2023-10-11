@@ -37,9 +37,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
               onClick={() => handleMenuItemClick(menuItem)}
               title={menuItem.label}
               className={`w-full rounded-lg text-justify mx-auto py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600 ${
-                clickedButton === menuItem.label
-                  ? " bg-accent-color1-600" // Change this to the desired background color
-                  : ""
+                clickedButton === menuItem.label ? "bg-accent-color1-600" : ""
               }`}
             >
               {menuItem.label}

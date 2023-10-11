@@ -47,38 +47,44 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
           exit="exit"
         >
           {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+            <div className="mt-4">
+              <h2 className="text-center font-bold text-3xl mb-4">
                 Logging Settings
               </h2>
-              <div className="flex flex-col my-4">
-                <div className="flex my-4   items-center">
-                  <label className="mr-2 text-left">Log Level:</label>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-1">
+                <div className="flex flex-col text-right items-end">
+                  {/* Labels column */}
+                  <label className="m-2">Log Level:</label>
+                  <label className="m-2">Log Destinations:</label>
+                  <label className="m-2">Log file:</label>
+                </div>
+                </div>
+             
+              {/* Inputs column */}
+              <div className="col-span-1">
+                <div className="flex flex-col">
                   <Dropdown
+                   
                     options={logLevels}
                     value={logLevel}
                     onChange={handleLogLevelChange}
                   />
-                </div>
-                <div className="flex my-4 items-center">
-                  <label className="text-left  mr-2">Log Destinations:</label>
                   <input
                     type="text"
-                    className="appearance-none border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    className="appearance-none border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={logDestinations}
                     onChange={handleLogDestinationsChange}
                   />
-                </div>
-                <div className="flex my-4 items-center">
-                  <label className="mr-2 text-left">Log file:</label>
                   <input
                     type="text"
-                    className="appearance-none border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    className="appearance-none border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={logFile}
                     onChange={handleLogFileChange}
                   />
                 </div>
               </div>
+             
               <div className="absolute mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
                 <button
                   type="button"
@@ -94,6 +100,7 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
                   Apply
                 </button>
               </div>
+            </div>
             </div>
           )}
         </motion.div>
