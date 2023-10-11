@@ -53,54 +53,53 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
               </h2>
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-1">
-                <div className="flex flex-col text-right items-end">
-                  {/* Labels column */}
-                  <label className="m-2">Log Level:</label>
-                  <label className="m-2">Log Destinations:</label>
-                  <label className="m-2">Log file:</label>
+                  <div className="flex flex-col text-right items-end">
+                    {/* Labels column */}
+                    <label className="m-2">Log Level:</label>
+                    <label className="m-2">Log Destinations:</label>
+                    <label className="m-2">Log file:</label>
+                  </div>
                 </div>
+
+                {/* Inputs column */}
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    <Dropdown
+                      options={logLevels}
+                      value={logLevel}
+                      onChange={handleLogLevelChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={logDestinations}
+                      onChange={handleLogDestinationsChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                      value={logFile}
+                      onChange={handleLogFileChange}
+                    />
+                  </div>
                 </div>
-             
-              {/* Inputs column */}
-              <div className="col-span-1">
-                <div className="flex flex-col">
-                  <Dropdown
-                   
-                    options={logLevels}
-                    value={logLevel}
-                    onChange={handleLogLevelChange}
-                  />
-                  <input
-                    type="text"
-                    className="appearance-none border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                    value={logDestinations}
-                    onChange={handleLogDestinationsChange}
-                  />
-                  <input
-                    type="text"
-                    className="appearance-none border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                    value={logFile}
-                    onChange={handleLogFileChange}
-                  />
+
+                <div className="absolute mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
+                  <button
+                    type="button"
+                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                    onClick={handleSaveConfig}
+                  >
+                    Apply
+                  </button>
                 </div>
               </div>
-             
-              <div className="absolute mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                  onClick={handleSaveConfig}
-                >
-                  Apply
-                </button>
-              </div>
-            </div>
             </div>
           )}
         </motion.div>

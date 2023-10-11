@@ -23,11 +23,7 @@ function Dropdown({ options, value, onChange, className }: IDropdown) {
           onChange={onChange}
         >
           {options.map((option, index) => (
-            <option
-              key={index}
-              value={option.toString()}
-              className="bg-white"
-            >
+            <option key={index} value={option.toString()} className="bg-white">
               {option}
             </option>
           ))}
@@ -36,8 +32,7 @@ function Dropdown({ options, value, onChange, className }: IDropdown) {
           className="caret absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
           onClick={toggleDropdown}
         >
-           <RxCaretDown size={20} color="white" />
-        
+          <RxCaretDown size={20} color="white" />
         </div>
       </div>
     </div>
