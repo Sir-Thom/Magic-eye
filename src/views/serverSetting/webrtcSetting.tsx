@@ -122,7 +122,7 @@ export default function WebrtcSetting({ settings, onSave }) {
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center ">
+      <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -130,187 +130,134 @@ export default function WebrtcSetting({ settings, onSave }) {
           exit="exit"
         >
           {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+            <div className="">
+              <h2 className="mx-auto text-center font-bold text-3xl">
                 Webrtc Setting
               </h2>
-              <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex text-justify items-center">
-                  Webrtc
-                  <Checkbox
-                    value={webrtc.toString()}
-                    checked={webrtc}
-                    onChange={handleWebrtc}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex text-justify items-center">
-                  Webrtc Disabled
-                  <Checkbox
-                    value={webrtcDisabled.toString()}
-                    checked={webrtcDisabled}
-                    onChange={handleWebrtcDisabled}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc Address:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={webrtcAddress}
-                    onChange={handleWebrtcAddress}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc Encryption:
-                  <Checkbox
-                    value={webrtcEncryption.toString()}
-                    checked={webrtcEncryption}
-                    onChange={handleWebrtcEncryption}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc Server Key:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={webrtcKey}
-                    onChange={handleWebrtcKey}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc Server Certificate:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={webrtcCert}
-                    onChange={handleWebrtcCert}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-2 ">
-                <label className="flex text-justify items-center">
-                  Webrtc Allow Origin:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={webrtcAllowOrigin}
-                    onChange={handleWebrtcAllowOrigin}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc Trusted Proxies:
-                  <div className="mx-2">
+              <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
+                <div className="col-span-1">
+                  <div className="flex flex-col align-baseline text-justify items-end">
+                    <label className="mb-2">Webrtc:</label>
+                    <label className="mb-2">Webrtc Disabled:</label>
+                    <label className="mb-2">Webrtc Address:</label>
+                    <label className="mb-2">Webrtc Encryption:</label>
+                    <label className="mb-2">Webrtc Server Key:</label>
+                    <label className="mb-2">Webrtc Server Certificate:</label>
+                    <label className="mb-2">Webrtc Allow Origin:</label>
+                    <label className="mb-2">Webrtc Trusted Proxies:</label>
+                    <label className="mb-2">Webrtc ICE Servers:</label>
+                    <label className="mb-2">Webrtc ICE Servers2:</label>
+                    <label className="mb-2">
+                      Webrtc ICE Host NAT 1 To 1 IPs:
+                    </label>
+                    <label className="mb-2">Webrtc ICE UDP Mux Address:</label>
+                    <label className="mb-2">Webrtc ICE TCP Mux Address:</label>
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    <Checkbox
+                      className="my-2"
+                      value={webrtc.toString()}
+                      checked={webrtc}
+                      onChange={handleWebrtc}
+                    />
+                    <Checkbox
+                      className="my-2"
+                      value={webrtcDisabled.toString()}
+                      checked={webrtcDisabled}
+                      onChange={handleWebrtcDisabled}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      value={webrtcAddress}
+                      onChange={handleWebrtcAddress}
+                    />
+                    <Checkbox
+                      className="my-2"
+                      value={webrtcEncryption.toString()}
+                      checked={webrtcEncryption}
+                      onChange={handleWebrtcEncryption}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      value={webrtcKey}
+                      onChange={handleWebrtcKey}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      value={webrtcCert}
+                      onChange={handleWebrtcCert}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      value={webrtcAllowOrigin}
+                      onChange={handleWebrtcAllowOrigin}
+                    />
                     <textarea
                       name="webrtcTrustedProxies"
-                      className="appearance-none resize-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcTrustedProxies}
                       onChange={handleWebrtcTrustedProxies}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc ICE Servers:
-                  <div className="mx-2">
                     <textarea
                       name="webrtcICEServers"
-                      className="appearance-none resize-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcICEServers}
                       onChange={handleWebrtcICEServers}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc ICE Servers2:
-                  <div className="mx-2">
-                    <label className="flex text-justify items-center">
-                      url:
+                    <div>
+                      <label className="mb-2">url:</label>
                       <input
                         title="url"
                         type="text"
-                        className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                        className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                         value={webrtcICEServers2.url}
                         onChange={handleWebrtcICEServers2}
                       />
-                    </label>
-                    <label className="flex text-justify items-center">
-                      username:
+                      <label className="mb-2">username:</label>
                       <input
                         title="username"
                         type="text"
-                        className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                        className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                         value={webrtcICEServers2.username}
                         onChange={handleWebrtcICEServers2}
                       />
-                    </label>
-                    <label className="flex text-justify items-center">
-                      password:
+                      <label className="mb-2">password:</label>
                       <input
                         title="password"
                         type="text"
-                        className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                        className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                         value={webrtcICEServers2.password}
                         onChange={handleWebrtcICEServers2}
                       />
-                    </label>
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc ICE Host NAT 1 To 1 IPs:
-                  <div className="mx-2">
+                    </div>
                     <textarea
                       name="webrtcICEHostNAT1To1IPs"
-                      className="appearance-none resize-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcICEHostNAT1To1IPs}
                       onChange={handleWebrtcICEHostNAT1To1IPs}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc ICE UDP Mux Address:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcICEUDPMuxAddress}
                       onChange={handleWebrtcICEUDPMuxAddress}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Webrtc ICE TCP Mux Address:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcICETCPMuxAddress}
                       onChange={handleWebrtcICETCPMuxAddress}
                     />
                   </div>
-                </label>
+                </div>
               </div>
-              <div className="my-6 absolute right-0 bottom-0 flex justify-end">
+              <div className="my-6 flex justify-end">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
@@ -319,7 +266,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                 </button>
                 <button
                   type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover-bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
                   onClick={handleSaveConfig}
                 >
                   Apply

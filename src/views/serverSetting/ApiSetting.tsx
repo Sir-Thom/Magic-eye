@@ -82,114 +82,98 @@ export default function ApiSetting({ settings, onSave, postSetting }) {
   };
 
   return (
-    <>
-      <div className="w-3/4 mx-auto flex justify-center items-center">
-        <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          {settings && (
-            <div className="mt-4">
-              <h2 className="text-center font-bold text-3xl mb-4">
-                API Setting
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                {/* Labels column */}
-                <div className="col-span-1">
-                  <div className="flex flex-col text-right items-end">
-                    <label className="mb-2">API:</label>
-                    <label className="mb-2">API Address:</label>
-                    <label className="mb-2">Metrics:</label>
-                    <label className="mb-2">Metrics Address:</label>
-                    <label className="mb-2">Pprof:</label>
-                    <label className="mb-2">Pprof Address:</label>
-                    <label className="mb-2">Run On Connect:</label>
-                    <label className="mb-2">Run On Connect Restart:</label>
-                  </div>
-                </div>
-                {/* Inputs column */}
-                <div className="col-span-1">
-                  <div className="flex flex-col">
-                    {/* Input for API */}
-
-                    <Checkbox
-                      className=""
-                      value={apiEnabled.toString()}
-                      checked={apiEnabled}
-                      onChange={handleApiEnabledChange}
-                    />
-                    <input
-                      type="text"
-                      className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                      value={apiAddress}
-                      onChange={handleApiAddressChange}
-                    />
-                    {/* Input for Metrics */}
-                    <Checkbox
-                      className="my-2"
-                      value={metricsEnabled.toString()}
-                      checked={metricsEnabled}
-                      onChange={handleMetricsChange}
-                    />
-                    <input
-                      type="text"
-                      className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                      value={metricsAddress}
-                      onChange={handleMetricsAddressChange}
-                    />
-
-                    {/* Input for Pprof */}
-                    <Checkbox
-                      className="mb-2"
-                      value={pprofEnabled.toString()}
-                      checked={pprofEnabled}
-                      onChange={handlePprofChange}
-                    />
-                    <input
-                      type="text"
-                      className="mb-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                      value={pprofAddress}
-                      onChange={handlePprofAddressChange}
-                    />
-                    {/* Input for Run On Connect */}
-                    <input
-                      type="text"
-                      className="mb-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                      value={runOnConnect}
-                      onChange={handleRunOnConnectChange}
-                    />
-                    {/* Input for Run On Connect Restart */}
-                    <Checkbox
-                      className="mb-2"
-                      value={runOnConnectRestart.toString()}
-                      checked={runOnConnectRestart}
-                      onChange={handleRunOnConnectRestartChange}
-                    />
-                    {/* Add other inputs here */}
-                  </div>
-                </div>
-              </div>
-              <div className="my-6  bottom-0 right-0  absolute flex justify-end">
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                  onClick={handleSaveConfig}
-                >
-                  Apply
-                </button>
+    <motion.div
+      variants={fadeIn}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      {settings && (
+        <div className=" my-4">
+          <h2 className="text-center font-bold text-3xl">API Setting</h2>
+          <div className="grid grid-cols-2  mt-6 content-between place-content-start gap-4">
+            <div className="col-span-1">
+              <div className="flex flex-col text-right items-end">
+                <label className="my-2">API:</label>
+                <label className="my-2">API Address:</label>
+                <label className="my-2">Metrics:</label>
+                <label className="my-2">Metrics Address:</label>
+                <label className="my-2">Pprof:</label>
+                <label className="my-2">Pprof Address:</label>
+                <label className="my-2">Run On Connect:</label>
+                <label className="my-3">Run On Connect Restart:</label>
               </div>
             </div>
-          )}
-        </motion.div>
-      </div>
-    </>
+            <div className="col-span-1">
+              <div className="flex flex-col">
+                <Checkbox
+                  className="mt-3 my-2"
+                  value={apiEnabled.toString()}
+                  checked={apiEnabled}
+                  onChange={handleApiEnabledChange}
+                />
+                <input
+                  type="text"
+                  className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  value={apiAddress}
+                  onChange={handleApiAddressChange}
+                />
+                <Checkbox
+                  className="mt-2 my-2"
+                  value={metricsEnabled.toString()}
+                  checked={metricsEnabled}
+                  onChange={handleMetricsChange}
+                />
+                <input
+                  type="text"
+                  className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  value={metricsAddress}
+                  onChange={handleMetricsAddressChange}
+                />
+                <Checkbox
+                  className="mt-3 my-2"
+                  value={pprofEnabled.toString()}
+                  checked={pprofEnabled}
+                  onChange={handlePprofChange}
+                />
+                <input
+                  type="text"
+                  className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  value={pprofAddress}
+                  onChange={handlePprofAddressChange}
+                />
+                <input
+                  type="text"
+                  className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  value={runOnConnect}
+                  onChange={handleRunOnConnectChange}
+                />
+                <Checkbox
+                  className="mt-2 my-2"
+                  value={runOnConnectRestart.toString()}
+                  checked={runOnConnectRestart}
+                  onChange={handleRunOnConnectRestartChange}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="my-6 flex justify-end fixed bottom-0 right-0">
+            <button
+              type="button"
+              className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+              onClick={handleSaveConfig}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      )}
+    </motion.div>
   );
 }

@@ -128,7 +128,7 @@ export default function HlsSetting({ settings, onSave }) {
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center ">
+      <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -136,173 +136,130 @@ export default function HlsSetting({ settings, onSave }) {
           exit="exit"
         >
           {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+            <div className="">
+              <h2 className=" mx-auto text-center font-bold text-3xl">
                 HLS Setting
               </h2>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS:
-                  <Checkbox
-                    value={hlsEnabled.toString()}
-                    checked={hlsEnabled}
-                    onChange={handleHlsEnabledChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Address:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsAddress}
-                    onChange={handleHlsAddressChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Allow Origin:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsAllowOrigin}
-                    onChange={handleHlsAllowOriginChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Always Remux:
-                  <Checkbox
-                    value={hlsAlwaysRemux.toString()}
-                    onChange={handleHlsAlwaysRemuxChange}
-                    checked={hlsAlwaysRemux}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Directory:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsDirectory}
-                    onChange={handleHlsDirectoryChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Disable:
-                  <Checkbox
-                    value={hlsDisable.toString()}
-                    onChange={handleHlsDisableChange}
-                    checked={hlsDisable}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Encryption:
-                  <Checkbox
-                    value={hlsEncryption.toString()}
-                    onChange={handleHlsEncryptionChange}
-                    checked={hlsEncryption}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Part Duration:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsPartDuration}
-                    onChange={handleHlsPartDurationChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Segment Count:
-                  <input
-                    type="number"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsSegmentCount}
-                    onChange={handleHlsSegmentCountChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Segment Duration:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsSegmentDuration}
-                    onChange={handleHlsSegmentDurationChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Segment Max Size:
-                  <input
-                    type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    onChange={handleHlsSegmentMaxSizeChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Server Cert:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsServerCert}
-                    onChange={handleHlsServerCertChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Server Key:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsServerKey}
-                    onChange={handleHlsServerKeyChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Trusted Proxies:
-                  <textarea
-                    name="hlsTrustedProxies"
-                    style={{ resize: "none" }}
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsTrustedProxies}
-                    onChange={handleHlsTrustedProxiesChange}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  HLS Variant:
-                  <input
-                    type="text"
-                    className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                    value={hlsVariant}
-                    onChange={handleHlsVariantChange}
-                  />
-                </label>
+              <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
+                {/* Labels column */}
+
+                <div className="col-span-1">
+                  <div className="flex flex-col align-baseline text-justify items-end">
+                    <label className="mb-2">HLS:</label>
+                    <label className="mb-2">HLS Address:</label>
+                    <label className="mb-2">HLS Allow Origin:</label>
+                    <label className="mb-2">HLS Always Remux:</label>
+                    <label className="mb-2">HLS Directory:</label>
+                    <label className="mb-2">HLS Disable:</label>
+                    <label className="mb-2">HLS Encryption:</label>
+                    <label className="mb-2">HLS Part Duration:</label>
+                    <label className="mb-2">HLS Segment Count:</label>
+                    <label className="mb-2">HLS Segment Duration:</label>
+                    <label className="mb-2">HLS Segment Max Size:</label>
+                    <label className="mb-2">HLS Server Cert:</label>
+                    <label className="mb-2">HLS Server Key:</label>
+                    <label className="mb-2">HLS Trusted Proxies:</label>
+                    <label className="mb-2">HLS Variant:</label>
+                  </div>
+                </div>
+                {/* Inputs column */}
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    <Checkbox
+                      className="my-1"
+                      value={hlsEnabled.toString()}
+                      checked={hlsEnabled}
+                      onChange={handleHlsEnabledChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsAddress}
+                      onChange={handleHlsAddressChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsAllowOrigin}
+                      onChange={handleHlsAllowOriginChange}
+                    />
+                    <Checkbox
+                      className="mb-2"
+                      value={hlsAlwaysRemux.toString()}
+                      onChange={handleHlsAlwaysRemuxChange}
+                      checked={hlsAlwaysRemux}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none  my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsDirectory}
+                      onChange={handleHlsDirectoryChange}
+                    />
+                    <Checkbox
+                      className="mb-2"
+                      value={hlsDisable.toString()}
+                      onChange={handleHlsDisableChange}
+                      checked={hlsDisable}
+                    />
+                    <Checkbox
+                      className="mb-2"
+                      value={hlsEncryption.toString()}
+                      onChange={handleHlsEncryptionChange}
+                      checked={hlsEncryption}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsPartDuration}
+                      onChange={handleHlsPartDurationChange}
+                    />
+                    <input
+                      type="number"
+                      className="appearance-none my-2  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsSegmentCount}
+                      onChange={handleHlsSegmentCountChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none  my-2 pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsSegmentDuration}
+                      onChange={handleHlsSegmentDurationChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none  my-2  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      onChange={handleHlsSegmentMaxSizeChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsServerCert}
+                      onChange={handleHlsServerCertChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsServerKey}
+                      onChange={handleHlsServerKeyChange}
+                    />
+                    <textarea
+                      name="hlsTrustedProxies"
+                      style={{ resize: "none" }}
+                      className="appearance-none my-2   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsTrustedProxies}
+                      onChange={handleHlsTrustedProxiesChange}
+                    />
+                    <input
+                      type="text"
+                      className="appearance-none  my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      value={hlsVariant}
+                      onChange={handleHlsVariantChange}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="absolute bottom-0 right-0 mb-4 flex justify-end items-end">
+              <div className="my-6 flex justify-end fixed bottom-0 right-0">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"

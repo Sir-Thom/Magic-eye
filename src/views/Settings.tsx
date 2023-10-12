@@ -242,14 +242,14 @@ export default function Setting() {
       <Titlebar />
       <div className="flex flex-col  h-screen">
         <div className="flex">
-          <div className="w-1/4 mx-auto  h-full">
+          <div className="w-1/4 mx-auto fixed  h-full">
             <SideMenu
               menuItems={menuItems}
               onMenuItemClick={(menuItem) => setCurrentSetting(menuItem.label)}
             />
           </div>
-          <div className="w-3/4 mt-6 mr-24">
-            <div className="mt-24">
+          <div className="w-3/4 mx-auto mt-6 mr-24">
+            <div className="mx-auto mt-24">
               {successMessage && (
                 <SuccessAlert
                   message={successMessage}
@@ -294,6 +294,7 @@ export default function Setting() {
                   onSave={(updatedRtspSettings) =>
                     setRtspSettings(updatedRtspSettings)
                   }
+                  postSetting={undefined}
                 />
               )}
               {currentSetting === "RTMP Setting" && (

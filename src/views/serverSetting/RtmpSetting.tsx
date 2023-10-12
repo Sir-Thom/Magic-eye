@@ -68,7 +68,7 @@ export default function RtmpSetting({ settings, onSave }) {
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center ">
+      <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -76,96 +76,70 @@ export default function RtmpSetting({ settings, onSave }) {
           exit="exit"
         >
           {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
+            <div className="">
+              <h2 className="mx-auto text-center font-bold text-3xl">
                 RTMP Setting
               </h2>
-              <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex text-justify items-center">
-                  RTSP
-                  <Checkbox
-                    value={rtmp.toString()}
-                    checked={rtmp}
-                    onChange={handleRtmp}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col items-center my-4 flex-1 ">
-                <label className="flex text-justify items-center">
-                  RTSP Disabled
-                  <Checkbox
-                    value={rtmpDisabled.toString()}
-                    checked={rtmpDisabled}
-                    onChange={handleRtmpDisabled}
-                  />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtmp Address:
-                  <div className="mx-2">
+              <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
+                <div className="col-span-1">
+                  <div className="flex flex-col align-baseline text-justify items-end">
+                    <label className="mb-2">RTMP:</label>
+                    <label className="mb-2">RTMP Disabled:</label>
+                    <label className="mb-2">RTMP Address:</label>
+                    <label className="mb-2">RTMP Encryption:</label>
+                    <label className="mb-2">RTMPS Address:</label>
+                    <label className="mb-2">RTMP Server Key:</label>
+                    <label className="mb-2">RTMP Server Cert:</label>
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    <Checkbox
+                      className="my-2"
+                      value={rtmp.toString()}
+                      checked={rtmp}
+                      onChange={handleRtmp}
+                    />
+                    <Checkbox
+                      className="my-2"
+                      value={rtmpDisabled.toString()}
+                      checked={rtmpDisabled}
+                      onChange={handleRtmpDisabled}
+                    />
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpAddress}
                       onChange={handleRtmpAddress}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtmp Encryption:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpEncryption}
                       onChange={handleRtmpEncryption}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtmps Address:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpsAddress}
                       onChange={handleRtmpsAddress}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtmp Server Key:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpServerKey}
                       onChange={handleRtmpServerKey}
                     />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  rtmp Server Cert:
-                  <div className="mx-2">
                     <input
                       type="text"
-                      className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpServerCert}
                       onChange={handleRtmpServerCert}
                     />
                   </div>
-                </label>
+                </div>
               </div>
-              <div className="my-6 absolute right-0 bottom-0 flex justify-end">
+              <div className="my-6 flex justify-end fixed bottom-0 right-0">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"

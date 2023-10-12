@@ -127,14 +127,14 @@ export default function GeneralSetting() {
 
   return (
     <>
-      <div className="w-3/4 my-auto mx-auto flex justify-center items-center">
+      <div className="w-3/4 mx-auto  flex justify-center items-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <div className="mt-24">
+          <div className="mt-4">
             {successMessage && (
               <SuccessAlert
                 message={successMessage}
@@ -142,35 +142,41 @@ export default function GeneralSetting() {
                 timer={5000}
               />
             )}
-            <h2 className="flex flex-none justify-center mx-auto items-center text-center font-bold text-3xl">
-              Setting
-            </h2>
+            <div className="my-4">
+              <h2 className="text-center font-bold text-3xl">Setting</h2>
+              <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
+                <div className="col-span-1">
+                  <div className="flex flex-col text-right items-end">
+                    <label className="my-2">Placeholder:</label>
+                  </div>
+                </div>
+                <div className="col-span-1">
+                  <div className="flex flex-col">
+                    <Dropdown
+                      className="mt-2"
+                      options={placeholderOptions}
+                      value={currentPlaceholder}
+                      onChange={handlePlaceholderChange}
+                    />
+                  </div>
+                </div>
+              </div>
 
-            <div className="flex justify-between flex-col mx-2 items-center my-4">
-              <label className="flex mx-2 items-center">
-                Video Placeholder
-                <Dropdown
-                  options={placeholderOptions}
-                  value={currentPlaceholder}
-                  onChange={handlePlaceholderChange}
-                />
-              </label>
-            </div>
-
-            <div className="absolute bottom-0 right-0 mb-4 flex justify-end items-end">
-              <button
-                type="button"
-                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                onClick={handleSaveConfig}
-              >
-                Apply
-              </button>
+              <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                <button
+                  type="button"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                  onClick={handleSaveConfig}
+                >
+                  Apply
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>

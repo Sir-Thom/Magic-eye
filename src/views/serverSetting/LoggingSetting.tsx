@@ -39,7 +39,7 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-center">
+      <div className="w-3/4 mx-auto  flex justify-center items-center">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -48,10 +48,10 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
         >
           {settings && (
             <div className="mt-4">
-              <h2 className="text-center font-bold text-3xl mb-4">
+              <h2 className="text-center mx-auto font-bold text-3xl mb-4">
                 Logging Settings
               </h2>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
                 <div className="col-span-1">
                   <div className="flex flex-col text-right items-end">
                     {/* Labels column */}
@@ -83,8 +83,7 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
                     />
                   </div>
                 </div>
-
-                <div className="absolute mt-auto bottom-0 right-0 mb-4 flex justify-end items-center">
+                <div className="my-6 flex justify-end fixed bottom-0 right-0">
                   <button
                     type="button"
                     className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"

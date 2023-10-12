@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import NumericInput from "../../components/inputNumber/inputNumber";
 
-export default function RtspSetting({ settings, onSave }) {
+export default function RtspSetting({ settings, onSave, postSetting }) {
   const [rtsp, setRtsp] = useState(settings.rtsp || true);
   const [rtspDisable, setRtspDisable] = useState(settings.rtspDisable || false);
   const [protocols, setProtocols] = useState(
@@ -70,7 +69,6 @@ export default function RtspSetting({ settings, onSave }) {
   };
 
   const handleSaveConfig = () => {
-    // Update the settings state with the modified values
     const updatedSettings = {
       ...settings,
       rtsp: rtsp,
@@ -86,164 +84,123 @@ export default function RtspSetting({ settings, onSave }) {
       multicastRTCPPort: multicastRTCPPort
     };
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
+
   return (
-    <>
-      <div className="w-3/4 mx-auto flex justify-center items-center ">
-        <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-        >
-          {settings && (
-            <div className="mt-12">
-              <h2 className="flex justify-center items-center text-center font-bold text-3xl">
-                RTSP Setting
-              </h2>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  RTSP:
+    <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
+      <motion.div initial="hidden" animate="visible" exit="exit">
+        {settings && (
+          <div className="my-4">
+            <h2 className="text-center font-bold text-3xl">RTSP Setting</h2>
+            <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
+              <div className="col-span-1">
+                <div className="flex flex-col text-right items-end">
+                  <label className="my-2">RTSP:</label>
+                  <label className="my-2">RTSP Disable:</label>
+                  <label className="my-2">Protocols:</label>
+                  <label className="my-2">RTSP Encryption:</label>
+                  <label className="my-2">RTSP Address:</label>
+                  <label className="my-2">RTSPs Address:</label>
+                  <label className="my-2">RTP Address:</label>
+                  <label className="my-3">RTCP Address:</label>
+                  <label className="my-2">Multicast IP Range:</label>
+                  <label className="my-2">Multicast RTP Port:</label>
+                  <label className="my-3">Multicast RTCP Port:</label>
+                </div>
+              </div>
+              <div className="col-span-1">
+                <div className="flex flex-col">
                   <Checkbox
+                    className="my-2"
                     value={rtsp.toString()}
-                    onChange={handleRtsp}
                     checked={rtsp}
+                    onChange={handleRtsp}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtsp Disable:
                   <Checkbox
+                    className="my-2"
                     value={rtspDisable.toString()}
-                    onChange={handleRtspDisable}
                     checked={rtspDisable}
+                    onChange={handleRtspDisable}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Protocols:
-                  <div className="mx-2">
-                    <textarea
-                      name="protocols"
-                      style={{ resize: "none" }}
-                      className="appearance-none   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                      value={protocols}
-                      onChange={handleProtocols}
-                    />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtsp Encryption:
-                  {/* make it able to set yes or not */}
+                  <textarea
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={protocols}
+                    onChange={handleProtocols}
+                  />
                   <Checkbox
+                    className="my-2"
                     value={encryption.toString()}
-                    onChange={handleEncryption}
                     checked={encryption}
+                    onChange={handleEncryption}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtsp Address:
                   <input
                     type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtspAddress}
                     onChange={handleRtspAddress}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtsps Address:
                   <input
                     type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtspsAddress}
                     onChange={handleRtspsAddress}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtp Address:
                   <input
                     type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtpAddress}
                     onChange={handleRtpAddress}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  Rtcp Address:
                   <input
                     type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtcpAddress}
                     onChange={handleRtcpAddress}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  MulticastIPRange:
                   <input
                     type="text"
-                    className="appearance-none  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={multicastIPRange}
                     onChange={handleMulticastIPRange}
                   />
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  multicastRTPPort:
-                  <div className=" mx-2">
-                    <NumericInput
-                      value={multicastRTPPort}
-                      onChange={handleMulticastRTPPort}
-                      placeholder={undefined}
-                    />
-                  </div>
-                </label>
-              </div>
-              <div className="flex justify-between flex-col text-justify  items-center my-4 flex-1">
-                <label className="flex text-justify items-center">
-                  multicastRTCPPort:
-                  <div className="mx-2">
-                    <NumericInput
-                      value={multicastRTCPPort}
-                      onChange={handleMulticastRTCPPort}
-                      placeholder={undefined}
-                    />
-                  </div>
-                </label>
-              </div>
-              <div className="absolute bottom-0 right-0 mb-4 flex justify-end items-end">
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                  onClick={handleSaveConfig}
-                >
-                  Apply
-                </button>
+                  <input
+                    type="number"
+                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={multicastRTPPort}
+                    onChange={(event) =>
+                      handleMulticastRTPPort(event.target.value)
+                    }
+                  />
+                  <input
+                    type="number"
+                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={multicastRTCPPort}
+                    onChange={(event) =>
+                      handleMulticastRTCPPort(event.target.value)
+                    }
+                  />
+                </div>
               </div>
             </div>
-          )}
-        </motion.div>
-      </div>
-    </>
+            <div className="my-6 flex justify-end fixed bottom-0 right-0">
+              <button
+                type="button"
+                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                onClick={handleSaveConfig}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        )}
+      </motion.div>
+    </div>
   );
 }

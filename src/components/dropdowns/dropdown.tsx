@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { RxCaretDown } from "react-icons/rx";
 import { IDropdown } from "../../interfaces/IDropdown";
 
 function Dropdown({ options, value, onChange, className }: IDropdown) {
