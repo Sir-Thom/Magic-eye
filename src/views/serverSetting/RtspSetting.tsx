@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Checkbox from "../../components/checkBox/checkBox";
-import NumericInput from "../../components/inputNumber/inputNumber";
+import { fadeIn } from "../../utils/animation/screenAnimation";
 
 export default function RtspSetting({ settings, onSave, postSetting }) {
   const [rtsp, setRtsp] = useState(settings.rtsp || true);
@@ -24,20 +24,20 @@ export default function RtspSetting({ settings, onSave, postSetting }) {
   const [multicastRTPPort, setMulticastRTPPort] = useState(8002);
   const [multicastRTCPPort, setMulticastRTCPPort] = useState(8003);
 
-  const handleRtsp = (event) => {
-    setRtsp(event.target.checked);
+  const handleRtsp = () => {
+    setRtsp(!rtsp);
   };
 
-  const handleRtspDisable = (event) => {
-    setRtspDisable(event.target.checked);
+  const handleRtspDisable = () => {
+    setRtspDisable(!rtspDisable);
   };
 
   const handleProtocols = (event) => {
     setProtocols(event.target.value);
   };
 
-  const handleEncryption = (event) => {
-    setEncryption(event.target.checked);
+  const handleEncryption = () => {
+    setEncryption(!encryption);
   };
 
   const handleRtspAddress = (event) => {
@@ -68,6 +68,20 @@ export default function RtspSetting({ settings, onSave, postSetting }) {
     setMulticastRTCPPort(event);
   };
 
+  useEffect(() => {
+    setRtsp(settings.rtsp || true);
+    setRtspDisable(settings.rtspDisable || false);
+    setProtocols(settings.protocols || ["multicast", "tcp", "udp"]);
+    setEncryption(settings.encryption || "no");
+    setRtspAddress(settings.rtspAddress || ":8554");
+    setRtspsAddress(settings.rtspsAddress || ":8322");
+    setRtpAddress(settings.rtpAddress || ":8000");
+    setRtcpAddress(settings.rtcpAddress || ":8001");
+    setMulticastIPRange(settings.multicastIPRange || "224.1.0.0/16");
+    setMulticastRTPPort(settings.multicastRTPPort || 8002);
+    setMulticastRTCPPort(settings.multicastRTCPPort || 8003);
+  }, [settings]);
+
   const handleSaveConfig = () => {
     const updatedSettings = {
       ...settings,
@@ -89,36 +103,41 @@ export default function RtspSetting({ settings, onSave, postSetting }) {
 
   return (
     <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
-      <motion.div initial="hidden" animate="visible" exit="exit">
+      <motion.div
+        variants={fadeIn}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
         {settings && (
           <div className="my-4">
             <h2 className="text-center font-bold text-3xl">RTSP Setting</h2>
-            <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
+            <div className="grid grid-cols-2 mt-5 content-between place-content-start gap-4">
               <div className="col-span-1">
                 <div className="flex flex-col text-right items-end">
                   <label className="my-2">RTSP:</label>
                   <label className="my-2">RTSP Disable:</label>
                   <label className="my-2">Protocols:</label>
-                  <label className="my-2">RTSP Encryption:</label>
+                  <label className="mt-7 mb-2">RTSP Encryption:</label>
                   <label className="my-2">RTSP Address:</label>
                   <label className="my-2">RTSPs Address:</label>
-                  <label className="my-2">RTP Address:</label>
+                  <label className="my-3">RTP Address:</label>
                   <label className="my-3">RTCP Address:</label>
                   <label className="my-2">Multicast IP Range:</label>
                   <label className="my-2">Multicast RTP Port:</label>
-                  <label className="my-3">Multicast RTCP Port:</label>
+                  <label className="mt-4 mb-3">Multicast RTCP Port:</label>
                 </div>
               </div>
               <div className="col-span-1">
                 <div className="flex flex-col">
                   <Checkbox
-                    className="my-2"
+                    className="my-3"
                     value={rtsp.toString()}
                     checked={rtsp}
                     onChange={handleRtsp}
                   />
                   <Checkbox
-                    className="my-2"
+                    className="my-3"
                     value={rtspDisable.toString()}
                     checked={rtspDisable}
                     onChange={handleRtspDisable}

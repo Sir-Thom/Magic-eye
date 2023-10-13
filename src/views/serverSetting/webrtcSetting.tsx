@@ -210,16 +210,16 @@ export default function WebrtcSetting({ settings, onSave }) {
                       value={webrtcICEServers}
                       onChange={handleWebrtcICEServers}
                     />
-                    <div>
-                      <label className="mb-2">url:</label>
+ <div>
+                      <label className="mb-2 mr-4">URL:</label>
                       <input
                         title="url"
                         type="text"
-                        className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                        className="appearance-none s my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                         value={webrtcICEServers2.url}
                         onChange={handleWebrtcICEServers2}
                       />
-                      <label className="mb-2">username:</label>
+                      <label className="mb-2">Username:</label>
                       <input
                         title="username"
                         type="text"
@@ -227,7 +227,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                         value={webrtcICEServers2.username}
                         onChange={handleWebrtcICEServers2}
                       />
-                      <label className="mb-2">password:</label>
+                      <label className="mb-2">Password:</label>
                       <input
                         title="password"
                         type="text"
@@ -235,7 +235,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                         value={webrtcICEServers2.password}
                         onChange={handleWebrtcICEServers2}
                       />
-                    </div>
+                    </div>                    
                     <textarea
                       name="webrtcICEHostNAT1To1IPs"
                       className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
@@ -257,7 +257,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                   </div>
                 </div>
               </div>
-              <div className="my-6 flex justify-end">
+              <div className="my-6 flex justify-end fixed bottom-0 right-0">
                 <button
                   type="button"
                   className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
@@ -266,7 +266,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                 </button>
                 <button
                   type="button"
-                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover-bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
                   onClick={handleSaveConfig}
                 >
                   Apply

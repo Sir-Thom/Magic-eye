@@ -248,7 +248,7 @@ export default function Setting() {
               onMenuItemClick={(menuItem) => setCurrentSetting(menuItem.label)}
             />
           </div>
-          <div className="w-3/4 mx-auto mt-6 mr-24">
+          <div className="w-3/4 mx-auto mt-4 mr-24">
             <div className="mx-auto mt-24">
               {successMessage && (
                 <SuccessAlert
@@ -286,6 +286,7 @@ export default function Setting() {
                   onSave={(updatedHlsSettings) =>
                     setHlsSettings(updatedHlsSettings)
                   }
+                  postSetting={postSetting}
                 />
               )}
               {currentSetting === "RTSP Setting" && (
@@ -294,7 +295,7 @@ export default function Setting() {
                   onSave={(updatedRtspSettings) =>
                     setRtspSettings(updatedRtspSettings)
                   }
-                  postSetting={undefined}
+                  postSetting={postSetting}
                 />
               )}
               {currentSetting === "RTMP Setting" && (
@@ -303,6 +304,7 @@ export default function Setting() {
                   onSave={(updatedRtmpSettings) =>
                     setRtmpSettings(updatedRtmpSettings)
                   }
+                  postSetting={postSetting}
                 />
               )}
               {currentSetting === "SRT Setting" && (
@@ -311,6 +313,7 @@ export default function Setting() {
                   onSave={(updatedSrtSettings) =>
                     setSrtSettings(updatedSrtSettings)
                   }
+                  postSetting={postSetting}
                 />
               )}
               {currentSetting === "WebRTC Setting" && (

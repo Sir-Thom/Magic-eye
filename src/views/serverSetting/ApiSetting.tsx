@@ -16,7 +16,6 @@ export default function ApiSetting({ settings, onSave, postSetting }) {
   const [runOnConnectRestart, setRunOnConnectRestart] = useState(
     Boolean(settings.runOnConnectRestart)
   );
-  console.log(settings);
 
   const handleApiEnabledChange = () => {
     setApiEnabled(!apiEnabled); // Toggle the API state

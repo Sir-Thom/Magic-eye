@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function RtmpSetting({ settings, onSave }) {
+export default function RtmpSetting({ settings, onSave, postSetting }) {
   const [rtmp, setRtmp] = useState(settings.rtmp || true);
   const [rtmpDisabled, setRtmpDisabled] = useState(
     settings.rtmpDisabled || false
@@ -24,12 +24,12 @@ export default function RtmpSetting({ settings, onSave }) {
     settings.rtmpServerCert || "server.crt"
   );
 
-  const handleRtmp = (event) => {
-    setRtmp(event.target.checked);
+  const handleRtmp = () => {
+    setRtmp(!rtmp);
   };
 
-  const handleRtmpDisabled = (event) => {
-    setRtmpDisabled(event.target.checked);
+  const handleRtmpDisabled = () => {
+    setRtmpDisabled(!rtmpDisabled);
   };
 
   const handleRtmpAddress = (event) => {
@@ -52,6 +52,16 @@ export default function RtmpSetting({ settings, onSave }) {
     setRtmpServerCert(event.target.value);
   };
 
+  useEffect(() => {
+    setRtmp(settings.rtmp || true);
+    setRtmpDisabled(settings.rtmpDisabled || false);
+    setRtmpAddress(settings.rtmpAddress || ":1935");
+    setRtmpsAddress(settings.rtmpAddress || ":1936");
+    setRtmpEncryption(settings.rtmpEncryption || "no");
+    setRtmpServerKey(settings.rtmpServerKey || "server.key");
+    setRtmpServerCert(settings.rtmpServerCert || "server.crt");
+  }, [settings]);
+
   const handleSaveConfig = () => {
     const updatedSettings = {
       ...settings,
@@ -64,11 +74,12 @@ export default function RtmpSetting({ settings, onSave }) {
       rtmpServerCert: rtmpServerCert
     };
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
 
   return (
     <>
-      <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
+      <div className="w-3/4 mx-auto flex justify-center items-start ">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -83,25 +94,25 @@ export default function RtmpSetting({ settings, onSave }) {
               <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
                 <div className="col-span-1">
                   <div className="flex flex-col align-baseline text-justify items-end">
-                    <label className="mb-2">RTMP:</label>
-                    <label className="mb-2">RTMP Disabled:</label>
-                    <label className="mb-2">RTMP Address:</label>
-                    <label className="mb-2">RTMP Encryption:</label>
-                    <label className="mb-2">RTMPS Address:</label>
-                    <label className="mb-2">RTMP Server Key:</label>
-                    <label className="mb-2">RTMP Server Cert:</label>
+                    <label className="my-2">RTMP:</label>
+                    <label className="my-2">RTMP Disabled:</label>
+                    <label className="my-2">RTMP Address:</label>
+                    <label className="my-3">RTMP Encryption:</label>
+                    <label className="my-2">RTMPS Address:</label>
+                    <label className="my-2">RTMP Server Key:</label>
+                    <label className="my-4">RTMP Server Cert:</label>
                   </div>
                 </div>
                 <div className="col-span-1">
                   <div className="flex flex-col">
                     <Checkbox
-                      className="my-2"
+                      className="my-3"
                       value={rtmp.toString()}
                       checked={rtmp}
                       onChange={handleRtmp}
                     />
                     <Checkbox
-                      className="my-2"
+                      className="my-3"
                       value={rtmpDisabled.toString()}
                       checked={rtmpDisabled}
                       onChange={handleRtmpDisabled}
@@ -132,7 +143,7 @@ export default function RtmpSetting({ settings, onSave }) {
                     />
                     <input
                       type="text"
-                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={rtmpServerCert}
                       onChange={handleRtmpServerCert}
                     />

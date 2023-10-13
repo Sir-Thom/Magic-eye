@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Dropdown from "../../components/dropdowns/dropdown";
@@ -11,6 +11,13 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
   );
   const [logFile, setLogFile] = useState(settings.logFile || "mediamtx.log");
   const logLevels = ["info", "debug", "warning", "error"];
+
+  useEffect(() => {
+    setLogLevel(settings.logLevel || "info");
+    setLogDestinations(settings.logDestinations || ["stdout"]);
+    setLogFile(settings.logFile || "mediamtx.log");
+  }, [settings]);
+
   const handleLogLevelChange = (event) => {
     setLogLevel(event.target.value);
   };
@@ -34,7 +41,7 @@ export default function LoggingSetting({ settings, onSave, postSetting }) {
 
     // Call the onSave prop to save the changes
     onSave(updatedSettings);
-    postSetting();
+    postSetting(updatedSettings);
   };
 
   return (

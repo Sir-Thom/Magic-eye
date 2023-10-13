@@ -35,7 +35,7 @@ function SuccessAlert({ message, timer, OnClose }: IAlert) {
       animate={"visible"}
       exit={"exit"}
       variants={alertAnimation}
-      className="bg-success text-white  px-4 py-3 rounded fixed top-10 w-96  m-4 z-50" // Use Tailwind classes for positioning
+      className="bg-success text-white px-4 py-3 rounded fixed top-10 w-96 my-4 z-50 left-1/3 transform -translate-x-1/2" // Centered horizontally
       role="alert"
     >
       <strong className="font-bold">Success! </strong>

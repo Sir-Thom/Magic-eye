@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function SRTSetting({ settings, onSave }) {
+export default function SRTSetting({ settings, onSave, postSetting }) {
   const [srt, setSRT] = useState(Boolean(settings.srt));
   const [srtAddress, setSRTAddress] = useState(settings.srtAddress);
 
@@ -15,6 +15,11 @@ export default function SRTSetting({ settings, onSave }) {
     setSRTAddress(event.target.value);
   };
 
+  useEffect(() => {
+    setSRT(Boolean(settings.srt));
+    setSRTAddress(settings.srtAddress);
+  }, [settings]);
+
   const handleSaveConfig = () => {
     const updatedSettings = {
       ...settings,
@@ -22,10 +27,11 @@ export default function SRTSetting({ settings, onSave }) {
       srtAddress: srtAddress
     };
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
 
   return (
-    <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
+    <div className="w-3/4 mx-auto flex justify-center items-start ">
       <motion.div
         variants={fadeIn}
         initial="hidden"
@@ -39,7 +45,7 @@ export default function SRTSetting({ settings, onSave }) {
               <div className="col-span-1">
                 <div className="flex flex-col text-right items-end">
                   <label className="my-2">SRT:</label>
-                  <label className="my-2">SRT Address:</label>
+                  <label className="my-3">SRT Address:</label>
                 </div>
               </div>
               <div className="col-span-1">

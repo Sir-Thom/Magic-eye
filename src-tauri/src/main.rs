@@ -23,8 +23,20 @@ use utils::os_setup_and_info::setup_wayland;
 
 const PORT: u16 = 16780;
 
-#[tokio::main(worker_threads = 4)]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+#[tauri::command]
+async fn close_splashscreen(window: tauri::Window) {
+    // Close splashscreen
+    if let Some(splashscreen) = window.get_window("splashscreen") {
+      splashscreen.close().unwrap();
+    }
+    // Show main window
+    window.get_window("main").unwrap().show().unwrap();
+  }
+  // Show main window
+  
+  
+
+ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Reuse resources that don't depend on the target OS
     create_configuartion_file_setting();
     #[cfg(target_os = "linux")]
@@ -54,7 +66,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     builder
         .setup(move |app| {
+            //let splashscreen_window = app.get_window("splashscreen").unwrap();
             let main_window = app.get_window("main").unwrap();
+            // we perform the initialization code on a new task so the app doesn't freeze
+           
+           
+            
             debug!("main_window url: : {:?}", main_window.url());
 
             let resource_path = app
@@ -71,9 +88,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             // https://github.com/tranxuanthang/lrcget/commit/0a2fe9943e40503a1dc5d9bf291314f31ea66941
             // https://github.com/tauri-apps/tauri/issues/3725#issuecomment-1552804332
 
-            tokio::spawn(async move {
+            tauri::async_runtime::spawn(async move {
+                debug!("Initializing...");
                 let serve_dir = ServeDir::new(resource_path.to_str().unwrap());
-
+              
                 let _files =
                     fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path()));
                 debug!("files: {:?}", _files);
@@ -82,12 +100,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         .allow_origin("*".parse::<HeaderValue>().unwrap())
                         .allow_methods([Method::GET]),
                 );
-                debug!("axum_app: {:?}", axum_app);
-
+           
                 let _ = axum::Server::bind(&format!("127.0.0.1:{}", PORT).parse().unwrap())
                     .serve(axum_app.into_make_service())
                     .await;
+                
             });
+           
             Ok(())
         })
         .invoke_handler(generate_handler![
@@ -98,7 +117,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             get_config_file_content,
             update_settings_file,
             get_server_config_options,
-            post_server_config_options
+            post_server_config_options,
+            close_splashscreen
         ])
         .run(context)
         .expect("error while running tauri application");

@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import { fadeIn } from "../../utils/animation/screenAnimation";
 
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function HlsSetting({ settings, onSave }) {
+export default function HlsSetting({ settings, onSave, postSetting }) {
   const [hlsEnabled, setHlsEnabled] = useState(settings.hls || true);
   const [hlsAddress, setHlsAddress] = useState(settings.hlsAddress || ":8888");
   const [hlsAllowOrigin, setHlsAllowOrigin] = useState(
@@ -44,8 +44,8 @@ export default function HlsSetting({ settings, onSave }) {
     settings.hlsVariant || "lowLatency"
   );
 
-  const handleHlsEnabledChange = (event) => {
-    setHlsEnabled(event.target.checked);
+  const handleHlsEnabledChange = () => {
+    setHlsEnabled(!hlsEnabled);
   };
 
   const handleHlsAddressChange = (event) => {
@@ -55,20 +55,20 @@ export default function HlsSetting({ settings, onSave }) {
     setHlsAllowOrigin(event.target.value);
   };
 
-  const handleHlsAlwaysRemuxChange = (event) => {
-    setHlsAlwaysRemux(event.target.checked);
+  const handleHlsAlwaysRemuxChange = () => {
+    setHlsAlwaysRemux(!hlsAlwaysRemux);
   };
 
   const handleHlsDirectoryChange = (event) => {
     setHlsDirectory(event.target.value);
   };
 
-  const handleHlsDisableChange = (event) => {
-    setHlsDisable(event.target.checked);
+  const handleHlsDisableChange = () => {
+    setHlsDisable(!hlsDisable);
   };
 
-  const handleHlsEncryptionChange = (event) => {
-    setHlsEncryption(event.target.checked);
+  const handleHlsEncryptionChange = () => {
+    setHlsEncryption(!hlsEncryption);
   };
 
   const handleHlsPartDurationChange = (event) => {
@@ -102,6 +102,24 @@ export default function HlsSetting({ settings, onSave }) {
   const handleHlsVariantChange = (event) => {
     setHlsVariant(event.target.value);
   };
+  useEffect(() => {
+    setHlsEnabled(settings.hls || true);
+    setHlsAddress(settings.hlsAddress || ":8888");
+    setHlsAllowOrigin(settings.hlsAllowOrigin || "*");
+    setHlsAlwaysRemux(settings.hlsAlwaysRemux || false);
+    setHlsDirectory(settings.hlsDirectory || "");
+    setHlsDisable(settings.hlsDisable || false);
+    setHlsEncryption(settings.hlsEncryption || false);
+    setHlsPartDuration(settings.hlsPartDuration || "200ms");
+    setHlsSegmentCount(settings.hlsSegmentCount || 7);
+    setHlsSegmentDuration(settings.hlsSegmentDuration || "1s");
+    setHlsSegmentMaxSize(settings.hlsSegmentMaxSize || "50M");
+    setHlsServerCert(settings.hlsServerCert || "server.crt");
+    setHlsServerKey(settings.hlsServerKey || "server.key");
+    setHlsTrustedProxies(settings.hlsTrustedProxies || []);
+    setHlsVariant(settings.hlsVariant || "lowLatency");
+  }, [settings]);
+
   const handleSaveConfig = () => {
     // Update the settings state with the modified values
     const updatedSettings = {
@@ -124,6 +142,7 @@ export default function HlsSetting({ settings, onSave }) {
       hlsVariant: hlsVariant
     };
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
 
   return (
@@ -140,31 +159,31 @@ export default function HlsSetting({ settings, onSave }) {
               <h2 className=" mx-auto text-center font-bold text-3xl">
                 HLS Setting
               </h2>
-              <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
+              <div className="grid  mb-6 grid-cols-2 content-between place-content-start mt-6 gap-4">
                 {/* Labels column */}
 
                 <div className="col-span-1">
                   <div className="flex flex-col align-baseline text-justify items-end">
                     <label className="mb-2">HLS:</label>
                     <label className="mb-2">HLS Address:</label>
-                    <label className="mb-2">HLS Allow Origin:</label>
+                    <label className="my-3">HLS Allow Origin:</label>
                     <label className="mb-2">HLS Always Remux:</label>
                     <label className="mb-2">HLS Directory:</label>
                     <label className="mb-2">HLS Disable:</label>
                     <label className="mb-2">HLS Encryption:</label>
-                    <label className="mb-2">HLS Part Duration:</label>
-                    <label className="mb-2">HLS Segment Count:</label>
-                    <label className="mb-2">HLS Segment Duration:</label>
-                    <label className="mb-2">HLS Segment Max Size:</label>
-                    <label className="mb-2">HLS Server Cert:</label>
-                    <label className="mb-2">HLS Server Key:</label>
-                    <label className="mb-2">HLS Trusted Proxies:</label>
-                    <label className="mb-2">HLS Variant:</label>
+                    <label className="my-2">HLS Part Duration:</label>
+                    <label className="my-2">HLS Segment Count:</label>
+                    <label className="my-2">HLS Segment Duration:</label>
+                    <label className="my-3">HLS Segment Max Size:</label>
+                    <label className="my-2">HLS Server Cert:</label>
+                    <label className="my-2">HLS Server Key:</label>
+                    <label className="my-6">HLS Trusted Proxies:</label>
+                    <label className="my-2">HLS Variant:</label>
                   </div>
                 </div>
                 {/* Inputs column */}
                 <div className="col-span-1">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col mb-10">
                     <Checkbox
                       className="my-1"
                       value={hlsEnabled.toString()}
@@ -179,7 +198,7 @@ export default function HlsSetting({ settings, onSave }) {
                     />
                     <input
                       type="text"
-                      className="appearance-none my-2   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none my-3   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                       value={hlsAllowOrigin}
                       onChange={handleHlsAllowOriginChange}
                     />
@@ -202,7 +221,7 @@ export default function HlsSetting({ settings, onSave }) {
                       checked={hlsDisable}
                     />
                     <Checkbox
-                      className="mb-2"
+                      className="my-2"
                       value={hlsEncryption.toString()}
                       onChange={handleHlsEncryptionChange}
                       checked={hlsEncryption}
@@ -251,7 +270,7 @@ export default function HlsSetting({ settings, onSave }) {
                     />
                     <input
                       type="text"
-                      className="appearance-none  my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                      className="appearance-none   my-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                       value={hlsVariant}
                       onChange={handleHlsVariantChange}
                     />
