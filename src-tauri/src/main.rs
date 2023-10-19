@@ -37,6 +37,8 @@ async fn close_splashscreen(window: tauri::Window) {
   
 
  fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Set the log level
+
     // Reuse resources that don't depend on the target OS
     create_configuartion_file_setting();
     #[cfg(target_os = "linux")]
@@ -54,6 +56,7 @@ async fn close_splashscreen(window: tauri::Window) {
     let builder = tauri::Builder::default().plugin(
         tauri_plugin_log::Builder::default()
             .targets([
+                
                 LogTarget::Stdout,
                 LogTarget::Webview,
                 // set et the log folder to the app data folder

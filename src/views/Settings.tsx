@@ -176,6 +176,29 @@ export default function Setting() {
           multicastRTCPPort: parsedResponse.multicastRTCPPort || 8003
         });
         console.log("rtsp setting: " + JSON.stringify(rtspSettings));
+
+        setSrtSettings({
+          srt: parsedResponse.srt || true,
+          srtAddress: parsedResponse.srtAddress || ":8890"
+        });
+        console.log("srt setting: " + JSON.stringify(srtSettings));
+        setWebrtcSettings({
+          webrtc: parsedResponse.webrtc || true,
+          webrtcAddress: parsedResponse.webrtcAddress || ":8080",
+          webrtcDisable: parsedResponse.webrtcDisable || false,
+          webrtcEncryption: parsedResponse.webrtcEncryption || false,
+          webrtcServerKey: parsedResponse.webrtcServerKey || "server.key",
+          webrtcServerCert: parsedResponse.webrtcServerCert || "server.crt",
+          webrtcAllowOrigin: parsedResponse.webrtcAllowOrigin || "*",
+          webrtcTrustedProxies: parsedResponse.webrtcTrustedProxies || [],
+          webrtcICEServers: parsedResponse.webrtcICEServers || null,
+          webrtcICEServers2: parsedResponse.webrtcICEServers2 || null,
+          webrtcICEHostNAT1To1IPs:
+            parsedResponse.webrtcICEHostNAT1To1IPs || [],
+          webrtcICEUDPMuxAddress: parsedResponse.webrtcICEUDPMuxAddress || "",
+          webrtcICETCPMuxAddress: parsedResponse.webrtcICETCPMuxAddress || ""
+        });
+        console.log("webrtc setting: " + JSON.stringify(webrtcSettings));
       })
 
       .catch((e) => {
@@ -322,6 +345,7 @@ export default function Setting() {
                   onSave={(updatWebRtcSettings) =>
                     setWebrtcSettings(updatWebRtcSettings)
                   }
+                  postSetting={postSetting}
                 />
               )}
             </div>

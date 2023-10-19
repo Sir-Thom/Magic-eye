@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import { ICEServer } from "../../interfaces/IServer";
 
-export default function WebrtcSetting({ settings, onSave }) {
+export default function WebrtcSetting({ settings, onSave,postSetting }) {
   const [webrtc, setWebrtc] = useState(settings.webrtc || true);
   const [webrtcDisabled, setWebrtcDisabled] = useState(
     settings.webrtcDisabled || false
@@ -47,20 +47,20 @@ export default function WebrtcSetting({ settings, onSave }) {
     settings.webrtcICETCPMuxAddress || ""
   );
 
-  const handleWebrtc = (event) => {
-    setWebrtc(event.target.checked);
+  const handleWebrtc = () => {
+    setWebrtc(!webrtc);
   };
 
-  const handleWebrtcDisabled = (event) => {
-    setWebrtcDisabled(event.target.checked);
+  const handleWebrtcDisabled = () => {
+    setWebrtcDisabled(!webrtcDisabled);
   };
 
   const handleWebrtcAddress = (event) => {
     setWebrtcAddress(event.target.value);
   };
 
-  const handleWebrtcEncryption = (event) => {
-    setWebrtcEncryption(event.target.checked);
+  const handleWebrtcEncryption = () => {
+    setWebrtcEncryption(!webrtcEncryption);
   };
 
   const handleWebrtcKey = (event) => {
@@ -99,6 +99,27 @@ export default function WebrtcSetting({ settings, onSave }) {
     setWebrtcICETCPMuxAddress(event.target.value);
   };
 
+  useEffect(() => {
+    setWebrtc(settings.webrtc || true);
+    setWebrtcDisabled(settings.webrtcDisabled || false);
+    setWebrtcAddress(settings.webrtcAddress || ":8889");
+    setWebrtcEncryption(settings.webrtcEncryption || false);
+    setWebrtcKey(settings.webrtcKey || "server.key");
+    setWebrtcCert(settings.webrtcCert || "server.crt");
+    setWebrtcAllowOrigin(settings.webrtcAllowOrigin || "*");
+    setWebrtcTrustedProxies(settings.webrtcTrustedProxies || []);
+    setWebrtcICEServers(settings.webrtcICEServers || null);
+    setWebrtcICEServers2(settings.webrtcICEServers2 || {
+      url: "",
+      username: "",
+      password: ""
+    });
+    setWebrtcICEHostNAT1To1IPs(settings.webrtcICEHostNAT1To1IPs || []);
+    setWebrtcICEUDPMuxAddress(settings.webrtcICEUDPMuxAddress || "");
+    setWebrtcICETCPMuxAddress(settings.webrtcICETCPMuxAddress || "");
+  }
+  , [settings]);
+
   const handleSaveConfig = () => {
     // Create an updated settings object with the modified logging settings
     const updatedSettings = {
@@ -118,6 +139,7 @@ export default function WebrtcSetting({ settings, onSave }) {
       webrtcICETCPMuxAddress: webrtcICETCPMuxAddress
     };
     onSave(updatedSettings);
+    postSetting(updatedSettings);
   };
 
   return (
@@ -130,52 +152,53 @@ export default function WebrtcSetting({ settings, onSave }) {
           exit="exit"
         >
           {settings && (
-            <div className="">
-              <h2 className="mx-auto text-center font-bold text-3xl">
+            <div className="my-4 ">
+              <h2 className="text-center font-bold text-3xl">
                 Webrtc Setting
               </h2>
               <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
                 <div className="col-span-1">
                   <div className="flex flex-col align-baseline text-justify items-end">
-                    <label className="mb-2">Webrtc:</label>
-                    <label className="mb-2">Webrtc Disabled:</label>
-                    <label className="mb-2">Webrtc Address:</label>
-                    <label className="mb-2">Webrtc Encryption:</label>
-                    <label className="mb-2">Webrtc Server Key:</label>
-                    <label className="mb-2">Webrtc Server Certificate:</label>
-                    <label className="mb-2">Webrtc Allow Origin:</label>
-                    <label className="mb-2">Webrtc Trusted Proxies:</label>
-                    <label className="mb-2">Webrtc ICE Servers:</label>
-                    <label className="mb-2">Webrtc ICE Servers2:</label>
-                    <label className="mb-2">
+                    <label className="my-2">Webrtc:</label>
+                    <label className="my-2">Webrtc Address:</label>
+                    <label className="my-2">Webrtc Encryption:</label>
+                    <label className="my-2">Webrtc Disabled:</label>
+                    <label className="my-3">Webrtc Server Key:</label>
+                    <label className="my-2">Webrtc Server Certificate:</label>
+                    <label className="my-3">Webrtc Allow Origin:</label>
+                    <label className="my-4">Webrtc Trusted Proxies:</label>
+                    <label className="my-6">Webrtc ICE Servers:</label>
+                    <label className="my-2">Webrtc ICE Servers2:</label>
+                    <label className="mt-56 mb-5">
                       Webrtc ICE Host NAT 1 To 1 IPs:
                     </label>
-                    <label className="mb-2">Webrtc ICE UDP Mux Address:</label>
-                    <label className="mb-2">Webrtc ICE TCP Mux Address:</label>
+                    <label className="my-4">Webrtc ICE UDP Mux Address:</label>
+                    <label className="my-2">Webrtc ICE TCP Mux Address:</label>
                   </div>
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 mb-12">
                   <div className="flex flex-col">
                     <Checkbox
-                      className="my-2"
+                      className="my-3"
                       value={webrtc.toString()}
                       checked={webrtc}
                       onChange={handleWebrtc}
                     />
-                    <Checkbox
-                      className="my-2"
-                      value={webrtcDisabled.toString()}
-                      checked={webrtcDisabled}
-                      onChange={handleWebrtcDisabled}
-                    />
+                 
                     <input
                       type="text"
                       className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcAddress}
                       onChange={handleWebrtcAddress}
                     />
+                       <Checkbox
+                      className="my-3"
+                      value={webrtcDisabled.toString()}
+                      checked={webrtcDisabled}
+                      onChange={handleWebrtcDisabled}
+                    />
                     <Checkbox
-                      className="my-2"
+                      className="my-3"
                       value={webrtcEncryption.toString()}
                       checked={webrtcEncryption}
                       onChange={handleWebrtcEncryption}
@@ -188,7 +211,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                     />
                     <input
                       type="text"
-                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcCert}
                       onChange={handleWebrtcCert}
                     />
@@ -210,8 +233,8 @@ export default function WebrtcSetting({ settings, onSave }) {
                       value={webrtcICEServers}
                       onChange={handleWebrtcICEServers}
                     />
- <div>
-                      <label className="mb-2 mr-4">URL:</label>
+                    <div className="my-6 mx-2">
+                      <label className="my-2 mx-2">URL:</label>
                       <input
                         title="url"
                         type="text"
@@ -219,7 +242,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                         value={webrtcICEServers2.url}
                         onChange={handleWebrtcICEServers2}
                       />
-                      <label className="mb-2">Username:</label>
+                      <label className="my-2 mx-2">Username:</label>
                       <input
                         title="username"
                         type="text"
@@ -227,7 +250,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                         value={webrtcICEServers2.username}
                         onChange={handleWebrtcICEServers2}
                       />
-                      <label className="mb-2">Password:</label>
+                      <label className="my-2 mx-2">Password:</label>
                       <input
                         title="password"
                         type="text"
@@ -235,7 +258,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                         value={webrtcICEServers2.password}
                         onChange={handleWebrtcICEServers2}
                       />
-                    </div>                    
+                    </div>
                     <textarea
                       name="webrtcICEHostNAT1To1IPs"
                       className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
@@ -250,7 +273,7 @@ export default function WebrtcSetting({ settings, onSave }) {
                     />
                     <input
                       type="text"
-                      className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                      className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcICETCPMuxAddress}
                       onChange={handleWebrtcICETCPMuxAddress}
                     />
