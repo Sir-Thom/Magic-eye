@@ -26,12 +26,8 @@
         "all": true,
         "request": true,
         "scope": [
-          "http://172.17.0.2:8080/",
-          "http://172.17.0.2:8000/stream/*",
-          "http://127.0.0.1:16780/*",
-          "http://10.4.1.205:9997/*",
-          "http://localhost:8888/*",
-          "http://10.4.1.205/v2/config/set/*"
+          "http://*",
+          "https://*"
         ]
       },
       "dialog": {
