@@ -66,6 +66,12 @@ interface IServer {
   webrtcICETCPMuxAddress: string;
   srt: boolean;
   srtAddress: string;
+  record: boolean;
+  recordPath: string;
+  recordFormat: string;
+  recordPartDuration: string;
+  recordSegmentDuration: string;
+  recordDeleteAfter: string;
   paths: {
     all: PathConfig;
   };
@@ -222,6 +228,15 @@ interface ISrtSettings {
   srtAddress: string;
 }
 
+interface IRecordSettings {
+  record: boolean;
+  recordPath: string;
+  recordFormat: string;
+  recordPartDuration: string;
+  recordSegmentDuration: string;
+  recordDeleteAfter: string;
+}
+
 export type {
   IServer,
   PathConfig,
@@ -232,5 +247,6 @@ export type {
   IRtspSettings,
   IRtmpSettings,
   IWebrtcSettings,
-  ISrtSettings
+  ISrtSettings,
+  IRecordSettings
 };

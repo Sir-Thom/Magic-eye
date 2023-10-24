@@ -4,7 +4,7 @@ import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import { ICEServer } from "../../interfaces/IServer";
 
-export default function WebrtcSetting({ settings, onSave,postSetting }) {
+export default function WebrtcSetting({ settings, onSave, postSetting }) {
   const [webrtc, setWebrtc] = useState(settings.webrtc || true);
   const [webrtcDisabled, setWebrtcDisabled] = useState(
     settings.webrtcDisabled || false
@@ -109,16 +109,17 @@ export default function WebrtcSetting({ settings, onSave,postSetting }) {
     setWebrtcAllowOrigin(settings.webrtcAllowOrigin || "*");
     setWebrtcTrustedProxies(settings.webrtcTrustedProxies || []);
     setWebrtcICEServers(settings.webrtcICEServers || null);
-    setWebrtcICEServers2(settings.webrtcICEServers2 || {
-      url: "",
-      username: "",
-      password: ""
-    });
+    setWebrtcICEServers2(
+      settings.webrtcICEServers2 || {
+        url: "",
+        username: "",
+        password: ""
+      }
+    );
     setWebrtcICEHostNAT1To1IPs(settings.webrtcICEHostNAT1To1IPs || []);
     setWebrtcICEUDPMuxAddress(settings.webrtcICEUDPMuxAddress || "");
     setWebrtcICETCPMuxAddress(settings.webrtcICETCPMuxAddress || "");
-  }
-  , [settings]);
+  }, [settings]);
 
   const handleSaveConfig = () => {
     // Create an updated settings object with the modified logging settings
@@ -153,9 +154,7 @@ export default function WebrtcSetting({ settings, onSave,postSetting }) {
         >
           {settings && (
             <div className="my-4 ">
-              <h2 className="text-center font-bold text-3xl">
-                Webrtc Setting
-              </h2>
+              <h2 className="text-center font-bold text-3xl">Webrtc Setting</h2>
               <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
                 <div className="col-span-1">
                   <div className="flex flex-col align-baseline text-justify items-end">
@@ -184,14 +183,14 @@ export default function WebrtcSetting({ settings, onSave,postSetting }) {
                       checked={webrtc}
                       onChange={handleWebrtc}
                     />
-                 
+
                     <input
                       type="text"
                       className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                       value={webrtcAddress}
                       onChange={handleWebrtcAddress}
                     />
-                       <Checkbox
+                    <Checkbox
                       className="my-3"
                       value={webrtcDisabled.toString()}
                       checked={webrtcDisabled}

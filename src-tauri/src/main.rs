@@ -1,10 +1,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use axum::http::{HeaderValue, Method};
+
 use axum::Router;
-use log::{debug, trace};
+use log::{debug, trace};use axum::http::{HeaderValue, Method};
 use magic_eye::server::server_config::{
-    __cmd__get_server_config_options, __cmd__post_server_config_options, get_server_config_options,
-    post_server_config_options,
+    __cmd__get_server_config_options, __cmd__patch_server_config_options, get_server_config_options,
+    patch_server_config_options,
 };
 use magic_eye::utils;
 use magic_eye::utils::browser::{__cmd__open_web_browser, open_web_browser};
@@ -37,9 +37,6 @@ async fn close_splashscreen(window: tauri::Window) {
   
 
  fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Set the log level
-
-    // Reuse resources that don't depend on the target OS
     create_configuartion_file_setting();
     #[cfg(target_os = "linux")]
     setup_wayland();
@@ -120,7 +117,7 @@ async fn close_splashscreen(window: tauri::Window) {
             get_config_file_content,
             update_settings_file,
             get_server_config_options,
-            post_server_config_options,
+            patch_server_config_options,
             close_splashscreen
         ])
         .run(context)

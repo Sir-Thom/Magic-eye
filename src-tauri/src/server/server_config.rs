@@ -4,7 +4,7 @@ use serde_json::Value;
 
 #[tauri::command]
 pub async fn get_server_config_options(url: &str) -> Result<String, String> {
-    // Use the reqwest builder pattern for better readability and error handling
+   
     let response = reqwest::Client::new()
         .get(url)
         .send()
@@ -44,21 +44,21 @@ pub async fn get_server_config_options(url: &str) -> Result<String, String> {
 }
 
 #[tauri::command]
-pub async fn post_server_config_options(config_data: Value, url: &str) -> Result<(), String> {
+pub async fn patch_server_config_options(config_data: Value, url: &str) -> Result<(), String> {
     // Serialize the JSON data to a string
     let data = config_data.to_string();
-    info!("POST data: {}", data);
-    info!("POST request to URL: {}", url);
+    info!("PATCH data: {}", data);
+    info!("PATCH request to URL: {}", url);
 
-    // Use the reqwest builder pattern for better readability and error handling
+
     let response = reqwest::Client::new()
-        .post(url)
-        .header("Content-Type", "application/json") // Set the content type
+        .patch(url)
+        .header("Content-Type", "application/json") 
         .body(data)
         .send()
         .await
         .map_err(|err| {
-            error!("POST request error: {:?}", err);
+            error!("PATCH request error: {:?}", err);
             err.to_string()
         })?;
 
@@ -67,7 +67,10 @@ pub async fn post_server_config_options(config_data: Value, url: &str) -> Result
     if response.status().is_success() {
         Ok(())
     } else {
-        error!("POST request was not successful: {:?}", response.status());
-        Err(format!("POST request was not successful: {:?}", response.status()))
+        response.status().is_server_error().then(|| {
+            error!("Server error: {:?}", response);
+        });
+        error!("PATCH request was not successful: {:?}", response);
+        Err(format!("PATCH request was not successful: {:?}", response.text().await))
     }
 }
