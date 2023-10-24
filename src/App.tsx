@@ -5,18 +5,18 @@ import { resizeWindow } from "./utils/WindowSize";
 import { invoke } from "@tauri-apps/api";
 
 function App() {
-  useEffect(() => {
-    resizeWindow;
+    useEffect(() => {
+        resizeWindow;
 
-    invoke("close_splashscreen");
-  }, []);
+        invoke("close_splashscreen");
+    }, []);
 
-  return (
-    <>
-      <Titlebar />
-      <VidPlayer />
-    </>
-  );
+    return (
+        <>
+            <Titlebar />
+            <VidPlayer />
+        </>
+    );
 }
 
 export default App;

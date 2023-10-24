@@ -5,9 +5,13 @@ import { RouterProvider } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { router } from "./router";
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AnimatePresence initial={true} onExitComplete={() => null} mode={"sync"}>
-      <RouterProvider router={router} />
-    </AnimatePresence>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AnimatePresence
+            initial={true}
+            onExitComplete={() => null}
+            mode={"sync"}
+        >
+            <RouterProvider router={router} />
+        </AnimatePresence>
+    </React.StrictMode>
 );
