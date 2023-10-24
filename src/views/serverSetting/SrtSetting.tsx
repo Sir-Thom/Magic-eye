@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function SRTSetting({ settings, onSave, postSetting }) {
+export default function SRTSetting({ settings, onSave, patchSetting }) {
     const [srt, setSRT] = useState(Boolean(settings.srt));
     const [srtAddress, setSRTAddress] = useState(settings.srtAddress);
 
@@ -27,7 +27,7 @@ export default function SRTSetting({ settings, onSave, postSetting }) {
             srtAddress: srtAddress
         };
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

@@ -5,7 +5,7 @@ import { fadeIn } from "../../utils/animation/screenAnimation";
 
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function HlsSetting({ settings, onSave, postSetting }) {
+export default function HlsSetting({ settings, onSave, patchSetting }) {
     const [hlsEnabled, setHlsEnabled] = useState(settings.hls || true);
     const [hlsAddress, setHlsAddress] = useState(
         settings.hlsAddress || ":8888"
@@ -146,7 +146,7 @@ export default function HlsSetting({ settings, onSave, postSetting }) {
             hlsVariant: hlsVariant
         };
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

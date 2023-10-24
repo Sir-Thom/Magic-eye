@@ -80,7 +80,6 @@ export default function Setting() {
     const [webrtcSettings, setWebrtcSettings] = useState<IWebrtcSettings>({
         webrtc: configData?.webrtc || true,
         webrtcAddress: configData?.webrtcAddress || ":8080",
-        webrtcDisable: configData?.webrtcDisable || false,
         webrtcEncryption: configData?.webrtcEncryption || false,
         webrtcServerKey: configData?.webrtcServerKey || "server.key",
         webrtcServerCert: configData?.webrtcServerCert || "server.crt",
@@ -117,7 +116,7 @@ export default function Setting() {
         recordDeleteAfter: configData?.recordDeleteAfter || "24h"
     });
 
-    console.log(apiSettings);
+    console.log(webrtcSettings);
 
     useEffect(() => {
         setError(null);
@@ -212,7 +211,7 @@ export default function Setting() {
                 setWebrtcSettings({
                     webrtc: parsedResponse.webrtc || true,
                     webrtcAddress: parsedResponse.webrtcAddress || ":8080",
-                    webrtcDisable: parsedResponse.webrtcDisable || false,
+
                     webrtcEncryption: parsedResponse.webrtcEncryption || false,
                     webrtcServerKey:
                         parsedResponse.webrtcServerKey || "server.key",
@@ -255,39 +254,41 @@ export default function Setting() {
             });
     }, []);
 
-    async function postSetting(configData) {
+    async function patchSetting(configData) {
         try {
             if (configData == null) {
-                throw new Error("the configuation data is empty");
+                setError(
+                    "ConfigData is empty." 
+                        
+                );
             }
+            
+
             await invoke("patch_server_config_options", {
                 configData: configData,
                 url: "http://127.0.0.1:9997/v3/config/global/patch"
             }).then((response: string) => {
+                
+                console.log("response: " + response);
                 const parsedResponse: IServer = JSON.parse(response);
                 console.log(
-                    "parsed option in post:" + JSON.stringify(parsedResponse)
+                    "parsed option in patch:" + JSON.stringify(parsedResponse)
                 );
                 setConfigData(parsedResponse);
                 setSuccessMessage("Settings saved successfully");
                 // get the updated config
                 const serverUrl = "http://127.0.0.1:9997/v3/config/global/get";
-                invoke("get_server_config_options", { url: serverUrl })
-                    .then((response: string) => {
+                invoke("get_server_config_options", { url: serverUrl }).then(
+                    (response: string) => {
                         const parsedResponse: IServer = JSON.parse(response);
-                        console.log(parsedResponse.metrics);
+                        console.log(parsedResponse.webrtc);
                         setConfigData(parsedResponse);
                         console.log(
                             "new parsed option:" +
                                 JSON.stringify(parsedResponse)
                         );
-                    })
-                    .catch((e) => {
-                        console.error(
-                            "Unable to connect to the server. Please check your connection." +
-                                e.message
-                        );
-                    });
+                    }
+                );
             });
         } catch (e) {
             setError(
@@ -295,6 +296,7 @@ export default function Setting() {
                     e.message
             );
         }
+        console.log("configData: " + JSON.stringify(configData));
     }
 
     const menuItems = [
@@ -354,7 +356,7 @@ export default function Setting() {
                                                 )
                                         );
                                     }}
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "Logging Setting" && (
@@ -365,7 +367,7 @@ export default function Setting() {
                                             updatedLoggingSettings
                                         )
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "HLS Setting" && (
@@ -374,7 +376,7 @@ export default function Setting() {
                                     onSave={(updatedHlsSettings) =>
                                         setHlsSettings(updatedHlsSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "RTSP Setting" && (
@@ -383,7 +385,7 @@ export default function Setting() {
                                     onSave={(updatedRtspSettings) =>
                                         setRtspSettings(updatedRtspSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "RTMP Setting" && (
@@ -392,7 +394,7 @@ export default function Setting() {
                                     onSave={(updatedRtmpSettings) =>
                                         setRtmpSettings(updatedRtmpSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "SRT Setting" && (
@@ -401,7 +403,7 @@ export default function Setting() {
                                     onSave={(updatedSrtSettings) =>
                                         setSrtSettings(updatedSrtSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "WebRTC Setting" && (
@@ -410,7 +412,7 @@ export default function Setting() {
                                     onSave={(updatWebRtcSettings) =>
                                         setWebrtcSettings(updatWebRtcSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                             {currentSetting === "Record Setting" && (
@@ -419,7 +421,7 @@ export default function Setting() {
                                     onSave={(updatedRecordSettings) =>
                                         setRecordSettings(updatedRecordSettings)
                                     }
-                                    postSetting={postSetting}
+                                    patchSetting={patchSetting}
                                 />
                             )}
                         </div>

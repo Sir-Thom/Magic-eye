@@ -4,7 +4,7 @@ import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import Toast from "../../components/toast/Toast";
 
-export default function RecordSetting({ settings, onSave, postSetting }) {
+export default function RecordSetting({ settings, onSave, patchSetting }) {
     const [error, setError] = useState<string | null>(null);
     const [record, setRecord] = useState(Boolean(settings.record));
     const [recordPath, setRecordPath] = useState(settings.recordPath);
@@ -83,7 +83,7 @@ export default function RecordSetting({ settings, onSave, postSetting }) {
             recordDeleteAfter: recordDeleteAfter
         };
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

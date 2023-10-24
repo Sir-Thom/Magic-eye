@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function RtmpSetting({ settings, onSave, postSetting }) {
+export default function RtmpSetting({ settings, onSave, patchSetting }) {
     const [rtmp, setRtmp] = useState(settings.rtmp || true);
     const [rtmpDisabled, setRtmpDisabled] = useState(
         settings.rtmpDisabled || false
@@ -74,7 +74,7 @@ export default function RtmpSetting({ settings, onSave, postSetting }) {
             rtmpServerCert: rtmpServerCert
         };
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

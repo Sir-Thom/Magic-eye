@@ -62,7 +62,7 @@ pub async fn patch_server_config_options(config_data: Value, url: &str) -> Resul
             err.to_string()
         })?;
 
-    debug!("Response: {:?}", response);
+    info!("Response: {:?}", response);
 
     if response.status().is_success() {
         Ok(())

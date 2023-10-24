@@ -157,7 +157,7 @@ export function Titlebar() {
                                     title="About"
                                     href="#"
                                     onClick={handleOpen}
-                                    className="block justify-start item-center rounded-lg px-4 py-2 dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex justify-start item-center rounded-lg px-4 py-2 dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                                 >
                                     <IconInfoCircle
                                         className="flex justify-center item-center dark:text-text-dark text-text-light text-center pr-2"
@@ -169,7 +169,7 @@ export function Titlebar() {
                                 <Link
                                     to="/"
                                     title="Server"
-                                    className="block rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                                 >
                                     <IconServer
                                         className="flex justify-center item-center dark:text-text-dark text-text-light text-center pr-2"
@@ -181,7 +181,7 @@ export function Titlebar() {
                                 <Link
                                     to="/settings"
                                     title="Setting"
-                                    className="block rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
                                 >
                                     <IconSettings
                                         size={26}

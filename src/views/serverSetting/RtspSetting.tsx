@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Checkbox from "../../components/checkBox/checkBox";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 
-export default function RtspSetting({ settings, onSave, postSetting }) {
+export default function RtspSetting({ settings, onSave, patchSetting }) {
     const [rtsp, setRtsp] = useState(settings.rtsp || true);
     const [rtspDisable, setRtspDisable] = useState(
         settings.rtspDisable || false
@@ -102,7 +102,7 @@ export default function RtspSetting({ settings, onSave, postSetting }) {
             multicastRTCPPort: multicastRTCPPort
         };
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

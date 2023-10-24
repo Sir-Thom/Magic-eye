@@ -4,11 +4,9 @@ import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import { ICEServer } from "../../interfaces/IServer";
 
-export default function WebrtcSetting({ settings, onSave, postSetting }) {
-    const [webrtc, setWebrtc] = useState(settings.webrtc || true);
-    const [webrtcDisabled, setWebrtcDisabled] = useState(
-        settings.webrtcDisabled || false
-    );
+export default function WebrtcSetting({ settings, onSave, patchSetting }) {
+    const [webrtc, setWebrtc] = useState(settings.webrtc|| true);
+
     const [webrtcAddress, setWebrtcAddress] = useState(
         settings.webrtcAddress || ":8889"
     );
@@ -16,10 +14,10 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
         settings.webrtcEncryption || false
     );
     const [webrtcKey, setWebrtcKey] = useState(
-        settings.webrtcKey || "server.key"
+        settings.webrtcServerKey || "server.key"
     );
     const [webrtcCert, setWebrtcCert] = useState(
-        settings.webrtcCert || "server.crt"
+        settings.webrtcServerCert || "server.crt"
     );
     const [webrtcAllowOrigin, setWebrtcAllowOrigin] = useState(
         settings.webrtcAllowOrigin || "*"
@@ -49,11 +47,9 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
 
     const handleWebrtc = () => {
         setWebrtc(!webrtc);
+        
     };
-
-    const handleWebrtcDisabled = () => {
-        setWebrtcDisabled(!webrtcDisabled);
-    };
+    console.log(webrtc);
 
     const handleWebrtcAddress = (event) => {
         setWebrtcAddress(event.target.value);
@@ -100,12 +96,11 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
     };
 
     useEffect(() => {
-        setWebrtc(settings.webrtc || true);
-        setWebrtcDisabled(settings.webrtcDisabled || false);
+        setWebrtc(settings.webrtc);
         setWebrtcAddress(settings.webrtcAddress || ":8889");
         setWebrtcEncryption(settings.webrtcEncryption || false);
-        setWebrtcKey(settings.webrtcKey || "server.key");
-        setWebrtcCert(settings.webrtcCert || "server.crt");
+        setWebrtcKey(settings.webrtcServerKey || "server.key");
+        setWebrtcCert(settings.webrtcServerCert || "server.crt");
         setWebrtcAllowOrigin(settings.webrtcAllowOrigin || "*");
         setWebrtcTrustedProxies(settings.webrtcTrustedProxies || []);
         setWebrtcICEServers(settings.webrtcICEServers || null);
@@ -120,17 +115,17 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
         setWebrtcICEUDPMuxAddress(settings.webrtcICEUDPMuxAddress || "");
         setWebrtcICETCPMuxAddress(settings.webrtcICETCPMuxAddress || "");
     }, [settings]);
+    console.log(settings);
 
     const handleSaveConfig = () => {
         // Create an updated settings object with the modified logging settings
         const updatedSettings = {
             ...settings,
             webrtc: webrtc,
-            webrtcDisabled: webrtcDisabled,
             webrtcAddress: webrtcAddress,
             webrtcEncryption: webrtcEncryption,
-            webrtcKey: webrtcKey,
-            webrtcCert: webrtcCert,
+            webrtcServerKey: webrtcKey,
+            webrtcServerCert: webrtcCert,
             webrtcAllowOrigin: webrtcAllowOrigin,
             webrtcTrustedProxies: webrtcTrustedProxies,
             webrtcICEServers: webrtcICEServers,
@@ -139,8 +134,9 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
             webrtcICEUDPMuxAddress: webrtcICEUDPMuxAddress,
             webrtcICETCPMuxAddress: webrtcICETCPMuxAddress
         };
+        console.log(updatedSettings);
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (
@@ -167,9 +163,7 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
                                         <label className="my-2">
                                             Webrtc Encryption:
                                         </label>
-                                        <label className="my-2">
-                                            Webrtc Disabled:
-                                        </label>
+
                                         <label className="my-3">
                                             Webrtc Server Key:
                                         </label>
@@ -213,12 +207,6 @@ export default function WebrtcSetting({ settings, onSave, postSetting }) {
                                             className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAddress}
                                             onChange={handleWebrtcAddress}
-                                        />
-                                        <Checkbox
-                                            className="my-3"
-                                            value={webrtcDisabled.toString()}
-                                            checked={webrtcDisabled}
-                                            onChange={handleWebrtcDisabled}
                                         />
                                         <Checkbox
                                             className="my-3"

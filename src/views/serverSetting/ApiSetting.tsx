@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
-export default function ApiSetting({ settings, onSave, postSetting }) {
+export default function ApiSetting({ settings, onSave, patchSetting }) {
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
     const [apiAddress, setApiAddress] = useState(settings.apiAddress);
     const [metricsEnabled, setMetricsEnabled] = useState(
@@ -79,7 +79,7 @@ export default function ApiSetting({ settings, onSave, postSetting }) {
 
         // Call the onSave prop to save the changes
         onSave(updatedSettings);
-        postSetting(updatedSettings);
+        patchSetting(updatedSettings);
     };
 
     return (

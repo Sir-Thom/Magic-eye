@@ -52,7 +52,6 @@ interface IServer {
   hlsTrustedProxies: string[];
   hlsDirectory: string;
   webrtc: boolean;
-  webrtcDisable: boolean;
   webrtcAddress: string;
   webrtcEncryption: boolean;
   webrtcServerKey: string;
@@ -209,7 +208,6 @@ interface IRtmpSettings {
 
 interface IWebrtcSettings {
   webrtc: boolean;
-  webrtcDisable: boolean;
   webrtcAddress: string;
   webrtcEncryption: boolean;
   webrtcServerKey: string;
