@@ -2,16 +2,17 @@
 
 use axum::Router;
 use log::{debug, trace};use axum::http::{HeaderValue, Method};
+use  magic_eye::server::server_http_verb::{__cmd__get_server_request, get_server_request, __cmd__patch_server_request, patch_server_request};
 use magic_eye::server::server_config::{
-    __cmd__get_server_config_options, __cmd__patch_server_config_options, get_server_config_options,
-    patch_server_config_options,
+    __cmd__get_server_config_options, get_server_config_options,
+    
 };
 use magic_eye::utils;
 use magic_eye::utils::browser::{__cmd__open_web_browser, open_web_browser};
 use magic_eye::utils::config::{
     __cmd__get_config_dir, __cmd__get_config_file, __cmd__get_config_file_content,
     __cmd__update_settings_file, get_config_dir, get_config_file, get_config_file_content,
-    update_settings_file,
+    update_settings_file
 };
 use std::{env, fs};
 use tauri::{generate_handler, Manager};
@@ -117,8 +118,9 @@ async fn close_splashscreen(window: tauri::Window) {
             get_config_file_content,
             update_settings_file,
             get_server_config_options,
-            patch_server_config_options,
-            close_splashscreen
+            patch_server_request,
+            close_splashscreen,
+            get_server_request,
         ])
         .run(context)
         .expect("error while running tauri application");

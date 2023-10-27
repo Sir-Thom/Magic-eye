@@ -198,7 +198,6 @@ interface IRtspSettings {
 
 interface IRtmpSettings {
   rtmp: boolean;
-  rtmpDisable: boolean;
   rtmpAddress: string;
   rtmpEncryption: string;
   rtmpsAddress: string;

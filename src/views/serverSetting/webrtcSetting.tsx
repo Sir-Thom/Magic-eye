@@ -5,7 +5,7 @@ import Checkbox from "../../components/checkBox/checkBox";
 import { ICEServer } from "../../interfaces/IServer";
 
 export default function WebrtcSetting({ settings, onSave, patchSetting }) {
-    const [webrtc, setWebrtc] = useState(settings.webrtc|| true);
+    const [webrtc, setWebrtc] = useState(settings.webrtc || true);
 
     const [webrtcAddress, setWebrtcAddress] = useState(
         settings.webrtcAddress || ":8889"
@@ -47,7 +47,6 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
 
     const handleWebrtc = () => {
         setWebrtc(!webrtc);
-        
     };
     console.log(webrtc);
 

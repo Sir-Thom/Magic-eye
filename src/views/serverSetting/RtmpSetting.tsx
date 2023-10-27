@@ -5,9 +5,7 @@ import Checkbox from "../../components/checkBox/checkBox";
 
 export default function RtmpSetting({ settings, onSave, patchSetting }) {
     const [rtmp, setRtmp] = useState(settings.rtmp || true);
-    const [rtmpDisabled, setRtmpDisabled] = useState(
-        settings.rtmpDisabled || false
-    );
+
     const [rtmpAddress, setRtmpAddress] = useState(
         settings.rtmpAddress || ":1935"
     );
@@ -26,10 +24,6 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
 
     const handleRtmp = () => {
         setRtmp(!rtmp);
-    };
-
-    const handleRtmpDisabled = () => {
-        setRtmpDisabled(!rtmpDisabled);
     };
 
     const handleRtmpAddress = (event) => {
@@ -53,8 +47,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
     };
 
     useEffect(() => {
-        setRtmp(settings.rtmp || true);
-        setRtmpDisabled(settings.rtmpDisabled || false);
+        setRtmp(settings.rtmp);
         setRtmpAddress(settings.rtmpAddress || ":1935");
         setRtmpsAddress(settings.rtmpAddress || ":1936");
         setRtmpEncryption(settings.rtmpEncryption || "no");
@@ -66,7 +59,6 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
         const updatedSettings = {
             ...settings,
             rtmp: rtmp,
-            rtmpDisabled: rtmpDisabled,
             rtmpAddress: rtmpAddress,
             rtmpEncryption: rtmpEncryption,
             rtmpsAddress: rtmpsAddress,
@@ -95,9 +87,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">RTMP:</label>
-                                        <label className="my-2">
-                                            RTMP Disabled:
-                                        </label>
+                                        
                                         <label className="my-2">
                                             RTMP Address:
                                         </label>
@@ -123,12 +113,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                             checked={rtmp}
                                             onChange={handleRtmp}
                                         />
-                                        <Checkbox
-                                            className="my-3"
-                                            value={rtmpDisabled.toString()}
-                                            checked={rtmpDisabled}
-                                            onChange={handleRtmpDisabled}
-                                        />
+                                        
                                         <input
                                             type="text"
                                             className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"

@@ -43,7 +43,7 @@ pub async fn get_server_config_options(url: &str) -> Result<String, String> {
     }
 }
 
-#[tauri::command]
+//#[tauri::command]
 pub async fn patch_server_config_options(config_data: Value, url: &str) -> Result<(), String> {
     // Serialize the JSON data to a string
     let data = config_data.to_string();
@@ -62,7 +62,7 @@ pub async fn patch_server_config_options(config_data: Value, url: &str) -> Resul
             err.to_string()
         })?;
 
-    info!("Response: {:?}", response);
+    debug!("Response: {:?}", response);
 
     if response.status().is_success() {
         Ok(())

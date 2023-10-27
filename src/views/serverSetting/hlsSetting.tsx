@@ -107,7 +107,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
         setHlsVariant(event.target.value);
     };
     useEffect(() => {
-        setHlsEnabled(settings.hls || true);
+        setHlsEnabled(settings.hls);
         setHlsAddress(settings.hlsAddress || ":8888");
         setHlsAllowOrigin(settings.hlsAllowOrigin || "*");
         setHlsAlwaysRemux(settings.hlsAlwaysRemux || false);

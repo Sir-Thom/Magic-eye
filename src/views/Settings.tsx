@@ -95,7 +95,6 @@ export default function Setting() {
     const [rtmpSettings, setRtmpSettings] = useState<IRtmpSettings>({
         rtmp: configData?.rtmp || true,
         rtmpAddress: configData?.rtmpAddress || ":1935",
-        rtmpDisable: configData?.rtmpDisable || false,
         rtmpEncryption: configData?.rtmpEncryption || "no",
         rtmpsAddress: configData?.rtmpsAddress || ":1936",
         rtmpServerKey: configData?.rtmpServerKey || "server.key",
@@ -175,7 +174,6 @@ export default function Setting() {
                 setRtmpSettings({
                     rtmp: parsedResponse.rtmp || true,
                     rtmpAddress: parsedResponse.rtmpAddress || ":1935",
-                    rtmpDisable: parsedResponse.rtmpDisable || false,
                     rtmpEncryption: parsedResponse.rtmpEncryption || "no",
                     rtmpsAddress: parsedResponse.rtmpsAddress || ":1936",
                     rtmpServerKey: parsedResponse.rtmpServerKey || "server.key",
@@ -257,18 +255,13 @@ export default function Setting() {
     async function patchSetting(configData) {
         try {
             if (configData == null) {
-                setError(
-                    "ConfigData is empty." 
-                        
-                );
+                setError("ConfigData is empty.");
             }
-            
 
-            await invoke("patch_server_config_options", {
+            await invoke("patch_server_request", {
                 configData: configData,
                 url: "http://127.0.0.1:9997/v3/config/global/patch"
             }).then((response: string) => {
-                
                 console.log("response: " + response);
                 const parsedResponse: IServer = JSON.parse(response);
                 console.log(
@@ -281,7 +274,6 @@ export default function Setting() {
                 invoke("get_server_config_options", { url: serverUrl }).then(
                     (response: string) => {
                         const parsedResponse: IServer = JSON.parse(response);
-                        console.log(parsedResponse.webrtc);
                         setConfigData(parsedResponse);
                         console.log(
                             "new parsed option:" +

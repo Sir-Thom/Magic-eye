@@ -33,7 +33,6 @@ export async function SetConfig(new_settings) {
 
 export default function GeneralSetting() {
     const [currentPlaceholder, setCurrentPlacholder] = useState("");
-
     const placeholderdata = {
         placeholder: [
             "placeholder-smpte",
