@@ -422,7 +422,7 @@ export default function Setting() {
                 {error && (
                     <Toast
                         message={error}
-                        timer={5000000000000000000000000}
+                        timer={5000}
                         type={"error"}
                         onDismiss={handleDismissErrorToast}
                     />
