@@ -7,7 +7,6 @@ import { invoke } from "@tauri-apps/api";
 function App() {
     useEffect(() => {
         resizeWindow;
-
         invoke("close_splashscreen");
     }, []);
 

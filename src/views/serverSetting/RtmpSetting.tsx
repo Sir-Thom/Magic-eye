@@ -87,7 +87,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">RTMP:</label>
-                                        
+
                                         <label className="my-2">
                                             RTMP Address:
                                         </label>
@@ -113,7 +113,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                             checked={rtmp}
                                             onChange={handleRtmp}
                                         />
-                                        
+
                                         <input
                                             type="text"
                                             className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"

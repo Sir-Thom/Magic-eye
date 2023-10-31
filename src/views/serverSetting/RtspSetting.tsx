@@ -73,7 +73,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     };
 
     useEffect(() => {
-        setRtsp(settings.rtsp );
+        setRtsp(settings.rtsp);
         setRtspDisable(settings.rtspDisable || false);
         setProtocols(settings.protocols || ["multicast", "tcp", "udp"]);
         setEncryption(settings.encryption || "no");

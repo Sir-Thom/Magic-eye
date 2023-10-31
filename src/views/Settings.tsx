@@ -120,7 +120,7 @@ export default function Setting() {
     useEffect(() => {
         setError(null);
         const serverUrl = "http://127.0.0.1:9997/v3/config/global/get";
-        invoke("get_server_config_options", { url: serverUrl })
+        invoke("get_server_request", { url: serverUrl })
             .then((response: string) => {
                 const parsedResponse: IServer = JSON.parse(response);
                 setConfigData(parsedResponse);
@@ -247,7 +247,7 @@ export default function Setting() {
 
             .catch(() => {
                 setError(
-                    "Unable to connect to the server. Please check your connection."
+                    "Unable to connect to the server."
                 );
             });
     }, []);
@@ -271,7 +271,7 @@ export default function Setting() {
                 setSuccessMessage("Settings saved successfully");
                 // get the updated config
                 const serverUrl = "http://127.0.0.1:9997/v3/config/global/get";
-                invoke("get_server_config_options", { url: serverUrl }).then(
+                invoke("get_server_request", { url: serverUrl }).then(
                     (response: string) => {
                         const parsedResponse: IServer = JSON.parse(response);
                         setConfigData(parsedResponse);
@@ -284,7 +284,7 @@ export default function Setting() {
             });
         } catch (e) {
             setError(
-                "Unable to connect to the server. Please check your connection." +
+                "Unable to connect to the server." +
                     e.message
             );
         }
@@ -314,9 +314,9 @@ export default function Setting() {
     return (
         <>
             <Titlebar />
-            <div className="flex flex-col  h-screen">
+            <div className="flex flex-col   h-screen">
                 <div className="flex">
-                    <div className="w-1/4 mx-auto fixed  h-full">
+                    <div className="w-1/4 mx-auto   h-full">
                         <SideMenu
                             menuItems={menuItems}
                             onMenuItemClick={(menuItem) =>
@@ -422,7 +422,7 @@ export default function Setting() {
                 {error && (
                     <Toast
                         message={error}
-                        timer={5000}
+                        timer={5000000000000000000000000}
                         type={"error"}
                         onDismiss={handleDismissErrorToast}
                     />

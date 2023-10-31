@@ -5,6 +5,8 @@ import Toast from "../toast/Toast";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api";
+import { Suspense } from "react";
+import Loader from "../loader/loader";
 export default function VidPlayer() {
     const [url, setUrl] = useState("");
     const [streamUrl, setStreamUrl] = useState("");
@@ -78,23 +80,25 @@ export default function VidPlayer() {
     return (
         <>
             <div className="flex h-full w-full justify-center items-center">
-                {streamUrl ? (
-                    <ReactPlayer
-                        playing={isConnected}
-                        className="flex mx-16 mt-16"
-                        url={streamUrl}
-                        width={width}
-                        height={height - 150}
-                        controls={false}
-                        onError={handlePlayerError}
-                    />
-                ) : (
-                    <StreamPlaceholder
-                        width={width}
-                        height={height}
-                        url={placeholderUrl}
-                    />
-                )}
+                <Suspense fallback={<Loader />}>
+                    {streamUrl ? (
+                        <ReactPlayer
+                            playing={isConnected}
+                            className="flex mx-16 mt-16"
+                            url={streamUrl}
+                            width={width}
+                            height={height - 150}
+                            controls={false}
+                            onError={handlePlayerError}
+                        />
+                    ) : (
+                        <StreamPlaceholder
+                            width={width}
+                            height={height}
+                            url={placeholderUrl}
+                        />
+                    )}
+                </Suspense>
             </div>
             <div className="w-full flex justify-center items-center pb-1 mt-6">
                 <button
