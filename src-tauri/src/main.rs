@@ -2,7 +2,7 @@
 
 use axum::Router;
 use log::{debug, trace};use axum::http::{HeaderValue, Method};
-use  magic_eye::server::server_http_verb::{__cmd__get_server_request, get_server_request, __cmd__patch_server_request, patch_server_request};
+use  magic_eye::server::server_http_verb::{__cmd__get_server_request, get_server_request, __cmd__patch_server_request, patch_server_request,__cmd__get_json, get_json};
 use magic_eye::server::server_config::{
     __cmd__get_server_config_options, get_server_config_options,
     
@@ -121,7 +121,8 @@ async fn close_splashscreen(window: tauri::Window) {
             patch_server_request,
             close_splashscreen,
             get_server_request,
-            save_api_ip
+            save_api_ip,
+            get_json
         ])
         .run(context)
         .expect("error while running tauri application");

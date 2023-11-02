@@ -45,6 +45,41 @@ if response.status().is_success() {
 }
 
 #[tauri::command]
+pub async fn get_json(url: &str) -> Result<Value, String> {
+    let response = reqwest::Client::new()
+        .get(url)
+        .send()
+        .await
+        .map_err(|err| {
+            error!("GET request error: {:?}", err);
+            err.to_string()
+        })?;
+
+    debug!("GET response: {:?}", response);
+
+    info!("GET request to URL: {}", url);
+
+    if response.status().is_redirection() {
+        warn!("Redirection: {:?}", response);
+    }
+
+    if response.status().is_success() {
+        let body_json: Value = response.json().await.map_err(|err| {
+            error!("JSON deserialization error: {:?}", err);
+            err.to_string()
+        })?;
+
+        Ok(body_json)
+    } else if response.status().is_server_error() {
+        error!("Server error: {:?}", response.status());
+        Err(format!("Server error: {:?}", response.status()))
+    } else {
+        error!("Request was not successful: {:?}", response.status());
+        Err(format!("Request was not successful: {:?}", response.status()))
+    }
+}
+
+#[tauri::command]
 pub async fn patch_server_request(config_data: Value, url: &str) -> Result<(), String> {
     // Serialize the JSON data to a string
     let data = config_data.to_string();
