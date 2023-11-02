@@ -1,5 +1,5 @@
 export interface IModal {
-  isOpen: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
+    isOpen: boolean;
+    onClose: () => void;
+    children: React.ReactNode;
 }

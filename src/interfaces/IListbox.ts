@@ -1,4 +1,3 @@
 interface ListBoxProps {
-    data: Array<{ [key: string]: any }>; 
-
+    data: Array<{ [key: string]: any }>;
 }

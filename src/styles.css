@@ -2,34 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
-  :root {
-    @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-900  text-text-dark;
-  }
-  input {
-    @apply outline-none outline-2 focus:outline-accent-color1-700  bg-window-dark-400  text-text-dark;
-  }
-  input[type="checkbox"] {
-    @apply outline-none outline-2  focus:outline-accent-color1-700 bg-window-dark-400 text-text-dark;
-  }
-  button {
-    @apply active:transition-transform transform-gpu  ease-in-out active:scale-90 scale-100 outline-none outline-2 outline-offset-1 focus:outline-accent-color1-400;
-  }
-  select {
-    @apply appearance-none bg-window-dark-400 py-1 px-4 pr-8 rounded leading-tight  focus:outline-accent-color1-400;
-  }
-  textarea {
-    @apply outline-none outline-2 focus:outline-accent-color1-700  bg-window-dark-400  text-text-dark;
-  }
-
-  @media (prefers-color-scheme: light) {
     :root {
-      @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400      bg-window-light-400  text-text-light;
+        @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-900  text-text-dark;
     }
     input {
-      @apply outline-none outline-2 focus:outline-accent-color1-700   bg-window-light-700  text-text-light;
+        @apply outline-none outline-2 focus:outline-accent-color1-700  bg-window-dark-400  text-text-dark;
+    }
+    input[type="checkbox"] {
+        @apply outline-none outline-2  focus:outline-accent-color1-700 bg-window-dark-400 text-text-dark;
     }
     button {
-      @apply active:transition-transform transform-gpu  ease-in-out active:scale-90 scale-100 outline-none outline-2 outline-offset-1 focus:outline-accent-color1-400;
+        @apply active:transition-transform transform-gpu  ease-in-out active:scale-90 scale-100 outline-none outline-2 outline-offset-1 focus:outline-accent-color1-400;
     }
-  }
+    select {
+        @apply appearance-none bg-window-dark-400 py-1 px-4 pr-8 rounded leading-tight  focus:outline-accent-color1-400;
+    }
+    textarea {
+        @apply outline-none outline-2 focus:outline-accent-color1-700  bg-window-dark-400  text-text-dark;
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400      bg-window-light-400  text-text-light;
+        }
+        input {
+            @apply outline-none outline-2 focus:outline-accent-color1-700   bg-window-light-700  text-text-light;
+        }
+        button {
+            @apply active:transition-transform transform-gpu  ease-in-out active:scale-90 scale-100 outline-none outline-2 outline-offset-1 focus:outline-accent-color1-400;
+        }
+    }
 }

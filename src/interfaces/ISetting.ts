@@ -1,4 +1,3 @@
 export interface ISetting {
-  placeholder: string;
- 
+    placeholder: string;
 }

@@ -1,3 +1,3 @@
 export interface IMenuItem {
-  label: string;
+    label: string;
 }

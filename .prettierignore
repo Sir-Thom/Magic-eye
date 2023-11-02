@@ -1,2 +1,17 @@
 node_modules/**
 vite.config.ts
+src-tauri/target/**
+src-tauri/tauri.conf.json
+src-tauri/Cargo.toml
+src-tauri/Cargo.lock
+src-tauri/.gitignore
+docker/**
+.vscode/**
+public/**
+.eslintrc
+.github/workflows/dependency-review.yml
+.github/workflows/format.yml
+.prettierrc
+package.json
+postcss.config.cjs
+vite-env.d.ts
