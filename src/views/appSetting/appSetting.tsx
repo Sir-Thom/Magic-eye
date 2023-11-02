@@ -120,9 +120,7 @@ export default function GeneralSetting() {
             setSuccessMessage("Configuration saved successfully!");
             setError(null);
         } catch (err) {
-            setError(
-                "An error occurred while saving the configuration. " + err
-            );
+            setError(err.message.toString());
         }
     }
 

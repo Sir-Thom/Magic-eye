@@ -11,8 +11,8 @@ use magic_eye::utils;
 use magic_eye::utils::browser::{__cmd__open_web_browser, open_web_browser};
 use magic_eye::utils::config::{
     __cmd__get_config_dir, __cmd__get_config_file, __cmd__get_config_file_content,
-    __cmd__update_settings_file, get_config_dir, get_config_file, get_config_file_content,
-    update_settings_file
+    __cmd__update_settings_file,__cmd__save_api_ip, get_config_dir, get_config_file, get_config_file_content,
+    update_settings_file,save_api_ip
 };
 use std::{env, fs};
 use tauri::{generate_handler, Manager};
@@ -121,6 +121,7 @@ async fn close_splashscreen(window: tauri::Window) {
             patch_server_request,
             close_splashscreen,
             get_server_request,
+            save_api_ip
         ])
         .run(context)
         .expect("error while running tauri application");

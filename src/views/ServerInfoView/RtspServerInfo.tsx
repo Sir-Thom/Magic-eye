@@ -39,30 +39,41 @@ export default function RtspServerInfo() {
 
     return (
         <motion.div
+        className="w-3/4 mx-auto flex justify-center items-start min-h-screen"
             variants={fadeIn}
             initial="hidden"
             animate="visible"
             exit="exit"
         >
-            <div className=" my-4">
-                <h2 className="text-center font-bold text-3xl">
-                    RTSP Server Information
-                </h2>
-                <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
-                    <div className="col-span-1">
-                        <div className="flex flex-col text-right items-end">
-                            <label className="font-semibold text-lg my-2">
-                                RTSP Server:
-                            </label>
-                        </div>
-                    </div>
-                    <div className="col-span-1">
-                        <div className="flex flex-col">
-                            <ListBox data={data} />
-                        </div>
-                    </div>
-                </div>
-            </div>
+             <ul role="list" className="divide-y divide-gray-100">
+      {data.items.map((item) => (
+        <li key={item.id} className="py-5">
+             
+            
+          <div>
+            <p className="text-sm font-semibold leading-6 text-white">{item.id}</p>
+            <p className="mt-1 truncate text-xs leading-5  text-white">
+              Created: {item.created}
+            </p>
+            <p className="truncate text-xs leading-5  text-white">
+              Remote Address: {item.remoteAddr}
+            </p>
+            <p className="text-xs leading-5  text-white">
+              Bytes Received: {item.bytesReceived}
+            </p>
+            <p className="text-xs leading-5  text-white">
+              Bytes Sent: {item.bytesSent}
+            </p>
+          </div>
+          <button className="text-xs text-red-500">
+              Delete
+            </button>
+          
+          </li>
+          ))}
+       
+    </ul>
+
         </motion.div>
     );
 }

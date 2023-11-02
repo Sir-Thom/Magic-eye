@@ -10,7 +10,6 @@ function ListBox({ data }: ListBoxProps): JSX.Element {
     console.log("items:" + items);
     return (
         <div className="p-4">
-            <h2 className="text-2xl font-bold">Data Information</h2>
             <p className="text-lg">Total Items: {itemCount}</p>
             <p className="text-lg">Total Pages: {pageCount}</p>
 

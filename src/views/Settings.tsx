@@ -246,9 +246,7 @@ export default function Setting() {
             })
 
             .catch(() => {
-                setError(
-                    "Unable to connect to the server."
-                );
+                setError("Unable to connect to the server.");
             });
     }, []);
 
@@ -283,10 +281,7 @@ export default function Setting() {
                 );
             });
         } catch (e) {
-            setError(
-                "Unable to connect to the server." +
-                    e.message
-            );
+            setError("Unable to connect to the server." + e.message);
         }
         console.log("configData: " + JSON.stringify(configData));
     }
@@ -345,7 +340,17 @@ export default function Setting() {
                                             "updated api setting: " +
                                                 JSON.stringify(
                                                     updatedApiSettings
-                                                )
+                                                ),
+                                            invoke("save_api_ip", {
+                                                api_ip: ""
+                                            }).then((response: string) => {
+                                                console.log(
+                                                    "response: " + response
+                                                );
+                                                console.log(
+                                                    updatedApiSettings.apiAddress
+                                                );
+                                            })
                                         );
                                     }}
                                     patchSetting={patchSetting}

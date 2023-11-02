@@ -38,6 +38,7 @@ pub enum PlaceholderOption {
 #[derive(Debug, Serialize, Deserialize)]
 struct Setting {
     placeholder: String,
+    api_ip: Option<String>,
 }
 
 const APP_NAME: &str = "magicEye";
@@ -79,6 +80,7 @@ impl Setting {
     fn new() -> Setting {
         Setting {
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
+            api_ip: None, 
         }
     }
 }
@@ -86,6 +88,8 @@ impl Default for Setting {
     fn default() -> Self {
         Setting {
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
+            api_ip: None, 
+            
         }
     }
 }
@@ -250,6 +254,7 @@ pub fn update_settings_file(new_settings: String) -> Result<String, String> {
     let new_settings: Setting =
         serde_json::from_str(&new_settings).map_err(|err| err.to_string())?;
     debug!("new_settings: {:?}", new_settings);
+    
 
     let path_config_file = get_config_file();
     trace!("config file location: {:?}", path_config_file);
@@ -263,4 +268,26 @@ pub fn update_settings_file(new_settings: String) -> Result<String, String> {
     info!("config file updated");
     // Return the JSON data back to TypeScript
     Ok(json_data)
+}
+#[tauri::command]
+pub fn save_api_ip(api_ip: String) -> Result<String, String> {
+    
+    // Fetch the existing settings from the configuration file
+    let current_settings = get_config_file_content();
+
+    // Update the API IP in the settings
+    let mut current_settings: Setting =
+        serde_json::from_str(&current_settings).map_err(|err| err.to_string())?;
+    current_settings.api_ip = Some(api_ip);
+    debug!("current_settings: {:?}", current_settings);
+
+    // Save the updated settings to the configuration file
+    let updated_settings = serde_json::to_string_pretty(&current_settings).map_err(|err| err.to_string())?;
+    let path_config_file = get_config_file();
+    let mut file = File::create(&path_config_file).map_err(|err| err.to_string())?;
+    file.write_all(updated_settings.as_bytes()).map_err(|err| err.to_string())?;
+
+    info!("API IP saved to the config file");
+    
+    Ok("API IP saved".to_string())
 }

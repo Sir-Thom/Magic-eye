@@ -60,7 +60,7 @@ function Toast({ message, timer, type, onDismiss }: IToast) {
                     onClick={dismissToast}
                 >
                     <div
-                        className={`absolute bottom-20 right-5 px-4 py-2 rounded-lg shadow-lg flex items-center ${getToastClassName()}`}
+                        className={`absolute bottom-20 right-5 px-4 py-2 rounded-lg shadow-lg  ${getToastClassName()}`}
                     >
                         {getIcon()}
                         <div className="flex-1 mx-2 pr-2 overflow-hidden">
