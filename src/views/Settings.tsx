@@ -341,16 +341,6 @@ export default function Setting() {
                                                 JSON.stringify(
                                                     updatedApiSettings
                                                 ),
-                                            invoke("save_api_ip", {
-                                                api_ip: ""
-                                            }).then((response: string) => {
-                                                console.log(
-                                                    "response: " + response
-                                                );
-                                                console.log(
-                                                    updatedApiSettings.apiAddress
-                                                );
-                                            })
                                         );
                                     }}
                                     patchSetting={patchSetting}

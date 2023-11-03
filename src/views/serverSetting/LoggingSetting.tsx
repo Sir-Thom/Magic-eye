@@ -46,7 +46,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
 
     return (
         <>
-            <div className="w-3/4 mx-auto  flex justify-center items-center">
+            <div className="w-3/4 mx-auto  min-h-screen  flex justify-center items-center">
                 <motion.div
                     variants={fadeIn}
                     initial="hidden"
@@ -62,13 +62,13 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                                 <div className="col-span-1">
                                     <div className="flex flex-col text-right items-end">
                                         {/* Labels column */}
-                                        <label className="m-2">
+                                        <label className="mt-1 mb-3">
                                             Log Level:
                                         </label>
-                                        <label className="m-2">
+                                        <label className="mt-4 mb-4">
                                             Log Destinations:
                                         </label>
-                                        <label className="m-2">Log file:</label>
+                                        <label className="mt-5 mb-4">Log file:</label>
                                     </div>
                                 </div>
 

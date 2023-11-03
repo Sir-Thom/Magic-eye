@@ -4,16 +4,18 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "check-format": "prettier . --check",
+    "check-format": "prettier . --check --log-level silent",
     "format": "prettier . --write --log-level silent",
     "lint": "eslint . --ext .tsx",
-    "dev": "prettier . ---check  && eslint . --ext .tsx  &&  vite --host",
+    "dev": "prettier . ---check --log-level silent  && eslint . --ext .tsx  &&  vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@tabler/icons-react": "^2.8.0",
+    "@tailwindcss/forms": "^0.5.6",
     "@tauri-apps/api": "^1.5.0",
     "axios": "^1.5.0",
     "framer-motion": "^10.8.5",

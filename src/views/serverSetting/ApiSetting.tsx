@@ -99,12 +99,12 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                             <div className="flex flex-col text-right items-end">
                                 <label className="my-2">API:</label>
                                 <label className="my-2">API Address:</label>
-                                <label className="my-2">Metrics:</label>
-                                <label className="my-2">Metrics Address:</label>
+                                <label className="my-3">Metrics:</label>
+                                <label className="my-3">Metrics Address:</label>
                                 <label className="my-2">Pprof:</label>
-                                <label className="my-2">Pprof Address:</label>
-                                <label className="my-2">Run On Connect:</label>
-                                <label className="my-3">
+                                <label className="my-4">Pprof Address:</label>
+                                <label className="my-4">Run On Connect:</label>
+                                <label className="my-2">
                                     Run On Connect Restart:
                                 </label>
                             </div>
@@ -119,7 +119,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-2 pr-1   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={apiAddress}
                                     onChange={handleApiAddressChange}
                                 />
@@ -131,25 +131,25 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                 />
                                 <input
                                     type="text"
-                                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={metricsAddress}
                                     onChange={handleMetricsAddressChange}
                                 />
                                 <Checkbox
-                                    className="mt-3 my-2"
+                                    className="mt-2 my-2"
                                     value={pprofEnabled.toString()}
                                     checked={pprofEnabled}
                                     onChange={handlePprofChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-2 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={pprofAddress}
                                     onChange={handlePprofAddressChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={runOnConnect}
                                     onChange={handleRunOnConnectChange}
                                 />
