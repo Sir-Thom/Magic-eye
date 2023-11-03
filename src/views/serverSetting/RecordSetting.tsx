@@ -102,12 +102,12 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                         <div className="col-span-1">
                             <div className="flex flex-col text-right items-end">
                                 <label className="my-2">Record:</label>
-                                <label className="my-3">Record Path:</label>
-                                <label className="my-3">Record Format:</label>
-                                <label className="my-4">
+                                <label className="mt-5 mb-6">Record Path:</label>
+                                <label className="mt-5 mb-3">Record Format:</label>
+                                <label className="mt-7 mb-3">
                                     Record Segment Duration:
                                 </label>
-                                <label className="my-3">
+                                <label className="my-8">
                                     Record Delete After:
                                 </label>
                             </div>
@@ -122,25 +122,25 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordPath}
                                     onChange={handleRecordPathChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordFormat}
                                     onChange={handleRecordFormatChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordSegmentDuration}
                                     onChange={handleRecordSegmentDurationChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordDeleteAfter}
                                     onChange={handleRecordDeleteAfterChange}
                                 />

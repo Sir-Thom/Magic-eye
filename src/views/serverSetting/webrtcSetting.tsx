@@ -156,38 +156,38 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">Webrtc:</label>
-                                        <label className="my-2">
+                                        <label className="mt-4 mb-3">
                                             Webrtc Address:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="my-3">
                                             Webrtc Encryption:
                                         </label>
 
-                                        <label className="my-3">
+                                        <label className="mt-4 mb-3">
                                             Webrtc Server Key:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="mt-6 mb-4">
                                             Webrtc Server Certificate:
                                         </label>
-                                        <label className="my-3">
+                                        <label className="mt-5 mb-3">
                                             Webrtc Allow Origin:
                                         </label>
-                                        <label className="my-4">
+                                        <label className="mt-8 mb-6">
                                             Webrtc Trusted Proxies:
                                         </label>
-                                        <label className="my-6">
+                                        <label className="mt-8 mb-6">
                                             Webrtc ICE Servers:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="mt-5 mb-16">
                                             Webrtc ICE Servers2:
                                         </label>
                                         <label className="mt-56 mb-5">
                                             Webrtc ICE Host NAT 1 To 1 IPs:
                                         </label>
-                                        <label className="my-4">
+                                        <label className="mt-7 mb-5">
                                             Webrtc ICE UDP Mux Address:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="mt-5 mb-3">
                                             Webrtc ICE TCP Mux Address:
                                         </label>
                                     </div>
@@ -203,7 +203,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
 
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAddress}
                                             onChange={handleWebrtcAddress}
                                         />
@@ -215,25 +215,25 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcKey}
                                             onChange={handleWebrtcKey}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcCert}
                                             onChange={handleWebrtcCert}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAllowOrigin}
                                             onChange={handleWebrtcAllowOrigin}
                                         />
                                         <textarea
                                             name="webrtcTrustedProxies"
-                                            className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcTrustedProxies}
                                             onChange={
                                                 handleWebrtcTrustedProxies
@@ -241,7 +241,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <textarea
                                             name="webrtcICEServers"
-                                            className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICEServers}
                                             onChange={handleWebrtcICEServers}
                                         />
@@ -252,7 +252,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="url"
                                                 type="text"
-                                                className="appearance-none s my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="s my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={webrtcICEServers2.url}
                                                 onChange={
                                                     handleWebrtcICEServers2
@@ -264,7 +264,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="username"
                                                 type="text"
-                                                className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={
                                                     webrtcICEServers2.username
                                                 }
@@ -278,7 +278,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="password"
                                                 type="text"
-                                                className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={
                                                     webrtcICEServers2.password
                                                 }
@@ -289,7 +289,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         </div>
                                         <textarea
                                             name="webrtcICEHostNAT1To1IPs"
-                                            className="appearance-none resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="resize-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICEHostNAT1To1IPs}
                                             onChange={
                                                 handleWebrtcICEHostNAT1To1IPs
@@ -297,7 +297,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICEUDPMuxAddress}
                                             onChange={
                                                 handleWebrtcICEUDPMuxAddress
@@ -305,7 +305,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICETCPMuxAddress}
                                             onChange={
                                                 handleWebrtcICETCPMuxAddress

@@ -47,7 +47,7 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                             <div className="col-span-1">
                                 <div className="flex flex-col text-right items-end">
                                     <label className="my-2">SRT:</label>
-                                    <label className="my-3">SRT Address:</label>
+                                    <label className="mt-5 mb-3">SRT Address:</label>
                                 </div>
                             </div>
                             <div className="col-span-1">
@@ -60,7 +60,7 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                                     />
                                     <input
                                         type="text"
-                                        className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={srtAddress}
                                         onChange={handleSRTAddressChange}
                                     />

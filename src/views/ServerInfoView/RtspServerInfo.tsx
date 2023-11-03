@@ -24,14 +24,21 @@ export default function RtspServerInfo() {
   
 
     return (
+
         <motion.div
-            className="w-3/4 mx-auto flex justify-center items-start "
+            className="w-3/4 overscroll-contain mx-auto flex  flex-co justify-center items-start"
             variants={fadeIn}
             initial="hidden"
             animate="visible"
             exit="exit"
         >
+            <h2 className=" mx-auto   text-center font-bold text-3xl">
+                                RTSP Informations
+                            </h2>
+                            <div className="-6">
             <ListView fetchData={items} />
+            </div>
         </motion.div>
+        
     );
 }

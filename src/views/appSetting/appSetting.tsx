@@ -141,14 +141,14 @@ export default function GeneralSetting() {
                                 timer={5000}
                             />
                         )}
-                        <div className="my-4">
+                        <div className="mt-2 mb-4">
                             <h2 className="text-center font-bold text-3xl">
                                 Setting
                             </h2>
-                            <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
+                            <div className="grid grid-cols-2 mt-6 mb-3 content-between place-content-start gap-4">
                                 <div className="col-span-1">
                                     <div className="flex flex-col text-right items-end">
-                                        <label className="my-2">
+                                        <label className="mt-2.5 mb-3">
                                             Placeholder:
                                         </label>
                                     </div>

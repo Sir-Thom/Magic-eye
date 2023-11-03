@@ -88,19 +88,19 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">RTMP:</label>
 
-                                        <label className="my-2">
+                                        <label className="mt-4 mb-3">
                                             RTMP Address:
                                         </label>
-                                        <label className="my-3">
+                                        <label className="mt-6 mb-3">
                                             RTMP Encryption:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="mt-6 mb-3">
                                             RTMPS Address:
                                         </label>
-                                        <label className="my-2">
+                                        <label className="mt-5 mb-3">
                                             RTMP Server Key:
                                         </label>
-                                        <label className="my-4">
+                                        <label className="mt-6 mb-3">
                                             RTMP Server Cert:
                                         </label>
                                     </div>
@@ -116,31 +116,31 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
 
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className=" my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={rtmpAddress}
                                             onChange={handleRtmpAddress}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className=" my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={rtmpEncryption}
                                             onChange={handleRtmpEncryption}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className=" my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={rtmpsAddress}
                                             onChange={handleRtmpsAddress}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className=" my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={rtmpServerKey}
                                             onChange={handleRtmpServerKey}
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className=" my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={rtmpServerCert}
                                             onChange={handleRtmpServerCert}
                                         />

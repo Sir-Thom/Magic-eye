@@ -125,27 +125,27 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                     <label className="my-2">
                                         RTSP Disable:
                                     </label>
-                                    <label className="my-2">Protocols:</label>
+                                    <label className="mt-5 mb-3">Protocols:</label>
                                     <label className="mt-7 mb-2">
                                         RTSP Encryption:
                                     </label>
-                                    <label className="my-2">
+                                    <label className="mt-4 mb-3">
                                         RTSP Address:
                                     </label>
-                                    <label className="my-2">
+                                    <label className="mt-5 mb-3">
                                         RTSPs Address:
                                     </label>
-                                    <label className="my-3">RTP Address:</label>
-                                    <label className="my-3">
+                                    <label className="mt-6 mb-4">RTP Address:</label>
+                                    <label className="mt-5 mb-3">
                                         RTCP Address:
                                     </label>
-                                    <label className="my-2">
+                                    <label className="mt-7 mb-3">
                                         Multicast IP Range:
                                     </label>
-                                    <label className="my-2">
+                                    <label className="mt-5 mb-3">
                                         Multicast RTP Port:
                                     </label>
-                                    <label className="mt-4 mb-3">
+                                    <label className="mt-7 mb-3">
                                         Multicast RTCP Port:
                                     </label>
                                 </div>
@@ -165,7 +165,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                         onChange={handleRtspDisable}
                                     />
                                     <textarea
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={protocols}
                                         onChange={handleProtocols}
                                     />
@@ -177,37 +177,37 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                     />
                                     <input
                                         type="text"
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={rtspAddress}
                                         onChange={handleRtspAddress}
                                     />
                                     <input
                                         type="text"
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={rtspsAddress}
                                         onChange={handleRtspsAddress}
                                     />
                                     <input
                                         type="text"
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={rtpAddress}
                                         onChange={handleRtpAddress}
                                     />
                                     <input
                                         type="text"
-                                        className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-3  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={rtcpAddress}
                                         onChange={handleRtcpAddress}
                                     />
                                     <input
                                         type="text"
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={multicastIPRange}
                                         onChange={handleMulticastIPRange}
                                     />
                                     <input
                                         type="number"
-                                        className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={multicastRTPPort}
                                         onChange={(event) =>
                                             handleMulticastRTPPort(
@@ -217,7 +217,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                     />
                                     <input
                                         type="number"
-                                        className="my-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="my-3  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={multicastRTCPPort}
                                         onChange={(event) =>
                                             handleMulticastRTCPPort(
