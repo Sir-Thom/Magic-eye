@@ -37,7 +37,7 @@ export default function Setting() {
     });
     const [apiSettings, setApiSettings] = useState<IApiSettings>({
         api: configData?.api || true,
-        apiAddress: configData?.apiAddress || "127.0.0.1:9997",
+       // apiAddress: configData?.apiAddress || "127.0.0.1:9997",
         metrics: configData?.metrics || false,
         metricsAddress: configData?.metricsAddress || "127.0.0.1:9998",
         pprof: configData?.pprof || false,
@@ -139,7 +139,7 @@ async function GetApiIp() {
             setError(null);
     
             console.log("API Setting from useEffect: " + apiIpValue);
-            // Rest of your code...
+          
         
         
         console.log("API Setting from useEffect: " + apiIpValue);
@@ -155,7 +155,7 @@ async function GetApiIp() {
                 // Update the state variables with the new settings
                 setApiSettings({
                     api: parsedResponse.api || true,
-                    apiAddress: parsedResponse.apiAddress ,
+                   // apiAddress: parsedResponse.apiAddress ,
                     metrics: parsedResponse.metrics || false,
                     metricsAddress:
                         parsedResponse.metricsAddress || "127.0.0.1:9998",
@@ -273,7 +273,7 @@ async function GetApiIp() {
                     "record setting: " + JSON.stringify(recordSettings)
                 );
 
-                invoke("save_api_ip", {apiIp:apiSettings.apiAddress}).then((res) => {
+                invoke("save_api_ip", {}).then((res) => {
                     console.log("save api: "+res);
                 }
                 );
@@ -290,6 +290,7 @@ async function GetApiIp() {
 
     async function patchSetting(configData) {
         try {
+            const apiIpValue = await GetApiIp();
             if (configData == null) {
                 setError("ConfigData is empty.");
             }
@@ -320,7 +321,7 @@ async function GetApiIp() {
                     }
                 );
                 
-                invoke("save_api_ip", {apiIp:apiSettings.apiAddress}).then((res) => {
+                invoke("save_api_ip", {apiIp:apiIpValue}).then((res) => {
                     console.log("save api: "+res);
                 }
                 );
@@ -354,7 +355,7 @@ async function GetApiIp() {
     return (
         <>
             <Titlebar />
-            <div className="flex flex-col   h-screen">
+            <div className="flex flex-col  h-screen">
                 <div className="flex">
                     <div className="w-1/4 mx-auto   h-full">
                         <SideMenu
@@ -365,7 +366,7 @@ async function GetApiIp() {
                         />
                     </div>
                     <div className="w-3/4 mx-auto mt-4 mr-24">
-                        <div className="mx-auto mt-24">
+                        <div className="mx-auto z-auto mt-24">
                             {successMessage && (
                                 <SuccessAlert
                                     message={successMessage}

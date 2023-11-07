@@ -53,14 +53,14 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                             <div className="col-span-1">
                                 <div className="flex flex-col">
                                     <Checkbox
-                                        className=" my-3"
+                                        className=" mt-3 mb-3"
                                         value={srt.toString()}
                                         checked={srt}
                                         onChange={handleSRTChange}
                                     />
                                     <input
                                         type="text"
-                                        className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                        className="mt-4 mb-4 h-8  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                         value={srtAddress}
                                         onChange={handleSRTAddressChange}
                                     />

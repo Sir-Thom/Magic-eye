@@ -163,28 +163,28 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                             <h2 className=" mx-auto text-center font-bold text-3xl">
                                 HLS Setting
                             </h2>
-                            <div className="grid  mb-6 grid-cols-2 content-between place-content-start mt-6 gap-4">
+                            <div className="grid overflow-auto  scrollbar  scrollbar-thumb-gray-900 scrollbar-track-darkMode mb-6 grid-cols-2 content-between place-content-start mt-6 gap-4">
                                 {/* Labels column */}
 
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
-                                        <label className="my-1">HLS:</label>
-                                        <label className="mt-5">
+                                        <label className="mt-1 mb-1">HLS:</label>
+                                        <label className="mt-3.5 mb-2">
                                             HLS Address:
                                         </label>
-                                        <label className=" mt-10 mb-4">
+                                        <label className=" mt-6 mb-2">
                                             HLS Allow Origin:
                                         </label>
-                                        <label className="mt-2 mb-2">
+                                        <label className="mt-3.5 mb-2">
                                             HLS Always Remux:
                                         </label>
-                                        <label className="mt-4 mb-2">
+                                        <label className="mt-5 mb-2">
                                             HLS Directory:
                                         </label>
-                                        <label className="mt-5 mb-3">
+                                        <label className="mt-2 mb-2">
                                             HLS Disable:
                                         </label>
-                                        <label className="mt-2">
+                                        <label className="mt-2 mb-1">
                                             HLS Encryption:
                                         </label>
                                         <label className="mt-6 mb-3">
@@ -196,19 +196,19 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         <label className="mt-6 mb-3">
                                             HLS Segment Duration:
                                         </label>
-                                        <label className="mt-6 mb-3">
+                                        <label className="mt-5 mb-2">
                                             HLS Segment Max Size:
                                         </label>
-                                        <label className="mt-8 mb-3">
+                                        <label className="mt-5 mb-2.5">
                                             HLS Server Cert:
                                         </label>
-                                        <label className="mt-6 mb-3">
+                                        <label className="mt-5 mb-2.5">
                                             HLS Server Key:
                                         </label>
-                                        <label className="my-6">
+                                        <label className="mt-4">
                                             HLS Trusted Proxies:
                                         </label>
-                                        <label className="mt-8 mb-3">
+                                        <label className="mt-8 mb-1">
                                             HLS Variant:
                                         </label>
                                     </div>
@@ -224,13 +224,13 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-3 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsAddress}
                                             onChange={handleHlsAddressChange}
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-4 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsAllowOrigin}
                                             onChange={
                                                 handleHlsAllowOriginChange
@@ -246,26 +246,26 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-4 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsDirectory}
                                             onChange={handleHlsDirectoryChange}
                                         />
                                         
                                         <Checkbox
-                                            className="mt-4 mb-2"
+                                            className="mt-3.5 mb-2"
                                             value={hlsDisable.toString()}
                                             onChange={handleHlsDisableChange}
                                             checked={hlsDisable}
                                         />
                                         <Checkbox
-                                            className="mt-5 mb-2"
+                                            className="mt-4 mb-2"
                                             value={hlsEncryption.toString()}
                                             onChange={handleHlsEncryptionChange}
                                             checked={hlsEncryption}
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-4 mb-2 h-8  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsPartDuration}
                                             onChange={
                                                 handleHlsPartDurationChange
@@ -273,7 +273,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="number"
-                                            className=" mt-3 mb-2 pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-6 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsSegmentCount}
                                             onChange={
                                                 handleHlsSegmentCountChange
@@ -281,7 +281,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2 pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-6 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsSegmentDuration}
                                             onChange={
                                                 handleHlsSegmentDurationChange
@@ -289,27 +289,27 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2 pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-4 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             onChange={
                                                 handleHlsSegmentMaxSizeChange
                                             }
                                         />
                                         <input
                                             type="text"
-                                            className="mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className="mt-3 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsServerCert}
                                             onChange={handleHlsServerCertChange}
                                         />
                                         <input
                                             type="text"
-                                            className="mt-3 mb-2border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className="mt-3 mb-2 border h-8  border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsServerKey}
                                             onChange={handleHlsServerKeyChange}
                                         />
                                         <textarea
                                             name="hlsTrustedProxies"
                                             style={{ resize: "none" }}
-                                            className="mt-3 mb-2   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className="mt-3 mb-2  h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsTrustedProxies}
                                             onChange={
                                                 handleHlsTrustedProxiesChange
@@ -317,7 +317,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className=" mt-3 mb-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-3 mb-2 border h-8  border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={hlsVariant}
                                             onChange={handleHlsVariantChange}
                                         />

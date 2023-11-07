@@ -203,7 +203,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
 
                                         <input
                                             type="text"
-                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAddress}
                                             onChange={handleWebrtcAddress}
                                         />
@@ -215,19 +215,19 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcKey}
                                             onChange={handleWebrtcKey}
                                         />
                                         <input
                                             type="text"
-                                            className="my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-3 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcCert}
                                             onChange={handleWebrtcCert}
                                         />
                                         <input
                                             type="text"
-                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAllowOrigin}
                                             onChange={handleWebrtcAllowOrigin}
                                         />
@@ -252,7 +252,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="url"
                                                 type="text"
-                                                className="s my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="s my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={webrtcICEServers2.url}
                                                 onChange={
                                                     handleWebrtcICEServers2
@@ -264,7 +264,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="username"
                                                 type="text"
-                                                className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={
                                                     webrtcICEServers2.username
                                                 }
@@ -278,7 +278,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             <input
                                                 title="password"
                                                 type="text"
-                                                className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                                className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                                 value={
                                                     webrtcICEServers2.password
                                                 }
@@ -297,7 +297,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="my-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICEUDPMuxAddress}
                                             onChange={
                                                 handleWebrtcICEUDPMuxAddress
@@ -305,7 +305,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="my-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my-3 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcICETCPMuxAddress}
                                             onChange={
                                                 handleWebrtcICETCPMuxAddress

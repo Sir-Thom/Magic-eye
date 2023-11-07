@@ -5,7 +5,7 @@ import Checkbox from "../../components/checkBox/checkBox";
 
 export default function ApiSetting({ settings, onSave, patchSetting }) {
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
-    const [apiAddress, setApiAddress] = useState(settings.apiAddress);
+   // const [apiAddress, setApiAddress] = useState(settings.apiAddress);
     const [metricsEnabled, setMetricsEnabled] = useState(
         Boolean(settings.metrics)
     );
@@ -24,7 +24,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
     };
 
     const handleApiAddressChange = (event) => {
-        setApiAddress(event.target.value);
+  //      setApiAddress(event.target.value);
     };
 
     const handleMetricsChange = () => {
@@ -53,7 +53,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
 
     useEffect(() => {
         setApiEnabled(Boolean(settings.api));
-        setApiAddress(settings.apiAddress);
+       // setApiAddress(settings.apiAddress);
         setMetricsEnabled(Boolean(settings.metrics));
         setMetricsAddress(settings.metricsAddress);
         setPprofEnabled(Boolean(settings.pprof));
@@ -67,7 +67,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
         const updatedSettings = {
             ...settings,
             api: apiEnabled,
-            apiAddress: apiAddress,
+      //      apiAddress: apiAddress,
             metrics: metricsEnabled,
             metricsAddress: metricsAddress,
             pprof: pprofEnabled,
@@ -94,17 +94,17 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                     <h2 className="text-center font-bold text-3xl">
                         API Setting
                     </h2>
-                    <div className="grid grid-cols-2  mt-6 content-between place-content-start gap-4">
+                    <div className="grid grid-cols-2 overflow-auto mt-6 content-between place-content-start gap-4">
                         <div className="col-span-1">
                             <div className="flex flex-col text-right items-end">
                                 <label className="my-2">API:</label>
-                                <label className="my-2">API Address:</label>
-                                <label className="my-3">Metrics:</label>
-                                <label className="my-3">Metrics Address:</label>
+                               {/* <!-- <label className="my-2">API Address:</label> --> */}
+                                <label className="my-2">Metrics:</label>
+                                <label className="mt-3.5 mb-2">Metrics Address:</label>
                                 <label className="my-2">Pprof:</label>
                                 <label className="my-4">Pprof Address:</label>
-                                <label className="my-4">Run On Connect:</label>
-                                <label className="my-2">
+                                <label className="mt-5 mb-2">Run On Connect:</label>
+                                <label className="mt-5 mb-2">
                                     Run On Connect Restart:
                                 </label>
                             </div>
@@ -117,44 +117,44 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                     checked={apiEnabled}
                                     onChange={handleApiEnabledChange}
                                 />
-                                <input
+                                {/* <input
                                     type="text"
                                     className="my-2 pr-1   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={apiAddress}
+                                    //value={apiAddress}
                                     onChange={handleApiAddressChange}
-                                />
+                                /> */}
                                 <Checkbox
-                                    className="mt-2 my-2"
+                                    className=" mt-4 mb-2"
                                     value={metricsEnabled.toString()}
                                     checked={metricsEnabled}
                                     onChange={handleMetricsChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-2  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="mt-3 mb-2  h-8  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={metricsAddress}
                                     onChange={handleMetricsAddressChange}
                                 />
                                 <Checkbox
-                                    className="mt-2 my-2"
+                                    className="mt-3 mb-2 my-2"
                                     value={pprofEnabled.toString()}
                                     checked={pprofEnabled}
                                     onChange={handlePprofChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-2 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="mt-4 mb-3 h-8  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={pprofAddress}
                                     onChange={handlePprofAddressChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="mt-3.5 mb-3.5 h-8  appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={runOnConnect}
                                     onChange={handleRunOnConnectChange}
                                 />
                                 <Checkbox
-                                    className="mt-2 my-2"
+                                    className="mt-3.5 mb-2"
                                     value={runOnConnectRestart.toString()}
                                     checked={runOnConnectRestart}
                                     onChange={handleRunOnConnectRestartChange}

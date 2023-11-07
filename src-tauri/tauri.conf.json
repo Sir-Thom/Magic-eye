@@ -139,7 +139,7 @@
     "windows": [
       {
         "title": "Magic Eye",
-        "titleBarStyle": "Visible",
+        "titleBarStyle": "Overlay",
         "minWidth": 1000,
         "minHeight": 600,
         "resizable": true,
@@ -148,7 +148,8 @@
         "decorations": false,
         "alwaysOnTop": false,
         "url": "index.html",
-        "label": "main"
+        "label": "main",
+        "theme":"Dark"
       },
       {
         "title": "Magic Eye",

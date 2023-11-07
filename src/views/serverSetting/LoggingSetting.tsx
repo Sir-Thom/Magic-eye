@@ -62,13 +62,13 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                                 <div className="col-span-1">
                                     <div className="flex flex-col text-right items-end">
                                         {/* Labels column */}
-                                        <label className="mt-1 mb-3">
+                                        <label className="mt-1 mb-2">
                                             Log Level:
                                         </label>
-                                        <label className="mt-4 mb-4">
+                                        <label className="mt-4 mb-2">
                                             Log Destinations:
                                         </label>
-                                        <label className="mt-5 mb-4">Log file:</label>
+                                        <label className="mt-4 mb-4">Log file:</label>
                                     </div>
                                 </div>
 
@@ -82,7 +82,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                            className="appearance-none h-8  border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                             value={logDestinations}
                                             onChange={
                                                 handleLogDestinationsChange
@@ -90,7 +90,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                            className="appearance-none h-8  border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                             value={logFile}
                                             onChange={handleLogFileChange}
                                         />

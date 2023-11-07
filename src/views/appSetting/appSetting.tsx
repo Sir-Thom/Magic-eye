@@ -165,7 +165,7 @@ export default function GeneralSetting() {
                                         <label className="mt-2.5 mb-3">
                                             Placeholder:
                                         </label>
-                                        <label className="mt-2.5 mb-3">
+                                        <label className="mt-3.5 mb-3">
                                             API IP:
                                         </label>
                                     </div>
@@ -181,7 +181,7 @@ export default function GeneralSetting() {
                                     </div>
                                     <input
                                             type="text"
-                                            className=" mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            className=" mt-4 mb-2  border border-gray-300 h-8 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
                                             value={api_ip}
                                             onChange={handleApi_ipChange}
                                             

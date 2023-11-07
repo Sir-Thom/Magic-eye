@@ -15,7 +15,7 @@ use magic_eye::utils::config::{
     update_settings_file,save_api_ip,__cmd__get_api_ip, get_api_ip
 };
 use std::{env, fs};
-use tauri::{generate_handler, Manager};
+use tauri::{generate_handler, Manager, WindowBuilder};
 use tauri_plugin_log::LogTarget;
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
@@ -74,6 +74,7 @@ async fn close_splashscreen(window: tauri::Window) {
            
             
             debug!("main_window url: : {:?}", main_window.url());
+            
 
             let resource_path = app
                 .path_resolver()

@@ -1,9 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer components {
     :root {
-        @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-900  text-text-dark;
+        @apply  outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-900  text-text-dark;
     }
     input[type="text"] {
         @apply border  focus:border-accent-color1-400  bg-window-dark-400  text-text-dark;

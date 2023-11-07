@@ -155,7 +155,7 @@ interface ILoggingSettings {
 
 interface IApiSettings {
     api: boolean;
-    apiAddress: string;
+   // apiAddress: string;
     metrics: boolean;
     metricsAddress: string;
     pprof: boolean;
