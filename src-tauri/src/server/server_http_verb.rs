@@ -111,4 +111,41 @@ pub async fn patch_server_request(config_data: Value, url: &str) -> Result<(), S
     }
 }
 
+#[tauri::command]
+pub async fn post_server_request(url: &str, value: Value) -> Result<(), String> {
+    // Serialize the JSON data to a string
+    let data = value.to_string();
+    
+    info!("POST data: {}", data);
+    debug!("POST request to URL: {}", url);
+    debug!("POST request to value: {:?}", value);
+    let post_url = format!("{}{}", url, data).replace('"', "");
+    info!("POST request to URL: {}", post_url);
+    let response = reqwest::Client::new()
+        .post(url)
+        .header("Content-Type", "application/json") 
+        .body(data)
+        .send()
+        .await
+        .map_err(|err| {
+            error!("POST request error: {:?}", err);
+            err.to_string()
+        })?;
+
+    debug!("Response: {:?}", response);
+
+    if response.status().is_success() {
+        Ok(())
+    } else {
+        response.status().is_server_error().then(|| {
+            error!("Server error: {:?}", response);
+        });
+        error!("POST request was not successful: {:?}", response);
+        Err(format!("POST request was not successful: {:?}", response.text().await))
+    }
+}
+
+   
+
+
    

@@ -20,6 +20,14 @@ export default function RtspServerInfo() {
             }
         });
     }, []);
+
+    async function KickRstpSession (valueToSend:string) {
+        invoke("post_server_request",{url:"http://127.0.0.1:9997/v3/rtspsessions/kick/",value:valueToSend}).
+        then((res) =>{
+            console.log(res)
+        })
+        
+    }
     
   
 
@@ -32,13 +40,16 @@ export default function RtspServerInfo() {
             animate="visible"
             exit="exit"
         >
-            <h2 className=" mx-auto   text-center font-bold text-3xl">
+            <div className="mt-4 mb-2">
+            <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
                                 RTSP Informations
                             </h2>
-                            <div className="-6">
-            <ListView fetchData={items} />
+                           
+                            <ListView fetchData={items} canDelete={false}  />
             </div>
         </motion.div>
         
     );
 }
+
+

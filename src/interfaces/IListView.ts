@@ -1,3 +1,5 @@
 export interface IListView {
-    fetchData: any[]
+    fetchData: any[];
+    DeleteFunc?: (id: string) => void;
+    canDelete: boolean;
 }

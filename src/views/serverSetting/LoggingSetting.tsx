@@ -46,7 +46,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
 
     return (
         <>
-            <div className="w-3/4 mx-auto  min-h-screen  flex justify-center items-center">
+            <div className="w-3/4 mx-auto  v  flex justify-center items-center">
                 <motion.div
                     variants={fadeIn}
                     initial="hidden"
@@ -55,7 +55,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                 >
                     {settings && (
                         <div className="mt-4">
-                            <h2 className="text-center mx-auto font-bold text-3xl mb-4">
+                            <h2 className=" mx-auto text-center font-bold text-3xl">
                                 Logging Settings
                             </h2>
                             <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">

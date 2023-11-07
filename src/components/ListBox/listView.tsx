@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 import { IListView} from "../../interfaces/IListView";
 import {FaTrashCan} from "react-icons/fa6";
 
-export default function  ListView({ fetchData: data}:IListView){
+export default function  ListView({ fetchData: data,DeleteFunc,canDelete}:IListView){
+  
     return (
         <div className="overflow-hidden rounded-md bg-window-dark-700 shadow-window-light-600">
 <ul role="list" className="divide-y px-4  divide-window-dark-100">
@@ -16,7 +17,8 @@ export default function  ListView({ fetchData: data}:IListView){
         </div>
       ))}
     </div>
-    <button className="ml-6 text-white"><FaTrashCan size={18}/></button>
+    {canDelete ==true &&
+    <button onClick={() => DeleteFunc(item.id)} className="ml-6 text-white"><FaTrashCan size={18}/></button>}
   </li>
 ))}
 </ul>

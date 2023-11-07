@@ -7,7 +7,7 @@
     "check-format": "prettier . --check",
     "format": "prettier . --write --log-level silent",
     "lint": "eslint . --ext .tsx",
-    "dev": "prettier . ---check && eslint . --ext .tsx  &&  vite --host",
+    "dev": "eslint . --ext .tsx  &&  vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri"

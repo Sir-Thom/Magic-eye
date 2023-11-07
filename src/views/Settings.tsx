@@ -24,6 +24,7 @@ import Toast from "../components/toast/Toast";
 import SrtSetting from "./serverSetting/SrtSetting";
 import SuccessAlert from "../components/alert/sucessAlert";
 import RecordSetting from "./serverSetting/RecordSetting";
+
 export default function Setting() {
     const [configData, setConfigData] = useState<IServer | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -116,10 +117,35 @@ export default function Setting() {
     });
 
     console.log(webrtcSettings);
+const [apiIp, setApiIp] = useState<string>("");
+// make GetApiIp() return a string so I can use GetApiIp() to get the api ip
+async function GetApiIp() {
+    try {
+        const res = await invoke("get_api_ip");
+        const apiIp = res.toString();
+        console.log("API Setting from function: " + apiIp);
+        setApiIp(apiIp);
+        return apiIp;
+    } catch (e) {
+        console.log(e);
+        return ''; // Return an empty string or handle the error as needed.
+    }
+}
+
 
     useEffect(() => {
-        setError(null);
-        const serverUrl = "http://127.0.0.1:9997/v3/config/global/get";
+        const fetchData = async () => {
+            const apiIpValue = await GetApiIp();
+            setError(null);
+    
+            console.log("API Setting from useEffect: " + apiIpValue);
+            // Rest of your code...
+        
+        
+        console.log("API Setting from useEffect: " + apiIpValue);
+
+        const serverUrl = `http://${apiIpValue}/v3/config/global/get`;
+        console.log("serverUrl: " + serverUrl);
         invoke("get_server_request", { url: serverUrl })
             .then((response: string) => {
                 const parsedResponse: IServer = JSON.parse(response);
@@ -129,7 +155,7 @@ export default function Setting() {
                 // Update the state variables with the new settings
                 setApiSettings({
                     api: parsedResponse.api || true,
-                    apiAddress: parsedResponse.apiAddress || "127.0.0.1:9997",
+                    apiAddress: parsedResponse.apiAddress ,
                     metrics: parsedResponse.metrics || false,
                     metricsAddress:
                         parsedResponse.metricsAddress || "127.0.0.1:9998",
@@ -243,12 +269,24 @@ export default function Setting() {
                         parsedResponse.recordSegmentDuration || "1h",
                     recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h"
                 });
+                console.log(
+                    "record setting: " + JSON.stringify(recordSettings)
+                );
+
+                invoke("save_api_ip", {apiIp:apiSettings.apiAddress}).then((res) => {
+                    console.log("save api: "+res);
+                }
+                );
             })
 
             .catch(() => {
                 setError("Unable to connect to the server.");
             });
+        };
+        fetchData();
     }, []);
+
+
 
     async function patchSetting(configData) {
         try {
@@ -258,17 +296,19 @@ export default function Setting() {
 
             await invoke("patch_server_request", {
                 configData: configData,
-                url: "http://127.0.0.1:9997/v3/config/global/patch"
+                url: `http:///${apiIp}/v3/config/global/patch`
             }).then((response: string) => {
                 console.log("response: " + response);
                 const parsedResponse: IServer = JSON.parse(response);
                 console.log(
                     "parsed option in patch:" + JSON.stringify(parsedResponse)
                 );
+
                 setConfigData(parsedResponse);
                 setSuccessMessage("Settings saved successfully");
+               
                 // get the updated config
-                const serverUrl = "http://127.0.0.1:9997/v3/config/global/get";
+                const serverUrl = `http:///${ GetApiIp()}/v3/config/global/get`;
                 invoke("get_server_request", { url: serverUrl }).then(
                     (response: string) => {
                         const parsedResponse: IServer = JSON.parse(response);
@@ -278,6 +318,11 @@ export default function Setting() {
                                 JSON.stringify(parsedResponse)
                         );
                     }
+                );
+                
+                invoke("save_api_ip", {apiIp:apiSettings.apiAddress}).then((res) => {
+                    console.log("save api: "+res);
+                }
                 );
             });
         } catch (e) {

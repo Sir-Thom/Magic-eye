@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Toast from "../../components/toast/Toast";
+import Toast from"../../components/toast/Toast";
 import Dropdown from "../../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../../components/alert/sucessAlert";
@@ -33,6 +33,7 @@ export async function SetConfig(new_settings) {
 
 export default function GeneralSetting() {
     const [currentPlaceholder, setCurrentPlacholder] = useState("");
+    const [api_ip, setApi_ip] = useState("");
     const placeholderdata = {
         placeholder: [
             "placeholder-smpte",
@@ -61,7 +62,8 @@ export default function GeneralSetting() {
     };
 
     const [tmpConf, setTmpConf] = useState<ISetting>({
-        placeholder: ""
+        placeholder: "",
+        api_ip: ""
     });
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState("");
@@ -77,12 +79,14 @@ export default function GeneralSetting() {
                 const parsedConfig = JSON.parse(configData);
                 setTmpConf(parsedConfig);
                 setCurrentPlacholder(parsedConfig.placeholder);
+                setApi_ip(parsedConfig.api_ip);
                 setError(null);
 
-                if (!placeholderOptions.includes(parsedConfig.placeholder)) {
+                if (!placeholderOptions.includes(parsedConfig.placeholder, parsedConfig.api_ip)) {
                     setPlaceholderOptions((prevOptions) => [
                         ...prevOptions,
-                        parsedConfig.placeholder
+                        parsedConfig.placeholder,
+                        parsedConfig.api_ip
                     ]);
                 }
             } catch (err) {
@@ -109,7 +113,17 @@ export default function GeneralSetting() {
         setCurrentPlacholder(newPlaceholder);
         setTmpConf((prevTmpConf) => ({
             ...prevTmpConf,
-            placeholder: newPlaceholder
+            placeholder: newPlaceholder,
+            api_ip: api_ip
+        }));
+    }
+    function handleApi_ipChange(event) {
+        const newApi_ip = event.target.value;
+        setApi_ip(newApi_ip);
+        setTmpConf((prevTmpConf) => ({
+            ...prevTmpConf,
+            placeholder: currentPlaceholder,
+            api_ip: newApi_ip
         }));
     }
     async function handleSaveConfig() {
@@ -151,6 +165,9 @@ export default function GeneralSetting() {
                                         <label className="mt-2.5 mb-3">
                                             Placeholder:
                                         </label>
+                                        <label className="mt-2.5 mb-3">
+                                            API IP:
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="col-span-1">
@@ -162,6 +179,14 @@ export default function GeneralSetting() {
                                             onChange={handlePlaceholderChange}
                                         />
                                     </div>
+                                    <input
+                                            type="text"
+                                            className=" mt-3 mb-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
+                                            value={api_ip}
+                                            onChange={handleApi_ipChange}
+                                            
+                                            
+                                        />
                                 </div>
                             </div>
 
