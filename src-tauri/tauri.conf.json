@@ -46,7 +46,7 @@
         ]
       },
       "window": {
-        "all": true,
+        "all": false,
         "center": false,
         "close": true,
         "create": false,
@@ -60,7 +60,7 @@
         "setCursorIcon": true,
         "setCursorPosition": false,
         "setCursorVisible": false,
-        "setDecorations": false,
+        "setDecorations": true,
         "setFocus": true,
         "setFullscreen": true,
         "setIcon": true,

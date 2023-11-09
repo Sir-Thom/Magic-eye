@@ -15,7 +15,7 @@ use magic_eye::utils::config::{
     update_settings_file,save_api_ip,__cmd__get_api_ip, get_api_ip
 };
 use std::{env, fs};
-use tauri::{generate_handler, Manager, WindowBuilder};
+use tauri::{generate_handler, Manager};
 use tauri_plugin_log::LogTarget;
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
@@ -38,6 +38,8 @@ async fn close_splashscreen(window: tauri::Window) {
   
 
  fn main() -> Result<(), Box<dyn std::error::Error>> {
+
+
     create_configuartion_file_setting();
     #[cfg(target_os = "linux")]
     setup_wayland();
@@ -111,6 +113,7 @@ async fn close_splashscreen(window: tauri::Window) {
            
             Ok(())
         })
+       
         .invoke_handler(generate_handler![
             get_config_dir,
             open_web_browser,

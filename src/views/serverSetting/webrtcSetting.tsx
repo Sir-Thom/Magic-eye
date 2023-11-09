@@ -6,7 +6,7 @@ import { ICEServer } from "../../interfaces/IServer";
 
 export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const [webrtc, setWebrtc] = useState(settings.webrtc || true);
-
+     
     const [webrtcAddress, setWebrtcAddress] = useState(
         settings.webrtcAddress || ":8889"
     );
@@ -133,7 +133,6 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
             webrtcICEUDPMuxAddress: webrtcICEUDPMuxAddress,
             webrtcICETCPMuxAddress: webrtcICETCPMuxAddress
         };
-        console.log(updatedSettings);
         onSave(updatedSettings);
         patchSetting(updatedSettings);
     };
@@ -175,13 +174,14 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         <label className="mt-8 mb-6">
                                             Webrtc Trusted Proxies:
                                         </label>
-                                        <label className="mt-8 mb-6">
+                                        <label className="mt-8 mb-3">
                                             Webrtc ICE Servers:
                                         </label>
-                                        <label className="mt-5 mb-16">
+                                        <label className="mt-5 mb-32">
                                             Webrtc ICE Servers2:
                                         </label>
-                                        <label className="mt-56 mb-5">
+                                        <label className="mt-4
+                                         mb-5">
                                             Webrtc ICE Host NAT 1 To 1 IPs:
                                         </label>
                                         <label className="mt-7 mb-5">
@@ -203,7 +203,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
 
                                         <input
                                             type="text"
-                                            className="my-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                                            className="my- h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                                             value={webrtcAddress}
                                             onChange={handleWebrtcAddress}
                                         />

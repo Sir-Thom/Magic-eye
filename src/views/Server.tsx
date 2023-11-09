@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
-import { Titlebar } from "../components/titlebar/titlebar";
+import {useState } from "react";
+
 import SideMenu from "../components/sideMenu/sideMenu";
 import Toast from "../components/toast/Toast";
 import RtspServerInfo from "./ServerInfoView/RtspServerInfo";
+import { createPortal } from "react-dom";
+import Titlebar from "../components/titlebar/titlebar";
+import RtmpConnInfo from "./ServerInfoView/RtmpServerInfo";
 export default function ServerInfo() {
     const [error, setError] = useState<string | null>(null);
     const [currentSetting, setCurrentSetting] = useState("RTSP"); // Initially show the "API Setting" component
@@ -21,7 +24,7 @@ export default function ServerInfo() {
 
     return (
         <>
-            <Titlebar />
+             {createPortal(<Titlebar/> , document.getElementById("titlebar")!)}
             <div className="flex flex-col  h-screen">
                 <div className="flex">
                     <div className="w-1/4 mx-auto fixed  h-full">
@@ -35,6 +38,9 @@ export default function ServerInfo() {
                     <div className="w-3/4 mx-auto mt-4 mr-24">
                         <div className="mx-auto mt-24">
                             {currentSetting === "RTSP" && <RtspServerInfo />}
+                        </div>
+                        <div className="mx-auto mt-24">
+                            {currentSetting === "RTMP" && <RtmpConnInfo />}
                         </div>
                         {error && (
                             <Toast

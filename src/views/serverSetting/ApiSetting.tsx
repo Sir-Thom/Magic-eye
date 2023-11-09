@@ -23,10 +23,6 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
         setApiEnabled(!apiEnabled); // Toggle the API state
     };
 
-    const handleApiAddressChange = (event) => {
-  //      setApiAddress(event.target.value);
-    };
-
     const handleMetricsChange = () => {
         setMetricsEnabled(!metricsEnabled); // Toggle the metrics state
     };

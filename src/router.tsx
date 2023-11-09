@@ -1,19 +1,13 @@
 import App from "./App";
 import Settings from "./views/Settings";
 import Server from "./views/Server";
-import { createBrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-export const router = createBrowserRouter([
-    {
-        path: "settings",
-        element: <Settings />
-    },
-    {
-        path: "server",
-        element: <Server />
-    },
-    {
-        path: "/",
-        element: <App />
-    }
-]);
+export default function Router() {
+    return (<Routes>
+         <Route path="/settings" element={<Settings />} />
+         <Route path="/server" element={<Server />} />
+            <Route path="/" element={<App />} />
+         </Routes>);
+}
+

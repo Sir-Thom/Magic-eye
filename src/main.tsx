@@ -1,17 +1,24 @@
+// main.tsx
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter} from "react-router-dom"; // Import BrowserRouter
 import "./styles.css";
-import { RouterProvider } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { router } from "./router";
-ReactDOM.createRoot(document.getElementById("root")).render(
+import Router from "./router";
+
+
+
+const rootDomNode = document.getElementById('root');
+const root = createRoot(rootDomNode);
+root.render(
+  <BrowserRouter basename="/">
     <React.StrictMode>
-        <AnimatePresence
-            initial={true}
-            onExitComplete={() => null}
-            mode={"sync"}
-        >
-            <RouterProvider router={router} />
-        </AnimatePresence>
+      <AnimatePresence
+        initial={true}
+        onExitComplete={() => null}
+        mode={"sync"}
+      > <Router></Router>
+      </AnimatePresence>
     </React.StrictMode>
+  </BrowserRouter>
 );

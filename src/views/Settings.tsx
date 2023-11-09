@@ -6,7 +6,7 @@ import LoggingSetting from "./serverSetting/LoggingSetting";
 import GeneralSetting from "./appSetting/appSetting";
 import WebrtcSetting from "./serverSetting/webrtcSetting";
 import RtmpSetting from "./serverSetting/RtmpSetting";
-import { Titlebar } from "../components/titlebar/titlebar";
+import  "../components/titlebar/titlebar";
 import { invoke } from "@tauri-apps/api";
 import {
     IApiSettings,
@@ -24,6 +24,8 @@ import Toast from "../components/toast/Toast";
 import SrtSetting from "./serverSetting/SrtSetting";
 import SuccessAlert from "../components/alert/sucessAlert";
 import RecordSetting from "./serverSetting/RecordSetting";
+import Titlebar from "../components/titlebar/titlebar";
+import { createPortal } from "react-dom";
 
 export default function Setting() {
     const [configData, setConfigData] = useState<IServer | null>(null);
@@ -273,10 +275,7 @@ async function GetApiIp() {
                     "record setting: " + JSON.stringify(recordSettings)
                 );
 
-                invoke("save_api_ip", {}).then((res) => {
-                    console.log("save api: "+res);
-                }
-                );
+              
             })
 
             .catch(() => {
@@ -297,7 +296,7 @@ async function GetApiIp() {
 
             await invoke("patch_server_request", {
                 configData: configData,
-                url: `http:///${apiIp}/v3/config/global/patch`
+                url: `http://${apiIp}/v3/config/global/patch`
             }).then((response: string) => {
                 console.log("response: " + response);
                 const parsedResponse: IServer = JSON.parse(response);
@@ -309,7 +308,7 @@ async function GetApiIp() {
                 setSuccessMessage("Settings saved successfully");
                
                 // get the updated config
-                const serverUrl = `http:///${ GetApiIp()}/v3/config/global/get`;
+                const serverUrl = `http://${ GetApiIp()}/v3/config/global/get`;
                 invoke("get_server_request", { url: serverUrl }).then(
                     (response: string) => {
                         const parsedResponse: IServer = JSON.parse(response);
@@ -354,7 +353,7 @@ async function GetApiIp() {
 
     return (
         <>
-            <Titlebar />
+              {createPortal(<Titlebar/> , document.getElementById("titlebar")!)}
             <div className="flex flex-col  h-screen">
                 <div className="flex">
                     <div className="w-1/4 mx-auto   h-full">
@@ -365,7 +364,7 @@ async function GetApiIp() {
                             }
                         />
                     </div>
-                    <div className="w-3/4 mx-auto mt-4 mr-24">
+                    <div className="w-3/4 mx-auto mt-4 mr-56">
                         <div className="mx-auto z-auto mt-24">
                             {successMessage && (
                                 <SuccessAlert

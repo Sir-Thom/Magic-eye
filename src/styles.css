@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+    
     :root {
         @apply  outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-900  text-text-dark;
     }
