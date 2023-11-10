@@ -18,10 +18,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
     };
 
     return (
-        <div className="bg-gray-800 h-full min-h-screen w-72 overflow-y-auto flex flex-col">
+        <div className="bg-gray-800  h-full min-h-screen shadow-sm shadow-gray-700 w-72 overflow-y-auto flex flex-col">
             <div className="flex h-24 dark:bg-window-dark-800 bg-window-light-50 justify-start items-center">
                 <Link
-                    className="flex justify-center items-center w-8 mt-12 dark:text-text-dark text-text-light rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+                    className="flex justify-center items-center mx-1 w-8 mt-12 dark:text-text-dark text-text-light rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
                     to="/"
                 >
                     <IconArrowLeft
@@ -38,7 +38,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
                         <button
                             onClick={() => handleMenuItemClick(menuItem)}
                             title={menuItem.label}
-                            className={`w-full rounded-lg text-justify mx-auto py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600 ${
+                            className={`w-full rounded-lg text-justify  mx-auto py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600 ${
                                 clickedButton === menuItem.label
                                     ? "bg-accent-color1-600"
                                     : ""

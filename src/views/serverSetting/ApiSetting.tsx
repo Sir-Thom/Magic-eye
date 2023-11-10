@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 
+import Toggle from "../../components/toggle/toggle";
+
 export default function ApiSetting({ settings, onSave, patchSetting }) {
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
     const [metricsEnabled, setMetricsEnabled] = useState(
@@ -94,11 +96,11 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                             <div className="flex flex-col text-right items-end">
                                 <label className="my-2">API:</label>
                                {/* <!-- <label className="my-2">API Address:</label> --> */}
-                                <label className="my-2">Metrics:</label>
-                                <label className="mt-3.5 mb-2">Metrics Address:</label>
+                                <label className="my-3">Metrics:</label>
+                                <label className="mt-3 mb-4">Metrics Address:</label>
                                 <label className="my-2">Pprof:</label>
                                 <label className="my-4">Pprof Address:</label>
-                                <label className="mt-5 mb-2">Run On Connect:</label>
+                                <label className="mt-5 mb-2.5">Run On Connect:</label>
                                 <label className="mt-5 mb-2">
                                     Run On Connect Restart:
                                 </label>
@@ -106,17 +108,14 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                         </div>
                         <div className="col-span-1">
                             <div className="flex flex-col">
-                                <Checkbox
-                                    className="mt-3 my-2"
-                                    value={apiEnabled.toString()}
-                                    checked={apiEnabled}
-                                    onChange={handleApiEnabledChange}
-                                />
+                            <Toggle className="my-2 mt-3" enabled={apiEnabled} onChange={handleApiEnabledChange} />
+
+                           
                             
-                                <Checkbox
+                                <Toggle
                                     className=" mt-4 mb-2"
                                     value={metricsEnabled.toString()}
-                                    checked={metricsEnabled}
+                                    enabled={metricsEnabled}
                                     onChange={handleMetricsChange}
                                 />
                                 <input
@@ -125,10 +124,10 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                     value={metricsAddress}
                                     onChange={handleMetricsAddressChange}
                                 />
-                                <Checkbox
-                                    className="mt-3 mb-2 my-2"
+                                <Toggle
+                                    className="mt-4 mb-2"
                                     value={pprofEnabled.toString()}
-                                    checked={pprofEnabled}
+                                    enabled={pprofEnabled}
                                     onChange={handlePprofChange}
                                 />
                                 <input
@@ -143,10 +142,10 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                     value={runOnConnect}
                                     onChange={handleRunOnConnectChange}
                                 />
-                                <Checkbox
+                                <Toggle
                                     className="mt-3.5 mb-2"
                                     value={runOnConnectRestart.toString()}
-                                    checked={runOnConnectRestart}
+                                    enabled={runOnConnectRestart}
                                     onChange={handleRunOnConnectRestartChange}
                                 />
                             </div>

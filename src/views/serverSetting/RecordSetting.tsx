@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import Checkbox from "../../components/checkBox/checkBox";
 import Toast from "../../components/toast/Toast";
+import Toggle from "../../components/toggle/toggle";
 
 export default function RecordSetting({ settings, onSave, patchSetting }) {
     const [error, setError] = useState<string | null>(null);
@@ -102,45 +102,45 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                         <div className="col-span-1">
                             <div className="flex flex-col text-right items-end">
                                 <label className="my-2">Record:</label>
-                                <label className="mt-5 mb-6">Record Path:</label>
-                                <label className="mt-5 mb-3">Record Format:</label>
-                                <label className="mt-7 mb-3">
+                                <label className="mt-5 mb-3">Record Path:</label>
+                                <label className="mt-5 mb-4">Record Format:</label>
+                                <label className="mt-4 mb-3">
                                     Record Segment Duration:
                                 </label>
-                                <label className="my-8">
+                                <label className="mt-5 mb-3">
                                     Record Delete After:
                                 </label>
                             </div>
                         </div>
                         <div className="col-span-1">
                             <div className="flex flex-col">
-                                <Checkbox
+                                <Toggle
                                     className="my-3"
                                     value={record.toString()}
-                                    checked={record}
+                                    enabled={record}
                                     onChange={handleRecordChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordPath}
                                     onChange={handleRecordPathChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordFormat}
                                     onChange={handleRecordFormatChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3 pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordSegmentDuration}
                                     onChange={handleRecordSegmentDurationChange}
                                 />
                                 <input
                                     type="text"
-                                    className="my-3  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    className="my-3  pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     value={recordDeleteAfter}
                                     onChange={handleRecordDeleteAfterChange}
                                 />
