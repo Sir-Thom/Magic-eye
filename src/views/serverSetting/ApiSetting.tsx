@@ -5,7 +5,6 @@ import Checkbox from "../../components/checkBox/checkBox";
 
 export default function ApiSetting({ settings, onSave, patchSetting }) {
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
-   // const [apiAddress, setApiAddress] = useState(settings.apiAddress);
     const [metricsEnabled, setMetricsEnabled] = useState(
         Boolean(settings.metrics)
     );
@@ -113,12 +112,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                                     checked={apiEnabled}
                                     onChange={handleApiEnabledChange}
                                 />
-                                {/* <input
-                                    type="text"
-                                    className="my-2 pr-1   border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    //value={apiAddress}
-                                    onChange={handleApiAddressChange}
-                                /> */}
+                            
                                 <Checkbox
                                     className=" mt-4 mb-2"
                                     value={metricsEnabled.toString()}

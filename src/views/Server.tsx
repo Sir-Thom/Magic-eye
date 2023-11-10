@@ -6,6 +6,7 @@ import RtspServerInfo from "./ServerInfoView/RtspServerInfo";
 import { createPortal } from "react-dom";
 import Titlebar from "../components/titlebar/titlebar";
 import RtmpConnInfo from "./ServerInfoView/RtmpServerInfo";
+import HLsConnInfo from "./ServerInfoView/HlsServerInfo";
 export default function ServerInfo() {
     const [error, setError] = useState<string | null>(null);
     const [currentSetting, setCurrentSetting] = useState("RTSP"); // Initially show the "API Setting" component
@@ -41,6 +42,9 @@ export default function ServerInfo() {
                         </div>
                         <div className="mx-auto mt-24">
                             {currentSetting === "RTMP" && <RtmpConnInfo />}
+                        </div>
+                        <div className="mx-auto mt-24">
+                            {currentSetting === "HLS" && <HLsConnInfo />}
                         </div>
                         {error && (
                             <Toast

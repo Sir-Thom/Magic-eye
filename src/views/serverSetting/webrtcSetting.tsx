@@ -139,19 +139,18 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
 
     return (
         <>
-            <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
-                <motion.div
-                    variants={fadeIn}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                >
+              <div className="w-full h-full flex justify-center items-center">
+      <motion.div
+        variants={fadeIn}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="w-full max-w-2xl p-8 ml-20  rounded-md"
+      >
                     {settings && (
-                        <div className="my-4 ">
-                            <h2 className="text-center font-bold text-3xl">
-                                Webrtc Setting
-                            </h2>
-                            <div className="grid grid-cols-2 content-between place-content-start mt-6 gap-4">
+                        <div className="space-y-6">
+                        <h2 className="text-center font-bold text-3xl">Webrtc Setting</h2>
+                        <div className="grid grid-cols-2 gap-6">
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">Webrtc:</label>
@@ -192,7 +191,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="col-span-1 mb-12">
+                                <div className="flex flex-col space-y-4">
                                     <div className="flex flex-col">
                                         <Checkbox
                                             className="my-3"

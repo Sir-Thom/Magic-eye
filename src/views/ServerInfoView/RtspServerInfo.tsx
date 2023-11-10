@@ -6,33 +6,44 @@ import ListView from "../../components/ListBox/listView";
 
 export default function RtspServerInfo() {
     const [items, setItems] = useState<any[]>([]);
+
     useEffect(() => {
-        invoke("get_server_request", {
-            url: "http://127.0.0.1:9997/v3/rtspconns/list"
-        }).then((response) => {
-            console.log("response:", JSON.parse(response.toString()));
-            response = JSON.parse(response.toString());
-            console.log("response:", response);
-            if (response && (response as { items: any[] }).items) {
-                setItems((response as { items: any[] }).items);
+        getAllRtspSessions();
+    }, []);
+
+    async function getAllRtspSessions() {
+        try {
+            const response = await invoke("get_server_request", {
+                url: "http://127.0.0.1:9997/v3/rtspsessions/list",
+            });
+            const parsedResponse = JSON.parse(response.toString());
+            if (parsedResponse && parsedResponse.items) {
+                setItems(parsedResponse.items);
             } else {
                 console.error("Response does not contain 'items'.");
             }
-        });
-    }, []);
-
-    async function KickRstpSession (valueToSend:string) {
-        invoke("post_server_request",{url:"http://127.0.0.1:9997/v3/rtspsessions/kick/",value:valueToSend}).
-        then((res) =>{
-            console.log(res)
-        })
-        
+        } catch (error) {
+            console.error("Error fetching RTSP sessions:", error);
+        }
     }
-    
-  
+
+    async function kickRstpSession(valueToSend: string) {
+        try {
+            await invoke("post_server_request", {
+                url: `http://127.0.0.1:9997/v3/rtspsessions/kick/`,value:valueToSend
+            });
+
+            // Delay for a short period to allow the server to process the kick
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            // Update the UI by fetching the updated list of sessions
+            getAllRtspSessions();
+        } catch (error) {
+            console.error("Error kicking RTSP session:", error);
+        }
+    }
 
     return (
-
         <motion.div
             className="w-3/4 overscroll-contain mx-auto flex  flex-co justify-center items-start"
             variants={fadeIn}
@@ -41,15 +52,15 @@ export default function RtspServerInfo() {
             exit="exit"
         >
             <div className="mt-4 mb-2">
-            <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
-                                RTSP Informations
-                            </h2>
-                           
-                            <ListView fetchData={items} canDelete={false}  />
+                <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
+                    RTSP Sessions
+                </h2>
+                <ListView
+                    fetchData={items}
+                    canDelete={true}
+                    DeleteFunc={kickRstpSession}
+                />
             </div>
         </motion.div>
-        
     );
 }
-
-

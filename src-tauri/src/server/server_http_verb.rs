@@ -122,7 +122,7 @@ pub async fn post_server_request(url: &str, value: Value) -> Result<(), String> 
     let post_url = format!("{}{}", url, data).replace('"', "");
     info!("POST request to URL: {}", post_url);
     let response = reqwest::Client::new()
-        .post(url)
+        .post(post_url)
         .header("Content-Type", "application/json") 
         .body(data)
         .send()
@@ -133,7 +133,7 @@ pub async fn post_server_request(url: &str, value: Value) -> Result<(), String> 
         })?;
 
     debug!("Response: {:?}", response);
-
+  
     if response.status().is_success() {
         Ok(())
     } else {
