@@ -13,8 +13,8 @@ function App() {
 
     return (
         <>
-        {/*https://react.dev/reference/react-dom/createPortal*/}
-           {createPortal(<Titlebar/> , document.getElementById("titlebar")!)}
+            {/*https://react.dev/reference/react-dom/createPortal*/}
+            {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
             <VidPlayer />
         </>
     );
