@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import Checkbox from "../../components/checkBox/checkBox";
+import Toggle from "../../components/toggle/toggle";
 
 export default function RtmpSetting({ settings, onSave, patchSetting }) {
     const [rtmp, setRtmp] = useState(settings.rtmp || true);
@@ -107,10 +107,10 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                                 </div>
                                 <div className="col-span-1">
                                     <div className="flex flex-col">
-                                        <Checkbox
+                                        <Toggle
                                             className="my-3"
                                             value={rtmp.toString()}
-                                            checked={rtmp}
+                                            enabled={rtmp}
                                             onChange={handleRtmp}
                                         />
 

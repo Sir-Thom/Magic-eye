@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import Checkbox from "../../components/checkBox/checkBox";
+import Toggle from "../../components/toggle/toggle";
 
 export default function SRTSetting({ settings, onSave, patchSetting }) {
     const [srt, setSRT] = useState(Boolean(settings.srt));
@@ -46,16 +46,16 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                         <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
                             <div className="col-span-1">
                                 <div className="flex flex-col text-right items-end">
-                                    <label className="my-2">SRT:</label>
+                                    <label className="mt-2 mb-3">SRT:</label>
                                     <label className="mt-5 mb-3">SRT Address:</label>
                                 </div>
                             </div>
                             <div className="col-span-1">
                                 <div className="flex flex-col">
-                                    <Checkbox
+                                    <Toggle
                                         className=" mt-3 mb-3"
                                         value={srt.toString()}
-                                        checked={srt}
+                                       enabled={srt}
                                         onChange={handleSRTChange}
                                     />
                                     <input

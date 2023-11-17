@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Checkbox from "../../components/checkBox/checkBox";
 import { ICEServer } from "../../interfaces/IServer";
+import Toggle from "../../components/toggle/toggle";
 
 export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const [webrtc, setWebrtc] = useState(settings.webrtc || true);
@@ -216,7 +217,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                   </div>
                     </form>*/}
               
-                        <div className="grid place-content-start grid-cols-2 gap-6">
+                        <div className="grid place-content-start grid-cols-2 gap-12">
                                 <div className="col-span-1">
                                     <div className="flex flex-col align-baseline text-justify items-end">
                                         <label className="my-2">Webrtc:</label>
@@ -259,10 +260,10 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                 </div>
                                 <div className="flex flex-col space-y-4">
                                     <div className="flex flex-col">
-                                        <Checkbox
+                                        <Toggle
                                             className="my-3"
                                             value={webrtc.toString()}
-                                            checked={webrtc}
+                                            enabled={webrtc}
                                             onChange={handleWebrtc}
                                         />
 
@@ -272,10 +273,10 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                             value={webrtcAddress}
                                             onChange={handleWebrtcAddress}
                                         />
-                                        <Checkbox
+                                        <Toggle
                                             className="my-3"
                                             value={webrtcEncryption.toString()}
-                                            checked={webrtcEncryption}
+                                            enabled={webrtcEncryption}
                                             onChange={handleWebrtcEncryption}
                                         />
                                         <input

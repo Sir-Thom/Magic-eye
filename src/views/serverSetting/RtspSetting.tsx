@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Checkbox from "../../components/checkBox/checkBox";
 import { fadeIn } from "../../utils/animation/screenAnimation";
+import Toggle from "../../components/toggle/toggle";
 
 export default function RtspSetting({ settings, onSave, patchSetting }) {
     const [rtsp, setRtsp] = useState(settings.rtsp || true);
@@ -125,11 +125,11 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                     <label className="mt-2">
                                         RTSP Disable:
                                     </label>
-                                    <label className="mt-5 mb-6">Protocols:</label>
-                                    <label className="mt-7 mb-2">
+                                    <label className="mt-5 mb-7">Protocols:</label>
+                                    <label className="mt-8 mb-3">
                                         RTSP Encryption:
                                     </label>
-                                    <label className="mt-4 mb-3">
+                                    <label className="mt-4 mb-4">
                                         RTSP Address:
                                     </label>
                                     <label className="mt-5 mb-3">
@@ -152,16 +152,16 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                             </div>
                             <div className="col-span-1">
                                 <div className="flex flex-col">
-                                    <Checkbox
+                                    <Toggle
                                         className="my-3"
                                         value={rtsp.toString()}
-                                        checked={rtsp}
+                                        enabled={rtsp}
                                         onChange={handleRtsp}
                                     />
-                                    <Checkbox
-                                        className="mt-3 mb-3"
+                                    <Toggle
+                                        className="mt-2 mb-3"
                                         value={rtspDisable.toString()}
-                                        checked={rtspDisable}
+                                        enabled={rtspDisable}
                                         onChange={handleRtspDisable}
                                     />
                                     <textarea
@@ -169,10 +169,10 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                                         value={protocols}
                                         onChange={handleProtocols}
                                     />
-                                    <Checkbox
-                                        className="my-2"
+                                    <Toggle
+                                        className="my-3"
                                         value={encryption.toString()}
-                                        checked={encryption}
+                                        enabled={encryption}
                                         onChange={handleEncryption}
                                     />
                                     <input

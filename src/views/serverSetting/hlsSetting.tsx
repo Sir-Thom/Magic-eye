@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
 import { fadeIn } from "../../utils/animation/screenAnimation";
-
-import Checkbox from "../../components/checkBox/checkBox";
+import Toggle from "../../components/toggle/toggle";
 
 export default function HlsSetting({ settings, onSave, patchSetting }) {
     const [hlsEnabled, setHlsEnabled] = useState(settings.hls || true);
@@ -216,10 +214,10 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                 {/* Inputs column */}
                                 <div className="col-span-1">
                                     <div className="flex flex-col mb-10">
-                                        <Checkbox
+                                        <Toggle
                                             className="my-2"
                                             value={hlsEnabled.toString()}
-                                            checked={hlsEnabled}
+                                            enabled={hlsEnabled}
                                             onChange={handleHlsEnabledChange}
                                         />
                                         <input
@@ -236,13 +234,13 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                                 handleHlsAllowOriginChange
                                             }
                                         />
-                                        <Checkbox
-                                            className="mt-3 mb-2"
+                                        <Toggle
+                                            className="mt-2 mb-2"
                                             value={hlsAlwaysRemux.toString()}
                                             onChange={
                                                 handleHlsAlwaysRemuxChange
                                             }
-                                            checked={hlsAlwaysRemux}
+                                            enabled={hlsAlwaysRemux}
                                         />
                                         <input
                                             type="text"
@@ -251,17 +249,17 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                                             onChange={handleHlsDirectoryChange}
                                         />
                                         
-                                        <Checkbox
-                                            className="mt-3.5 mb-2"
+                                        <Toggle
+                                            className="mt-2.5 mb-2"
                                             value={hlsDisable.toString()}
                                             onChange={handleHlsDisableChange}
-                                            checked={hlsDisable}
+                                            enabled={hlsDisable}
                                         />
-                                        <Checkbox
-                                            className="mt-4 mb-2"
+                                        <Toggle
+                                            className="mt-2.5 mb-2"
                                             value={hlsEncryption.toString()}
                                             onChange={handleHlsEncryptionChange}
-                                            checked={hlsEncryption}
+                                            enabled={hlsEncryption}
                                         />
                                         <input
                                             type="text"
