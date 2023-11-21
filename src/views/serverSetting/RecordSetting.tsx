@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import Toast from "../../components/toast/Toast";
+import Toast from "../../components/notification/notification";
 import Toggle from "../../components/toggle/toggle";
 
 export default function RecordSetting({ settings, onSave, patchSetting }) {

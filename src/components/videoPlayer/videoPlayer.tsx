@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useWindowDimensions } from "../../utils/WindowSize";
-import Toast from "../toast/Toast";
+import Toast from "../notification/notification";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api";

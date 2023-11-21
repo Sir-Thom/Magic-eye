@@ -20,7 +20,7 @@ import {
     IRecordSettings
 } from "../interfaces/IServer";
 import SideMenu from "../components/sideMenu/sideMenu";
-import Toast from "../components/toast/Toast";
+import Notification from "../components/notification/notification";
 import SrtSetting from "./serverSetting/SrtSetting";
 import SuccessAlert from "../components/alert/sucessAlert";
 import RecordSetting from "./serverSetting/RecordSetting";
@@ -363,7 +363,7 @@ export default function Setting() {
                             }
                         />
                     </div>
-                    <div className="w-3/4 mx-auto mt-4 mr-56">
+                    <div className="w-3/4 mx-auto mt-4 ">
                         <div className="mx-auto z-auto mt-24">
                             {successMessage && (
                                 <SuccessAlert
@@ -457,16 +457,18 @@ export default function Setting() {
                             )}
                         </div>
                     </div>
+                    
                 </div>
-                {error && (
-                    <Toast
-                        message={error}
-                        timer={5000}
-                        type={"error"}
-                        onDismiss={handleDismissErrorToast}
-                    />
-                )}
+                
             </div>
+            {error && (
+                            <Notification
+                                message={error}
+                                timer={5000}
+                                type={"error"}
+                                onDismiss={handleDismissErrorToast}
+                            />
+                        )}
         </>
     );
 }

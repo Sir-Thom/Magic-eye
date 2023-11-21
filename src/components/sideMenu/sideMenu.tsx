@@ -18,7 +18,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
     };
 
     return (
-        <div className="bg-gray-800  h-full min-h-screen shadow-sm shadow-gray-700 w-72 overflow-y-auto flex flex-col">
+        <div className="bg-gray-800  fixed h-full min-h-screen shadow-sm shadow-gray-700 w-72 overflow-y-auto flex flex-col">
             <div className="flex h-24 dark:bg-window-dark-800 bg-window-light-50 justify-start items-center">
                 <Link
                     className="flex justify-center items-center mx-1 w-8 mt-12 dark:text-text-dark text-text-light rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
@@ -31,7 +31,6 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
                 </Link>
             </div>
             <ul className="pl-2 flex-1">
-                {" "}
                 {/* Use flex-1 to make this part flexible */}
                 {menuItems.map((menuItem, index) => (
                     <li key={index} className="my-2 mx-2">

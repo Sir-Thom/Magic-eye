@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Toast from"../../components/toast/Toast";
+import Toast from"../../components/notification/notification";
 import Dropdown from "../../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../../components/alert/sucessAlert";
