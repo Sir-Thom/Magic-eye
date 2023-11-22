@@ -77,7 +77,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
     const APISection = () => (
-        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
         <div>
           <h2 className="text-base font-semibold leading-7 text-white">API</h2>
           <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -113,7 +113,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
           );
 
           const MetricsSection = () => (
-            <div className="grid  w-full place-content-start  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+            <div className="grid  w-full place-content-start  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
             <div>
               <h2 className="text-base font-semibold leading-7 text-white">Metrics</h2>
               <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -144,7 +144,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
           );
 
             const PprofSection = () => (
-                <div className="grid  w-full  overscroll-contain  overflow-hidden grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+                <div className="grid  w-full  overscroll-contain  overflow-hidden grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
                 <div>
                   <h2 className="text-base font-semibold leading-7 text-white">Pprof</h2>
                   <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -180,8 +180,10 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
         className="w-full  rounded-md"
       >
         {settings && (
-          <div className="mx-auto w-full">
-            <h2 className="text-center my-3 font-bold text-3xl">API Setting</h2>
+          <div className="mx-auto  w-full">
+         
+            <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">API Setting</h2>
+
             <div className="divide-y  w-full divide-window-dark-500">
             {APISection()}
             {MetricsSection()}

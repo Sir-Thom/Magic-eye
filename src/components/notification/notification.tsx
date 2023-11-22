@@ -69,7 +69,7 @@ export default function Notification({  onDismiss, timer, type, message })  {
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <div className={`pointer-events-auto  fixed bottom-20 right-4 z-50 w-full max-w-sm overflow-hidden rounded-lg ${getToastClassName()}`}>
+      <div className={`pointer-events-auto relative float-right   bottom-20 right-4 z-50 w-full max-w-sm overflow-hidden rounded-lg ${getToastClassName()}`}>
         <div className="p-4">
           <div className="flex items-start">
             <div className="flex-shrink-0">{getIcon()}</div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Toast from"../../components/notification/notification";
+import Notification from"../../components/notification/notification";
 import Dropdown from "../../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../../components/alert/sucessAlert";
@@ -209,14 +209,21 @@ export default function GeneralSetting() {
                     </div>
                 </motion.div>
             </div>
-            {error && (
-                <Toast
-                    message={error}
-                    timer={5000}
-                    type={"error"}
-                    onDismiss={handleDismissErrorToast}
-                />
-            )}
+            {error &&(
+                            <Notification
+                                message={error}
+                                timer={5000}
+                                type={"error"}
+                                onDismiss={handleDismissErrorToast}
+                            />
+                        )}  {successMessage && (
+                            <Notification
+                                message={successMessage}
+                                onDismiss={handleCloseAlert}
+                                timer={5000}
+                                type={"success"}
+                            />
+                        )}
         </>
     );
 }

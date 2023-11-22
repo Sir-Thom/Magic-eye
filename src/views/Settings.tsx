@@ -354,7 +354,7 @@ export default function Setting() {
         <>
             {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
            
-                <div className="grid relative w-full overflow-hidden grid-cols-12 ">
+                <div className="grid  relative w-full overflow-hidden grid-cols-12 ">
                     <div className=" col-span-2  pt-10 ">
                         <SideMenu
                             menuItems={menuItems}
@@ -362,8 +362,8 @@ export default function Setting() {
                                 setCurrentSetting(menuItem.label)
                             }
                         />
-                    </div>
-                    <div className="mt-12 row-start-1 row-end-2 w-full col-start-4 col-span-9 h-full   ">
+                    </div>class="flex my-auto py-3 dark:bg-window-dark-900 bg-window-light-50 justify-start items-center"
+                    <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
                         <div className="mx-auto z-auto my-auto ">
                             {successMessage && (
                                 <SuccessAlert
@@ -460,7 +460,7 @@ export default function Setting() {
                     
                 </div>
                 
-            {error && (
+            {error &&(
                             <Notification
                                 message={error}
                                 timer={5000}

@@ -44,45 +44,25 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
-    return (
-        <>
-            <div className="w-3/4 mx-auto  v  flex justify-center items-center">
-                <motion.div
-                    variants={fadeIn}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                >
-                    {settings && (
-                        <div className="mt-4">
-                            <h2 className=" mx-auto text-center font-bold text-3xl">
-                                Logging Settings
-                            </h2>
-                            <div className="grid grid-cols-2 mt-6 content-between place-content-start gap-4">
-                                <div className="col-span-1">
-                                    <div className="flex flex-col text-right items-end">
-                                        {/* Labels column */}
-                                        <label className="mt-1 mb-2">
-                                            Log Level:
-                                        </label>
-                                        <label className="mt-4 mb-2">
-                                            Log Destinations:
-                                        </label>
-                                        <label className="mt-4 mb-4">Log file:</label>
-                                    </div>
-                                </div>
+    const LoggingSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+        <div>
+          <h2 className="text-base font-semibold leading-7 text-white">Logging</h2>
+          <p className="mt-1 text-sm leading-6 text-gray-400">
+               
+          </p>
+        </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-3 grid grid-cols-2">
+              
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">Log Level:</label>
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3 ">Run On Connect:</label>
+                <label className="place-content-center col-start-1 row-start-3 row-end-4 my-auto">Run On Connect Restart:</label>
+      
+             <Dropdown className=" row-start-1 my-auto place-content-center row-end-2"  options={logLevels} value={logLevel} onChange={handleLogLevelChange} />
 
-                                {/* Inputs column */}
-                                <div className="col-span-1">
-                                    <div className="flex flex-col">
-                                        <Dropdown
-                                            options={logLevels}
-                                            value={logLevel}
-                                            onChange={handleLogLevelChange}
-                                        />
-                                        <input
+             <input
                                             type="text"
-                                            className="appearance-none h-8  border mx-2 mt-4 mb-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                            className="appearance-none h-8  border place-content-center  my-auto  row-start-2 row-end-3  border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                             value={logDestinations}
                                             onChange={
                                                 handleLogDestinationsChange
@@ -90,32 +70,53 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                                         />
                                         <input
                                             type="text"
-                                            className="appearance-none h-8  border m-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                            className="appearance-none h-8  border my-auto  row-start-3 row-end-4 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                             value={logFile}
                                             onChange={handleLogFileChange}
                                         />
-                                    </div>
-                                </div>
-                                <div className="my-6 flex justify-end fixed bottom-0 right-0">
-                                    <button
-                                        type="button"
-                                        className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                        onClick={handleSaveConfig}
-                                    >
-                                        Apply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </motion.div>
+                 </div>
+                </div>
+              
+            
+            
+  
+          );
+
+
+    return (
+        <div className="mx-auto  w-full  ">
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="w-full  rounded-md"
+        >
+          {settings && (
+            <div className="mx-auto w-full">
+              <h2 className="text-center my-3 font-bold text-3xl">Logging Setting</h2>
+              <div className="divide-y  w-full divide-window-dark-500">
+              {LoggingSection()}
+              </div>
+              <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                <button
+                  type="button"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                  onClick={handleSaveConfig}
+                >
+                  Apply
+                </button>
+              </div>
             </div>
-        </>
-    );
-}
+          )}
+        </motion.div>
+      </div>
+      );
+  }
+
