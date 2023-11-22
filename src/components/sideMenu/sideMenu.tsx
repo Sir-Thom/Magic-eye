@@ -18,15 +18,15 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
     };
 
     return (
-        <div className="bg-gray-800  fixed h-full min-h-screen shadow-sm shadow-gray-700 w-72 overflow-y-auto flex flex-col">
-            <div className="flex h-24 dark:bg-window-dark-800 bg-window-light-50 justify-start items-center">
+        <div className="bg-gray-800 fixed h-screen shadow-sm shadow-gray-700  overflow-y-auto flex w-1/4  flex-col">
+            <div className="flex my-auto py-4  dark:bg-window-dark-800 bg-window-light-50 justify-start items-center">
                 <Link
-                    className="flex justify-center items-center mx-1 w-8 mt-12 dark:text-text-dark text-text-light rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+                    className="flex  m-auto  mt-2 justify-center items-center my-auto  mx-1 w-10  dark:text-text-dark text-text-light rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
                     to="/"
                 >
                     <IconArrowLeft
                         size={30}
-                        className="flex justify-center items-center dark:text-text-dark text-text-light"
+                        className="flex justify-center m-auto   items-center dark:text-text-dark text-text-light"
                     />
                 </Link>
             </div>

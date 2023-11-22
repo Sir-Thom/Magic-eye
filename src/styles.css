@@ -10,6 +10,9 @@
     input[type="text"] {
         @apply border  focus:border-accent-color1-400  bg-window-dark-400  text-text-dark;
     }
+    input[type="password"] {
+        @apply border  focus:border-accent-color1-400  bg-window-dark-400  text-text-dark;
+    }
     input[type="number"] {
         @apply  bg-window-dark-400  text-text-dark;
     }

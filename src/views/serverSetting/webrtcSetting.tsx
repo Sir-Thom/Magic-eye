@@ -139,7 +139,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     };
    
     const renderWebrtcSectionAddress = () => (
-             <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+             <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
       <div>
         <h2 className="text-base font-semibold leading-7 text-white">Webrtc Address</h2>
         <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -171,7 +171,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
         );
 
         const renderWebrtcSectionSecurity = () => (
-            <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+            <div className="grid grid-cols-1 w-full gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
      <div>
        <h2 className="text-base font-semibold leading-7 text-white">Security</h2>
        <p className="mt-1 text-sm leading-6 text-gray-400">
@@ -224,16 +224,16 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
        );
 
        const renderWebrtcSectionICEServers = () => (
-        <div className="grid max-w-7xl w-full grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
+        <div className="grid  w-full grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 bg-window-dark-800">
           <div className="col-span-3">
             <h2 className="text-base font-semibold leading-7 text-white mb-4">ICE Servers</h2>
           </div>
           <div className="col-span-1 grid grid-rows-5 gap-y-2">
-            <label className="mt-16 mb-2">Webrtc ICE Servers:</label>
-            <label className="mb-2">Webrtc ICE Servers2:</label>
-            <label className="mb-2">Webrtc ICE Host NAT 1 To 1 IPs:</label>
-            <label className="mb-2">Webrtc ICE UDP Mux Address:</label>
-            <label className="mb-2">Webrtc ICE TCP Mux Address:</label>
+            <label className="mt-16 mb-16">Webrtc ICE Servers:</label>
+            <label className="mt-16 mb-32">Webrtc ICE Servers2:</label>
+            <label className="mt-28 mb-38">Webrtc ICE Host NAT 1 To 1 IPs:</label>
+            <label className="mt-2">Webrtc ICE UDP Mux Address:</label>
+            <label className="mt-2">Webrtc ICE TCP Mux Address:</label>
           </div>
           <div className="col-span-2 grid grid-cols-2 gap-x-4">
             <textarea
@@ -242,7 +242,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
               value={webrtcICEServers}
               onChange={handleWebrtcICEServers}
             />
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 gap-x-4">
               <div className="flex flex-col my-2">
                 <label className="my-2">URL:</label>
                 <input
@@ -267,7 +267,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                 <label className="my-2">Password:</label>
                 <input
                   title="password"
-                  type="text"
+                  type="password"
                   className="my-2 h-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                   value={webrtcICEServers2.password}
                   onChange={handleWebrtcICEServers2}
@@ -303,16 +303,16 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
       
       return (
         <>
-    <div className="w-fit mx-auto h-full flex justify-center items-start">
+    <div className="mx-auto  w-full h-full flex justify-center items-start">
       <motion.div
         variants={fadeIn}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full max-w-2xl rounded-md"
+        className="w-full  rounded-md"
       >
         {settings && (
-          <div className=" w-full">
+          <div className="mx-auto w-full">
             <h2 className="text-center mb-4 font-bold text-3xl">Webrtc Setting</h2>
             <div className="divide-y divide-window-dark-500">
             {renderWebrtcSectionAddress()}
