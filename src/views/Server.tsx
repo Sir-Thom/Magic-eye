@@ -46,21 +46,16 @@ export default function ServerInfo() {
                         <div className="mx-auto mt-24">
                             {currentSetting === "HLS" && <HLsConnInfo />}
                         </div>
-                       
                     </div>
-                   
                 </div>
                 {error && (
-                   
-                            <Notification
-                                message={error}
-                                timer={5000}
-                                type={"error"}
-                                onDismiss={handleDismissErrorNotification}
-                            />
-                           
-                        )}
-                        
+                    <Notification
+                        message={error}
+                        timer={5000}
+                        type={"error"}
+                        onDismiss={handleDismissErrorNotification}
+                    />
+                )}
             </div>
         </>
     );

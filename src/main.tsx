@@ -5,8 +5,7 @@ import "./styles.css";
 import { AnimatePresence } from "framer-motion";
 import Router from "./router";
 
-
-const rootDomNode = document.getElementById('root');
+const rootDomNode = document.getElementById("root");
 const root = createRoot(rootDomNode);
 root.render(
     <BrowserRouter basename="/">
@@ -15,7 +14,9 @@ root.render(
                 initial={true}
                 onExitComplete={() => null}
                 mode={"sync"}
-            > <Router></Router>
+            >
+                {" "}
+                <Router></Router>
             </AnimatePresence>
         </React.StrictMode>
     </BrowserRouter>

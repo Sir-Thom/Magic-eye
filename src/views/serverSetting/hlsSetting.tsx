@@ -147,201 +147,236 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
-    return (
-        <>
-            <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
-                <motion.div
-                    variants={fadeIn}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                >
-                    {settings && (
-                        <div className="">
-                            <h2 className=" mx-auto text-center font-bold text-3xl">
-                                HLS Setting
-                            </h2>
-                            <div className="grid overflow-auto  scrollbar  scrollbar-thumb-gray-900 scrollbar-track-darkMode mb-6 grid-cols-2 content-between place-content-start mt-6 gap-4">
-                                {/* Labels column */}
 
-                                <div className="col-span-1">
-                                    <div className="flex flex-col align-baseline text-justify items-end">
-                                        <label className="mt-1 mb-1">HLS:</label>
-                                        <label className="mt-3.5 mb-2">
-                                            HLS Address:
-                                        </label>
-                                        <label className=" mt-6 mb-2">
-                                            HLS Allow Origin:
-                                        </label>
-                                        <label className="mt-3.5 mb-2">
-                                            HLS Always Remux:
-                                        </label>
-                                        <label className="mt-5 mb-2">
-                                            HLS Directory:
-                                        </label>
-                                        <label className="mt-2 mb-2">
-                                            HLS Disable:
-                                        </label>
-                                        <label className="mt-2 mb-1">
-                                            HLS Encryption:
-                                        </label>
-                                        <label className="mt-6 mb-3">
-                                            HLS Part Duration:
-                                        </label>
-                                        <label className="mt-7 mb-3">
-                                            HLS Segment Count:
-                                        </label>
-                                        <label className="mt-6 mb-3">
-                                            HLS Segment Duration:
-                                        </label>
-                                        <label className="mt-5 mb-2">
-                                            HLS Segment Max Size:
-                                        </label>
-                                        <label className="mt-5 mb-2.5">
-                                            HLS Server Cert:
-                                        </label>
-                                        <label className="mt-5 mb-2.5">
-                                            HLS Server Key:
-                                        </label>
-                                        <label className="mt-4">
-                                            HLS Trusted Proxies:
-                                        </label>
-                                        <label className="mt-8 mb-1">
-                                            HLS Variant:
-                                        </label>
-                                    </div>
-                                </div>
-                                {/* Inputs column */}
-                                <div className="col-span-1">
-                                    <div className="flex flex-col mb-10">
-                                        <Toggle
-                                            className="my-2"
-                                            value={hlsEnabled.toString()}
-                                            enabled={hlsEnabled}
-                                            onChange={handleHlsEnabledChange}
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-3 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsAddress}
-                                            onChange={handleHlsAddressChange}
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-4 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsAllowOrigin}
-                                            onChange={
-                                                handleHlsAllowOriginChange
-                                            }
-                                        />
-                                        <Toggle
-                                            className="mt-2 mb-2"
-                                            value={hlsAlwaysRemux.toString()}
-                                            onChange={
-                                                handleHlsAlwaysRemuxChange
-                                            }
-                                            enabled={hlsAlwaysRemux}
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-4 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsDirectory}
-                                            onChange={handleHlsDirectoryChange}
-                                        />
-                                        
-                                        <Toggle
-                                            className="mt-2.5 mb-2"
-                                            value={hlsDisable.toString()}
-                                            onChange={handleHlsDisableChange}
-                                            enabled={hlsDisable}
-                                        />
-                                        <Toggle
-                                            className="mt-2.5 mb-2"
-                                            value={hlsEncryption.toString()}
-                                            onChange={handleHlsEncryptionChange}
-                                            enabled={hlsEncryption}
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-4 mb-2 h-8  pr-1  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsPartDuration}
-                                            onChange={
-                                                handleHlsPartDurationChange
-                                            }
-                                        />
-                                        <input
-                                            type="number"
-                                            className=" mt-6 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsSegmentCount}
-                                            onChange={
-                                                handleHlsSegmentCountChange
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-6 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsSegmentDuration}
-                                            onChange={
-                                                handleHlsSegmentDurationChange
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-4 mb-2 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            onChange={
-                                                handleHlsSegmentMaxSizeChange
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            className="mt-3 mb-2 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsServerCert}
-                                            onChange={handleHlsServerCertChange}
-                                        />
-                                        <input
-                                            type="text"
-                                            className="mt-3 mb-2 border h-8  border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsServerKey}
-                                            onChange={handleHlsServerKeyChange}
-                                        />
-                                        <textarea
-                                            name="hlsTrustedProxies"
-                                            style={{ resize: "none" }}
-                                            className="mt-3 mb-2  h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsTrustedProxies}
-                                            onChange={
-                                                handleHlsTrustedProxiesChange
-                                            }
-                                        />
-                                        <input
-                                            type="text"
-                                            className=" mt-3 mb-2 border h-8  border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={hlsVariant}
-                                            onChange={handleHlsVariantChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="my-6 flex justify-end fixed bottom-0 right-0">
-                                <button
-                                    type="button"
-                                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="button"
-                                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                    onClick={handleSaveConfig}
-                                >
-                                    Apply
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </motion.div>
+    const GeneralSection = () => (
+        <div className="grid w-full place-content-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    General
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
             </div>
-        </>
+            <div className="col-span-2 gap-4 w-fit  grid-rows-12 grid grid-cols-2">
+            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                HLS Enabled:
+            </label>
+            <Toggle
+                className="my-auto place-content-center row-start-1 row-end-2"
+                enabled={hlsEnabled}
+                onChange={handleHlsEnabledChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
+                HLS Address:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsAddress}
+                onChange={handleHlsAddressChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
+                HLS Allow Origin:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsAllowOrigin}
+                onChange={handleHlsAllowOriginChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-4 row-end-5">
+                HLS Always Remux:
+            </label>
+            <Toggle
+                className="my-auto place-content-center row-start-4 row-end-5"
+                value={hlsAlwaysRemux.toString()}
+                enabled={hlsAlwaysRemux}
+                onChange={handleHlsAlwaysRemuxChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-5 row-end-6">
+                HLS Directory:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-5 row-end-6 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsDirectory}
+                onChange={handleHlsDirectoryChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-6 row-end-7">
+                HLS Disable:
+            </label>
+            <Toggle
+                className="my-auto place-content-center row-start-6 row-end-7"
+                value={hlsDisable.toString()}
+                enabled={hlsDisable}
+                onChange={handleHlsDisableChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-7 row-end-8">
+                HLS Part Duration:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-7 row-end-8 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsPartDuration}
+                onChange={handleHlsPartDurationChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-8 row-end-9">
+                HLS Segment Count:
+            </label>
+            <input
+                type="number"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-8 row-end-9 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsSegmentCount}
+                onChange={handleHlsSegmentCountChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-9 row-end-10">
+                HLS Segment Duration:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-9 row-end-10 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsSegmentDuration}
+                onChange={handleHlsSegmentDurationChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-10 row-end-11">
+                HLS Segment Max Size:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-10 row-end-11 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                onChange={handleHlsSegmentMaxSizeChange}
+            />
+
+            <label className="place-content-center my-auto col-start-1 row-start-11 row-end-12">
+                HLS Variant:
+            </label>
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-11 row-end-12 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsVariant}
+                onChange={handleHlsVariantChange}
+            />
+ 
+
+
+            </div>
+        </div>
+    );
+
+    const EncryptionSection = () => (
+        <div className="grid w-full place-content-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    Encryption
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit grid-rows-3 grid grid-cols-2">
+            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                HLS Encryption Enabled:
+            </label>
+
+            
+            <Toggle
+                className="my-auto place-content-center row-start-1 row-end-2"
+                value={hlsEncryption.toString()}
+                enabled={hlsEncryption}
+                onChange={handleHlsEncryptionChange}
+            />
+          
+            </div>
+        </div>
+    );
+
+    const ServerSection = () => (
+        <div className="grid w-full place-content-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    Server
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit grid-rows-5 grid grid-cols-2">
+            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                HLS Server Cert:
+            </label>
+            <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
+                HLS Server Key:
+            </label>
+            <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
+                HLS Server Trusted Proxies:
+            </label>
+            
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsServerCert}
+                onChange={handleHlsServerCertChange}
+            />
+            <input
+                type="text"
+                className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsServerKey}
+                onChange={handleHlsServerKeyChange}
+            />
+            <textarea
+                name="hlsTrustedProxies"
+                style={{ resize: "none" }}
+                className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                value={hlsTrustedProxies}
+                onChange={handleHlsTrustedProxiesChange}
+            />
+            </div>
+        </div>
+    );
+
+
+    return (
+        <div className="mx-auto min-h-screen w-full">
+            <motion.div
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="w-full rounded-md"
+            >
+                {settings && (
+                    <div className="mx-auto w-full">
+                        <h2 className="text-center py-2.5 mx-auto w-full bg-center bg-window-dark-900 font-bold text-3xl">
+                            HLS Setting
+                        </h2>
+
+                        <div className="divide-y w-full divide-window-dark-500">
+                            {GeneralSection()}
+                            {EncryptionSection()}
+                            {ServerSection()}
+                        </div>
+                        <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                                onClick={handleSaveConfig}
+                            >
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </motion.div>
+        </div>
     );
 }

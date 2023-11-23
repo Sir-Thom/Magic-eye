@@ -129,10 +129,9 @@ export default function Setting() {
             return apiIp;
         } catch (e) {
             console.log(e);
-            return ''; // Return an empty string or handle the error as needed.
+            return ""; // Return an empty string or handle the error as needed.
         }
     }
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -140,8 +139,6 @@ export default function Setting() {
             setError(null);
 
             console.log("API Setting from useEffect: " + apiIpValue);
-
-
 
             console.log("API Setting from useEffect: " + apiIpValue);
 
@@ -151,7 +148,9 @@ export default function Setting() {
                 .then((response: string) => {
                     const parsedResponse: IServer = JSON.parse(response);
                     setConfigData(parsedResponse);
-                    console.log("parsed option:" + JSON.stringify(parsedResponse));
+                    console.log(
+                        "parsed option:" + JSON.stringify(parsedResponse)
+                    );
 
                     // Update the state variables with the new settings
                     setApiSettings({
@@ -186,15 +185,19 @@ export default function Setting() {
                         hlsDirectory: parsedResponse.hlsDirectory || "",
                         hlsDisable: parsedResponse.hlsDisable || false,
                         hlsEncryption: parsedResponse.hlsEncryption || false,
-                        hlsPartDuration: parsedResponse.hlsPartDuration || "200ms",
+                        hlsPartDuration:
+                            parsedResponse.hlsPartDuration || "200ms",
                         hlsSegmentCount: parsedResponse.hlsSegmentCount || 7,
                         hlsSegmentDuration:
                             parsedResponse.hlsSegmentDuration || "1s",
                         hlsSegmentMaxSize:
                             parsedResponse.hlsSegmentMaxSize || "50M",
-                        hlsServerCert: parsedResponse.hlsServerCert || "server.crt",
-                        hlsServerKey: parsedResponse.hlsServerKey || "server.key",
-                        hlsTrustedProxies: parsedResponse.hlsTrustedProxies || [],
+                        hlsServerCert:
+                            parsedResponse.hlsServerCert || "server.crt",
+                        hlsServerKey:
+                            parsedResponse.hlsServerKey || "server.key",
+                        hlsTrustedProxies:
+                            parsedResponse.hlsTrustedProxies || [],
                         hlsVariant: parsedResponse.hlsVariant || "lowLatency"
                     });
                     console.log("hls setting: " + JSON.stringify(hlsSettings));
@@ -203,11 +206,14 @@ export default function Setting() {
                         rtmpAddress: parsedResponse.rtmpAddress || ":1935",
                         rtmpEncryption: parsedResponse.rtmpEncryption || "no",
                         rtmpsAddress: parsedResponse.rtmpsAddress || ":1936",
-                        rtmpServerKey: parsedResponse.rtmpServerKey || "server.key",
+                        rtmpServerKey:
+                            parsedResponse.rtmpServerKey || "server.key",
                         rtmpServerCert:
                             parsedResponse.rtmpServerCert || "server.crt"
                     });
-                    console.log("rtmp setting: " + JSON.stringify(rtmpSettings));
+                    console.log(
+                        "rtmp setting: " + JSON.stringify(rtmpSettings)
+                    );
                     setRtspSettings({
                         rtsp: parsedResponse.rtsp || true,
                         rtspDisable: parsedResponse.rtspDisable || false,
@@ -223,10 +229,14 @@ export default function Setting() {
                         rtcpAddress: parsedResponse.rtcpAddress || ":8001",
                         multicastIPRange:
                             parsedResponse.multicastIPRange || "224.1.0.0/16",
-                        multicastRTPPort: parsedResponse.multicastRTPPort || 8002,
-                        multicastRTCPPort: parsedResponse.multicastRTCPPort || 8003
+                        multicastRTPPort:
+                            parsedResponse.multicastRTPPort || 8002,
+                        multicastRTCPPort:
+                            parsedResponse.multicastRTCPPort || 8003
                     });
-                    console.log("rtsp setting: " + JSON.stringify(rtspSettings));
+                    console.log(
+                        "rtsp setting: " + JSON.stringify(rtspSettings)
+                    );
 
                     setSrtSettings({
                         srt: parsedResponse.srt || true,
@@ -237,16 +247,20 @@ export default function Setting() {
                         webrtc: parsedResponse.webrtc || true,
                         webrtcAddress: parsedResponse.webrtcAddress || ":8080",
 
-                        webrtcEncryption: parsedResponse.webrtcEncryption || false,
+                        webrtcEncryption:
+                            parsedResponse.webrtcEncryption || false,
                         webrtcServerKey:
                             parsedResponse.webrtcServerKey || "server.key",
                         webrtcServerCert:
                             parsedResponse.webrtcServerCert || "server.crt",
-                        webrtcAllowOrigin: parsedResponse.webrtcAllowOrigin || "*",
+                        webrtcAllowOrigin:
+                            parsedResponse.webrtcAllowOrigin || "*",
                         webrtcTrustedProxies:
                             parsedResponse.webrtcTrustedProxies || [],
-                        webrtcICEServers: parsedResponse.webrtcICEServers || null,
-                        webrtcICEServers2: parsedResponse.webrtcICEServers2 || null,
+                        webrtcICEServers:
+                            parsedResponse.webrtcICEServers || null,
+                        webrtcICEServers2:
+                            parsedResponse.webrtcICEServers2 || null,
                         webrtcICEHostNAT1To1IPs:
                             parsedResponse.webrtcICEHostNAT1To1IPs || [],
                         webrtcICEUDPMuxAddress:
@@ -268,13 +282,12 @@ export default function Setting() {
                             parsedResponse.recordPartDuration || "100ms",
                         recordSegmentDuration:
                             parsedResponse.recordSegmentDuration || "1h",
-                        recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h"
+                        recordDeleteAfter:
+                            parsedResponse.recordDeleteAfter || "24h"
                     });
                     console.log(
                         "record setting: " + JSON.stringify(recordSettings)
                     );
-
-
                 })
 
                 .catch(() => {
@@ -283,8 +296,6 @@ export default function Setting() {
         };
         fetchData();
     }, []);
-
-
 
     async function patchSetting(configData) {
         try {
@@ -314,15 +325,14 @@ export default function Setting() {
                         setConfigData(parsedResponse);
                         console.log(
                             "new parsed option:" +
-                            JSON.stringify(parsedResponse)
+                                JSON.stringify(parsedResponse)
                         );
                     }
                 );
 
                 invoke("save_api_ip", { apiIp: apiIpValue }).then((res) => {
                     console.log("save api: " + res);
-                }
-                );
+                });
             });
         } catch (e) {
             setError("Unable to connect to the server." + e.message);
@@ -353,121 +363,124 @@ export default function Setting() {
     return (
         <>
             {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
-           
-                <div className="grid  relative w-full overflow-hidden grid-cols-12 ">
-                    <div className=" col-span-2  pt-10 ">
-                        <SideMenu
-                            menuItems={menuItems}
-                            onMenuItemClick={(menuItem) =>
-                                setCurrentSetting(menuItem.label)
-                            }
-                        />
-                    </div>class="flex my-auto py-3 dark:bg-window-dark-900 bg-window-light-50 justify-start items-center"
-                    <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
-                        <div className="mx-auto z-auto my-auto ">
-                            {successMessage && (
-                                <SuccessAlert
-                                    message={successMessage}
-                                    OnClose={handleCloseAlert}
-                                    timer={5000}
-                                />
-                            )}
-                            {currentSetting === "General Setting" && (
-                                <GeneralSetting />
-                            )}
-                            {currentSetting === "API Setting" && (
-                                <ApiSetting
-                                    settings={apiSettings}
-                                    onSave={(updatedApiSettings) => {
-                                        setApiSettings(updatedApiSettings);
-                                        console.log(
-                                            "updated api setting: " +
-                                            JSON.stringify(
-                                                updatedApiSettings
-                                            ),
-                                        );
-                                    }}
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "Logging Setting" && (
-                                <LoggingSetting
-                                    settings={loggingSettings}
-                                    onSave={(updatedLoggingSettings) =>
-                                        setLoggingSettings(
-                                            updatedLoggingSettings
-                                        )
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "HLS Setting" && (
-                                <HlsSetting
-                                    settings={hlsSettings}
-                                    onSave={(updatedHlsSettings) =>
-                                        setHlsSettings(updatedHlsSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "RTSP Setting" && (
-                                <RtspSetting
-                                    settings={rtspSettings}
-                                    onSave={(updatedRtspSettings) =>
-                                        setRtspSettings(updatedRtspSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "RTMP Setting" && (
-                                <RtmpSetting
-                                    settings={rtmpSettings}
-                                    onSave={(updatedRtmpSettings) =>
-                                        setRtmpSettings(updatedRtmpSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "SRT Setting" && (
-                                <SrtSetting
-                                    settings={srtSettings}
-                                    onSave={(updatedSrtSettings) =>
-                                        setSrtSettings(updatedSrtSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "WebRTC Setting" && (
-                                <WebrtcSetting
-                                    settings={webrtcSettings}
-                                    onSave={(updatWebRtcSettings) =>
-                                        setWebrtcSettings(updatWebRtcSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                            {currentSetting === "Record Setting" && (
-                                <RecordSetting
-                                    settings={recordSettings}
-                                    onSave={(updatedRecordSettings) =>
-                                        setRecordSettings(updatedRecordSettings)
-                                    }
-                                    patchSetting={patchSetting}
-                                />
-                            )}
-                        </div>
-                    </div>
-                    
+
+            <div className="grid  relative w-full overflow-hidden grid-cols-12 ">
+                <div className=" col-span-2  pt-10 ">
+                    <SideMenu
+                        menuItems={menuItems}
+                        onMenuItemClick={(menuItem) =>
+                            setCurrentSetting(menuItem.label)
+                        }
+                    />
                 </div>
-                
-            {error &&(
-                            <Notification
-                                message={error}
+               
+                <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
+                    
+                    <div className="mx-auto z-auto my-auto ">
+                        {successMessage && (
+                            <SuccessAlert
+                                message={successMessage}
+                                OnClose={handleCloseAlert}
                                 timer={5000}
-                                type={"error"}
-                                onDismiss={handleDismissErrorToast}
                             />
                         )}
+                        
+                        {currentSetting === "General Setting" && (
+                            <GeneralSetting />
+                        )}
+                        {currentSetting === "API Setting" && (
+                            <ApiSetting
+                                settings={apiSettings}
+                                onSave={(updatedApiSettings) => {
+                                    setApiSettings(updatedApiSettings);
+                                    console.log(
+                                        "updated api setting: " +
+                                            JSON.stringify(updatedApiSettings)
+                                    );
+                                }}
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "Logging Setting" && (
+                            <LoggingSetting
+                                settings={loggingSettings}
+                                onSave={(updatedLoggingSettings) =>
+                                    setLoggingSettings(updatedLoggingSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "HLS Setting" && (
+                            <HlsSetting
+                                settings={hlsSettings}
+                                onSave={(updatedHlsSettings) =>
+                                    setHlsSettings(updatedHlsSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "RTSP Setting" && (
+                            <RtspSetting
+                                settings={rtspSettings}
+                                onSave={(updatedRtspSettings) =>
+                                    setRtspSettings(updatedRtspSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "RTMP Setting" && (
+                            <RtmpSetting
+                                settings={rtmpSettings}
+                                onSave={(updatedRtmpSettings) =>
+                                    setRtmpSettings(updatedRtmpSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "SRT Setting" && (
+                            <SrtSetting
+                                settings={srtSettings}
+                                onSave={(updatedSrtSettings) =>
+                                    setSrtSettings(updatedSrtSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "WebRTC Setting" && (
+                            <WebrtcSetting
+                                settings={webrtcSettings}
+                                onSave={(updatWebRtcSettings) =>
+                                    setWebrtcSettings(updatWebRtcSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                        {currentSetting === "Record Setting" && (
+                            <RecordSetting
+                                settings={recordSettings}
+                                onSave={(updatedRecordSettings) =>
+                                    setRecordSettings(updatedRecordSettings)
+                                }
+                                patchSetting={patchSetting}
+                            />
+                        )}
+                    </div>
+                </div>
+            </div>
+            
+           
+            {error && (
+             
+             <Notification
+                
+                 message={error}
+                 timer={5000}
+                 type={"error"}
+                 onDismiss={handleDismissErrorToast}
+             />
+           
+         )}
         </>
-    );
+
+);
 }

@@ -14,7 +14,7 @@ export default function RtspServerInfo() {
     async function getAllRtspSessions() {
         try {
             const response = await invoke("get_server_request", {
-                url: "http://127.0.0.1:9997/v3/rtspsessions/list",
+                url: "http://127.0.0.1:9997/v3/rtspsessions/list"
             });
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
@@ -30,7 +30,8 @@ export default function RtspServerInfo() {
     async function kickRstpSession(valueToSend: string) {
         try {
             await invoke("post_server_request", {
-                url: `http://127.0.0.1:9997/v3/rtspsessions/kick/`,value:valueToSend
+                url: `http://127.0.0.1:9997/v3/rtspsessions/kick/`,
+                value: valueToSend
             });
 
             // Delay for a short period to allow the server to process the kick

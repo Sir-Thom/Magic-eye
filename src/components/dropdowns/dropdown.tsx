@@ -32,7 +32,6 @@ function Dropdown({ options, value, onChange, className }: IDropdown) {
                         </option>
                     ))}
                 </select>
-             
             </div>
         </div>
     );

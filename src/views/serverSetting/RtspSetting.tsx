@@ -105,147 +105,185 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
-    return (
-        <div className="w-3/4 mx-auto flex justify-center items-start min-h-screen">
-            <motion.div
-                variants={fadeIn}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-            >
-                {settings && (
-                    <div className="my-4">
-                        <h2 className="text-center font-bold text-3xl">
-                            RTSP Setting
-                        </h2>
-                        <div className="grid grid-cols-2 mt-5 content-between place-content-start gap-4">
-                            <div className="col-span-1">
-                                <div className="flex flex-col text-right items-end">
-                                    <label className="mt-2 mb-1.5">RTSP:</label>
-                                    <label className="mt-2">
-                                        RTSP Disable:
-                                    </label>
-                                    <label className="mt-5 mb-7">Protocols:</label>
-                                    <label className="mt-8 mb-3">
-                                        RTSP Encryption:
-                                    </label>
-                                    <label className="mt-4 mb-4">
-                                        RTSP Address:
-                                    </label>
-                                    <label className="mt-5 mb-3">
-                                        RTSPs Address:
-                                    </label>
-                                    <label className="mt-6 mb-4">RTP Address:</label>
-                                    <label className="mt-5 mb-3">
-                                        RTCP Address:
-                                    </label>
-                                    <label className="mt-7 mb-3">
-                                        Multicast IP Range:
-                                    </label>
-                                    <label className="mt-5 mb-3">
-                                        Multicast RTP Port:
-                                    </label>
-                                    <label className="mt-7 mb-3">
-                                        Multicast RTCP Port:
-                                    </label>
-                                </div>
-                            </div>
-                            <div className="col-span-1">
-                                <div className="flex flex-col">
-                                    <Toggle
-                                        className="my-3"
-                                        value={rtsp.toString()}
-                                        enabled={rtsp}
-                                        onChange={handleRtsp}
-                                    />
-                                    <Toggle
-                                        className="mt-2 mb-3"
-                                        value={rtspDisable.toString()}
-                                        enabled={rtspDisable}
-                                        onChange={handleRtspDisable}
-                                    />
-                                    <textarea
-                                        className="mt-2 mb-2.5  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={protocols}
-                                        onChange={handleProtocols}
-                                    />
-                                    <Toggle
-                                        className="my-3"
-                                        value={encryption.toString()}
-                                        enabled={encryption}
-                                        onChange={handleEncryption}
-                                    />
-                                    <input
-                                        type="text"
-                                        className="mt-4 mb-3  h-8   pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={rtspAddress}
-                                        onChange={handleRtspAddress}
-                                    />
-                                    <input
-                                        type="text"
-                                        className="mt-3 mb-4 h-8   pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={rtspsAddress}
-                                        onChange={handleRtspsAddress}
-                                    />
-                                    <input
-                                        type="text"
-                                        className="mt-3 mb-4 h-8    pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={rtpAddress}
-                                        onChange={handleRtpAddress}
-                                    />
-                                    <input
-                                        type="text"
-                                        className="mt-3 mb-4 h-8   pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={rtcpAddress}
-                                        onChange={handleRtcpAddress}
-                                    />
-                                    <input
-                                        type="text"
-                                        className="mt-4 mb-4 h-8  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={multicastIPRange}
-                                        onChange={handleMulticastIPRange}
-                                    />
-                                    <input
-                                        type="number"
-                                        className="mt-2.5 mb-4 h-8   pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={multicastRTPPort}
-                                        onChange={(event) =>
-                                            handleMulticastRTPPort(
-                                                event.target.value
-                                            )
-                                        }
-                                    />
-                                    <input
-                                        type="number"
-                                        className="mt-3 mb-10  h-8  pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                        value={multicastRTCPPort}
-                                        onChange={(event) =>
-                                            handleMulticastRTCPPort(
-                                                event.target.value
-                                            )
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-8  mb-2 flex justify-end fixed bottom-0 right-0">
-                            <button
-                                type="button"
-                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="button"
-                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
-                            >
-                                Apply
-                            </button>
-                        </div>
-                    </div>
-                )}
-            </motion.div>
+const RtspSection = () => (
+    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+        <div>
+            <h2 className="text-base font-semibold leading-7 text-white">
+                RTSP 
+            </h2>
+            <p className="mt-1 text-sm leading-6 text-gray-400"></p>
         </div>
+        <div className="col-span-2 gap-4 w-fit   grid-rows-7 grid grid-cols-2">
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+                    Enable RTSP:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3 ">
+                RTSP Disable:
+                </label>
+                <label className="place-content-center col-start-1 row-start-3 row-end-4 my-auto">
+                Protocols:
+                </label>
+                <label className="place-content-center col-start-1 row-start-4 row-end-5 my-auto">
+                RTSP Encryption:
+                </label>
+                <label className="place-content-center col-start-1 row-start-5 row-end-6 my-auto">
+                RTSP Address:
+                </label>
+                <label className="place-content-center col-start-1 row-start-6 row-end-7 my-auto">
+                RTSPS Address:
+                </label>
+                <label className="place-content-center col-start-1 row-start-7 row-end-8 my-auto">
+                Multicast IP Range:
+                </label>
+                <Toggle
+                    className=" row-start-1 my-auto place-content-center row-end-2"
+                    enabled={rtsp}
+                    onChange={handleRtsp}
+                />
+                 <Toggle
+                    className=" row-start-2 my-auto place-content-center row-end-3"
+                    enabled={rtspDisable}
+                    onChange={handleRtspDisable}
+                />
+                <textarea
+                    name="Protocols"
+                    className="resize-none row-start-3 row-end-4 my-2 h-16 col-span-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    value={protocols}
+                    onChange={handleProtocols}
+                />
+                 <Toggle
+                    className=" row-start-4 my-auto place-content-center row-end-5"
+                    enabled={encryption}
+                    onChange={handleEncryption}
+                />
+
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-5 row-end-6 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={rtspAddress}
+                    onChange={handleRtspAddress}
+                />
+
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-6 row-end-7 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={rtspsAddress}
+                    onChange={handleRtspsAddress}
+                />
+                  <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-7 row-end-8 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={multicastIPRange}
+                    onChange={handleMulticastIPRange}
+                />
+                
+            </div>
+        </div>
+);
+
+const RTPSection = () => (
+    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+    <div>
+        <h2 className="text-base font-semibold leading-7 text-white">
+            RTP 
+        </h2>
+        <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+    </div>
+    <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
+    <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+            RTP Address:
+            </label>
+            <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
+            Multicast RTP Port:
+            </label>
+            <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={rtpAddress}
+                    onChange={handleRtpAddress}
+                />
+                  <input
+                    type="number"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={multicastRTPPort}
+                    onChange={handleMulticastRTPPort}
+                />
+            </div>
+        </div>
+);
+
+const RTCPSection = () => (
+    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+    <div>
+        <h2 className="text-base font-semibold leading-7 text-white">
+            RTCP 
+        </h2>
+        <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+    </div>
+    <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
+    <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+            RTCP Address:
+            </label>
+            <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
+            Multicast RTCP Port:
+            </label>
+            <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={rtcpAddress}
+                    onChange={handleRtcpAddress}
+                />
+                  <input
+                    type="number"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={multicastRTCPPort}
+                    onChange={handleMulticastRTCPPort}
+                />
+            </div>
+        </div>
+);
+
+
+    return (
+        <div className="mx-auto  w-full  ">
+        <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="w-full  rounded-md"
+        >
+            {settings && (
+                <div className="mx-auto  w-full">
+                    <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                    RTSP Setting
+                    </h2>
+
+                    <div className="divide-y  w-full divide-window-dark-500">
+                        {RtspSection()}
+                        {RTPSection()}
+                        {RTCPSection()}
+                        
+                     
+                    </div>
+                    <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                        <button
+                            type="button"
+                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                            onClick={handleSaveConfig}
+                        >
+                            Apply
+                        </button>
+                    </div>
+                </div>
+            )}
+        </motion.div>
+    </div>
     );
 }

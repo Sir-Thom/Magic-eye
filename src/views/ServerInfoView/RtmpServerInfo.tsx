@@ -21,18 +21,16 @@ export default function RtmpConnInfo() {
         });
     }, []);
 
-    async function KickRTMPession (valueToSend:string) {
-        invoke("post_server_request",{url:"http://127.0.0.1:9997/v3/rtmpconns/kick/",value:valueToSend}).
-        then((res) =>{
-            console.log(res)
-        })
-       
+    async function KickRTMPession(valueToSend: string) {
+        invoke("post_server_request", {
+            url: "http://127.0.0.1:9997/v3/rtmpconns/kick/",
+            value: valueToSend
+        }).then((res) => {
+            console.log(res);
+        });
     }
-    
-  
 
     return (
-
         <motion.div
             className="w-3/4 overscroll-contain mx-auto flex  flex-co justify-center items-start"
             variants={fadeIn}
@@ -41,15 +39,16 @@ export default function RtmpConnInfo() {
             exit="exit"
         >
             <div className="mt-4 mb-2">
-            <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
-                                RTSP Informations
-                            </h2>
-                           
-                            <ListView fetchData={items} canDelete={true} DeleteFunc={KickRTMPession}  />
+                <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
+                    RTSP Informations
+                </h2>
+
+                <ListView
+                    fetchData={items}
+                    canDelete={true}
+                    DeleteFunc={KickRTMPession}
+                />
             </div>
         </motion.div>
-        
     );
 }
-
-

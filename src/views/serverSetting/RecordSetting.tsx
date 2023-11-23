@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import Toast from "../../components/notification/notification";
+
 import Toggle from "../../components/toggle/toggle";
 
 export default function RecordSetting({ settings, onSave, patchSetting }) {
-    const [error, setError] = useState<string | null>(null);
+
     const [record, setRecord] = useState(Boolean(settings.record));
     const [recordPath, setRecordPath] = useState(settings.recordPath);
     const [recordFormat, setRecordFormat] = useState(settings.recordFormat);
@@ -31,9 +31,7 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
     const handleRecordSegmentDurationChange = (event) => {
         setRecordSegmentDuration(event.target.value);
     };
-    function handleDismissErrorToast() {
-        setError(null);
-    }
+
     const handleRecordDeleteAfterChange = (event) => {
         const value = event.target.value;
 
@@ -56,11 +54,8 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                     parsedValue = numericValue;
                     break;
             }
-        } else {
-            setError(
-                "Invalid format. Use '1h,' '1m,' '1s,' or a similar format."
-            );
-        }
+        } 
+        
 
         setRecordDeleteAfter(parsedValue);
     };
@@ -86,66 +81,85 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
+    const RecordSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    Record
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-5 grid grid-cols-2">
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+                Record:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3 ">
+                Record Path:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4 ">
+                Record Format:
+                </label>
+                <label className="place-content-center col-start-1 row-start-4 row-end-5 my-auto">
+                Record Segment Duration:
+                </label>
+                <label className="place-content-center col-start-1 row-start-5 row-end-6 my-auto">
+                Record Delete After:
+                </label>
+
+
+                <Toggle
+                    className=" row-start-1 my-auto place-content-center row-end-2"
+                    enabled={record}
+                    onChange={handleRecordChange}
+                />
+
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={recordPath}
+                    onChange={handleRecordPathChange}
+                />
+                 <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={recordFormat}
+                    onChange={handleRecordFormatChange}
+                />
+                 <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-4 row-end-5 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={recordSegmentDuration}
+                    onChange={handleRecordSegmentDurationChange}
+                />
+                     <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-5 row-end-6 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={recordDeleteAfter}
+                    onChange={handleRecordDeleteAfterChange}
+                />
+                
+            </div>
+        </div>
+    );
+
     return (
+        <div className="mx-auto  w-full  ">
         <motion.div
             variants={fadeIn}
             initial="hidden"
             animate="visible"
             exit="exit"
+            className="w-full  rounded-md"
         >
             {settings && (
-                <div className=" my-4">
-                    <h2 className="text-center font-bold text-3xl">
+                <div className="mx-auto  w-full">
+                    <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
                         Record Setting
                     </h2>
-                    <div className="grid grid-cols-2  mt-6 content-between place-content-start gap-4">
-                        <div className="col-span-1">
-                            <div className="flex flex-col text-right items-end">
-                                <label className="my-2">Record:</label>
-                                <label className="mt-5 mb-3">Record Path:</label>
-                                <label className="mt-5 mb-4">Record Format:</label>
-                                <label className="mt-4 mb-3">
-                                    Record Segment Duration:
-                                </label>
-                                <label className="mt-5 mb-3">
-                                    Record Delete After:
-                                </label>
-                            </div>
-                        </div>
-                        <div className="col-span-1">
-                            <div className="flex flex-col">
-                                <Toggle
-                                    className="my-3"
-                                    value={record.toString()}
-                                    enabled={record}
-                                    onChange={handleRecordChange}
-                                />
-                                <input
-                                    type="text"
-                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={recordPath}
-                                    onChange={handleRecordPathChange}
-                                />
-                                <input
-                                    type="text"
-                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={recordFormat}
-                                    onChange={handleRecordFormatChange}
-                                />
-                                <input
-                                    type="text"
-                                    className="my-3 pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={recordSegmentDuration}
-                                    onChange={handleRecordSegmentDurationChange}
-                                />
-                                <input
-                                    type="text"
-                                    className="my-3  pr-1 h-8  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                    value={recordDeleteAfter}
-                                    onChange={handleRecordDeleteAfterChange}
-                                />
-                            </div>
-                        </div>
+
+                    <div className="divide-y  w-full divide-window-dark-500">
+                        {RecordSection()}
+                     
                     </div>
                     <div className="my-6 flex justify-end fixed bottom-0 right-0">
                         <button
@@ -162,16 +176,9 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                             Apply
                         </button>
                     </div>
-                    {error && (
-                        <Toast
-                            message={error}
-                            timer={5000}
-                            type={"error"}
-                            onDismiss={handleDismissErrorToast}
-                        />
-                    )}
                 </div>
             )}
         </motion.div>
-    );
+    </div>
+);
 }

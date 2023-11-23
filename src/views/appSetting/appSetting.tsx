@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Notification from"../../components/notification/notification";
+import Notification from "../../components/notification/notification";
 import Dropdown from "../../components/dropdowns/dropdown";
 import { invoke } from "@tauri-apps/api";
 import SuccessAlert from "../../components/alert/sucessAlert";
@@ -82,7 +82,12 @@ export default function GeneralSetting() {
                 setApi_ip(parsedConfig.api_ip);
                 setError(null);
 
-                if (!placeholderOptions.includes(parsedConfig.placeholder, parsedConfig.api_ip)) {
+                if (
+                    !placeholderOptions.includes(
+                        parsedConfig.placeholder,
+                        parsedConfig.api_ip
+                    )
+                ) {
                     setPlaceholderOptions((prevOptions) => [
                         ...prevOptions,
                         parsedConfig.placeholder,
@@ -138,92 +143,94 @@ export default function GeneralSetting() {
         }
     }
 
+    const AppSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    General
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+                    Placeholder:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3 ">
+                    API IP:
+                </label>
+
+                <Dropdown
+                    className="place-content-center  my-auto  row-start-1 row-end-2"
+                    options={placeholderOptions}
+                    value={currentPlaceholder}
+                    onChange={handlePlaceholderChange}
+                />
+
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={api_ip}
+                    onChange={handleApi_ipChange}
+                />
+            </div>
+            </div>
+        );
+
     return (
         <>
-            <div className="w-3/4 mx-auto  flex justify-center items-center">
-                <motion.div
-                    variants={fadeIn}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                >
-                    <div className="mt-4">
-                        {successMessage && (
+        <div className="mx-auto  w-full  ">
+        <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="w-full  rounded-md"
+        >
+            
+                <div className="mx-auto  w-full">
+                {successMessage && (
                             <SuccessAlert
                                 message={successMessage}
                                 OnClose={handleCloseAlert}
                                 timer={5000}
                             />
                         )}
-                        <div className="mt-2 mb-4">
-                            <h2 className="text-center font-bold text-3xl">
-                                Setting
-                            </h2>
-                            <div className="grid grid-cols-2 mt-6 mb-3 content-between place-content-start gap-4">
-                                <div className="col-span-1">
-                                    <div className="flex flex-col text-right items-end">
-                                        <label className="mt-2.5 mb-3">
-                                            Placeholder:
-                                        </label>
-                                        <label className="mt-3.5 mb-3">
-                                            API IP:
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="col-span-1">
-                                    <div className="flex flex-col">
-                                        <Dropdown
-                                            className="mt-2"
-                                            options={placeholderOptions}
-                                            value={currentPlaceholder}
-                                            onChange={handlePlaceholderChange}
-                                        />
-                                    </div>
-                                    <input
-                                            type="text"
-                                            className=" mt-4 mb-2  border border-gray-300 h-8 rounded-md focus:outline-none focus:border-blue-500 mx-2 "
-                                            value={api_ip}
-                                            onChange={handleApi_ipChange}
-                                            
-                                            
-                                        />
-                                </div>
-                            </div>
+                    <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                        App Setting
+                    </h2>
 
-                            <div className="my-6 flex justify-end fixed bottom-0 right-0">
-                                <button
-                                    type="button"
-                                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="button"
-                                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                    onClick={handleSaveConfig}
-                                >
-                                    Apply
-                                </button>
-                            </div>
-                        </div>
+                    <div className="divide-y  w-full divide-window-dark-500">
+                        {AppSection()}
+
                     </div>
-                </motion.div>
-            </div>
-            {error &&(
-                            <Notification
-                                message={error}
-                                timer={5000}
-                                type={"error"}
-                                onDismiss={handleDismissErrorToast}
-                            />
-                        )}  {successMessage && (
-                            <Notification
-                                message={successMessage}
-                                onDismiss={handleCloseAlert}
-                                timer={5000}
-                                type={"success"}
-                            />
-                        )}
+                    <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                        <button
+                            type="button"
+                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                            onClick={handleSaveConfig}
+                        >
+                            Apply
+                        </button>
+                    </div>
+                </div>
+        </motion.div>
+    </div>
+    <div className="my-6 flex justify-end fixed bottom-0 right-0">
+            {error && (
+                <Notification
+                    message={error}
+                    timer={5000}
+                    type={"error"}
+                    onDismiss={handleDismissErrorToast}
+                />
+            )}
+           </div>
         </>
     );
 }

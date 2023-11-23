@@ -27,8 +27,7 @@ import { invoke } from "@tauri-apps/api";
 
 import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
 
-
-export default function Titlebar()  {
+export default function Titlebar() {
     const [version, setVersion] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
@@ -68,10 +67,8 @@ export default function Titlebar()  {
     }, [windowTitle]);
 
     useEffect(() => {
-      
-        
-            invoke("close_splashscreen");
-   
+        invoke("close_splashscreen");
+
         const getInfoVersion = async () => {
             const version = await getVersion();
             setVersion(version);
