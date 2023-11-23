@@ -97,7 +97,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
             >
                 {settings && (
                     <div className="mx-auto w-full">
-                          <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                        <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
                             Logging Setting
                         </h2>
                         <div className="divide-y  w-full divide-window-dark-500">

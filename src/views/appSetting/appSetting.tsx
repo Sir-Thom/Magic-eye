@@ -173,64 +173,62 @@ export default function GeneralSetting() {
                     onChange={handleApi_ipChange}
                 />
             </div>
-            </div>
-        );
+        </div>
+    );
 
     return (
         <>
-        <div className="mx-auto  w-full  ">
-        <motion.div
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="w-full  rounded-md"
-        >
-            
-                <div className="mx-auto  w-full">
-                {successMessage && (
+            <div className="mx-auto  w-full  ">
+                <motion.div
+                    variants={fadeIn}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    className="w-full  rounded-md"
+                >
+                    <div className="mx-auto  w-full">
+                        {successMessage && (
                             <SuccessAlert
                                 message={successMessage}
                                 OnClose={handleCloseAlert}
                                 timer={5000}
                             />
                         )}
-                    <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
-                        App Setting
-                    </h2>
+                        <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                            App Setting
+                        </h2>
 
-                    <div className="divide-y  w-full divide-window-dark-500">
-                        {AppSection()}
-
+                        <div className="divide-y  w-full divide-window-dark-500">
+                            {AppSection()}
+                        </div>
+                        <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                                onClick={handleSaveConfig}
+                            >
+                                Apply
+                            </button>
+                        </div>
                     </div>
-                    <div className="my-6 flex justify-end fixed bottom-0 right-0">
-                        <button
-                            type="button"
-                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="button"
-                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                            onClick={handleSaveConfig}
-                        >
-                            Apply
-                        </button>
-                    </div>
-                </div>
-        </motion.div>
-    </div>
-    <div className="my-6 flex justify-end fixed bottom-0 right-0">
-            {error && (
-                <Notification
-                    message={error}
-                    timer={5000}
-                    type={"error"}
-                    onDismiss={handleDismissErrorToast}
-                />
-            )}
-           </div>
+                </motion.div>
+            </div>
+            <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                {error && (
+                    <Notification
+                        message={error}
+                        timer={5000}
+                        type={"error"}
+                        onDismiss={handleDismissErrorToast}
+                    />
+                )}
+            </div>
         </>
     );
 }

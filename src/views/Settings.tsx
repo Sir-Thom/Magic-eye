@@ -373,9 +373,8 @@ export default function Setting() {
                         }
                     />
                 </div>
-               
+
                 <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
-                    
                     <div className="mx-auto z-auto my-auto ">
                         {successMessage && (
                             <SuccessAlert
@@ -384,7 +383,7 @@ export default function Setting() {
                                 timer={5000}
                             />
                         )}
-                        
+
                         {currentSetting === "General Setting" && (
                             <GeneralSetting />
                         )}
@@ -467,20 +466,15 @@ export default function Setting() {
                     </div>
                 </div>
             </div>
-            
-           
-            {error && (
-             
-             <Notification
-                
-                 message={error}
-                 timer={5000}
-                 type={"error"}
-                 onDismiss={handleDismissErrorToast}
-             />
-           
-         )}
-        </>
 
-);
+            {error && (
+                <Notification
+                    message={error}
+                    timer={5000}
+                    type={"error"}
+                    onDismiss={handleDismissErrorToast}
+                />
+            )}
+        </>
+    );
 }

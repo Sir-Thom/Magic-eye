@@ -105,42 +105,42 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
-const RtspSection = () => (
-    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
-        <div>
-            <h2 className="text-base font-semibold leading-7 text-white">
-                RTSP 
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-400"></p>
-        </div>
-        <div className="col-span-2 gap-4 w-fit   grid-rows-7 grid grid-cols-2">
+    const RtspSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    RTSP
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-7 grid grid-cols-2">
                 <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
                     Enable RTSP:
                 </label>
                 <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3 ">
-                RTSP Disable:
+                    RTSP Disable:
                 </label>
                 <label className="place-content-center col-start-1 row-start-3 row-end-4 my-auto">
-                Protocols:
+                    Protocols:
                 </label>
                 <label className="place-content-center col-start-1 row-start-4 row-end-5 my-auto">
-                RTSP Encryption:
+                    RTSP Encryption:
                 </label>
                 <label className="place-content-center col-start-1 row-start-5 row-end-6 my-auto">
-                RTSP Address:
+                    RTSP Address:
                 </label>
                 <label className="place-content-center col-start-1 row-start-6 row-end-7 my-auto">
-                RTSPS Address:
+                    RTSPS Address:
                 </label>
                 <label className="place-content-center col-start-1 row-start-7 row-end-8 my-auto">
-                Multicast IP Range:
+                    Multicast IP Range:
                 </label>
                 <Toggle
                     className=" row-start-1 my-auto place-content-center row-end-2"
                     enabled={rtsp}
                     onChange={handleRtsp}
                 />
-                 <Toggle
+                <Toggle
                     className=" row-start-2 my-auto place-content-center row-end-3"
                     enabled={rtspDisable}
                     onChange={handleRtspDisable}
@@ -151,7 +151,7 @@ const RtspSection = () => (
                     value={protocols}
                     onChange={handleProtocols}
                 />
-                 <Toggle
+                <Toggle
                     className=" row-start-4 my-auto place-content-center row-end-5"
                     enabled={encryption}
                     onChange={handleEncryption}
@@ -170,39 +170,38 @@ const RtspSection = () => (
                     value={rtspsAddress}
                     onChange={handleRtspsAddress}
                 />
-                  <input
+                <input
                     type="text"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-7 row-end-8 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={multicastIPRange}
                     onChange={handleMulticastIPRange}
                 />
-                
             </div>
         </div>
-);
+    );
 
-const RTPSection = () => (
-    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
-    <div>
-        <h2 className="text-base font-semibold leading-7 text-white">
-            RTP 
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400"></p>
-    </div>
-    <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
-    <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
-            RTP Address:
-            </label>
-            <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
-            Multicast RTP Port:
-            </label>
-            <input
+    const RTPSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    RTP
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+                    RTP Address:
+                </label>
+                <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
+                    Multicast RTP Port:
+                </label>
+                <input
                     type="text"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtpAddress}
                     onChange={handleRtpAddress}
                 />
-                  <input
+                <input
                     type="number"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={multicastRTPPort}
@@ -210,30 +209,30 @@ const RTPSection = () => (
                 />
             </div>
         </div>
-);
+    );
 
-const RTCPSection = () => (
-    <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
-    <div>
-        <h2 className="text-base font-semibold leading-7 text-white">
-            RTCP 
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-400"></p>
-    </div>
-    <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
-    <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
-            RTCP Address:
-            </label>
-            <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
-            Multicast RTCP Port:
-            </label>
-            <input
+    const RTCPSection = () => (
+        <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div>
+                <h2 className="text-base font-semibold leading-7 text-white">
+                    RTCP
+                </h2>
+                <p className="mt-1 text-sm leading-6 text-gray-400"></p>
+            </div>
+            <div className="col-span-2 gap-4 w-fit   grid-rows-2 grid grid-cols-2">
+                <label className="place-content-center  my-auto  col-start-1 row-start-1 row-end-2 ">
+                    RTCP Address:
+                </label>
+                <label className="place-content-center  my-auto  col-start-1 row-start-2 row-end-3 ">
+                    Multicast RTCP Port:
+                </label>
+                <input
                     type="text"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={rtcpAddress}
                     onChange={handleRtcpAddress}
                 />
-                  <input
+                <input
                     type="number"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={multicastRTCPPort}
@@ -241,49 +240,46 @@ const RTCPSection = () => (
                 />
             </div>
         </div>
-);
-
+    );
 
     return (
         <div className="mx-auto  w-full  ">
-        <motion.div
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="w-full  rounded-md"
-        >
-            {settings && (
-                <div className="mx-auto  w-full">
-                    <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
-                    RTSP Setting
-                    </h2>
+            <motion.div
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="w-full  rounded-md"
+            >
+                {settings && (
+                    <div className="mx-auto  w-full">
+                        <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                            RTSP Setting
+                        </h2>
 
-                    <div className="divide-y  w-full divide-window-dark-500">
-                        {RtspSection()}
-                        {RTPSection()}
-                        {RTCPSection()}
-                        
-                     
+                        <div className="divide-y  w-full divide-window-dark-500">
+                            {RtspSection()}
+                            {RTPSection()}
+                            {RTCPSection()}
+                        </div>
+                        <div className="my-6 flex justify-end fixed bottom-0 right-0">
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
+                                onClick={handleSaveConfig}
+                            >
+                                Apply
+                            </button>
+                        </div>
                     </div>
-                    <div className="my-6 flex justify-end fixed bottom-0 right-0">
-                        <button
-                            type="button"
-                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="button"
-                            className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                            onClick={handleSaveConfig}
-                        >
-                            Apply
-                        </button>
-                    </div>
-                </div>
-            )}
-        </motion.div>
-    </div>
+                )}
+            </motion.div>
+        </div>
     );
 }

@@ -147,7 +147,6 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
         patchSetting(updatedSettings);
     };
 
-
     const GeneralSection = () => (
         <div className="grid w-full place-content-start grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
             <div>
@@ -157,116 +156,113 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                 <p className="mt-1 text-sm leading-6 text-gray-400"></p>
             </div>
             <div className="col-span-2 gap-4 w-fit  grid-rows-12 grid grid-cols-2">
-            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
-                HLS Enabled:
-            </label>
-            <Toggle
-                className="my-auto place-content-center row-start-1 row-end-2"
-                enabled={hlsEnabled}
-                onChange={handleHlsEnabledChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                    HLS Enabled:
+                </label>
+                <Toggle
+                    className="my-auto place-content-center row-start-1 row-end-2"
+                    enabled={hlsEnabled}
+                    onChange={handleHlsEnabledChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
-                HLS Address:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsAddress}
-                onChange={handleHlsAddressChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
+                    HLS Address:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsAddress}
+                    onChange={handleHlsAddressChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
-                HLS Allow Origin:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsAllowOrigin}
-                onChange={handleHlsAllowOriginChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
+                    HLS Allow Origin:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsAllowOrigin}
+                    onChange={handleHlsAllowOriginChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-4 row-end-5">
-                HLS Always Remux:
-            </label>
-            <Toggle
-                className="my-auto place-content-center row-start-4 row-end-5"
-                value={hlsAlwaysRemux.toString()}
-                enabled={hlsAlwaysRemux}
-                onChange={handleHlsAlwaysRemuxChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-4 row-end-5">
+                    HLS Always Remux:
+                </label>
+                <Toggle
+                    className="my-auto place-content-center row-start-4 row-end-5"
+                    value={hlsAlwaysRemux.toString()}
+                    enabled={hlsAlwaysRemux}
+                    onChange={handleHlsAlwaysRemuxChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-5 row-end-6">
-                HLS Directory:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-5 row-end-6 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsDirectory}
-                onChange={handleHlsDirectoryChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-5 row-end-6">
+                    HLS Directory:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-5 row-end-6 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsDirectory}
+                    onChange={handleHlsDirectoryChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-6 row-end-7">
-                HLS Disable:
-            </label>
-            <Toggle
-                className="my-auto place-content-center row-start-6 row-end-7"
-                value={hlsDisable.toString()}
-                enabled={hlsDisable}
-                onChange={handleHlsDisableChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-6 row-end-7">
+                    HLS Disable:
+                </label>
+                <Toggle
+                    className="my-auto place-content-center row-start-6 row-end-7"
+                    value={hlsDisable.toString()}
+                    enabled={hlsDisable}
+                    onChange={handleHlsDisableChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-7 row-end-8">
-                HLS Part Duration:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-7 row-end-8 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsPartDuration}
-                onChange={handleHlsPartDurationChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-7 row-end-8">
+                    HLS Part Duration:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-7 row-end-8 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsPartDuration}
+                    onChange={handleHlsPartDurationChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-8 row-end-9">
-                HLS Segment Count:
-            </label>
-            <input
-                type="number"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-8 row-end-9 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsSegmentCount}
-                onChange={handleHlsSegmentCountChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-8 row-end-9">
+                    HLS Segment Count:
+                </label>
+                <input
+                    type="number"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-8 row-end-9 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsSegmentCount}
+                    onChange={handleHlsSegmentCountChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-9 row-end-10">
-                HLS Segment Duration:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-9 row-end-10 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsSegmentDuration}
-                onChange={handleHlsSegmentDurationChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-9 row-end-10">
+                    HLS Segment Duration:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-9 row-end-10 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsSegmentDuration}
+                    onChange={handleHlsSegmentDurationChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-10 row-end-11">
-                HLS Segment Max Size:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-10 row-end-11 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                onChange={handleHlsSegmentMaxSizeChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-10 row-end-11">
+                    HLS Segment Max Size:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-10 row-end-11 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    onChange={handleHlsSegmentMaxSizeChange}
+                />
 
-            <label className="place-content-center my-auto col-start-1 row-start-11 row-end-12">
-                HLS Variant:
-            </label>
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-11 row-end-12 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsVariant}
-                onChange={handleHlsVariantChange}
-            />
- 
-
-
+                <label className="place-content-center my-auto col-start-1 row-start-11 row-end-12">
+                    HLS Variant:
+                </label>
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-11 row-end-12 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsVariant}
+                    onChange={handleHlsVariantChange}
+                />
             </div>
         </div>
     );
@@ -280,18 +276,16 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                 <p className="mt-1 text-sm leading-6 text-gray-400"></p>
             </div>
             <div className="col-span-2 gap-4 w-fit grid-rows-3 grid grid-cols-2">
-            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
-                HLS Encryption Enabled:
-            </label>
+                <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                    HLS Encryption Enabled:
+                </label>
 
-            
-            <Toggle
-                className="my-auto place-content-center row-start-1 row-end-2"
-                value={hlsEncryption.toString()}
-                enabled={hlsEncryption}
-                onChange={handleHlsEncryptionChange}
-            />
-          
+                <Toggle
+                    className="my-auto place-content-center row-start-1 row-end-2"
+                    value={hlsEncryption.toString()}
+                    enabled={hlsEncryption}
+                    onChange={handleHlsEncryptionChange}
+                />
             </div>
         </div>
     );
@@ -305,39 +299,38 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                 <p className="mt-1 text-sm leading-6 text-gray-400"></p>
             </div>
             <div className="col-span-2 gap-4 w-fit grid-rows-5 grid grid-cols-2">
-            <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
-                HLS Server Cert:
-            </label>
-            <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
-                HLS Server Key:
-            </label>
-            <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
-                HLS Server Trusted Proxies:
-            </label>
-            
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsServerCert}
-                onChange={handleHlsServerCertChange}
-            />
-            <input
-                type="text"
-                className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsServerKey}
-                onChange={handleHlsServerKeyChange}
-            />
-            <textarea
-                name="hlsTrustedProxies"
-                style={{ resize: "none" }}
-                className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                value={hlsTrustedProxies}
-                onChange={handleHlsTrustedProxiesChange}
-            />
+                <label className="place-content-center my-auto col-start-1 row-start-1 row-end-2">
+                    HLS Server Cert:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-2 row-end-3">
+                    HLS Server Key:
+                </label>
+                <label className="place-content-center my-auto col-start-1 row-start-3 row-end-4">
+                    HLS Server Trusted Proxies:
+                </label>
+
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-1 row-end-2 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsServerCert}
+                    onChange={handleHlsServerCertChange}
+                />
+                <input
+                    type="text"
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsServerKey}
+                    onChange={handleHlsServerKeyChange}
+                />
+                <textarea
+                    name="hlsTrustedProxies"
+                    style={{ resize: "none" }}
+                    className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    value={hlsTrustedProxies}
+                    onChange={handleHlsTrustedProxiesChange}
+                />
             </div>
         </div>
     );
-
 
     return (
         <div className="mx-auto min-h-screen w-full">
