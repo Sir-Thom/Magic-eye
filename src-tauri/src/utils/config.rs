@@ -2,7 +2,6 @@ use log::{debug, error, info, trace, warn};
 use serde::{Deserialize, Serialize};
 use serde_json;
 use std::env;
-use std::env::var;
 use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
@@ -44,6 +43,7 @@ struct Setting {
 const APP_NAME: &str = "magicEye";
 const SETTINGS_FILE_NAME: &str = "settings.json";
 
+
 impl PlaceholderOption {
     pub fn get_path_placeholder(&self) -> String {
         match self {
@@ -80,33 +80,33 @@ impl Setting {
     fn new() -> Setting {
         Setting {
             placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
-            api_ip:  Some(Some("127.0.0.1:9997").unwrap().to_string()), 
-        }
-    }
-}
-impl Default for Setting {
-    fn default() -> Self {
-        Setting {
-            placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
-            api_ip: Some(Some("127.0.0.1:9997").unwrap().to_string()), 
-            
+            api_ip: Some("127.0.0.1:9997".to_string()),
         }
     }
 }
 
+impl Default for Setting {
+    fn default() -> Self {
+        Setting {
+            placeholder: PlaceholderOption::PlaceholderSmpte.get_path_placeholder(),
+            api_ip: Some("127.0.0.1:9997".to_string()),
+        }
+    }
+}
+
+
 #[tauri::command]
-pub fn create_configuartion_file_setting() {
+pub fn create_configuration_file_setting() {
     match env::consts::OS {
         "linux" => {
-            let config_home = var("XDG_CONFIG_HOME")
-                .or_else(|_| var("HOME").map(|home| format!("{}/.config", home)))
-                .unwrap();
+            let config_home = env::var("XDG_CONFIG_HOME")
+                .or_else(|_| env::var("HOME").map(|home| format!("{}/.config", home)))
+                .unwrap_or_default();
             debug!("config_home: {}", config_home);
             let conf_dir = PathBuf::from(&config_home).join(APP_NAME);
             let path_config_file = conf_dir.join(SETTINGS_FILE_NAME);
             info!("path_config_file: {:?}", path_config_file);
 
-            // Create the directory if it doesn't exist
             if !Path::new(&conf_dir).exists() {
                 create_dir_all(&conf_dir).expect("failed to create config directory");
                 create_dir_all(&config_home).expect("failed to create config directory");
@@ -115,6 +115,7 @@ pub fn create_configuartion_file_setting() {
                     config_home
                 );
             }
+
             let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
                 .unwrap()
                 .to_str()
@@ -132,39 +133,20 @@ pub fn create_configuartion_file_setting() {
             }
 
             if !Path::new(&path_config_file).exists() {
-                // Create the file if it doesn't exist
-                //get all value from setting
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
                 trace!("json data for config file: {}", json_data);
-                println!(
-                    "json data: {}",
-                    tauri::api::path::app_data_dir(&tauri::Config::default())
-                        .unwrap()
-                        .display()
-                        .to_string()
-                );
                 let mut file = File::create(&path_config_file).unwrap();
                 file.write_all(json_data.as_bytes()).unwrap();
-
                 info!("config file created");
-                // println!("{}", serde_json::to_string(&setting).unwrap());
             }
         }
         "windows" => {
-            let app_data_dir = match var("APPDATA") {
-                Ok(appdata) => appdata,
-                Err(_) => {
-                    error!("Failed to retrieve APPDATA environment variable");
-                    return;
-                }
-            };
-
+            let app_data_dir = env::var("APPDATA").unwrap_or_default();
             debug!("APPDATA directory: {}", app_data_dir);
             let conf_dir = PathBuf::from(&app_data_dir).join(APP_NAME);
             let path_config_file = conf_dir.join(SETTINGS_FILE_NAME);
             info!("Path to config file: {:?}", path_config_file);
 
-            // Create the directory if it doesn't exist
             if !Path::new(&conf_dir).exists() {
                 create_dir_all(&conf_dir).expect("Failed to create config directory");
                 error!(
@@ -190,18 +172,13 @@ pub fn create_configuartion_file_setting() {
             }
 
             if !Path::new(&path_config_file).exists() {
-                // Create the file if it doesn't exist
-                // Get all values from setting
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
                 trace!("JSON data for config file: {}", json_data);
-
                 let mut file = File::create(&path_config_file).unwrap();
                 file.write_all(json_data.as_bytes()).unwrap();
-
                 info!("Config file created");
             }
         }
-
         _ => {
             warn!("no file created for this OS");
             error!("Unsupported OS");
@@ -209,7 +186,6 @@ pub fn create_configuartion_file_setting() {
         }
     }
 }
-
 #[tauri::command]
 pub fn get_config_dir() -> String {
     debug!(
