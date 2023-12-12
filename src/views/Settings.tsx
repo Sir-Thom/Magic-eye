@@ -440,6 +440,7 @@ export default function Setting() {
         try {
 
             const apiIpValue = apiIp;
+            console.log("apiIpValue: " + apiIpValue);
             if (!PatchData) {
                 setError("ConfigData is empty.");
                 return;

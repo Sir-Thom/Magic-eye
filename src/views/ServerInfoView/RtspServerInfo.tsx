@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import { invoke } from "@tauri-apps/api";
 import ListView from "../../components/ListBox/listView";
+import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspServerInfo() {
     const [items, setItems] = useState<any[]>([]);
-
+    const  {apiIp} = useServerData();
     useEffect(() => {
         getAllRtspSessions();
     }, []);
@@ -14,7 +15,7 @@ export default function RtspServerInfo() {
     async function getAllRtspSessions() {
         try {
             const response = await invoke("get_server_request", {
-                url: "http://127.0.0.1:9997/v3/rtspsessions/list"
+                url: `http://${apiIp}/v3/rtspsessions/list`
             });
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
@@ -30,7 +31,7 @@ export default function RtspServerInfo() {
     async function kickRstpSession(valueToSend: string) {
         try {
             await invoke("post_server_request", {
-                url: `http://127.0.0.1:9997/v3/rtspsessions/kick/`,
+                url: `http://${apiIp}/v3/rtspsessions/kick/`,
                 value: valueToSend
             });
 
