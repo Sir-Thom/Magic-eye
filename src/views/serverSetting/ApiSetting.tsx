@@ -4,6 +4,7 @@ import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
 
 export default function ApiSetting({ settings, onSave, patchSetting }) {
+    console.log("api setting:", settings)
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
     const [metricsEnabled, setMetricsEnabled] = useState(
         Boolean(settings.metrics)
@@ -47,6 +48,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
     };
 
     useEffect(() => {
+        
         setApiEnabled(Boolean(settings.api));
         // setApiAddress(settings.apiAddress);
         setMetricsEnabled(Boolean(settings.metrics));

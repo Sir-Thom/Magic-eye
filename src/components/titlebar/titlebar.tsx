@@ -24,7 +24,6 @@ import { Link, useLocation } from "react-router-dom";
 import { getVersion } from "@tauri-apps/api/app";
 import { motion } from "framer-motion";
 import { invoke } from "@tauri-apps/api";
-
 import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
 
 export default function Titlebar() {
@@ -53,7 +52,7 @@ export default function Titlebar() {
     const handleMenuClick = useCallback(() => {
         setMenuOpen((prevMenuOpen) => !prevMenuOpen);
     }, []);
-
+    
     useEffect(() => {
         const tauriInterval = setInterval(async () => {
             const isMaximized = await appWindow.isMaximized();
@@ -89,7 +88,7 @@ export default function Titlebar() {
 
     return (
         !fullscreen && (
-            <div className="z-50 overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0">
+            <div  data-tauri-drag-region className=" z-50   overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0">
                 <Modal isOpen={isOpen} onClose={handleClose}>
                     <img
                         className="inline-flex justify-center item-center dark:text-text-dark text-text-light m-auto h-auto ml-[3.78rem] mb-4"

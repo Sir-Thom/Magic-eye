@@ -67,7 +67,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .setup(move |app| {
             let main_window = app.get_window("main").expect("Main window not found");
             debug!("main_window url: : {:?}", main_window.url());
-
+            
             let resource_path = app
                 .path_resolver()
                 .resolve_resource("assets")

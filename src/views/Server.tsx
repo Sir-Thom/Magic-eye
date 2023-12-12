@@ -26,17 +26,17 @@ export default function ServerInfo() {
     return (
         <>
             {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
-            <div className="flex flex-col  h-screen">
-                <div className="flex">
-                    <div className="w-1/4 mx-auto fixed  h-full">
-                        <SideMenu
-                            menuItems={menuItems}
-                            onMenuItemClick={(menuItem) =>
-                                setCurrentSetting(menuItem.label)
-                            }
-                        />
-                    </div>
-                    <div className="w-3/4 mx-auto mt-4 mr-24">
+            <div className="grid scrollbar scrollbar-thumb-window-light-50 relative w-full overflow-hidden grid-cols-12 ">
+                <div className=" col-span-2  pt-10 ">
+                    <SideMenu
+                        menuItems={menuItems}
+                        onMenuItemClick={(menuItem) =>
+                            setCurrentSetting(menuItem.label)
+                        }
+                    />
+                </div>
+                <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
+                    <div className="mx-auto z-auto my-auto ">
                         <div className="mx-auto mt-24">
                             {currentSetting === "RTSP" && <RtspServerInfo />}
                         </div>

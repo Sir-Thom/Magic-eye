@@ -136,11 +136,10 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                     RTMP Server Cert:
                 </label>
                 <Toggle
-                    className=" row-start-1 my-auto place-content-center row-end-2"
-                    enabled={!rtmpEncryptionToggle}
-                    onChange={handleRtmpEncryption}
-                />
-
+            className="row-start-1 my-auto place-content-center row-end-2"
+            enabled={rtmpEncryptionToggle}  // Fix: Set enabled to rtmpEncryptionToggle
+            onChange={handleRtmpEncryption}
+        />
                 <input
                     type="text"
                     className="my-auto h-8 align-text-bottom place-content-center row-start-2 row-end-3 appearance-none pr-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"

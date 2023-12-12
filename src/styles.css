@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+  
+
 @layer components {
+    *::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+    }
     :root {
         @apply outline-none outline-2 outline-offset-2 focus:outline-accent-color1-400 bg-window-dark-800  text-text-dark;
     }

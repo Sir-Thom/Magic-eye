@@ -86,7 +86,6 @@ pub async fn patch_server_request(config_data: Value, url: &str) -> Result<(), S
     info!("PATCH data: {}", data);
     info!("PATCH request to URL: {}", url);
 
-
     let response = reqwest::Client::new()
         .patch(url)
         .header("Content-Type", "application/json") 
@@ -103,13 +102,21 @@ pub async fn patch_server_request(config_data: Value, url: &str) -> Result<(), S
     if response.status().is_success() {
         Ok(())
     } else {
-        response.status().is_server_error().then(|| {
+        if response.status().is_server_error() {
             error!("Server error: {:?}", response);
+        }
+
+        // Extract and return the error message from the response
+        let error_message = response.text().await.unwrap_or_else(|_| {
+            "Unable to retrieve the error message from the server response.".to_string()
         });
-        error!("PATCH request was not successful: {:?}", response);
-        Err(format!("PATCH request was not successful: {:?}", response.text().await))
+
+        // Log the error and return it
+        error!("PATCH request was not successful: {:?}", error_message);
+        Err(error_message)
     }
 }
+
 
 #[tauri::command]
 pub async fn post_server_request(url: &str, value: Value) -> Result<(), String> {

@@ -11,7 +11,9 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     const [protocols, setProtocols] = useState(
         settings.protocols || ["multicast", "tcp", "udp"]
     );
+    const [rtspEncryptionToggle, setRtspEncryptionToggle] = useState(false);
     const [encryption, setEncryption] = useState(settings.encryption || "no");
+
     const [rtspAddress, setRtspAddress] = useState(
         settings.rtspAddress || ":8554"
     );
@@ -41,9 +43,12 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     };
 
     const handleEncryption = () => {
-        setEncryption(!encryption);
+        console.log("toggle: " + rtspEncryptionToggle);
+        console.log("rtmpEncryption: " + encryption);
+        setRtspEncryptionToggle(!rtspEncryptionToggle);
+        setEncryption(rtspEncryptionToggle ? "no" : "yes");
     };
-
+      
     const handleRtspAddress = (event) => {
         setRtspAddress(event.target.value);
     };
@@ -73,10 +78,16 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     };
 
     useEffect(() => {
+        console.log("setting updated:", settings);
+
+
         setRtsp(settings.rtsp);
         setRtspDisable(settings.rtspDisable || false);
         setProtocols(settings.protocols || ["multicast", "tcp", "udp"]);
         setEncryption(settings.encryption || "no");
+        setRtspEncryptionToggle(
+            settings.encryption == "yes" ? true : false
+        );
         setRtspAddress(settings.rtspAddress || ":8554");
         setRtspsAddress(settings.rtspsAddress || ":8322");
         setRtpAddress(settings.rtpAddress || ":8000");
@@ -92,7 +103,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
             rtsp: rtsp,
             rtspDisable: rtspDisable,
             protocols: protocols,
-            encryption: encryption,
+            encryption: encryption ,
             rtspAddress: rtspAddress,
             rtspsAddress: rtspsAddress,
             rtpAddress: rtpAddress,
@@ -101,6 +112,8 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
             multicastRTPPort: multicastRTPPort,
             multicastRTCPPort: multicastRTCPPort
         };
+        console.log("setting updated:", settings);
+
         onSave(updatedSettings);
         patchSetting(updatedSettings);
     };
@@ -153,7 +166,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                 />
                 <Toggle
                     className=" row-start-4 my-auto place-content-center row-end-5"
-                    enabled={encryption}
+                    enabled={rtspEncryptionToggle}  // Fix: Set enabled to rtspEncryptionToggle
                     onChange={handleEncryption}
                 />
 
