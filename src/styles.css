@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-  
-
 @layer components {
     *::-webkit-scrollbar {
         width: 0px;

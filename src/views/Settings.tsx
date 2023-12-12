@@ -1,7 +1,4 @@
-import {
-    useEffect,
-    useState,
-} from "react";
+import { useEffect, useState } from "react";
 import {
     IApiSettings,
     ILoggingSettings,
@@ -11,11 +8,9 @@ import {
     IRtmpSettings,
     IWebrtcSettings,
     ISrtSettings,
-    IRecordSettings,
+    IRecordSettings
 } from "../interfaces/IServer";
-import {
-    invoke,
- } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api";
 import { createPortal } from "react-dom";
 import ApiSetting from "./serverSetting/ApiSetting";
 import HlsSetting from "./serverSetting/hlsSetting";
@@ -32,9 +27,8 @@ import SideMenu from "../components/sideMenu/sideMenu";
 import Notification from "../components/notification/notification";
 import useServerData from "../utils/hooks/ServerData";
 
-
 export default function Setting() {
-    const { configData, serverError,apiIp } = useServerData();
+    const { configData, serverError, apiIp } = useServerData();
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [currentSetting, setCurrentSetting] = useState("General Setting"); // Initially show the "API Setting" component
@@ -123,9 +117,8 @@ export default function Setting() {
         recordDeleteAfter: configData?.recordDeleteAfter || "24h"
     });
 
-
     console.log(webrtcSettings);
-    const [/*apiIp,*/, setApiIp] = useState<string>("");
+    const [, /*apiIp,*/ setApiIp] = useState<string>("");
     async function GetApiIp() {
         try {
             const res = await invoke("get_api_ip");
@@ -142,13 +135,17 @@ export default function Setting() {
         setError(serverError); // Set error from the serverData hook
 
         // Additional logic to handle specific errors if needed
-        if (serverError && serverError.includes("strict encryption can't be used with the UDP transport protocol")) {
+        if (
+            serverError &&
+            serverError.includes(
+                "strict encryption can't be used with the UDP transport protocol"
+            )
+        ) {
             // Display a specific message or handle the error accordingly
         }
     }, [serverError]);
 
     useEffect(() => {
-
         const fetchData = async () => {
             const apiIpValue = await GetApiIp();
             setError(null);
@@ -168,10 +165,7 @@ export default function Setting() {
                     // Call the updated function with the parsed response
                     updateStateAndHandleActions(parsedResponse);
 
-
-
-
-            // destructuring the parsedResponse
+                    // destructuring the parsedResponse
                     const {
                         api,
                         metrics,
@@ -235,7 +229,7 @@ export default function Setting() {
                         recordPartDuration,
                         recordSegmentDuration,
                         recordDeleteAfter
-                    } =JSON.parse(response);
+                    } = JSON.parse(response);
 
                     // Update the state variables with the new settings
                     setApiSettings({
@@ -245,14 +239,14 @@ export default function Setting() {
                         pprof: pprof || false,
                         pprofAddress: pprofAddress || "127.0.0.1:9999",
                         runOnConnect: runOnConnect || "",
-                        runOnConnectRestart: runOnConnectRestart || false,
+                        runOnConnectRestart: runOnConnectRestart || false
                     });
 
                     console.log("api setting: " + JSON.stringify(apiSettings));
                     setLoggingSettings({
                         logLevel: logLevel || "info",
                         logDestinations: logDestinations || ["stdout"],
-                        logFile: logFile || "mediamtx.log",
+                        logFile: logFile || "mediamtx.log"
                     });
 
                     setHlsSettings({
@@ -270,7 +264,7 @@ export default function Setting() {
                         hlsServerCert: hlsServerCert || "server.crt",
                         hlsServerKey: hlsServerKey || "server.key",
                         hlsTrustedProxies: hlsTrustedProxies || [],
-                        hlsVariant: hlsVariant || "lowLatency",
+                        hlsVariant: hlsVariant || "lowLatency"
                     });
 
                     setRtmpSettings({
@@ -279,7 +273,7 @@ export default function Setting() {
                         rtmpEncryption: rtmpEncryption || "no",
                         rtmpsAddress: rtmpsAddress || ":1936",
                         rtmpServerKey: rtmpServerKey || "server.key",
-                        rtmpServerCert: rtmpServerCert || "server.crt",
+                        rtmpServerCert: rtmpServerCert || "server.crt"
                     });
 
                     setRtspSettings({
@@ -293,12 +287,12 @@ export default function Setting() {
                         rtcpAddress: rtcpAddress || ":8001",
                         multicastIPRange: multicastIPRange || "224.1.0.0/16",
                         multicastRTPPort: multicastRTPPort || 8002,
-                        multicastRTCPPort: multicastRTCPPort || 8003,
+                        multicastRTCPPort: multicastRTCPPort || 8003
                     });
 
                     setSrtSettings({
                         srt: srt || true,
-                        srtAddress: srtAddress || ":8890",
+                        srtAddress: srtAddress || ":8890"
                     });
 
                     setWebrtcSettings({
@@ -313,54 +307,54 @@ export default function Setting() {
                         webrtcICEServers2: webrtcICEServers2 || null,
                         webrtcICEHostNAT1To1IPs: webrtcICEHostNAT1To1IPs || [],
                         webrtcICEUDPMuxAddress: webrtcICEUDPMuxAddress || "",
-                        webrtcICETCPMuxAddress: webrtcICETCPMuxAddress || "",
+                        webrtcICETCPMuxAddress: webrtcICETCPMuxAddress || ""
                     });
 
                     setRecordSettings({
                         record: record || false,
-                        recordPath: recordPath || "./recordings/%path/%Y-%m-%d_%H-%M-%S-%f",
+                        recordPath:
+                            recordPath ||
+                            "./recordings/%path/%Y-%m-%d_%H-%M-%S-%f",
                         recordFormat: recordFormat || "fmp4",
                         recordPartDuration: recordPartDuration || "100ms",
                         recordSegmentDuration: recordSegmentDuration || "1h",
-                        recordDeleteAfter: recordDeleteAfter || "24h",
+                        recordDeleteAfter: recordDeleteAfter || "24h"
                     });
-                    console.log("set api setting: " + JSON.stringify(apiSettings));
+                    console.log(
+                        "set api setting: " + JSON.stringify(apiSettings)
+                    );
                 })
 
                 .catch(() => {
                     setError("Unable to connect to the server.");
                 });
-
         };
 
         fetchData();
     }, []);
 
-    async function updateStateAndHandleActions(parsedResponse) {
-
-        console.log("Parsed Server Response:", parsedResponse);
-
+    async function updateStateAndHandleActions(parsedResponse: IServer) {
         // Update the state variables with the new settings
         setApiSettings({
-            api: parsedResponse.api || true,
-            metrics: parsedResponse.metrics || false,
-            metricsAddress: parsedResponse.metricsAddress || "127.0.0.1:9998",
-            pprof: parsedResponse.pprof || false,
-            pprofAddress: parsedResponse.pprofAddress || "127.0.0.1:9999",
-            runOnConnect: parsedResponse.runOnConnect || "",
-            runOnConnectRestart: parsedResponse.runOnConnectRestart || false,
+            api: parsedResponse.api,
+            metrics: parsedResponse.metrics,
+            metricsAddress: parsedResponse.metricsAddress,
+            pprof: parsedResponse.pprof,
+            pprofAddress: parsedResponse.pprofAddress,
+            runOnConnect: parsedResponse.runOnConnect,
+            runOnConnectRestart: parsedResponse.runOnConnectRestart
         });
-        console.log("api updated: ", parsedResponse)
+        console.log("api updated: ", parsedResponse);
         setLoggingSettings({
-            logLevel: parsedResponse.logLevel || "info",
-            logDestinations: parsedResponse.logDestinations || ["stdout"],
-            logFile: parsedResponse.logFile || "mediamtx.log",
+            logLevel: parsedResponse.logLevel,
+            logDestinations: parsedResponse.logDestinations,
+            logFile: parsedResponse.logFile
         });
 
         setHlsSettings({
             hls: parsedResponse.hls || true,
             hlsAddress: parsedResponse.hlsAddress || ":8888",
-            hlsAllowOrigin:parsedResponse.hlsAllowOrigin || "*",
+            hlsAllowOrigin: parsedResponse.hlsAllowOrigin || "*",
             hlsAlwaysRemux: parsedResponse.hlsAlwaysRemux || false,
             hlsDirectory: parsedResponse.hlsDirectory || "",
             hlsDisable: parsedResponse.hlsDisable || false,
@@ -372,7 +366,7 @@ export default function Setting() {
             hlsServerCert: parsedResponse.hlsServerCert || "server.crt",
             hlsServerKey: parsedResponse.hlsServerKey || "server.key",
             hlsTrustedProxies: parsedResponse.hlsTrustedProxies || [],
-            hlsVariant: parsedResponse.hlsVariant || "lowLatency",
+            hlsVariant: parsedResponse.hlsVariant || "lowLatency"
         });
 
         setRtmpSettings({
@@ -381,7 +375,7 @@ export default function Setting() {
             rtmpEncryption: parsedResponse.rtmpEncryption || "no",
             rtmpsAddress: parsedResponse.rtmpsAddress || ":1936",
             rtmpServerKey: parsedResponse.rtmpServerKey || "server.key",
-            rtmpServerCert: parsedResponse.rtmpServerCert || "server.crt",
+            rtmpServerCert: parsedResponse.rtmpServerCert || "server.crt"
         });
 
         setRtspSettings({
@@ -395,12 +389,12 @@ export default function Setting() {
             rtcpAddress: parsedResponse.rtcpAddress || ":8001",
             multicastIPRange: parsedResponse.multicastIPRange || "224.1.0.0/16",
             multicastRTPPort: parsedResponse.multicastRTPPort || 8002,
-            multicastRTCPPort: parsedResponse.multicastRTCPPort || 8003,
+            multicastRTCPPort: parsedResponse.multicastRTCPPort || 8003
         });
 
         setSrtSettings({
             srt: parsedResponse.srt || true,
-            srtAddress: parsedResponse.srtAddress || ":8890",
+            srtAddress: parsedResponse.srtAddress || ":8890"
         });
 
         setWebrtcSettings({
@@ -413,20 +407,23 @@ export default function Setting() {
             webrtcTrustedProxies: parsedResponse.webrtcTrustedProxies || [],
             webrtcICEServers: parsedResponse.webrtcICEServers || null,
             webrtcICEServers2: parsedResponse.webrtcICEServers2 || null,
-            webrtcICEHostNAT1To1IPs: parsedResponse.webrtcICEHostNAT1To1IPs || [],
+            webrtcICEHostNAT1To1IPs:
+                parsedResponse.webrtcICEHostNAT1To1IPs || [],
             webrtcICEUDPMuxAddress: parsedResponse.webrtcICEUDPMuxAddress || "",
-            webrtcICETCPMuxAddress: parsedResponse.webrtcICETCPMuxAddress || "",
+            webrtcICETCPMuxAddress: parsedResponse.webrtcICETCPMuxAddress || ""
         });
 
         setRecordSettings({
             record: parsedResponse.record || false,
-            recordPath: parsedResponse.recordPath || "./recordings/%path/%Y-%m-%d_%H-%M-%S-%f",
+            recordPath:
+                parsedResponse.recordPath ||
+                "./recordings/%path/%Y-%m-%d_%H-%M-%S-%f",
             recordFormat: parsedResponse.recordFormat || "fmp4",
             recordPartDuration: parsedResponse.recordPartDuration || "100ms",
             recordSegmentDuration: parsedResponse.recordSegmentDuration || "1h",
-            recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h",
+            recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h"
         });
-        setSuccessMessage('Settings saved successfully');
+        setSuccessMessage("Settings saved successfully");
 
         const apiIpValue = apiIp;
         invoke("save_api_ip", { apiIp: apiIpValue }).then((res) => {
@@ -434,11 +431,8 @@ export default function Setting() {
         });
     }
 
-
-
     async function patchSetting(PatchData) {
         try {
-
             const apiIpValue = apiIp;
             console.log("apiIpValue: " + apiIpValue);
             if (!PatchData) {
@@ -449,26 +443,23 @@ export default function Setting() {
             const serverUrl = `http://${apiIpValue}/v3/config/global/patch`;
             await invoke("patch_server_request", {
                 configData: PatchData,
-                url: serverUrl,
+                url: serverUrl
             }).catch((error) => {
-                console.log( error.toString());
-                throw  JSON.parse(error);
+                console.log(error.toString());
+                throw JSON.parse(error);
             });
-
 
             console.log("patch setting: " + JSON.stringify(PatchData));
             // Handle common actions
             await updateStateAndHandleActions(PatchData);
-
-
         } catch (error) {
             console.log("error: " + error.error);
             if (error && error.error) {
                 // Display the specific error message
                 setError(error.error);
-            } else  {
+            } else {
                 // Display a generic error message
-                setError("Unable to connect to the server."+ error.toString());
+                setError("Unable to connect to the server." + error.toString());
             }
         }
         console.log("configData: " + JSON.stringify(configData));
