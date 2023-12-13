@@ -28,6 +28,7 @@ import Notification from "../components/notification/notification";
 import useServerData from "../utils/hooks/ServerData";
 
 export default function Setting() {
+    const [saveButtonPressed, setSaveButtonPressed] = useState(false);
     const { configData, serverError, apiIp } = useServerData();
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState("");
@@ -149,8 +150,6 @@ export default function Setting() {
         const fetchData = async () => {
             const apiIpValue = await GetApiIp();
             setError(null);
-
-            console.log("API Setting from useEffect: " + apiIpValue);
 
             console.log("API Setting from useEffect: " + apiIpValue);
 
@@ -423,7 +422,7 @@ export default function Setting() {
             recordSegmentDuration: parsedResponse.recordSegmentDuration || "1h",
             recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h"
         });
-        setSuccessMessage("Settings saved successfully");
+        
 
         const apiIpValue = apiIp;
         invoke("save_api_ip", { apiIp: apiIpValue }).then((res) => {
@@ -452,16 +451,19 @@ export default function Setting() {
             console.log("patch setting: " + JSON.stringify(PatchData));
             // Handle common actions
             await updateStateAndHandleActions(PatchData);
+            setSaveButtonPressed(true);
+            setSuccessMessage("Settings saved successfully");
         } catch (error) {
             console.log("error: " + error.error);
             if (error && error.error) {
-                // Display the specific error message
                 setError(error.error);
             } else {
                 // Display a generic error message
-                setError("Unable to connect to the server." + error.toString());
+                setError("An error occurred: " + error.toString());
             }
         }
+
+        
         console.log("configData: " + JSON.stringify(configData));
     }
 
@@ -482,6 +484,7 @@ export default function Setting() {
     }
 
     function handleCloseAlert(): void {
+        setSaveButtonPressed(false);
         setSuccessMessage("");
     }
 
@@ -501,7 +504,7 @@ export default function Setting() {
 
                 <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
                     <div className="mx-auto z-auto my-auto ">
-                        {successMessage && (
+                        {saveButtonPressed && successMessage && (
                             <SuccessAlert
                                 message={successMessage}
                                 OnClose={handleCloseAlert}

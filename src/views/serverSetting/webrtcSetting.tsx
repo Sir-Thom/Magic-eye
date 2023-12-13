@@ -77,11 +77,14 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const handleWebrtcICEServers = (event) => {
         setWebrtcICEServers(event.target.value);
     };
-
     const handleWebrtcICEServers2 = (event) => {
-        setWebrtcICEServers2(event.target.value);
+        const { name, value } = event.target;
+    
+        setWebrtcICEServers2((prevICEServers2) => ({
+            ...prevICEServers2,
+            [name]: value,
+        }));
     };
-
     const handleWebrtcICEHostNAT1To1IPs = (event) => {
         setWebrtcICEHostNAT1To1IPs(event.target.value);
     };
@@ -230,22 +233,22 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                 </h2>
             </div>
             <div className="col-span-1 grid grid-rows-5 gap-y-2">
-                <label className="mt-16 mb-16">Webrtc ICE Servers:</label>
-                <label className="mt-16 mb-32">Webrtc ICE Servers2:</label>
-                <label className="mt-28 mb-38">
+                <label className="mt-16 ">Webrtc ICE Servers:</label>
+                <label className="mt-16">Webrtc ICE Servers2:</label>
+                <label className="mt-24  w-full">
                     Webrtc ICE Host NAT 1 To 1 IPs:
                 </label>
-                <label className="mt-2">Webrtc ICE UDP Mux Address:</label>
+                <label className="mt-2 w-full">Webrtc ICE UDP Mux Address:</label>
                 <label className="mt-2">Webrtc ICE TCP Mux Address:</label>
             </div>
-            <div className="col-span-2 grid grid-cols-2 gap-x-4">
+            <div className="col-span-2 grid grid-cols-2 grid-rows-5 gap-x-4">
                 <textarea
                     name="webrtcICEServers"
                     className="resize-none my-2 h-40 col-span-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
                     value={webrtcICEServers}
                     onChange={handleWebrtcICEServers}
                 />
-                <div className="grid grid-cols-1 gap-x-4">
+                <div className="grid grid-cols-1 grid-rows-3 gap-x-4">
                     <div className="flex flex-col my-2">
                         <label className="my-2">URL:</label>
                         <input
@@ -278,23 +281,24 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                     </div>
                 </div>
                 <textarea
-                    name="webrtcICEHostNAT1To1IPs"
-                    className="resize-none my-2 h-16 col-span-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-                    value={webrtcICEHostNAT1To1IPs}
-                    onChange={handleWebrtcICEHostNAT1To1IPs}
-                />
-                <input
-                    type="text"
-                    className="my-2 h-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-                    value={webrtcICEUDPMuxAddress}
-                    onChange={handleWebrtcICEUDPMuxAddress}
-                />
-                <input
-                    type="text"
-                    className="my-3 h-8 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-                    value={webrtcICETCPMuxAddress}
-                    onChange={handleWebrtcICETCPMuxAddress}
-                />
+    name="webrtcICEHostNAT1To1IPs"
+    className="resize-none my-20 h-16 col-span-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+    value={webrtcICEHostNAT1To1IPs}
+    onChange={handleWebrtcICEHostNAT1To1IPs}
+/>
+<input
+    type="text"
+    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+    value={webrtcICEUDPMuxAddress}
+    onChange={handleWebrtcICEUDPMuxAddress}
+/>
+<input
+    type="text"
+    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+    value={webrtcICETCPMuxAddress}
+    onChange={handleWebrtcICETCPMuxAddress}
+/>
+
             </div>
         </div>
     );
