@@ -5,17 +5,17 @@ import { invoke } from "@tauri-apps/api";
 import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
-export default function RtspServerInfo() {
+export default function SRTConnInfo() {
     const [items, setItems] = useState<any[]>([]);
     const { apiIp } = useServerData();
     useEffect(() => {
-        getAllRtspSessions();
+        getAllSRTSessions();
     }, []);
-
-    async function getAllRtspSessions() {
+ 
+    async function getAllSRTSessions() {
         try {
             const response = await invoke("get_server_request", {
-                url: `http://${apiIp}/v3/rtspsessions/list`
+                url: `http://${apiIp}/v3/srtconns/list`
             });
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
@@ -28,10 +28,10 @@ export default function RtspServerInfo() {
         }
     }
 
-    async function kickRstpSession(valueToSend: string) {
+    async function kickSRTSession(valueToSend: string) {
         try {
             await invoke("post_server_request", {
-                url: `http://${apiIp}/v3/rtspsessions/kick/`,
+                url: `http://${apiIp}/v3/srtconns/kick/`,
                 value: valueToSend
             });
 
@@ -39,30 +39,32 @@ export default function RtspServerInfo() {
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             // Update the UI by fetching the updated list of sessions
-            getAllRtspSessions();
+            getAllSRTSessions();
         } catch (error) {
             console.error("Error kicking RTSP session:", error);
         }
     }
 
     return (
+        <div className="mx-auto  w-full  ">
         <motion.div
-            className="w-3/4 overscroll-contain mx-auto flex  flex-co justify-center items-start"
+            className="w-full  rounded-md"
             variants={fadeIn}
             initial="hidden"
             animate="visible"
             exit="exit"
         >
-            <div className="mt-4 mb-2">
-                <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
-                    RTSP Sessions
-                </h2>
+            <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                SRT Informations
+            </h2>
+            <div className="divide-y  w-full divide-window-dark-500">
                 <ListView
                     fetchData={items}
                     canDelete={true}
-                    DeleteFunc={kickRstpSession}
+                    DeleteFunc={kickSRTSession}
                 />
             </div>
         </motion.div>
+    </div>
     );
 }

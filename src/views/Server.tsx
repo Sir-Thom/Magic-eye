@@ -4,8 +4,12 @@ import RtspServerInfo from "./ServerInfoView/RtspServerInfo";
 import { createPortal } from "react-dom";
 import Titlebar from "../components/titlebar/titlebar";
 import RtmpConnInfo from "./ServerInfoView/RtmpServerInfo";
-import HLsConnInfo from "./ServerInfoView/HlsServerInfo";
+import HLSConnInfo from "./ServerInfoView/HlsServerInfo";
 import Notification from "../components/notification/notification";
+import SRTConnInfo from "./ServerInfoView/SrtServerInfo";
+import WebRTCConnInfo from "./ServerInfoView/WebrtcServerInfo";
+import RtspsServerInfo from "./ServerInfoView/RtspsServerInfo";
+import RtmpsConnInfo from "./ServerInfoView/RtmpsServerInfo";
 
 export default function ServerInfo() {
     const [error, setError] = useState<string | null>(null);
@@ -14,7 +18,9 @@ export default function ServerInfo() {
     const menuItems = [
         { label: "HLS" },
         { label: "RTSP" },
+        { label: "RTSPS" },
         { label: "RTMP" },
+        { label: "RTMPS"},
         { label: "WebRTC" },
         { label: "SRT" }
     ].sort((a, b) => a.label.localeCompare(b.label));
@@ -38,10 +44,12 @@ export default function ServerInfo() {
                 <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
                     <div className="mx-auto z-auto my-auto ">
                         {currentSetting === "RTSP" && <RtspServerInfo />}
-
+                        {currentSetting === "RTSPS" && <RtspsServerInfo />}
                         {currentSetting === "RTMP" && <RtmpConnInfo />}
-
-                        {currentSetting === "HLS" && <HLsConnInfo />}
+                        {currentSetting == "RTMPS"&& <RtmpsConnInfo/>}
+                        {currentSetting === "HLS" && <HLSConnInfo />}
+                        {currentSetting === "SRT" && <SRTConnInfo />}
+                        {currentSetting === "WebRTC" && <WebRTCConnInfo />}
                     </div>
                 </div>
             </div>

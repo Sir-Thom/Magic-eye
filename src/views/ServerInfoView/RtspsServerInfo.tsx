@@ -5,17 +5,17 @@ import { invoke } from "@tauri-apps/api";
 import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
-export default function WebRTCConnInfo() {
+export default function RtspsConnInfo() {
     const [items, setItems] = useState<any[]>([]);
     const { apiIp } = useServerData();
     useEffect(() => {
-        getAllWebRTCSessions();
+        getAllRtspsSessions();
     }, []);
 
-    async function getAllWebRTCSessions() {
+    async function getAllRtspsSessions() {
         try {
             const response = await invoke("get_server_request", {
-                url: `http://${apiIp}/v3/webrtcsessions/list`
+                url: `http://${apiIp}/v3/rtspssessions/list`
             });
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
@@ -28,10 +28,10 @@ export default function WebRTCConnInfo() {
         }
     }
 
-    async function kickWebRTCSession(valueToSend: string) {
+    async function kickRstpsSession(valueToSend: string) {
         try {
             await invoke("post_server_request", {
-                url: `http://${apiIp}/v3/webrtcsessions/kick/`,
+                url: `http://${apiIp}/v3/rtspssessions/kick/`,
                 value: valueToSend
             });
 
@@ -39,7 +39,7 @@ export default function WebRTCConnInfo() {
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             // Update the UI by fetching the updated list of sessions
-            getAllWebRTCSessions();
+            getAllRtspsSessions();
         } catch (error) {
             console.error("Error kicking RTSP session:", error);
         }
@@ -47,24 +47,24 @@ export default function WebRTCConnInfo() {
 
     return (
         <div className="mx-auto  w-full  ">
-        <motion.div
-            className="w-full  rounded-md"
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-        >
-            <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
-                WebRTC Informations
-            </h2>
-            <div className="divide-y  w-full divide-window-dark-500">
-                <ListView
-                    fetchData={items}
-                    canDelete={true}
-                    DeleteFunc={kickWebRTCSession}
-                />
-            </div>
-        </motion.div>
-    </div>
+            <motion.div
+                className="w-full  rounded-md"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+            >
+                <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                    RTSPS Informations
+                </h2>
+                <div className="divide-y  w-full divide-window-dark-500">
+                    <ListView
+                        fetchData={items}
+                        canDelete={true}
+                        DeleteFunc={kickRstpsSession}
+                    />
+                </div>
+            </motion.div>
+        </div>
     );
 }
