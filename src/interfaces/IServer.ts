@@ -242,7 +242,7 @@ interface ISettings {
     recordSettings: IRecordSettings;
     srtSettings: ISrtSettings;
     webrtcSettings: IWebrtcSettings;
-  }
+}
 
 export type {
     IServer,
@@ -258,4 +258,3 @@ export type {
     IRecordSettings,
     ISettings
 };
-

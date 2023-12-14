@@ -21,7 +21,7 @@ function useServerData() {
                 const parsedResponse: IServer = JSON.parse(response as string);
                 setConfigData(parsedResponse);
             } catch (error) {
-                setServerError("Error: "+error);
+                setServerError("Error: " + error);
             }
         }
 

@@ -51,7 +51,7 @@ export default function VidPlayer() {
             }
         } catch (err) {
             setIsConnected(false);
-            
+
             handleDisconnect();
             handlePlayerError(err.message);
         }
@@ -121,7 +121,7 @@ export default function VidPlayer() {
                     className="bg-accent-color1-700 hover:bg-accent-color1-800 mr-16 font-bold py-2 px-4 rounded"
                 >
                     Connect to Stream
-                </button> 
+                </button>
             </div>
 
             {error && (
