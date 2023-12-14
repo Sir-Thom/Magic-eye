@@ -316,7 +316,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                 >
                     {settings && (
                         <div className="mx-auto w-full">
-                            <h2 className="text-center mb-4 font-bold text-3xl">
+                           <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
                                 Webrtc Setting
                             </h2>
                             <div className="divide-y divide-window-dark-500">
