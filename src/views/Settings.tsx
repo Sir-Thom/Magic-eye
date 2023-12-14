@@ -78,7 +78,7 @@ function getDefaultSettings(configData ): ISettings {
             webrtcICETCPMuxAddress: configData?.webrtcICETCPMuxAddress || ""},
         recordSettings: {   record: configData?.record || true,
             recordPath: configData?.recordPath || "",
-            recordFormat: configData?.recordFormat || "mp4",
+            recordFormat: configData?.recordFormat || "fmp4",
             recordPartDuration: configData?.recordPartDuration || "200ms",
             recordSegmentDuration: configData?.recordSegmentDuration || "1h",
             recordDeleteAfter: configData?.recordDeleteAfter || "24h" },
