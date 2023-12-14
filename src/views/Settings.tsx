@@ -76,7 +76,7 @@ function getDefaultSettings(configData ): ISettings {
             webrtcICEHostNAT1To1IPs: configData?.webrtcICEHostNAT1To1IPs || [],
             webrtcICEUDPMuxAddress: configData?.webrtcICEUDPMuxAddress || "",
             webrtcICETCPMuxAddress: configData?.webrtcICETCPMuxAddress || ""},
-        recordSettings: {   record: configData?.record || true,
+        recordSettings: {   record: configData?.record || false,
             recordPath: configData?.recordPath || "",
             recordFormat: configData?.recordFormat || "fmp4",
             recordPartDuration: configData?.recordPartDuration || "200ms",
