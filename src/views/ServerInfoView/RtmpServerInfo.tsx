@@ -38,24 +38,25 @@ export default function RtmpConnInfo() {
     }
 
     return (
-        <motion.div
-            className="w-3/4 overscroll-contain mx-auto flex  flex-co justify-center items-start"
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-        >
-            <div className="mt-4 mb-2">
-                <h2 className=" mx-auto mb-10  text-center font-bold text-3xl">
+        <div className="mx-auto  w-full  ">
+            <motion.div
+                className="w-full  rounded-md"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+            >
+                <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
                     RTMP Informations
                 </h2>
-
-                <ListView
-                    fetchData={items}
-                    canDelete={true}
-                    DeleteFunc={KickRTMPession}
-                />
-            </div>
-        </motion.div>
+                <div className="divide-y  w-full divide-window-dark-500">
+                    <ListView
+                        fetchData={items}
+                        canDelete={true}
+                        DeleteFunc={KickRTMPession}
+                    />
+                </div>
+            </motion.div>
+        </div>
     );
 }

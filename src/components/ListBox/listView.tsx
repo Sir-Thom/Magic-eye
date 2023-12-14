@@ -27,7 +27,7 @@ export default function ListView({
                         {canDelete == true && (
                             <button
                                 onClick={() => DeleteFunc(item.id)}
-                                className="ml-6 text-white"
+                                className="absolute hover:text-red-500 right-0 mr-8 text-white"
                             >
                                 <FaTrashCan size={18} />
                             </button>

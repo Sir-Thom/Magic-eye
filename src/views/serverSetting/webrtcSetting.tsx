@@ -79,10 +79,10 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     };
     const handleWebrtcICEServers2 = (event) => {
         const { name, value } = event.target;
-    
+
         setWebrtcICEServers2((prevICEServers2) => ({
             ...prevICEServers2,
-            [name]: value,
+            [name]: value
         }));
     };
     const handleWebrtcICEHostNAT1To1IPs = (event) => {
@@ -238,7 +238,9 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                 <label className="mt-24  w-full">
                     Webrtc ICE Host NAT 1 To 1 IPs:
                 </label>
-                <label className="mt-2 w-full">Webrtc ICE UDP Mux Address:</label>
+                <label className="mt-2 w-full">
+                    Webrtc ICE UDP Mux Address:
+                </label>
                 <label className="mt-2">Webrtc ICE TCP Mux Address:</label>
             </div>
             <div className="col-span-2 grid grid-cols-2 grid-rows-5 gap-x-4">
@@ -281,24 +283,23 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                     </div>
                 </div>
                 <textarea
-    name="webrtcICEHostNAT1To1IPs"
-    className="resize-none my-20 h-16 col-span-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-    value={webrtcICEHostNAT1To1IPs}
-    onChange={handleWebrtcICEHostNAT1To1IPs}
-/>
-<input
-    type="text"
-    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-    value={webrtcICEUDPMuxAddress}
-    onChange={handleWebrtcICEUDPMuxAddress}
-/>
-<input
-    type="text"
-    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
-    value={webrtcICETCPMuxAddress}
-    onChange={handleWebrtcICETCPMuxAddress}
-/>
-
+                    name="webrtcICEHostNAT1To1IPs"
+                    className="resize-none my-20 h-16 col-span-2  border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    value={webrtcICEHostNAT1To1IPs}
+                    onChange={handleWebrtcICEHostNAT1To1IPs}
+                />
+                <input
+                    type="text"
+                    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    value={webrtcICEUDPMuxAddress}
+                    onChange={handleWebrtcICEUDPMuxAddress}
+                />
+                <input
+                    type="text"
+                    className="my-2 h-8 border col-span-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mx-2"
+                    value={webrtcICETCPMuxAddress}
+                    onChange={handleWebrtcICETCPMuxAddress}
+                />
             </div>
         </div>
     );

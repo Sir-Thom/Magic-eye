@@ -422,7 +422,6 @@ export default function Setting() {
             recordSegmentDuration: parsedResponse.recordSegmentDuration || "1h",
             recordDeleteAfter: parsedResponse.recordDeleteAfter || "24h"
         });
-        
 
         const apiIpValue = apiIp;
         invoke("save_api_ip", { apiIp: apiIpValue }).then((res) => {
@@ -463,7 +462,6 @@ export default function Setting() {
             }
         }
 
-        
         console.log("configData: " + JSON.stringify(configData));
     }
 

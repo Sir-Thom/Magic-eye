@@ -26,7 +26,7 @@ export default function ServerInfo() {
     return (
         <>
             {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
-            <div className="grid scrollbar scrollbar-thumb-window-light-50 relative w-full overflow-hidden grid-cols-12 ">
+            <div className="grid  relative w-full overflow-hidden grid-cols-12 ">
                 <div className=" col-span-2  pt-10 ">
                     <SideMenu
                         menuItems={menuItems}
@@ -37,26 +37,22 @@ export default function ServerInfo() {
                 </div>
                 <div className="my-8 py-3.5 row-start-1  row-end-2 w-full col-start-4 col-span-9 h-full   ">
                     <div className="mx-auto z-auto my-auto ">
-                        <div className="mx-auto mt-24">
-                            {currentSetting === "RTSP" && <RtspServerInfo />}
-                        </div>
-                        <div className="mx-auto mt-24">
-                            {currentSetting === "RTMP" && <RtmpConnInfo />}
-                        </div>
-                        <div className="mx-auto mt-24">
-                            {currentSetting === "HLS" && <HLsConnInfo />}
-                        </div>
+                        {currentSetting === "RTSP" && <RtspServerInfo />}
+
+                        {currentSetting === "RTMP" && <RtmpConnInfo />}
+
+                        {currentSetting === "HLS" && <HLsConnInfo />}
                     </div>
                 </div>
-                {error && (
-                    <Notification
-                        message={error}
-                        timer={5000}
-                        type={"error"}
-                        onDismiss={handleDismissErrorNotification}
-                    />
-                )}
             </div>
+            {error && (
+                <Notification
+                    message={error}
+                    timer={5000}
+                    type={"error"}
+                    onDismiss={handleDismissErrorNotification}
+                />
+            )}
         </>
     );
 }

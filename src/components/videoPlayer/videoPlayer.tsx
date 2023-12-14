@@ -30,8 +30,6 @@ export default function VidPlayer() {
                     setPlaceholderUrl(placeholderValue.toString());
                 } catch (error) {
                     throw new Error("Error parsing JSON:" + error);
-
-                    //console.error("Error parsing JSON:", error);
                 }
             });
         })();
@@ -40,10 +38,11 @@ export default function VidPlayer() {
     async function get_url() {
         try {
             const response = await fetch(url);
-
+            console.log("response:", response);
             if (response.status === 200) {
                 setIsConnected(true);
                 setStreamUrl(url);
+                console.log("streamUrl:", url);
                 setError("");
             } else {
                 throw new Error(
@@ -52,7 +51,7 @@ export default function VidPlayer() {
             }
         } catch (err) {
             setIsConnected(false);
-            setError("An error occurred: " + err.message);
+            
             handleDisconnect();
             handlePlayerError(err.message);
         }
@@ -60,7 +59,7 @@ export default function VidPlayer() {
 
     const handlePlayerError = (error: unknown) => {
         setIsConnected(false);
-        setError("An error occurred: " + error);
+        setError("An error occurred: " + error.toString());
     };
 
     function handleUrlChanged(e: React.ChangeEvent<HTMLInputElement>) {
@@ -85,7 +84,7 @@ export default function VidPlayer() {
                         <ReactPlayer
                             playing={isConnected}
                             className="flex mx-16 mt-16"
-                            url={streamUrl}
+                            url={streamUrl.toString()}
                             width={width}
                             height={height - 150}
                             controls={false}
@@ -122,7 +121,7 @@ export default function VidPlayer() {
                     className="bg-accent-color1-700 hover:bg-accent-color1-800 mr-16 font-bold py-2 px-4 rounded"
                 >
                     Connect to Stream
-                </button>
+                </button> 
             </div>
 
             {error && (
