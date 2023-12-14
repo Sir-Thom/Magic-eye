@@ -137,6 +137,7 @@
     },
     "windows": [
       {
+        "userAgent": "Chrome",
         "title": "Magic Eye",
         "titleBarStyle": "Overlay",
         "minWidth": 1000,
