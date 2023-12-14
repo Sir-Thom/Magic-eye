@@ -1,9 +1,9 @@
 import { Fragment, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+
 import { Transition } from "@headlessui/react";
 import { BiSolidErrorAlt, BiCheck, BiInfoCircle } from "react-icons/bi";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import { toastAnimationAppear } from "../../utils/animation/toastAnimation";
+
 export default function Notification({ onDismiss, timer, type, message }) {
     const [show, setShow] = useState(true);
     useEffect(() => {

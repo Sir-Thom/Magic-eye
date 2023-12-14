@@ -1,13 +1,9 @@
-import { useState } from "react";
-import { RxCaretDown } from "react-icons/rx";
+
 import { IDropdown } from "../../interfaces/IDropdown";
 
 function Dropdown({ options, value, onChange, className }: IDropdown) {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+
 
     // Define the default class and allow it to be overridden by the parent
     const dropdownClass =

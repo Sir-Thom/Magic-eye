@@ -29,6 +29,7 @@ use utils::os_setup_and_info::setup_wayland;
 
 const PORT: u16 = 16780;
 
+
 #[tauri::command]
 async fn close_splashscreen(window: tauri::Window) {
     // Close splashscreen

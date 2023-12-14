@@ -4,56 +4,60 @@ use serde_json::Value;
 
 #[tauri::command]
 pub async fn get_server_config_options(url: &str) -> Result<String, String> {
-   
-    let response = reqwest::Client::new()
-        .get(url)
-        .send()
-        .await
-        .map_err(|err| {
-            error!("GET request error: {:?}", err);
-            err.to_string()
-        })?;
+    let client = reqwest::Client::new();
+
+    let response = client.get(url).send().await.map_err(|err| {
+        error!("GET request error: {:?}", err);
+        err.to_string()
+    })?;
 
     info!("GET request to URL: {}", url);
 
-    if response.status().is_redirection() {
-        warn!("Redirection: {:?}", response);
-    }
+    match response.status() {
+        status if status.is_redirection() => {
+            warn!("Redirection: {:?}", response);
+            Ok("".to_string())
+        }
+        status if status.is_client_error() => {
+            let err_msg = format!("Client error: {:?}", status);
+            error!("{}", &err_msg);
+            Err(err_msg)
+        }
+        status if status.is_success() => {
+            let body_json: Value = response.json().await.map_err(|err| {
+                error!("JSON deserialization error: {:?}", err);
+                err.to_string()
+            })?;
 
-    if response.status().is_success() {
-        // Deserialize the JSON response into a Value
-        let body_json: Value = response.json().await.map_err(|err| {
-            error!("JSON deserialization error: {:?}", err);
-            err.to_string()
-        })?;
+            let body_json_string = serde_json::to_string(&body_json).map_err(|err| {
+                error!("JSON serialization error: {:?}", err);
+                err.to_string()
+            })?;
 
-        // Serialize the Value back to a JSON string
-        let body_json_string = serde_json::to_string(&body_json).map_err(|err| {
-            error!("JSON serialization error: {:?}", err);
-            err.to_string()
-        })?;
-
-        Ok(body_json_string)
-    } else if response.status().is_server_error() {
-        error!("Server error: {:?}", response.status());
-        Err(format!("Server error: {:?}", response.status()))
-    } else {
-        error!("Request was not successful: {:?}", response.status());
-        Err(format!("Request was not successful: {:?}", response.status()))
+            Ok(body_json_string)
+        }
+        status if status.is_server_error() => {
+            let err_msg = format!("Server error: {:?}", status);
+            error!("{}", &err_msg);
+            Err(err_msg)
+        }
+        status => {
+            let err_msg = format!("Request was not successful: {:?}", status);
+            error!("{}", &err_msg);
+            Err(err_msg)
+        }
     }
 }
 
-//#[tauri::command]
 pub async fn patch_server_config_options(config_data: Value, url: &str) -> Result<(), String> {
-    // Serialize the JSON data to a string
+    let client = reqwest::Client::new();
+
     let data = config_data.to_string();
     info!("PATCH data: {}", data);
-    info!("PATCH request to URL: {}", url);
-
-
-    let response = reqwest::Client::new()
+    info!("PATCH request to URL:{}", url);
+    let response = client
         .patch(url)
-        .header("Content-Type", "application/json") 
+        .header("Content-Type", "application/json")
         .body(data)
         .send()
         .await
@@ -67,10 +71,14 @@ pub async fn patch_server_config_options(config_data: Value, url: &str) -> Resul
     if response.status().is_success() {
         Ok(())
     } else {
-        response.status().is_server_error().then(|| {
-            error!("Server error: {:?}", response);
-        });
-        error!("PATCH request was not successful: {:?}", response);
-        Err(format!("PATCH request was not successful: {:?}", response.text().await))
+        match response.status() {
+            status if status.is_server_error() => {
+                error!("Server error: {:?}", status);
+            }
+            status => {
+                error!("PATCH request was not successful: {:?}", status);
+            }
+        }
+        Err(response.text().await.unwrap_or_else(|_| "Failed to get response text".to_string()))
     }
 }
