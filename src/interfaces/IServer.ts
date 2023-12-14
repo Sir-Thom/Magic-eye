@@ -233,6 +233,16 @@ interface IRecordSettings {
     recordSegmentDuration: string;
     recordDeleteAfter: string;
 }
+interface ISettings {
+    apiSettings: IApiSettings;
+    loggingSettings: ILoggingSettings;
+    hlsSettings: IHlsSettings;
+    rtspSettings: IRtspSettings;
+    rtmpSettings: IRtmpSettings;
+    recordSettings: IRecordSettings;
+    srtSettings: ISrtSettings;
+    webrtcSettings: IWebrtcSettings;
+  }
 
 export type {
     IServer,
@@ -245,5 +255,7 @@ export type {
     IRtmpSettings,
     IWebrtcSettings,
     ISrtSettings,
-    IRecordSettings
+    IRecordSettings,
+    ISettings
 };
+
