@@ -6,6 +6,7 @@ function useServerData() {
     const [configData, setConfigData] = useState<IServer | null>(null);
     const [apiIp, setApiIp] = useState<string | null>(null);
     const [serverError, setServerError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchData() {
@@ -16,12 +17,14 @@ function useServerData() {
 
                 const serverUrl = `http://${apiIpValue}/v3/config/global/get`;
                 const response = await invoke("get_server_request", {
-                    url: serverUrl
+                    url: serverUrl,
                 });
                 const parsedResponse: IServer = JSON.parse(response as string);
                 setConfigData(parsedResponse);
+                setLoading(false); // Set loading to false once the API call is resolved
             } catch (error) {
                 setServerError("Error: " + error);
+                setLoading(false); // Set loading to false even if there's an error
             }
         }
 
@@ -38,7 +41,7 @@ function useServerData() {
         }
     }
 
-    return { configData, serverError, apiIp };
+    return { configData, serverError, apiIp, loading };
 }
 
 export default useServerData;

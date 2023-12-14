@@ -1,6 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-
+use axum::Router;
 use log::{debug, trace, info}; // Add info log level
 use axum::http::{HeaderValue, Method};
 use magic_eye::server::server_http_verb::{
@@ -29,7 +29,6 @@ use utils::os_setup_and_info::setup_wayland;
 
 const PORT: u16 = 16780;
 
-
 #[tauri::command]
 async fn close_splashscreen(window: tauri::Window) {
     // Close splashscreen
@@ -40,36 +39,8 @@ async fn close_splashscreen(window: tauri::Window) {
     window.get_window("main").expect("Main window not found").show().expect("Failed to show main window");
 }
 
-
-async fn start_axum_server() {
-    debug!("Initializing...");
-    let resource_path = tauri::api::path::app_data_dir(&tauri::Config::default())
-        .expect("Failed to get app data dir")
-        .join("magiceEye/assets");
-
-    debug!("resource_path: {:?}", resource_path);
-
-    let serve_dir = ServeDir::new(resource_path.to_str().expect("Failed to convert resource path to string"));
-    let _files = fs::read_dir(&resource_path).map(|res| res.map(|e| e.expect("error").path()));
-    debug!("files: {:?}", _files);
-
-    let axum_app = axum::Router::new().nest_service("/", serve_dir).layer(
-        CorsLayer::new()
-            .allow_origin("*".parse::<HeaderValue>().expect("Failed to parse header value"))
-            .allow_methods([Method::GET]),
-    );
-
-    if let Err(err) = axum::Server::bind(&format!("127.0.0.1:{}", PORT).parse().expect("Failed to parse address"))
-        .serve(axum_app.into_make_service())
-        .await
-    {
-        eprintln!("Error serving Axum app: {:?}", err);
-    }
-}
-
-fn setup_tauri(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     create_configuration_file_setting();
-
     #[cfg(target_os = "linux")]
     setup_wayland();
 
@@ -81,46 +52,55 @@ fn setup_tauri(app: &mut tauri::App) -> Result<(), Box<dyn std::error::Error>> {
             .to_str()
     );
 
-    app.get_window("main").map(|main_window| {
-        debug!("main_window url: : {:?}", main_window.url());
-        main_window
-    }).and_then(|main_window| {
-        app.path_resolver()
-            .resolve_resource("assets")
-            .map(|resource_path| (main_window, resource_path))
-    }).map(|(main_window, _resource_path)| {
-        let splashscreen = app.get_window("splashscreen").expect("Splashscreen window not found");
+    let context = tauri::generate_context!();
+    let builder = tauri::Builder::default().plugin(
+        tauri_plugin_log::Builder::default()
+            .targets([
+                LogTarget::Stdout,
+                LogTarget::Webview,
+                LogTarget::Folder(tauri::api::path::app_log_dir(&tauri::Config::default()).expect("Failed to get log folder").clone()),
+            ])
+            .build(),
+    );
 
-        tauri::async_runtime::spawn(async move {
-            start_axum_server().await;
+    builder
+        .setup(move |app| {
+            let main_window = app.get_window("main").expect("Main window not found");
+            debug!("main_window url: : {:?}", main_window.url());
+            
+            let resource_path = app
+                .path_resolver()
+                .resolve_resource("assets")
+                .expect("failed to resolve resource");
 
-            // Close splashscreen
-            splashscreen.close().expect("Failed to close splashscreen");
+            debug!("resource_path: {:?}", resource_path);
 
-            // Show main window
-            main_window.show().expect("Failed to show main window");
-        });
-    });
+            tauri::api::path::app_data_dir(&tauri::Config::default())
+                .expect("Failed to get app data dir")
+                .push("magiceEye/assets");
 
-    Ok(())
-}
+            tauri::async_runtime::spawn(async move {
+                debug!("Initializing...");
+                let serve_dir = ServeDir::new(resource_path.to_str().expect("Failed to convert resource path to string"));
+                let _files = fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path()));
+                debug!("files: {:?}", _files);
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tauri::Builder::default()
-        .plugin(
-            tauri_plugin_log::Builder::default()
-                .targets([
-                    LogTarget::Stdout,
-                    LogTarget::Webview,
-                    LogTarget::Folder(
-                        tauri::api::path::app_log_dir(&tauri::Config::default())
-                            .expect("Failed to get log folder")
-                            .clone(),
-                    ),
-                ])
-                .build(),
-        )
-        .setup(setup_tauri)
+                let axum_app = Router::new().nest_service("/", serve_dir).layer(
+                    CorsLayer::new()
+                        .allow_origin("*".parse::<HeaderValue>().expect("Failed to parse header value"))
+                        .allow_methods([Method::GET]),
+                );
+
+                if let Err(err) = axum::Server::bind(&format!("127.0.0.1:{}", PORT).parse().expect("Failed to parse address"))
+                    .serve(axum_app.into_make_service())
+                    .await
+                {
+                    eprintln!("Error serving Axum app: {:?}", err);
+                }
+            });
+
+            Ok(())
+        })
         .invoke_handler(generate_handler![
             get_config_dir,
             open_web_browser,
@@ -137,9 +117,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             post_server_request,
             get_api_ip
         ])
-        .run(tauri::generate_context!())
+        .run(context)
         .expect("error while running tauri application");
 
     Ok(())
 }
-

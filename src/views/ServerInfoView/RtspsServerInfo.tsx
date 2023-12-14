@@ -7,13 +7,17 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspsConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp } = useServerData();
+    const { apiIp,loading } = useServerData();
     useEffect(() => {
-        getAllRtspsSessions();
-    }, []);
-
+        if (!loading) {
+            console.log("apiIp:", apiIp);
+            getAllRtspsSessions();
+        }
+    }, [apiIp, loading]);
+  
     async function getAllRtspsSessions() {
         try {
+            console.log("apiIp:", apiIp);
             const response = await invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtspssessions/list`
             });
@@ -24,7 +28,7 @@ export default function RtspsConnInfo() {
                 console.error("Response does not contain 'items'.");
             }
         } catch (error) {
-            console.error("Error fetching RTSP sessions:", error);
+            console.error("Error fetching RTSPS sessions:", error);
         }
     }
 

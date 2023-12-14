@@ -22,18 +22,20 @@ export default function VidPlayer() {
         setError(null);
     };
     useEffect(() => {
+ 
         (async () => {
             invoke("get_config_file_content").then((res: string) => {
                 try {
                     const jsonObject = JSON.parse(res);
                     const placeholderValue = jsonObject.placeholder;
                     setPlaceholderUrl(placeholderValue.toString());
+                    console.log("placeholderUrl:", placeholderValue);
                 } catch (error) {
                     throw new Error("Error parsing JSON:" + error);
                 }
             });
         })();
-    }, []);
+    }, [placeholderUrl]);
 
     async function get_url() {
         try {
@@ -82,6 +84,7 @@ export default function VidPlayer() {
                 <Suspense fallback={<Loader />}>
                     {streamUrl ? (
                         <ReactPlayer
+                            
                             playing={isConnected}
                             className="flex mx-16 mt-16"
                             url={streamUrl.toString()}

@@ -27,7 +27,6 @@
         "request": true,
         "scope": [
           "http://*",
-          "http://localhost",
           "https://*"
         ]
       },

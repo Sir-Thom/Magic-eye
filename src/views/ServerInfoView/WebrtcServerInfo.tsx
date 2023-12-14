@@ -7,10 +7,13 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function WebRTCConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp } = useServerData();
+    const { apiIp,loading } = useServerData();
     useEffect(() => {
-        getAllWebRTCSessions();
-    }, []);
+        if (!loading) {
+            console.log("apiIp:", apiIp);
+            getAllWebRTCSessions();
+        }
+    }, [apiIp, loading]);
 
     async function getAllWebRTCSessions() {
         try {

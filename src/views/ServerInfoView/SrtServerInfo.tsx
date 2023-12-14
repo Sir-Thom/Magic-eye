@@ -7,10 +7,13 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function SRTConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp } = useServerData();
+    const { apiIp,loading } = useServerData();
     useEffect(() => {
-        getAllSRTSessions();
-    }, []);
+        if (!loading) {
+            console.log("apiIp:", apiIp);
+            getAllSRTSessions();
+        }
+    }, [apiIp, loading]);
  
     async function getAllSRTSessions() {
         try {
