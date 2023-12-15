@@ -10,7 +10,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
         settings.logDestinations || ["stdout"]
     );
     const [logFile, setLogFile] = useState(settings.logFile || "mediamtx.log");
-    const logLevels = ["info", "debug", "warning", "error"];
+    const logLevels = ["info", "debug", "warn", "error"];
 
     useEffect(() => {
         setLogLevel(settings.logLevel || "info");
@@ -19,7 +19,8 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleLogLevelChange = (event) => {
-        setLogLevel(event.target.value);
+            setLogLevel(event.target.value);
+            console.log("logLevel:", logLevel);
     };
 
     const handleLogDestinationsChange = (event) => {
@@ -35,9 +36,10 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
         const updatedSettings = {
             ...settings,
             logLevel: logLevel,
-            c: logDestinations,
+            logDestinations: logDestinations,
             logFile: logFile
         };
+        console.log("updatedSettings:", updatedSettings);   
 
         // Call the onSave prop to save the changes
         onSave(updatedSettings);

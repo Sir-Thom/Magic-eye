@@ -13,7 +13,7 @@ import RtmpsConnInfo from "./ServerInfoView/RtmpsServerInfo";
 
 export default function ServerInfo() {
     const [error, setError] = useState<string | null>(null);
-    const [currentSetting, setCurrentSetting] = useState("RTSP"); // Initially show the "API Setting" component
+    const [currentSetting, setCurrentSetting] = useState("RTSP"); // Initially show component
 
     const menuItems = [
         { label: "HLS" },

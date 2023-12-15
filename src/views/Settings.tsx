@@ -17,6 +17,7 @@ import SrtSetting from "./serverSetting/SrtSetting";
 import RecordSetting from "./serverSetting/RecordSetting";
 import { ISettings } from "../interfaces/IServer";
 
+
 function getDefaultSettings(configData): ISettings {
     configData = configData || {};
     return {
@@ -102,7 +103,7 @@ function getDefaultSettings(configData): ISettings {
 }
 export default function Setting() {
     const [saveButtonPressed, setSaveButtonPressed] = useState(false);
-    const { configData } = useServerData();
+    const { fetchConfigData: fetchConfigData,serverError,apiIp } = useServerData();
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [currentSetting, setCurrentSetting] = useState("General Setting");
@@ -111,44 +112,34 @@ export default function Setting() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const apiIpValue = await getApiIp();
                 setError(null);
 
-                const serverUrl = `http://${apiIpValue}/v3/config/global/get`;
-                const response = await invoke("get_server_request", {
-                    url: serverUrl
-                });
-                const parsedResponse = JSON.parse(response.toString());
-
+                const response = fetchConfigData;
+                
+       
+                if(serverError != null){
+                   
+                    throw new Error(serverError);
+                }
                 // Make sure parsedResponse is an object before using it
-                if (parsedResponse && typeof parsedResponse === "object") {
-                    const defaultSettings = getDefaultSettings(configData);
+                if (response && typeof response === "object") {
+                    console.log("parsedResponse:", response);
+                    const defaultSettings = getDefaultSettings(fetchConfigData);
                     const updatedSettings = {
                         ...defaultSettings,
-                        ...parsedResponse
+                        ...response
                     };
                     setSettings(updatedSettings);
-                    updateStateAndHandleActions(parsedResponse);
-                } else {
-                    setError("Invalid response format");
+                    updateStateAndHandleActions(response  as ISettings);
                 }
             } catch (e) {
-                setError(e.message);
+                console.log("serverError:", e);
+                setError("Error: "+e.message);
             }
         };
 
         fetchData();
-    }, [configData]);
-    async function getApiIp() {
-        try {
-            const res = await invoke("get_api_ip");
-            console.log("apiIp:", res.toString().replace(/^"(.*)"$/, "$1"));
-            return res.toString().replace(/^"(.*)"$/, "$1");
-        } catch (e) {
-            console.log(e);
-            return "unable to get API Ip address.";
-        }
-    }
+    }, [fetchConfigData]);
 
     function updateStateAndHandleActions(parsedResponse: ISettings): void {
         setSettings((prevSettings) => {
@@ -190,20 +181,22 @@ export default function Setting() {
             return updatedSettings;
         });
 
-        const apiIpValue = getApiIp();
-        invoke("save_api_ip", { apiIp: apiIpValue }).then((res) => {
-            console.log("save api: " + res);
-        });
+        const apiIpValue = apiIp;
+        invoke("save_api_ip", { apiIp: apiIpValue })
+        
+
     }
 
     async function patchSetting(PatchData) {
         try {
-            const apiIpValue = await getApiIp(); // Get the API IP
+            const apiIpValue = apiIp; // Get the API IP
             console.log("apiIpInPatch:", apiIpValue);
 
             if (!PatchData) {
-                setError("ConfigData is empty.");
-                return;
+                throw new Error("ConfigData is empty.");
+            }
+            if(serverError != null){
+                throw new Error(serverError);
             }
 
             const serverUrl = `http://${apiIpValue}/v3/config/global/patch`;
@@ -211,17 +204,16 @@ export default function Setting() {
                 configData: PatchData,
                 url: serverUrl
             });
-            const parsedResponse = JSON.parse(response as string);
-            if (parsedResponse && parsedResponse.error) {
-                throw parsedResponse.error;
-            } else {
+            console.log("patch response:", response);
+           
+            
                 // Handle common actions
                 updateStateAndHandleActions(PatchData);
                 setSaveButtonPressed(true);
                 setSuccessMessage("Settings saved successfully");
-            }
+            
         } catch (error) {
-            setError("Error: " + JSON.parse(error)["error"]);
+            setError("Error: "+error.message);
         }
     }
 

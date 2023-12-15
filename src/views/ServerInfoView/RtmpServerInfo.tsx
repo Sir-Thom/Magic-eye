@@ -27,15 +27,50 @@ export default function RtmpConnInfo() {
             });
         }
     }, [apiIp]);
+       // Poll the server for updates
+   useEffect(() => {
+    const intervalId = setInterval(() => {
+        if (apiIp !== null) {
+            getAllRTMPSessions(); 
+        }
+    }, 5000); // Fetch data every 5 seconds
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+}, [apiIp]);
+
+    async function getAllRTMPSessions() {
+        invoke("get_server_request", {
+            url: `http://${apiIp}/v3/rtmpconns/list`
+        }).then((response) => {
+            console.log("response:", JSON.parse(response.toString()));
+            response = JSON.parse(response.toString());
+            console.log("response:", response);
+            if (response && (response as { items: any[] }).items) {
+                setItems((response as { items: any[] }).items);
+            } else {
+                console.error("Response does not contain 'items'.");
+            }
+        });
+    }
+
 
     async function KickRTMPession(valueToSend: string) {
         invoke("post_server_request", {
             url: `http://${apiIp}/v3/rtmpconns/kick/`,
             value: valueToSend
-        }).then((res) => {
-            console.log(res);
+        }).then(() => {
+            // Delay for a short period to allow the server to process the kick
+            setTimeout(() => {
+                // Update the UI by fetching the updated list of sessions
+                getAllRTMPSessions();
+            }, 100);
+        }
+        ).catch((error) => {
+            console.error("Error kicking RTMP session:", error);
         });
     }
+
 
     return (
         <div className="mx-auto  w-full  ">
@@ -60,3 +95,5 @@ export default function RtmpConnInfo() {
         </div>
     );
 }
+
+

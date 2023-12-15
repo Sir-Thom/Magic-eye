@@ -14,6 +14,17 @@ export default function RtspsConnInfo() {
             getAllRtspsSessions();
         }
     }, [apiIp, loading]);
+       // Poll the server for updates
+   useEffect(() => {
+    const intervalId = setInterval(() => {
+        if (!loading) {
+            getAllRtspsSessions();
+        }
+    }, 5000); // Fetch data every 5 seconds
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+}, [apiIp, loading]);
   
     async function getAllRtspsSessions() {
         try {
@@ -25,25 +36,29 @@ export default function RtspsConnInfo() {
             if (parsedResponse && parsedResponse.items) {
                 setItems(parsedResponse.items);
             } else {
-                console.error("Response does not contain 'items'.");
+               throw new Error("Response does not contain 'items'.");
             }
         } catch (error) {
             console.error("Error fetching RTSPS sessions:", error);
         }
     }
+    
 
     async function kickRstpsSession(valueToSend: string) {
         try {
             await invoke("post_server_request", {
                 url: `http://${apiIp}/v3/rtspssessions/kick/`,
                 value: valueToSend
-            });
+            }).then(() => {
+                // Delay for a short period to allow the server to process the kick
+                setTimeout(() => {
+                    // Update the UI by fetching the updated list of sessions
+                    getAllRtspsSessions();
+                }, 100);
+            }
+            );
 
-            // Delay for a short period to allow the server to process the kick
-            await new Promise((resolve) => setTimeout(resolve, 1000));
 
-            // Update the UI by fetching the updated list of sessions
-            getAllRtspsSessions();
         } catch (error) {
             console.error("Error kicking RTSP session:", error);
         }
