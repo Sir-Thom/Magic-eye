@@ -127,19 +127,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 mod tests {
    use magic_eye::utils::config::get_config_dir;
    use tauri::api::path::app_config_dir;
-
+ 
    #[test]
    fn test_get_config_dir() {
        let result = get_config_dir();
        assert!(result.contains(&app_config_dir(&tauri::Config::default()).unwrap().to_str().unwrap().to_string()));
    }
 
-   // test if the config file is created
     #[test]
     fn test_create_configuration_file_setting() {
         let result = get_config_dir();
         assert!(result.contains(&app_config_dir(&tauri::Config::default()).unwrap().to_str().unwrap().to_string()));
     }
-}
+ }
 
 
