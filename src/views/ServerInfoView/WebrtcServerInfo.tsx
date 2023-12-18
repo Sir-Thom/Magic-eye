@@ -7,7 +7,7 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function WebRTCConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp,loading } = useServerData();
+    const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
             console.log("apiIp:", apiIp);
@@ -50,24 +50,24 @@ export default function WebRTCConnInfo() {
 
     return (
         <div className="mx-auto  w-full  ">
-        <motion.div
-            className="w-full  rounded-md"
-            variants={fadeIn}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-        >
-            <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
-                WebRTC Informations
-            </h2>
-            <div className="divide-y  w-full divide-window-dark-500">
-                <ListView
-                    fetchData={items}
-                    canDelete={true}
-                    DeleteFunc={kickWebRTCSession}
-                />
-            </div>
-        </motion.div>
-    </div>
+            <motion.div
+                className="w-full  rounded-md"
+                variants={fadeIn}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+            >
+                <h2 className="text-center py-2.5  mx-auto w-full  bg-center bg-window-dark-900 font-bold text-3xl">
+                    WebRTC Informations
+                </h2>
+                <div className="divide-y  w-full divide-window-dark-500">
+                    <ListView
+                        fetchData={items}
+                        canDelete={true}
+                        DeleteFunc={kickWebRTCSession}
+                    />
+                </div>
+            </motion.div>
+        </div>
     );
 }

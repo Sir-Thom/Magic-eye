@@ -7,25 +7,25 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspsConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp,loading } = useServerData();
+    const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
             console.log("apiIp:", apiIp);
             getAllRtspsSessions();
         }
     }, [apiIp, loading]);
-       // Poll the server for updates
-   useEffect(() => {
-    const intervalId = setInterval(() => {
-        if (!loading) {
-            getAllRtspsSessions();
-        }
-    }, 5000); // Fetch data every 5 seconds
+    // Poll the server for updates
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (!loading) {
+                getAllRtspsSessions();
+            }
+        }, 5000); // Fetch data every 5 seconds
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-}, [apiIp, loading]);
-  
+        // Clear the interval when the component unmounts
+        return () => clearInterval(intervalId);
+    }, [apiIp, loading]);
+
     async function getAllRtspsSessions() {
         try {
             console.log("apiIp:", apiIp);
@@ -36,13 +36,12 @@ export default function RtspsConnInfo() {
             if (parsedResponse && parsedResponse.items) {
                 setItems(parsedResponse.items);
             } else {
-               throw new Error("Response does not contain 'items'.");
+                throw new Error("Response does not contain 'items'.");
             }
         } catch (error) {
             console.error("Error fetching RTSPS sessions:", error);
         }
     }
-    
 
     async function kickRstpsSession(valueToSend: string) {
         try {
@@ -55,10 +54,7 @@ export default function RtspsConnInfo() {
                     // Update the UI by fetching the updated list of sessions
                     getAllRtspsSessions();
                 }, 100);
-            }
-            );
-
-
+            });
         } catch (error) {
             console.error("Error kicking RTSP session:", error);
         }

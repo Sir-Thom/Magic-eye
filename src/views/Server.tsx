@@ -20,7 +20,7 @@ export default function ServerInfo() {
         { label: "RTSP" },
         { label: "RTSPS" },
         { label: "RTMP" },
-        { label: "RTMPS"},
+        { label: "RTMPS" },
         { label: "WebRTC" },
         { label: "SRT" }
     ].sort((a, b) => a.label.localeCompare(b.label));
@@ -46,7 +46,7 @@ export default function ServerInfo() {
                         {currentSetting === "RTSP" && <RtspServerInfo />}
                         {currentSetting === "RTSPS" && <RtspsServerInfo />}
                         {currentSetting === "RTMP" && <RtmpConnInfo />}
-                        {currentSetting == "RTMPS"&& <RtmpsConnInfo/>}
+                        {currentSetting == "RTMPS" && <RtmpsConnInfo />}
                         {currentSetting === "HLS" && <HLSConnInfo />}
                         {currentSetting === "SRT" && <SRTConnInfo />}
                         {currentSetting === "WebRTC" && <WebRTCConnInfo />}

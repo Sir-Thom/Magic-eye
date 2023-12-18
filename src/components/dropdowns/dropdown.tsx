@@ -1,10 +1,6 @@
-
 import { IDropdown } from "../../interfaces/IDropdown";
 
 function Dropdown({ options, value, onChange, className }: IDropdown) {
-
-
-
     // Define the default class and allow it to be overridden by the parent
     const dropdownClass =
         "border-0 py-1.5 pl-3 pr-10 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 " +

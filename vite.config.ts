@@ -17,6 +17,18 @@ export default defineConfig(async () => ({
     
    
   },
+  test: {
+    testMatch: ["**/tests/*.test.ts", "**/tests/*.test.tsx"],
+    // https://jestjs.io/docs/configuration#testenvironment-string
+    // https://jestjs.io/docs/ecmascript-modules
+    //
+    // 1. use the same environment as jest
+    env: "jsdom",
+    globals: true,
+    // 2. use the same transform as jest
+   
+  },
+
   // 3. to make use of `TAURI_DEBUG` and other env variables
   // https://tauri.studio/v1/api/config#buildconfig.beforedevcommand
     envPrefix: ["VITE_", "TAURI_"],

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api";
-import {ISettings } from "../../interfaces/IServer";
+import { ISettings } from "../../interfaces/IServer";
 
 function useServerData() {
-    const [fetchConfigData, setFetchConfigData] = useState<ISettings | null>(null);
+    const [fetchConfigData, setFetchConfigData] = useState<ISettings | null>(
+        null
+    );
     const [apiIp, setApiIp] = useState<string | null>(null);
     const [serverError, setServerError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -17,9 +19,11 @@ function useServerData() {
 
                 const serverUrl = `http://${apiIpValue}/v3/config/global/get`;
                 const response = await invoke("get_server_request", {
-                    url: serverUrl,
+                    url: serverUrl
                 });
-                const parsedResponse: ISettings = JSON.parse(response as string);
+                const parsedResponse: ISettings = JSON.parse(
+                    response as string
+                );
                 setFetchConfigData(parsedResponse);
                 setLoading(false); // Set loading to false once the API call is resolved
             } catch (error) {
@@ -41,7 +45,7 @@ function useServerData() {
         }
     }
 
-    return {  fetchConfigData, serverError, apiIp, loading };
+    return { fetchConfigData, serverError, apiIp, loading };
 }
 
 export default useServerData;

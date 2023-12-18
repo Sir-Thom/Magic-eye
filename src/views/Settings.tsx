@@ -17,7 +17,6 @@ import SrtSetting from "./serverSetting/SrtSetting";
 import RecordSetting from "./serverSetting/RecordSetting";
 import { ISettings } from "../interfaces/IServer";
 
-
 function getDefaultSettings(configData): ISettings {
     configData = configData || {};
     return {
@@ -103,7 +102,11 @@ function getDefaultSettings(configData): ISettings {
 }
 export default function Setting() {
     const [saveButtonPressed, setSaveButtonPressed] = useState(false);
-    const { fetchConfigData: fetchConfigData,serverError,apiIp } = useServerData();
+    const {
+        fetchConfigData: fetchConfigData,
+        serverError,
+        apiIp
+    } = useServerData();
     const [error, setError] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [currentSetting, setCurrentSetting] = useState("General Setting");
@@ -115,10 +118,8 @@ export default function Setting() {
                 setError(null);
 
                 const response = fetchConfigData;
-                
-       
-                if(serverError != null){
-                   
+
+                if (serverError != null) {
                     throw new Error(serverError);
                 }
                 // Make sure parsedResponse is an object before using it
@@ -130,11 +131,11 @@ export default function Setting() {
                         ...response
                     };
                     setSettings(updatedSettings);
-                    updateStateAndHandleActions(response  as ISettings);
+                    updateStateAndHandleActions(response as ISettings);
                 }
             } catch (e) {
                 console.log("serverError:", e);
-                setError("Error: "+e.message);
+                setError("Error: " + e.message);
             }
         };
 
@@ -182,9 +183,7 @@ export default function Setting() {
         });
 
         const apiIpValue = apiIp;
-        invoke("save_api_ip", { apiIp: apiIpValue })
-        
-
+        invoke("save_api_ip", { apiIp: apiIpValue });
     }
 
     async function patchSetting(PatchData) {
@@ -195,7 +194,7 @@ export default function Setting() {
             if (!PatchData) {
                 throw new Error("ConfigData is empty.");
             }
-            if(serverError != null){
+            if (serverError != null) {
                 throw new Error(serverError);
             }
 
@@ -205,15 +204,13 @@ export default function Setting() {
                 url: serverUrl
             });
             console.log("patch response:", response);
-           
-            
-                // Handle common actions
-                updateStateAndHandleActions(PatchData);
-                setSaveButtonPressed(true);
-                setSuccessMessage("Settings saved successfully");
-            
+
+            // Handle common actions
+            updateStateAndHandleActions(PatchData);
+            setSaveButtonPressed(true);
+            setSuccessMessage("Settings saved successfully");
         } catch (error) {
-            setError("Error: "+error.message);
+            setError("Error: " + error.message);
         }
     }
 

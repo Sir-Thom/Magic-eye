@@ -22,7 +22,6 @@ export default function VidPlayer() {
         setError(null);
     };
     useEffect(() => {
- 
         (async () => {
             invoke("get_config_file_content").then((res: string) => {
                 try {
@@ -84,7 +83,6 @@ export default function VidPlayer() {
                 <Suspense fallback={<Loader />}>
                     {streamUrl ? (
                         <ReactPlayer
-                            
                             playing={isConnected}
                             className="flex mx-16 mt-16"
                             url={streamUrl.toString()}

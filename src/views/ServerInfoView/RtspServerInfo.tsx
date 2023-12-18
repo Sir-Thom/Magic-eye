@@ -7,14 +7,13 @@ import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspConnInfo() {
     const [items, setItems] = useState<any[]>([]);
-    const { apiIp ,loading} = useServerData();
+    const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
             console.log("apiIp:", apiIp);
             getAllRtspSessions();
         }
     }, [apiIp, loading]);
-
 
     async function getAllRtspSessions() {
         try {
