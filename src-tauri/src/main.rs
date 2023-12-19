@@ -92,12 +92,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         .allow_methods([Method::GET]),
                 );
 
-                if let Err(err) = axum::Server::bind(&format!("127.0.0.1:{}", PORT).parse().expect("Failed to parse address"))
-                    .serve(axum_app.into_make_service())
-                    .await
-                {
-                    eprintln!("Error serving Axum app: {:?}", err);
-                }
+               let listener = tokio::net::TcpListener::bind(&format!("127.0.0.1:{}", PORT)).await.expect("Failed to bind to port");
+               axum::serve(listener, axum_app).await.unwrap();
             });
 
             Ok(())

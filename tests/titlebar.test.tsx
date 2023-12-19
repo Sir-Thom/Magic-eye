@@ -20,7 +20,7 @@ describe("Titlebar tests", () => {
     beforeAll(() => {
         Object.defineProperty(window, "crypto", {
             value: {
-                // @ts-ignore
+                
                 getRandomValues: (buffer) => {
                     return randomFillSync(buffer);
                 }

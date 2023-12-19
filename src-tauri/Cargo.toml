@@ -26,9 +26,9 @@ tauri = { version = "^1.4.1", features = [ "window-minimize", "window-set-size",
 ] }
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
-axum = "0.6.20"
-tokio = { version = "1.31.0", features = ["full"] }
-tower-http = { version = "0.4.3", features = ["fs", "cors"] }
+axum = "0.7.2"
+tokio = { version = "1.35.0", features = ["full"] }
+tower-http = { version = "0.5.0", features = ["fs", "cors"] }
 reqwest = "^0.11.20"
 open = "5.0.0"
 log = "0.4.20"
@@ -38,6 +38,4 @@ tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", br
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!
 custom-protocol = ["tauri/custom-protocol"]
-[profile.release.package.wry]
-debug = true
-debug-assertions = true
+
