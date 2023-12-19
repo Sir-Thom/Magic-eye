@@ -16,9 +16,11 @@ export default function HLSConnInfo() {
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/hlsmuxers/list`
             }).then((response) => {
-                console.log("response:", JSON.parse(response.toString()));
-                response = JSON.parse(response.toString());
-                console.log("response:", response);
+                console.log("Response before parsing:", response);
+                if (response) {
+                  response = JSON.parse(response.toString());
+                  console.log("Parsed Response:", response);
+                }
                 if (response && (response as { items: any[] }).items) {
                     setItems((response as { items: any[] }).items);
                 } else {

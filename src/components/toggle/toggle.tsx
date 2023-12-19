@@ -19,9 +19,11 @@ export default function Toggle({
 }: ToggleProps) {
     return (
         <Switch
+            id="toggle"
             checked={enabled}
             onChange={onChange}
             value={value}
+            data-testid="toggle"
             className={`${className} ${" relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer items-center justify-center outline-none outline-2  border-none focus:outline-accent-color1-700  text-text-dark rounded-full "}`}
         >
             <span className="sr-only">Use setting</span>

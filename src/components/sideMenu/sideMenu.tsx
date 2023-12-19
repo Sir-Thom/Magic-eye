@@ -25,6 +25,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ menuItems, onMenuItemClick }) => {
                     to="/"
                 >
                     <IconArrowLeft
+                    
                         size={30}
                         className="flex justify-center m-auto   items-center dark:text-text-dark text-text-light"
                     />
