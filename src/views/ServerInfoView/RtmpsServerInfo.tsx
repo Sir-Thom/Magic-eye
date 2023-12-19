@@ -16,9 +16,14 @@ export default function RtmpsConnInfo() {
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtmpsconns/list`
             }).then((response) => {
-                console.log("response:", JSON.parse(response.toString()));
-                response = JSON.parse(response.toString());
                 console.log("response:", response);
+                
+
+                console.log("response:", response);
+                if (response) {
+                    response = JSON.parse(response.toString());
+                    console.log("Parsed Response:", response);
+                }
                 if (response && (response as { items: any[] }).items) {
                     setItems((response as { items: any[] }).items);
                 } else {

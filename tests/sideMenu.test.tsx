@@ -9,34 +9,40 @@ import { MemoryRouter } from "react-router-dom";
 const mockOnMenuItemClick = vi.fn();
 
 const menuItems: IMenuItem[] = [
-  { label: "Item 1" },
-  { label: "Item 2" },
-  { label: "Item 3" },
+    { label: "Item 1" },
+    { label: "Item 2" },
+    { label: "Item 3" }
 ];
 
 describe("SideMenu Component", () => {
-  test("renders correctly", () => {
-    render(
-      <MemoryRouter>
-        <SideMenu menuItems={menuItems} onMenuItemClick={mockOnMenuItemClick} />
-      </MemoryRouter>
-    );
+    test("renders correctly", () => {
+        render(
+            <MemoryRouter>
+                <SideMenu
+                    menuItems={menuItems}
+                    onMenuItemClick={mockOnMenuItemClick}
+                />
+            </MemoryRouter>
+        );
 
-    for (const item of menuItems) {
-      expect(screen.getByText(item.label)).toBeDefined();
-    }
-  });
+        for (const item of menuItems) {
+            expect(screen.getByText(item.label)).toBeDefined();
+        }
+    });
 
-  test("calls onMenuItemClick when a menu item is clicked", () => {
-    render(
-      <MemoryRouter>
-        <SideMenu menuItems={menuItems} onMenuItemClick={mockOnMenuItemClick} />
-      </MemoryRouter>
-    );
+    test("calls onMenuItemClick when a menu item is clicked", () => {
+        render(
+            <MemoryRouter>
+                <SideMenu
+                    menuItems={menuItems}
+                    onMenuItemClick={mockOnMenuItemClick}
+                />
+            </MemoryRouter>
+        );
 
-    for (const item of menuItems) {
-      fireEvent.click(screen.getByText(item.label));
-      expect(mockOnMenuItemClick).toHaveBeenCalled();
-    }
-  });
+        for (const item of menuItems) {
+            fireEvent.click(screen.getByText(item.label));
+            expect(mockOnMenuItemClick).toHaveBeenCalled();
+        }
+    });
 });

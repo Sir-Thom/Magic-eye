@@ -25,12 +25,16 @@ export default function Notification({ onDismiss, timer, type, message }) {
         switch (type) {
             case "error":
                 return (
-                    <BiSolidErrorAlt id="icon" className="h-6 w-6 " aria-hidden="true" />
+                    <BiSolidErrorAlt
+                        id="icon"
+                        className="h-6 w-6 "
+                        aria-hidden="true"
+                    />
                 );
             case "success":
                 return (
                     <BiCheck
-                        id="icon" 
+                        id="icon"
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
                     />
@@ -38,7 +42,7 @@ export default function Notification({ onDismiss, timer, type, message }) {
             case "info":
                 return (
                     <BiInfoCircle
-                        id="icon" 
+                        id="icon"
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
                     />
@@ -85,7 +89,7 @@ export default function Notification({ onDismiss, timer, type, message }) {
                             <button
                                 type="button"
                                 title="Dismiss"
-                                data-testid="close-button" 
+                                data-testid="close-button"
                                 className="inline-flex rounded-md  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 onClick={dismissToast}
                             >

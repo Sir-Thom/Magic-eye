@@ -16,8 +16,11 @@ export default function RtmpConnInfo() {
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtmpconns/list`
             }).then((response) => {
-                console.log("response:", JSON.parse(response.toString()));
-                response = JSON.parse(response.toString());
+                console.log("Response before parsing:", response);
+                if (response) {
+                    response = JSON.parse(response.toString());
+                    console.log("Parsed Response:", response);
+                }
                 console.log("response:", response);
                 if (response && (response as { items: any[] }).items) {
                     setItems((response as { items: any[] }).items);
@@ -43,8 +46,12 @@ export default function RtmpConnInfo() {
         invoke("get_server_request", {
             url: `http://${apiIp}/v3/rtmpconns/list`
         }).then((response) => {
-            console.log("response:", JSON.parse(response.toString()));
-            response = JSON.parse(response.toString());
+            console.log("Response before parsing:", response);
+            
+            if (response) {
+                response = JSON.parse(response.toString());
+                console.log("Parsed Response:", response);
+            }
             console.log("response:", response);
             if (response && (response as { items: any[] }).items) {
                 setItems((response as { items: any[] }).items);

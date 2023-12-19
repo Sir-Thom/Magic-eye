@@ -4,34 +4,22 @@ import Toggle from "../src/components/toggle/toggle";
 import React from "react";
 
 describe("Toggle tests", () => {
-
-    
-  
-    
-
-      test('renders toggle switch with correct initial state', () => {
+    test("renders toggle switch with correct initial state", () => {
         const onChangeMock = vi.fn();
-    
+
         render(<Toggle enabled={false} onChange={onChangeMock} />);
-        const toggleSwitch = screen.getByTestId('toggle');
-        
+        const toggleSwitch = screen.getByTestId("toggle");
+
         expect(toggleSwitch).toBeDefined();
-      });
-    
-      test('toggle switch changes state when clicked', () => {
+    });
+
+    test("toggle switch changes state when clicked", () => {
         const onChangeMock = vi.fn();
-    
+
         render(<Toggle enabled={false} onChange={onChangeMock} />);
-        const toggleSwitch = screen.getByTestId('toggle');
-    
+        const toggleSwitch = screen.getByTestId("toggle");
+
         fireEvent.click(toggleSwitch);
         expect(onChangeMock).toHaveBeenCalled();
-      });
-      
-    
-
-    
-     
+    });
 });
-    
-    

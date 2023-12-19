@@ -20,7 +20,6 @@ describe("Titlebar tests", () => {
     beforeAll(() => {
         Object.defineProperty(window, "crypto", {
             value: {
-                
                 getRandomValues: (buffer) => {
                     return randomFillSync(buffer);
                 }
@@ -31,7 +30,6 @@ describe("Titlebar tests", () => {
     afterAll(() => {
         consoleMock.mockReset();
     });
-
 
     test("Test window exist", async () => {
         const { getCurrent, getAll } = await import("@tauri-apps/api/window");
@@ -81,29 +79,32 @@ describe("Titlebar tests", () => {
             </BrowserRouter>
         );
         mockIPC((cmd: any, args: any) => {
-          if (cmd === "tauri") {
-              if (
-                  args?.__tauriModule === "Window" &&
-                  args?.message.cmd === "manage" &&
-                  args?.message?.data?.cmd?.type === "minimize"
-              ) {
-                  console.log("minimize window");
-                  return ["tauri", {
-                      __tauriModule: "Window",
-                      message: {
-                         cmd: "tauri",
-                         data: {
-                             cmd: { type: "minimize" },
-                             label: "main"
-                         }
-                      }
-                  }];
-              }
-          }
-       });
-      });
+            if (cmd === "tauri") {
+                if (
+                    args?.__tauriModule === "Window" &&
+                    args?.message.cmd === "manage" &&
+                    args?.message?.data?.cmd?.type === "minimize"
+                ) {
+                    console.log("minimize window");
+                    return [
+                        "tauri",
+                        {
+                            __tauriModule: "Window",
+                            message: {
+                                cmd: "tauri",
+                                data: {
+                                    cmd: { type: "minimize" },
+                                    label: "main"
+                                }
+                            }
+                        }
+                    ];
+                }
+            }
+        });
+    });
 
-      test("maximize button maximizes the window", async () => {
+    test("maximize button maximizes the window", async () => {
         render(
             <BrowserRouter basename="/">
                 <Routes>
@@ -112,28 +113,30 @@ describe("Titlebar tests", () => {
             </BrowserRouter>
         );
         mockIPC((cmd: any, args: any) => {
-          if (cmd === "tauri") {
-              if (
-                  args?.__tauriModule === "Window" &&
-                  args?.message.cmd === "manage" &&
-                  args?.message?.data?.cmd?.type === "maximize"
-              ) {
-                  console.log("maximize window");
-                  return ["tauri", {
-                      __tauriModule: "Window",
-                      message: {
-                         cmd: "tauri",
-                         data: {
-                             cmd: { type: "maximize" },
-                             label: "main"
-                         }
-                      }
-                  }];
-              }
-          }
-       });
-      }
-    );
+            if (cmd === "tauri") {
+                if (
+                    args?.__tauriModule === "Window" &&
+                    args?.message.cmd === "manage" &&
+                    args?.message?.data?.cmd?.type === "maximize"
+                ) {
+                    console.log("maximize window");
+                    return [
+                        "tauri",
+                        {
+                            __tauriModule: "Window",
+                            message: {
+                                cmd: "tauri",
+                                data: {
+                                    cmd: { type: "maximize" },
+                                    label: "main"
+                                }
+                            }
+                        }
+                    ];
+                }
+            }
+        });
+    });
 
     test("close button closes the window", async () => {
         render(

@@ -39,7 +39,9 @@ function SuccessAlert({ message, timer, OnClose }: IAlert) {
             role="alert"
         >
             <strong className="font-bold">Success! </strong>
-            <span id="message" className="block sm:inline">{message}</span>
+            <span id="message" className="block sm:inline">
+                {message}
+            </span>
             <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
                 <AiOutlineClose
                     data-testid="close-button"

@@ -18,8 +18,8 @@ export default function HLSConnInfo() {
             }).then((response) => {
                 console.log("Response before parsing:", response);
                 if (response) {
-                  response = JSON.parse(response.toString());
-                  console.log("Parsed Response:", response);
+                    response = JSON.parse(response.toString());
+                    console.log("Parsed Response:", response);
                 }
                 if (response && (response as { items: any[] }).items) {
                     setItems((response as { items: any[] }).items);
