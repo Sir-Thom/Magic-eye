@@ -7,7 +7,7 @@ on:
     branches: ["Rework-Tauri"]
 
 jobs:
-  build:
+  format:
 
     runs-on: ubuntu-latest
 
