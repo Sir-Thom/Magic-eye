@@ -6,8 +6,10 @@ export default function StreamPlaceholder({
     url
 }: IPlaceholderStream) {
     return (
-        <div className="flex justify-center items-center mx-16 mt-16 h-full">
+        <div data-testid="placeholderStream" className="flex justify-center items-center mx-16 mt-16 h-full">
+            
             <video
+            
                 autoPlay
                 loop
                 controls={false}

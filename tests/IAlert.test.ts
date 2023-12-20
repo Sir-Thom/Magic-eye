@@ -6,7 +6,7 @@ describe("IAlert Interface", () => {
             message: "Test Message",
             timer: 5000,
             OnClose: () => {
-                // Your onClose implementation or an empty function
+                console.log("Test OnClose");
             }
         };
 

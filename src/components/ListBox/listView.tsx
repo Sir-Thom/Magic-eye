@@ -26,6 +26,7 @@ export default function ListView({
                         </div>
                         {canDelete == true && (
                             <button
+                                title="Delete"
                                 onClick={() => DeleteFunc(item.id)}
                                 className="absolute hover:text-red-500 right-0 mr-8 text-white"
                             >

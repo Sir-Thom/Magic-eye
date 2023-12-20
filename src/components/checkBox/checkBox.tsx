@@ -34,6 +34,7 @@ export default function Checkbox({
             >
                 {checked && (
                     <FaCheck
+                    data-testid="checkbox-checked-icon"
                         size={14}
                         className="font-bold dark:text-text-dark text-text-light"
                     />
