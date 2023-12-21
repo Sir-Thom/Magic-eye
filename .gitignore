@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 coverage/*
-
+flatpak-builder
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -23,3 +23,5 @@ coverage/*
 *.njsproj
 *.sln
 *.sw?
+.flatpak-builder/*
+magic-eye/*

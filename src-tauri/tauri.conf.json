@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Magic Eye",
-    "version": "0.0.1"
+    "version": "0.9.0"
   },
   "tauri": {
     "allowlist": {
@@ -110,7 +110,7 @@
         "wix": null
       },
       "appimage": {
-        "bundleMediaFramework": true
+        "bundleMediaFramework": false
       }
     },
     "security": {

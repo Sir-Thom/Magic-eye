@@ -1,6 +1,6 @@
 [package]
 name = "magic_eye"
-version = "0.0.1"
+version = "0.9.0"
 description = "A Tauri App"
 authors = ["Thomas Toulouse"]
 license = "MIT"
@@ -13,10 +13,10 @@ edition = "2021"
 [patch.crates-io]
 
 [build-dependencies]
-tauri-build = { version = "^1.4", features = [] }
+tauri-build = { version = "^1.5", features = [] }
 
 [dependencies]
-tauri = { version = "^1.4.1", features = [ "window-minimize", "window-set-size", "window-set-focus", "window-start-dragging", "window-unminimize", "window-set-resizable", "window-set-title", "window-set-icon", "window-set-decorations", "window-set-cursor-icon", "window-maximize", "window-unmaximize", "window-set-cursor-grab", "window-show", "window-close", "window-set-fullscreen",
+tauri = { version = "^1.5.3", features = [ "window-minimize", "window-set-size", "window-set-focus", "window-start-dragging", "window-unminimize", "window-set-resizable", "window-set-title", "window-set-icon", "window-set-decorations", "window-set-cursor-icon", "window-maximize", "window-unmaximize", "window-set-cursor-grab", "window-show", "window-close", "window-set-fullscreen",
     "shell-open",
     "fs-all",
     "http-all",

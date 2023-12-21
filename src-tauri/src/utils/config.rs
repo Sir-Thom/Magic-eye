@@ -40,7 +40,7 @@ struct Setting {
     api_ip: Option<String>,
 }
 
-const APP_NAME: &str = "magicEye";
+const APP_NAME: &str = "Magic_eye";
 const SETTINGS_FILE_NAME: &str = "settings.json";
 
 
