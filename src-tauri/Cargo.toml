@@ -1,10 +1,10 @@
 [package]
 name = "magic_eye"
 version = "0.9.0"
-description = "A Tauri App"
+description = "An application to let you wacth stream from mediamtx media server"
 authors = ["Thomas Toulouse"]
 license = "MIT"
-repository = ""
+repository = "https://github.com/Sir-Thom/Magic-eye"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
