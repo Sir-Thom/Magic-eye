@@ -1,13 +1,13 @@
 id: org.magiceye.dev
 
 runtime: org.gnome.Platform
-runtime-version: "45"
+runtime-version: "42"
 sdk: org.gnome.Sdk
 
 
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node18
-  - org.freedesktop.Sdk.Extension.rust-stable
+  - org.freedesktop.Sdk.Extension.node16
+  - org.freedesktop.Sdk.Extension.rust-nightly
 
 command: magic-eye
 finish-args:
@@ -27,16 +27,16 @@ finish-args:
 
 
 build-options:
-  append-path: /usr/lib/sdk/node18/bin:/usr/lib/sdk/rust-stable/bin
+  append-path: /usr/lib/sdk/node16/bin:/usr/lib/sdk/rust-nightly/bin
 
 
 modules:
   - name: magic-eye
     buildsystem: simple
     build-options:
-      append-path: "/usr/lib/sdk/node18/bin:/usr/lib/sdk/rust-stable/bin"
+      append-path: "/usr/lib/sdk/node16/bin:/usr/lib/sdk/rust-stable/bin"
       env:
-        npm_config_nodedir: /usr/lib/sdk/node18
+        npm_config_nodedir: /usr/lib/sdk/node16
         npm_config_offline: 'true'
         CARGO_HOME: /run/build/pocket-sync/cargo
     sources:
@@ -49,7 +49,8 @@ modules:
       - 'cargo-sources.json'
 
     build-commands:
-      - npm ci --offline --cache=$FLATPAK_BUILDER_BUILDDIR/flatpak-node/npm-cache
+      - ls -la
+      - yarn install --prefer-offline --cache-folder $FLATPAK_BUILDER_BUILDDIR/flatpak-node/yarn-cache
       - cargo --offline fetch --manifest-path src-tauri/Cargo.toml
       - npm run --offline tauri build -- -b deb
       - install -Dm755 -t /app/bin/ src-tauri/target/release/bundle/deb/*/data/usr/bin/*
