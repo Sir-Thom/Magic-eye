@@ -44,7 +44,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     create_configuration_file_setting();
     #[cfg(target_os = "linux")]
     setup_wayland();
-
+    info!("Webkit version: {:?}", tauri::webview_version());
+    
     trace!("config directory location: {:?}", get_config_dir());
     info!(
         "{:?}",
@@ -136,5 +137,6 @@ mod tests {
         assert!(result.contains(&app_config_dir(&tauri::Config::default()).unwrap().to_str().unwrap().to_string()));
     }
  }
+
 
 
