@@ -764,7 +764,7 @@
 
 "@tauri-apps/cli@^1.5.9":
   version "1.5.9"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/cli/-/cli-1.5.9.tgz#43391e4b6997483d485d84d97e0d72f648eae581"
+  resolved "https://registry.npmjs.org/@tauri-apps/cli/-/cli-1.5.9.tgz"
   integrity sha512-knSt/9AvCTeyfC6wkyeouF9hBW/0Mzuw+5vBKEvzaGPQsfFJo1ZCp5FkdiZpGBBfnm09BhugasGRTGofzatfqQ==
   optionalDependencies:
     "@tauri-apps/cli-darwin-arm64" "1.5.9"

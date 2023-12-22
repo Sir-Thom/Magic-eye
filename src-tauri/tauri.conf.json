@@ -110,8 +110,9 @@
         "wix": null
       },
       "appimage": {
-        "bundleMediaFramework": false
+        "bundleMediaFramework": true
       }
+   
     },
     "security": {
       "csp": null,

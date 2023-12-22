@@ -18,7 +18,7 @@ function Dropdown({ options, value, onChange, className }: IDropdown) {
                         <option
                             key={index}
                             value={option.toString()}
-                            className="bg-white"
+                            className=" bg-window-dark-400 text-text-dark"
                         >
                             {option}
                         </option>
