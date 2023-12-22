@@ -47,7 +47,7 @@
     "autoprefixer": "^10.4.13",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^5.1.1",
     "jsdom": "^23.0.1",
     "json-loader": "^0.5.7",
     "postcss": "^8.4.21",
