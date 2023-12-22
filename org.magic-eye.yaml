@@ -42,7 +42,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/Sir-Thom/Magic-eye
-        tag: testv2
+        tag: test
       # Generated with .../flatpak-builder-tools/node/flatpak-node-generator.py npm package-lock.json
       - 'node-sources.json'
       # Generated with .../flatpak-builder-tools/cargo/flatpak-cargo-generator.py src-tauri/Cargo.lock
