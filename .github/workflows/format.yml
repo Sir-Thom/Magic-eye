@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: ["Rework-Tauri,Dev"]
+    branches: ["Dev"]
   pull_request:
-    branches: ["Rework-Tauri,Dev"]
+    branches: ["Dev"]
 
 jobs:
   format:
