@@ -5,10 +5,7 @@ on:
     branches: 
       - "Dev"
       - "main"
-  pull_request:
-    branches: 
-      - "Dev"
-      - "main"
+
 
 jobs:
   format:
