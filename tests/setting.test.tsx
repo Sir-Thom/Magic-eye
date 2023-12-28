@@ -9,8 +9,9 @@ import Setting from "../src/views/Settings";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { randomFillSync } from "crypto";
-import { e } from "vitest/dist/reporters-OH1c16Kq";
+
 import { ISettings } from "../src/interfaces/IServer";
+import { spyOn } from "@vitest/spy";
 
 describe("Setting Component", () => {
     const titlebarContainer = document.createElement("div");
@@ -229,7 +230,7 @@ describe("Setting Component", () => {
             </MemoryRouter>
         );
     invoke("patch_server_request", {url:"http://127.0.0.1:9997/v3/config/global/patch"});
-    vi.spyOn(window, "__TAURI_IPC__");
+    spyOn(window, "__TAURI_IPC__" as any);
     expect(invoke("patch_server_request")).resolves.all;
             
 
