@@ -5,7 +5,7 @@ use std::env;
 use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
-use tauri::api::path;
+use tauri::fs::Path::Dir::File;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PlaceholderOption {

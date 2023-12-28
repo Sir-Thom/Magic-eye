@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeAll, expect, test, afterAll, describe, vi } from "vitest";
 import { randomFillSync } from "crypto";
 import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import Titlebar from "../src/components/titlebar/titlebar.tsx";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

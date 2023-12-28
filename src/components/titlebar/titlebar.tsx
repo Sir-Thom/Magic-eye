@@ -21,7 +21,7 @@ import {
     VscChromeClose
 } from "react-icons/vsc";
 import { Link, useLocation } from "react-router-dom";
-import { getVersion } from "@tauri-apps/api/app";
+import { getVersion } from "@tauri-apps/plugin-app";
 import { motion } from "framer-motion";
 import { invoke } from "@tauri-apps/api";
 import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
