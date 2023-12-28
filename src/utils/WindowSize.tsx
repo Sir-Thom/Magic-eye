@@ -25,7 +25,7 @@ export function useWindowDimensions() {
     return windowDimensions;
 }
 export function resizeWindow() {
-    if (window.__TAURI__ !== undefined) {
+    if (window!== undefined) {
         useEffect(() => {
             async function HandleResize() {
                 const physicalSize = await getCurrent().innerSize();
