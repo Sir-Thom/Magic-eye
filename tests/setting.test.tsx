@@ -4,7 +4,7 @@ import Server from "../src/views/Server";
 import RtspServerInfo from "../src/views/ServerInfoView/RtspServerInfo";
 
 import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import Setting from "../src/views/Settings";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";

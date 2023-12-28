@@ -1,4 +1,4 @@
-import { appWindow } from "@tauri-apps/api/window";
+
 
 import { useEffect, useState, useCallback } from "react";
 import {
@@ -21,10 +21,11 @@ import {
     VscChromeClose
 } from "react-icons/vsc";
 import { Link, useLocation } from "react-router-dom";
-import { getVersion } from "@tauri-apps/api/app";
 import { motion } from "framer-motion";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
+import { app } from "@tauri-apps/api";
+
 
 export default function Titlebar() {
     const [version, setVersion] = useState("");
@@ -32,10 +33,10 @@ export default function Titlebar() {
     const location = useLocation();
     const [, setCurrentLocation] = useState(location.pathname);
     const [maximized, setMaximized] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
     const [windowTitle] = useState("Magic Eye");
     const [menuOpen, setMenuOpen] = useState(false);
 
+   
     const handleOpen = useCallback(() => {
         setIsOpen(true);
     }, []);
@@ -44,40 +45,28 @@ export default function Titlebar() {
         setIsOpen(false);
     }, []);
 
-    const ChangeMaximizedIcon = useCallback(() => {
+    const ChangeMaximizedIcon = useCallback(async() => {
+        
         setMaximized((prevMaximized) => !prevMaximized);
-        appWindow.toggleMaximize();
+        
+        console.log("maximized:", maximized);
+       await invoke("maximize_window");
+        
     }, []);
 
     const handleMenuClick = useCallback(() => {
         setMenuOpen((prevMenuOpen) => !prevMenuOpen);
     }, []);
 
-    useEffect(() => {
-        const tauriInterval = setInterval(async () => {
-            const isMaximized = await appWindow.isMaximized();
-            setMaximized(isMaximized);
-            appWindow.setTitle(windowTitle);
-            const isFullscreen = await appWindow.isFullscreen();
-            setFullscreen(isFullscreen);
-        }, 200);
-
-        return () => clearInterval(tauriInterval);
-    }, [windowTitle]);
-
-    useEffect(() => {
-        invoke("close_splashscreen");
-
-        const getInfoVersion = async () => {
-            const version = await getVersion();
-            setVersion(version);
-        };
-
-        getInfoVersion();
+    const getAppVersion = useCallback(async() => {
+        const version = await app.getVersion();
+        setVersion(version);
     }, []);
+   
 
     useEffect(() => {
         setCurrentLocation(location.pathname);
+        
     }, [location]);
 
     function openBrowser(): void {
@@ -86,37 +75,40 @@ export default function Titlebar() {
         });
     }
 
+    useEffect(() => {
+        getAppVersion();
+    }, [getAppVersion]);
     return (
-        !fullscreen && (
+        (
             <div
                 data-tauri-drag-region
-                className=" z-50   overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0"
+                className=" z-50   overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 bg-[#111111] p-2 text-text-dark w-screen fixed left-0 right-0"
             >
                 <Modal isOpen={isOpen} onClose={handleClose}>
                     <img
-                        className="inline-flex justify-center item-center dark:text-text-dark text-text-light m-auto h-auto ml-[3.78rem] mb-4"
+                        className="inline-flex justify-center item-center text-text-dark  m-auto h-auto ml-[3.78rem] mb-4"
                         src={iconApp2}
                         alt="IconApp"
                     />
-                    <h1 className="flex justify-center items-center text-center font-bold text-2xl dark:text-text-dark text-text-light m-auto mb-4">
+                    <h1 className="flex justify-center items-center text-center font-bold text-2xl text-text-dark  m-auto mb-4">
                         Magic Eye
                     </h1>
-                    <h2 className="flex justify-center m-auto text-center text-sm font-semibold dark:text-text-dark text-text-light mb-2">
+                    <h2 className="flex justify-center m-auto text-center text-sm font-semibold text-text-dark  mb-2">
                         Version {version}
                     </h2>
                     <button
                         onClick={openBrowser}
-                        className="flex justify-center items-center text-center text-sm dark:text-text-dark text-text-light hover:text-accent-color1-900"
+                        className="flex justify-center items-center text-center text-sm text-text-dark  hover:text-accent-color1-900"
                     >
                         <AiFillGithub className="mr-2" size={20} />
                         https://github.com/Sir-Thom/Magic-eye
                     </button>
 
-                    <hr className="my-4 m-auto text-center text-sm border-gray-700 dark:text-text-dark text-text-light" />
-                    <p className="mb-2 mx-auto text-center text-sm dark:text-text-dark text-text-light">
+                    <hr className="my-4 m-auto text-center text-sm border-gray-700 text-text-dark " />
+                    <p className="mb-2 mx-auto text-center text-sm -text-dark ">
                         Developed by Sir Thom
                     </p>
-                    <p className="mb-2 m-auto text-center text-sm dark:text-text-dark text-text-light">
+                    <p className="mb-2 m-auto text-center text-sm text-text-dark ">
                         MIT license
                     </p>
                 </Modal>
@@ -128,7 +120,7 @@ export default function Titlebar() {
                             src={iconApp}
                             alt="IconApp"
                         />
-                        <span className="object-center dark:text-text-dark text-text-light text-sm">
+                        <span className="object-center text-text-dark  text-sm">
                             {windowTitle}
                         </span>
                     </div>
@@ -141,7 +133,7 @@ export default function Titlebar() {
                         <button
                             type="button"
                             title="Menu"
-                            className="inline-flex items-center dark:text-text-dark text-text-light justify-center w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+                            className="inline-flex items-center text-text-dark justify-center w-8 h-8 rounded-full hover:bg-window-dark-600 "
                             onClick={handleMenuClick}
                         >
                             {!menuOpen ? (
@@ -153,7 +145,7 @@ export default function Titlebar() {
 
                         {menuOpen && (
                             <motion.div
-                                className="flex flex-col absolute z-50 mt-10 top-0 right-9 w-56 rounded-lg shadow-lg py-1 dark:bg-window-dark-700 bg-window-light-300"
+                                className="flex flex-col absolute z-50 mt-10 top-0 right-9 w-56 rounded-lg shadow-lg py-1 bg-window-dark-700 "
                                 variants={hamburgerMenuAnimation}
                                 initial="hidden"
                                 animate="visible"
@@ -163,10 +155,10 @@ export default function Titlebar() {
                                     title="About"
                                     href="#"
                                     onClick={handleOpen}
-                                    className="flex justify-start item-center rounded-lg px-4 py-2 dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex justify-start item-center rounded-lg px-4 py-2 text-text-dark  hover:bg-window-dark-100 "
                                 >
                                     <IconInfoCircle
-                                        className="flex justify-center item-center dark:text-text-dark text-text-light text-center pr-2"
+                                        className="flex justify-center item-center text-text-dark text-center pr-2"
                                         size={26}
                                     />
                                     About
@@ -175,10 +167,10 @@ export default function Titlebar() {
                                 <Link
                                     to="/server"
                                     title="Server"
-                                    className="flex rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex justify-start item-center rounded-lg px-4 py-2 text-text-dark  hover:bg-window-dark-100 "
                                 >
                                     <IconServer
-                                        className="flex justify-center item-center dark:text-text-dark text-text-light text-center pr-2"
+                                        className="flex justify-center item-center text-text-dark text-center pr-2"
                                         size={26}
                                     />
                                     Server
@@ -187,11 +179,11 @@ export default function Titlebar() {
                                 <Link
                                     to="/settings"
                                     title="Setting"
-                                    className="flex rounded-lg px-4 py-2 text-md dark:text-text-dark text-text-light hover:dark:bg-window-dark-100 hover:bg-window-light-600"
+                                    className="flex justify-start item-center rounded-lg px-4 py-2 text-text-dark  hover:bg-window-dark-100 "
                                 >
                                     <IconSettings
                                         size={26}
-                                        className="flex justify-center item-center dark:text-text-dark text-text-light text-center pr-2"
+                                        className="flex justify-center item-center text-text-dark text-center pr-2"
                                     />
                                     Setting
                                 </Link>
@@ -201,8 +193,8 @@ export default function Titlebar() {
                         <button
                             type="button"
                             title="Minimize"
-                            className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
-                            onClick={() => appWindow.minimize()}
+                            className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600 "
+                            onClick={async() => invoke("minimize_window")}
                         >
                             <VscChromeMinimize size={20} />
                         </button>
@@ -211,7 +203,7 @@ export default function Titlebar() {
                                 <button
                                     type="button"
                                     title="Restore Down"
-                                    className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+                                    className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600 "
                                     onClick={ChangeMaximizedIcon}
                                 >
                                     <VscChromeRestore size={20} className=" " />
@@ -220,7 +212,7 @@ export default function Titlebar() {
                                 <button
                                     type="button"
                                     title="Maximize"
-                                    className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
+                                    className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600"
                                     onClick={ChangeMaximizedIcon}
                                 >
                                     <VscChromeMaximize size={20} />
@@ -231,8 +223,8 @@ export default function Titlebar() {
                         <button
                             type="button"
                             title="Close"
-                            className="flex items-center justify-center w-8 h-8 right-4 left-5 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
-                            onClick={() => appWindow.close()}
+                            className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600"
+                            onClick={async() => invoke("close_window")}
                         >
                             <VscChromeClose
                                 size={20}

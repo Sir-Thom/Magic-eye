@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Notification from "../../components/notification/notification";
 import Dropdown from "../../components/dropdowns/dropdown";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import SuccessAlert from "../../components/alert/sucessAlert";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import { appWindow } from "@tauri-apps/api/window";
 import { ISetting } from "../../interfaces/ISetting";
+import { listen } from "@tauri-apps/api/event";
 
 export async function GetConfig() {
     try {
@@ -100,8 +100,9 @@ export default function GeneralSetting() {
         }
 
         fetchConfig();
-        appWindow.listen("tauri://update_settings_file", () => {
+         listen("tauri://update_settings_file", () => {
             fetchConfig();
+            console.log("Settings file updated");
         });
     }, []);
 
