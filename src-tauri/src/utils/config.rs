@@ -116,21 +116,7 @@ pub fn create_configuration_file_setting() {
                 );
             }
 
-          let asset_dir_path= dirs_next::data_dir()
-           .unwrap()
-           .to_str()
-           .unwrap()
-           .to_string()
-            + APP_NAME
-            + "/asset";
-            trace!("asset_dir_path: {}", asset_dir_path);
-            if !Path::new(&asset_dir_path).exists() {
-                create_dir_all(&asset_dir_path).expect("failed to create config directory");
-                error!(
-                    "failed to create config directory for linux: {}",
-                    asset_dir_path
-                )
-            }
+         
 
             if !Path::new(&path_config_file).exists() {
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
@@ -155,22 +141,7 @@ pub fn create_configuration_file_setting() {
                 );
             }
 
-            let asset_dir_path= dirs_next::data_dir()
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string()
-                + APP_NAME
-                + "/asset";
-            trace!("Asset directory path: {}", asset_dir_path);
-            if !Path::new(&asset_dir_path).exists() {
-                create_dir_all(&asset_dir_path).expect("Failed to create config directory");
-                error!(
-                    "Failed to create config directory for Windows: {:?}",
-                    asset_dir_path
-                );
-            }
-
+           
             if !Path::new(&path_config_file).exists() {
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
                 trace!("JSON data for config file: {}", json_data);

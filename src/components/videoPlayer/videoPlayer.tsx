@@ -38,6 +38,7 @@ export default function VidPlayer() {
 
     async function get_url() {
         try {
+
             const response = await fetch(url);
             console.log("response:", response);
             if (response.status === 200) {
@@ -104,11 +105,11 @@ export default function VidPlayer() {
                 <button
                     onClick={handleDisconnect}
                     type="button"
-                    className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-16 font-bold py-2 px-4 rounded"
+                    className="text-text-dark  bg-accent-color1-700 hover:bg-accent-color1-800 ml-16 font-bold py-2 px-4 rounded"
                 >
                     Disconnect
                 </button>
-                <div className="mx-4 dark:text-text-dark text-text-light flex-1">
+                <div className="mx-4 text-text-dark  flex-1">
                     <input
                         className="w-full border-2 border-gray-400 rounded items-center mt-1 py-2 mb-2 px-4"
                         type="text"

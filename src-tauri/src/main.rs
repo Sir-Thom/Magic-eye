@@ -43,7 +43,7 @@ async fn close_splashscreen(window: tauri::Window) {
     window.get_window("main").expect("Main window not found").show().expect("Failed to show main window");
 
 }
-const APP_NAME: &str = "Magic_eye";
+
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     create_configuration_file_setting();
@@ -70,7 +70,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 TargetKind::Webview,
             ),
             Target::new(
-                TargetKind::LogDir { file_name: Some("magiceye.log".to_string()) }
+                TargetKind::LogDir { file_name: Some("magiceye".to_string()) }
             )
         
         ])
@@ -87,23 +87,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     builder
         .setup(move |app| {
             let main_window = app.get_window("main").expect("Main window not found");
-            let asset_dir_path= dirs_next::data_dir()
-            .unwrap()
-            .to_str()
-            .unwrap()
-            .to_string()
-            + APP_NAME
-            + "/asset";
             debug!("main_window url: : {:?}", main_window.url());
-            
-            let resource_path = app.path().resolve(asset_dir_path, BaseDirectory::Config)
-                .expect("failed to resolve resource");
+           let asset_dir_path = app.path().app_data_dir().expect("Failed to get app data dir");
+            debug!("asset_dir_path: {:?}", asset_dir_path);
+
+            let resource_path = app.path().resolve("assets/", BaseDirectory::Resource)?;
+            //let resource_path = app.path().parse(path).expect("Failed to parse asset dir path");
+                
 
             debug!("resource_path: {:?}", resource_path);
 
-           dirs_next::data_dir()
-                .expect("Failed to get app data dir")
-                .push("magiceEye/assets");
+           
 
             tauri::async_runtime::spawn(async move {
                 debug!("Initializing...");
