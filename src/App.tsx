@@ -1,7 +1,7 @@
 import VidPlayer from "./components/videoPlayer/videoPlayer";
 import { useEffect } from "react";
 import { resizeWindow } from "./utils/WindowSize";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { createPortal } from "react-dom";
 import Titlebar from "./components/titlebar/titlebar";
 

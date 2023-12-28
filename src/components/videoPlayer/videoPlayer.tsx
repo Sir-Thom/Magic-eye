@@ -4,7 +4,7 @@ import { useWindowDimensions } from "../../utils/WindowSize";
 import Toast from "../notification/notification";
 import { IVideoPlayer } from "../../interfaces/IVideoPlayer";
 import StreamPlaceholder from "./placeholderStream";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { Suspense } from "react";
 import Loader from "../loader/loader";
 export default function VidPlayer() {

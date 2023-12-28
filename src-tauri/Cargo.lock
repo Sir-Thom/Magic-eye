@@ -2292,8 +2292,9 @@ name = "magic_eye"
 version = "0.9.0"
 dependencies = [
  "axum",
+ "dirs-next",
  "log",
- "open 5.0.1",
+ "open",
  "reqwest",
  "serde",
  "serde_json",
@@ -2308,7 +2309,6 @@ dependencies = [
  "tauri-plugin-notification",
  "tauri-plugin-os",
  "tauri-plugin-process",
- "tauri-plugin-shell",
  "tokio",
  "tower-http",
 ]
@@ -2656,17 +2656,6 @@ checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
 
 [[package]]
 name = "open"
-version = "4.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a083c0c7e5e4a8ec4176346cf61f67ac674e8bfb059d9226e1c54a96b377c12"
-dependencies = [
- "is-wsl",
- "libc",
- "pathdiff",
-]
-
-[[package]]
-name = "open"
 version = "5.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "90878fb664448b54c4e592455ad02831e23a3f7e157374a8b95654731aac7349"
@@ -2739,16 +2728,6 @@ dependencies = [
  "log",
  "serde",
  "winapi",
-]
-
-[[package]]
-name = "os_pipe"
-version = "1.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ae859aa07428ca9a929b936690f8b12dc5f11dd8c6992a18ca93919f28bc177"
-dependencies = [
- "libc",
- "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -3686,16 +3665,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "shared_child"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0d94659ad3c2137fef23ae75b03d5241d633f8acded53d672decfa0e6e0caef"
-dependencies = [
- "libc",
- "winapi",
-]
-
-[[package]]
 name = "signal-hook-registry"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4226,24 +4195,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b55c149c1027bc3de752d51ca9227cfa2ce592a4934735f70c6050360e0b60b3"
 dependencies = [
  "tauri",
-]
-
-[[package]]
-name = "tauri-plugin-shell"
-version = "2.0.0-alpha.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "75a85e88ed3da46059825105f604ed57e2151d7718356750c7c6919b7288a828"
-dependencies = [
- "encoding_rs",
- "log",
- "open 4.2.0",
- "os_pipe",
- "regex",
- "serde",
- "serde_json",
- "shared_child",
- "tauri",
- "thiserror",
 ]
 
 [[package]]

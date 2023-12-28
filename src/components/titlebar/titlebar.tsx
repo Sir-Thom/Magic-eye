@@ -1,4 +1,4 @@
-import { appWindow } from "@tauri-apps/api/window";
+
 
 import { useEffect, useState, useCallback } from "react";
 import {
@@ -21,10 +21,12 @@ import {
     VscChromeClose
 } from "react-icons/vsc";
 import { Link, useLocation } from "react-router-dom";
-import { getVersion } from "@tauri-apps/plugin-app";
+
 import { motion } from "framer-motion";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { hamburgerMenuAnimation } from "../../utils/animation/hamburgerMenuAnimation";
+import { app } from "@tauri-apps/api";
+
 
 export default function Titlebar() {
     const [version, setVersion] = useState("");
@@ -32,10 +34,10 @@ export default function Titlebar() {
     const location = useLocation();
     const [, setCurrentLocation] = useState(location.pathname);
     const [maximized, setMaximized] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
     const [windowTitle] = useState("Magic Eye");
     const [menuOpen, setMenuOpen] = useState(false);
 
+   
     const handleOpen = useCallback(() => {
         setIsOpen(true);
     }, []);
@@ -44,40 +46,28 @@ export default function Titlebar() {
         setIsOpen(false);
     }, []);
 
-    const ChangeMaximizedIcon = useCallback(() => {
+    const ChangeMaximizedIcon = useCallback(async() => {
+        
         setMaximized((prevMaximized) => !prevMaximized);
-        appWindow.toggleMaximize();
+        
+        console.log("maximized:", maximized);
+       await invoke("maximize_window");
+        
     }, []);
 
     const handleMenuClick = useCallback(() => {
         setMenuOpen((prevMenuOpen) => !prevMenuOpen);
     }, []);
 
-    useEffect(() => {
-        const tauriInterval = setInterval(async () => {
-            const isMaximized = await appWindow.isMaximized();
-            setMaximized(isMaximized);
-            appWindow.setTitle(windowTitle);
-            const isFullscreen = await appWindow.isFullscreen();
-            setFullscreen(isFullscreen);
-        }, 200);
-
-        return () => clearInterval(tauriInterval);
-    }, [windowTitle]);
-
-    useEffect(() => {
-        invoke("close_splashscreen");
-
-        const getInfoVersion = async () => {
-            const version = await getVersion();
-            setVersion(version);
-        };
-
-        getInfoVersion();
+    const getAppVersion = useCallback(async() => {
+        const version = await app.getVersion();
+        setVersion(version);
     }, []);
+   
 
     useEffect(() => {
         setCurrentLocation(location.pathname);
+        
     }, [location]);
 
     function openBrowser(): void {
@@ -86,8 +76,11 @@ export default function Titlebar() {
         });
     }
 
+    useEffect(() => {
+        getAppVersion();
+    }, [getAppVersion]);
     return (
-        !fullscreen && (
+        (
             <div
                 data-tauri-drag-region
                 className=" z-50   overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 dark:bg-[#111111] bg-window-light-50 p-2 text-text-dark w-screen fixed left-0 right-0"
@@ -202,7 +195,7 @@ export default function Titlebar() {
                             type="button"
                             title="Minimize"
                             className="flex items-center justify-center dark:text-text-dark text-text-light w-8 h-8 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
-                            onClick={() => appWindow.minimize()}
+                            onClick={async() => invoke("minimize_window")}
                         >
                             <VscChromeMinimize size={20} />
                         </button>
@@ -232,7 +225,7 @@ export default function Titlebar() {
                             type="button"
                             title="Close"
                             className="flex items-center justify-center w-8 h-8 right-4 left-5 rounded-full hover:dark:bg-window-dark-600 hover:bg-window-light-600"
-                            onClick={() => appWindow.close()}
+                            onClick={async() => invoke("close_window")}
                         >
                             <VscChromeClose
                                 size={20}

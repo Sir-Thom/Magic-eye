@@ -16,10 +16,12 @@
   "tauri": {
       "windows": [
       {
-        
+        "title": "Magic Eye",
         "center": false,
         "closable": true,
         "maximizable": true,
+       
+        
         
         "minimizable": true,
        
@@ -27,7 +29,7 @@
         "alwaysOnTop": false,
       
         "resizable": true,
-        "decorations": true,
+        "decorations": false,
         "minWidth": 1000,
         "minHeight": 600,
         
@@ -76,10 +78,7 @@
               "main",
               "settings"
             ],
-            "domain": "localhost",
-            "plugins": [
-              "tauri-plugin-localhost"
-            ]
+            "domain": "localhost"
    
           }
         ]
@@ -90,18 +89,22 @@
       "windows": [
         {
           "userAgent": "Chrome",
+          "close": true,
           "title": "Magic Eye",
           "titleBarStyle": "Overlay",
           "minWidth": 1000,
+          "setResizable": true,
           "minHeight": 600,
           "resizable": true,
           "fullscreen": false,
+      
           "visible": false,
           "decorations": false,
           "alwaysOnTop": false,
           "url": "index.html",
           "label": "main",
           "theme":"Dark"
+          
         },
         {
           "title": "Magic Eye",
