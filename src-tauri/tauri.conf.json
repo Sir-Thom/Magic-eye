@@ -69,6 +69,7 @@
         "appimage": {
           "bundleMediaFramework": true
         }
+        
      
       },
       "security": {

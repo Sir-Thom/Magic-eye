@@ -607,7 +607,6 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
-
 "@tauri-apps/api@2.0.0-alpha.6":
   version "2.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-alpha.6.tgz#16b94359e5c8266ed2b774b4f2e1339c594c4cb4"
@@ -691,13 +690,12 @@
   dependencies:
     "@tauri-apps/api" "2.0.0-alpha.6"
 
-"@tauri-apps/plugin-window@=2.0.0-alpha.1":
+"@tauri-apps/plugin-window@^2.0.0-alpha":
   version "2.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-window/-/plugin-window-2.0.0-alpha.1.tgz#28a0217100fc5a34fb2a6d76103ba056b2348286"
   integrity sha512-dFOAgal/3Txz3SQ+LNQq0AK1EPC+acdaFlwPVB/6KXUZYmaFleIlzgxDVoJCQ+/xOhxvYrdQaFLefh0I/Kldbg==
   dependencies:
     "@tauri-apps/api" "2.0.0-alpha.6"
-
 
 "@testing-library/dom@^9.0.0":
   version "9.3.3"
@@ -790,11 +788,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^18.2.45":
-
   version "18.2.46"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.46.tgz#f04d6c528f8f136ea66333bc66abcae46e2680df"
   integrity sha512-nNCvVBcZlvX4NU1nRRNV/mFl1nNRuTuslAJglQsq+8ldXe5Xv0Wd2f7WTE3jOxhLH2BFfiZGC6GCp+kHQbgG+w==
-
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1190,11 +1186,9 @@ camelcase-css@^2.0.1:
   integrity sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==
 
 caniuse-lite@^1.0.30001538, caniuse-lite@^1.0.30001565:
-
   version "1.0.30001572"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001572.tgz#1ccf7dc92d2ee2f92ed3a54e11b7b4a3041acfa0"
   integrity sha512-1Pbh5FLmn5y4+QhNyJE9j3/7dK44dGB83/ZMjv/qJk86TvDbjk0LosiZo0i0WB0Vx607qMX9jYrn1VLHCkN4rw==
-
 
 chai@^4.3.10:
   version "4.3.10"
@@ -3120,9 +3114,7 @@ stop-iteration-iterator@^1.0.0:
     internal-slot "^1.0.4"
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
-
   name string-width-cjs
-
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
