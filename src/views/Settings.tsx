@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { createPortal } from "react-dom";
 import SuccessAlert from "../components/alert/sucessAlert";
 import Titlebar from "../components/titlebar/titlebar";

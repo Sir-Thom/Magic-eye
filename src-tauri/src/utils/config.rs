@@ -5,7 +5,7 @@ use std::env;
 use std::fs::{create_dir_all, File};
 use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
-use tauri::api::path;
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PlaceholderOption {
@@ -116,21 +116,7 @@ pub fn create_configuration_file_setting() {
                 );
             }
 
-            let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string()
-                + APP_NAME
-                + "/asset";
-            trace!("asset_dir_path: {}", asset_dir_path);
-            if !Path::new(&asset_dir_path).exists() {
-                create_dir_all(&asset_dir_path).expect("failed to create config directory");
-                error!(
-                    "failed to create config directory for linux: {}",
-                    asset_dir_path
-                )
-            }
+         
 
             if !Path::new(&path_config_file).exists() {
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
@@ -155,22 +141,7 @@ pub fn create_configuration_file_setting() {
                 );
             }
 
-            let asset_dir_path = tauri::api::path::app_data_dir(&tauri::Config::default())
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string()
-                + APP_NAME
-                + "/asset";
-            trace!("Asset directory path: {}", asset_dir_path);
-            if !Path::new(&asset_dir_path).exists() {
-                create_dir_all(&asset_dir_path).expect("Failed to create config directory");
-                error!(
-                    "Failed to create config directory for Windows: {:?}",
-                    asset_dir_path
-                );
-            }
-
+           
             if !Path::new(&path_config_file).exists() {
                 let json_data = serde_json::to_string_pretty(&Setting::new()).unwrap();
                 trace!("JSON data for config file: {}", json_data);
@@ -190,22 +161,22 @@ pub fn create_configuration_file_setting() {
 pub fn get_config_dir() -> String {
     debug!(
         "config directory location: {:?}",
-        path::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
+        dirs_next::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
     );
-    path::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
+    dirs_next::config_dir().unwrap().to_string_lossy().to_string() + "/" + APP_NAME
 }
 
 #[tauri::command]
 pub fn get_config_file() -> String {
     debug!(
         "config file location: {:?}",
-        path::config_dir().unwrap().to_string_lossy().to_string()
+        dirs_next::config_dir().unwrap().to_string_lossy().to_string()
             + "/"
             + APP_NAME
             + "/"
             + SETTINGS_FILE_NAME
     );
-    path::config_dir().unwrap().to_string_lossy().to_string()
+    dirs_next::config_dir().unwrap().to_string_lossy().to_string()
         + "/"
         + APP_NAME
         + "/"

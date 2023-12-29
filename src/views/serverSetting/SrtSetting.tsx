@@ -2,10 +2,30 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function SRTSetting({ settings, onSave, patchSetting }) {
     const [srt, setSRT] = useState(Boolean(settings.srt));
     const [srtAddress, setSRTAddress] = useState(settings.srtAddress);
+
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setSRT(initialSettings.srt);
+        setSRTAddress(initialSettings.srtAddress);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     const handleSRTChange = () => {
         setSRT(!srt);
@@ -21,6 +41,7 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         const updatedSettings = {
             ...settings,
             srt: srt,
@@ -85,13 +106,14 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -99,6 +121,13 @@ export default function SRTSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            <ModalConfirm
+                isOpen={showConfirmationModal}
+                onClose={hideConfirmation}
+                onConfirm={handleSaveConfig}
+                confirmText="Are you sure you want to apply the changes?"
+                confirmTitle="Apply SRT Changes"
+            />
         </div>
     );
 }

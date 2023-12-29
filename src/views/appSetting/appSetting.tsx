@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Notification from "../../components/notification/notification";
 import Dropdown from "../../components/dropdowns/dropdown";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import SuccessAlert from "../../components/alert/sucessAlert";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-import { appWindow } from "@tauri-apps/api/window";
 import { ISetting } from "../../interfaces/ISetting";
+import { listen } from "@tauri-apps/api/event";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export async function GetConfig() {
     try {
@@ -61,87 +62,112 @@ export default function GeneralSetting() {
         ]
     };
 
+
+
     const [tmpConf, setTmpConf] = useState<ISetting>({
         placeholder: "",
         api_ip: ""
-    });
-    const [error, setError] = useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = useState("");
-
-    const [placeholderOptions, setPlaceholderOptions] = useState<string[]>(
+      });
+      const [error, setError] = useState<string | null>(null);
+      const [successMessage, setSuccessMessage] = useState("");
+    
+      const [placeholderOptions, setPlaceholderOptions] = useState<string[]>(
         placeholderdata.placeholder
-    );
+      );
+    
+      const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+      
+      const [configData, setConfigData] = useState<ISetting>({
+        placeholder: "",
+        api_ip: ""
+      });
 
-    useEffect(() => {
+
+
+      const initialSettings = {
+        ...configData
+      };
+    
+      const handleCancel = () => {
+        console.log("initialSettings:", initialSettings);
+        
+        setCurrentPlacholder(initialSettings.placeholder);
+        setApi_ip(initialSettings.api_ip);
+      };
+    
+      const showConfirmation = () => {
+        setShowConfirmationModal(true);
+      };
+    
+      const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+      };
+    
+      useEffect(() => {
         async function fetchConfig() {
-            try {
-                const configData = await GetConfig();
-                const parsedConfig = JSON.parse(configData);
-                setTmpConf(parsedConfig);
-                setCurrentPlacholder(parsedConfig.placeholder);
-                setApi_ip(parsedConfig.api_ip);
-                setError(null);
-
-                if (
-                    !placeholderOptions.includes(
-                        parsedConfig.placeholder,
-                        parsedConfig.api_ip
-                    )
-                ) {
-                    setPlaceholderOptions((prevOptions) => [
-                        ...prevOptions,
-                        parsedConfig.placeholder,
-                        parsedConfig.api_ip
-                    ]);
-                }
-            } catch (err) {
-                setError(err.message);
+          try {
+            const configData = await GetConfig();
+            const parsedConfig = JSON.parse(configData);
+            setTmpConf(parsedConfig);
+            setCurrentPlacholder(parsedConfig.placeholder);
+            setApi_ip(parsedConfig.api_ip);
+            setError(null);
+            setConfigData(parsedConfig);
+    
+            if (!placeholderOptions.includes(parsedConfig.placeholder)) {
+              setPlaceholderOptions((prevOptions) => [
+                ...prevOptions,
+                parsedConfig.placeholder
+              ]);
             }
+          } catch (err) {
+            setError(err.message);
+          }
         }
-
+    
         fetchConfig();
-        appWindow.listen("tauri://update_settings_file", () => {
-            fetchConfig();
+        listen("tauri://update_settings_file", () => {
+          fetchConfig();
+          console.log("Settings file updated");
         });
-    }, []);
-
-    async function handleDismissErrorToast() {
+      }, []);
+    
+      async function handleDismissErrorToast() {
         setError(null);
-    }
-
-    async function handleCloseAlert() {
+      }
+    
+      async function handleCloseAlert() {
         setSuccessMessage("");
-    }
-
-    function handlePlaceholderChange(event) {
+      }
+    
+      function handlePlaceholderChange(event) {
         const newPlaceholder = event.target.value;
         setCurrentPlacholder(newPlaceholder);
         setTmpConf((prevTmpConf) => ({
-            ...prevTmpConf,
-            placeholder: newPlaceholder,
-            api_ip: api_ip
+          ...prevTmpConf,
+          placeholder: newPlaceholder
         }));
-    }
-    function handleApi_ipChange(event) {
+      }
+      function handleApi_ipChange(event) {
         const newApi_ip = event.target.value;
         setApi_ip(newApi_ip);
         setTmpConf((prevTmpConf) => ({
-            ...prevTmpConf,
-            placeholder: currentPlaceholder,
-            api_ip: newApi_ip
+          ...prevTmpConf,
+          api_ip: newApi_ip
         }));
-    }
-    async function handleSaveConfig() {
+      }
+      async function handleSaveConfig() {
+        hideConfirmation();
         try {
-            const jsonSettings = JSON.stringify(tmpConf);
-            // Serialize the object to JSON
-            await SetConfig(jsonSettings);
-            setSuccessMessage("Configuration saved successfully!");
-            setError(null);
+          const jsonSettings = JSON.stringify(tmpConf);
+          await SetConfig(jsonSettings);
+          setSuccessMessage("Configuration saved successfully!");
+          setError(null);
         } catch (err) {
-            setError(err.message.toString());
+          setError(err.message.toString());
         }
-    }
+      }
+
 
     const AppSection = () => (
         <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
@@ -205,19 +231,29 @@ export default function GeneralSetting() {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
                         </div>
                     </div>
                 </motion.div>
+            {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply App Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}
             </div>
             <div className="my-6 flex justify-end fixed bottom-0 right-0">
                 {error && (

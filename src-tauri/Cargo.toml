@@ -1,7 +1,8 @@
 [package]
 name = "magic_eye"
-version = "0.9.0"
-description = "A Tauri App"
+version = "0.9.1"
+description = "A small gui application Made with Tauri, let you watch stream for a Mediamtx server."
+categories = ["utility", "network", "streaming"]
 authors = ["Thomas Toulouse"]
 license = "MIT"
 repository = "https://github.com/Sir-Thom/Magic-eye"
@@ -10,20 +11,25 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 
+[toolchain]
+channel = "nightly"
 
 
 [build-dependencies]
-tauri-build = { version = "^1.5", features = [] }
+tauri-build = { version = "2.0.0-alpha", features = [] }
 
 [dependencies]
-tauri = { version = "^1.5", features = [ "window-minimize", "window-set-size", "window-set-focus", "window-start-dragging", "window-unminimize", "window-set-resizable", "window-set-title", "window-set-icon", "window-set-decorations", "window-set-cursor-icon", "window-maximize", "window-unmaximize", "window-set-cursor-grab", "window-show", "window-close", "window-set-fullscreen",
-    "shell-open",
-    "fs-all",
-    "http-all",
-    "protocol-all",
-    "path-all",
-    "dialog-all",
-] }
+tauri = { version = "2.0.0-alpha", features = [] }
+
+tauri-plugin-log = { version = "2.0.0-alpha" }
+tauri-plugin-fs = {  version = "2.0.0-alpha" }
+tauri-plugin-clipboard-manager = {  version = "2.0.0-alpha" }
+tauri-plugin-dialog = {  version = "2.0.0-alpha" }
+tauri-plugin-http = {features = [ "multipart" ], version = "2.0.0-alpha" }
+tauri-plugin-notification = {version = "2.0.0-alpha", features = [ "windows7-compat" ] }
+tauri-plugin-os = {  version = "2.0.0-alpha" }
+tauri-plugin-process = { version = "2.0.0-alpha" }
+dirs-next = "2.0.0"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 axum = "0.7.2"
@@ -32,7 +38,8 @@ tower-http = { version = "0.5.0", features = ["fs", "cors"] }
 reqwest = "^0.11.23"
 open = "5.0.1"
 log = "0.4.20"
-tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+
+tauri-plugin-app = "2.0.0-alpha.2"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
@@ -45,3 +52,6 @@ codegen-units = 1 # Compile crates one after another so the compiler can optimiz
 lto = true # Enables link to optimizations
 opt-level = "s" # Optimize for binary size
 strip = true # Remove debug symbols
+
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]

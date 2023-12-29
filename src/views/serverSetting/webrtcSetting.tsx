@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import { ICEServer } from "../../interfaces/IServer";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const [webrtc, setWebrtc] = useState(settings.webrtc || true);
@@ -44,6 +45,35 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const [webrtcICETCPMuxAddress, setWebrtcICETCPMuxAddress] = useState(
         settings.webrtcICETCPMuxAddress || ""
     );
+
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setWebrtc(initialSettings.webrtc);
+        setWebrtcAddress(initialSettings.webrtcAddress);
+        setWebrtcEncryption(initialSettings.webrtcEncryption);
+        setWebrtcKey(initialSettings.webrtcServerKey);
+        setWebrtcCert(initialSettings.webrtcServerCert);
+        setWebrtcAllowOrigin(initialSettings.webrtcAllowOrigin);
+        setWebrtcTrustedProxies(initialSettings.webrtcTrustedProxies);
+        setWebrtcICEServers(initialSettings.webrtcICEServers);
+        setWebrtcICEServers2(initialSettings.webrtcICEServers2);
+        setWebrtcICEHostNAT1To1IPs(initialSettings.webrtcICEHostNAT1To1IPs);
+        setWebrtcICEUDPMuxAddress(initialSettings.webrtcICEUDPMuxAddress);
+        setWebrtcICETCPMuxAddress(initialSettings.webrtcICETCPMuxAddress);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     const handleWebrtc = () => {
         setWebrtc(!webrtc);
@@ -120,6 +150,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     console.log(settings);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         // Create an updated settings object with the modified logging settings
         const updatedSettings = {
             ...settings,
@@ -328,13 +359,14 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                                 <button
                                     type="button"
                                     className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                    onClick={handleCancel}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="button"
                                     className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                    onClick={handleSaveConfig}
+                                    onClick={showConfirmation}
                                 >
                                     Apply
                                 </button>
@@ -342,6 +374,15 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
                         </div>
                     )}
                 </motion.div>
+                {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply WebRTC Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}
             </div>
         </>
     );

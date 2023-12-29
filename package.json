@@ -1,7 +1,7 @@
 {
   "name": "magic-eye",
   "description": "A magic eye app",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "module",
   "scripts": {
     "check-format": "prettier . --check",
@@ -21,7 +21,10 @@
     "@heroicons/react": "^2.1.1",
     "@tabler/icons-react": "^2.44.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@tauri-apps/api": "^1.5.3",
+    "@tauri-apps/api": "^2.0.0-alpha",
+    "@tauri-apps/plugin-app": "^2.0.0-alpha",
+    "@tauri-apps/plugin-dialog": "^2.0.0-alpha.5",
+    "@tauri-apps/plugin-window": "^2.0.0-alpha",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -31,7 +34,7 @@
     "use-interval": "^1.4.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.5.9",
+    "@tauri-apps/cli": "^2.0.0-alpha.20",
     "@testing-library/react": "^14.1.2",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
@@ -55,5 +58,4 @@
     "vite": "^5.0.10",
     "vitest": "^1.1.0"
   }
-
 }

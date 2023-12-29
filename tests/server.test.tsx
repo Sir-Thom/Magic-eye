@@ -4,7 +4,7 @@ import Server from "../src/views/Server";
 import RtspServerInfo from "../src/views/ServerInfoView/RtspServerInfo";
 
 import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import Titlebar from "../src/components/titlebar/titlebar";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
@@ -14,22 +14,7 @@ describe("ServerInfo Component", () => {
     const titlebarContainer = document.createElement("div");
     titlebarContainer.id = "titlebar";
     document.body.appendChild(titlebarContainer);
-    beforeAll(() => {
-        Object.defineProperty(window, "crypto", {
-            value: {
-                getRandomValues: (buffer) => {
-                    return randomFillSync(buffer);
-                }
-            }
-        });
-        mockIPC((cmd: any, args: any) => {
-            if (cmd === "close_splashscreen") {
-                return Promise.resolve();
-            }
-        });
-        const spy = vi.spyOn(window, "__TAURI_IPC__");
-        expect(invoke("close_splashscreen")).resolves.all;
-    });
+
 
     test("renders ServerInfo component with RTSP setting by default", () => {
         render(

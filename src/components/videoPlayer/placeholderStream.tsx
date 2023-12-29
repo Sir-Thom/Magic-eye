@@ -13,7 +13,7 @@ export default function StreamPlaceholder({
                 autoPlay
                 loop
                 controls={false}
-                onContextMenu={(e) => e.preventDefault()}
+                onContextMenu={e => e.preventDefault()}
                 muted
                 src={"http://127.0.0.1:16780/" + url + ".webm"}
                 width={width * 0.6}

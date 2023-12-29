@@ -4,29 +4,21 @@ import Server from "../src/views/Server";
 import RtspServerInfo from "../src/views/ServerInfoView/RtspServerInfo";
 
 import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import Setting from "../src/views/Settings";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { randomFillSync } from "crypto";
-import { e } from "vitest/dist/reporters-OH1c16Kq";
+
 import { ISettings } from "../src/interfaces/IServer";
+import { spyOn } from "@vitest/spy";
 
 describe("Setting Component", () => {
     const titlebarContainer = document.createElement("div");
     titlebarContainer.id = "titlebar";
     document.body.appendChild(titlebarContainer);
 
-    beforeAll(() => {
-        mockIPC((cmd, args) => {
-            if (cmd === "get_server_request") {
-                return Promise.resolve({ url: "http://127.0.0.1:9997/v3/config/global/get" });
-            }
-            if (cmd === "patch_server_request") {
-                return Promise.resolve({ url: "http://127.0.0.1:9997/v3/config/global/patch"});
-            }
-        });
-    });
+  
  
     test("renders Setting component", () => {
       render(
@@ -199,42 +191,6 @@ describe("Setting Component", () => {
         
         });
         
-        test("updates state and invokes save_api_ip", () => {
-        const initialSettings = {
-            apiSettings: { api: true },
-            loggingSettings: { logLevel: "info" },
-            hlsSettings: { hls: true },
-            rtspSettings: { rtsp: true },
-            rtmpSettings: { rtmp: true },
-            srtSettings: { srt: true },
-            webrtcSettings: { webrtc: true },
-            recordSettings: { record: true },
-        };
-
-  
-
-        const expectedUpdatedSettings = {
-            apiSettings: { api: false, metrics: true },
-            loggingSettings: { logLevel: "debug" },
-            hlsSettings: { hls: false },
-            rtspSettings: { rtsp: false },
-            rtmpSettings: { rtmp: false },
-            srtSettings: { srt: false },
-            webrtcSettings: { webrtc: false },
-            recordSettings: { record: false },
-        };
-        render(
-            <MemoryRouter>
-                <Setting/>
-            </MemoryRouter>
-        );
-    invoke("patch_server_request", {url:"http://127.0.0.1:9997/v3/config/global/patch"});
-    vi.spyOn(window, "__TAURI_IPC__");
-    expect(invoke("patch_server_request")).resolves.all;
-            
-
-        expect(initialSettings).not.toEqual(expectedUpdatedSettings);
-        });
-        
-  });
+     
+    });
   

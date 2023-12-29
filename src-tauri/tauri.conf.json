@@ -1,4 +1,5 @@
 {
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
@@ -8,28 +9,119 @@
   },
   "package": {
     "productName": "Magic Eye",
-    "version": "0.9.0"
+    "version": "0.9.1"
   },
+ 
+   
   "tauri": {
-    "allowlist": {
-      "protocol": {
-        "asset": true,
-        "all": true,
-        "assetScope": [
-          "$RESOURCE/*"
+      "windows": [
+      {
+        "title": "Magic Eye",
+        "center": false,
+        "closable": true,
+        "maximizable": true,
+       
+        
+        
+        "minimizable": true,
+       
+        
+        "alwaysOnTop": false,
+      
+        "resizable": true,
+        "decorations": false,
+        "minWidth": 1000,
+        "minHeight": 600,
+        
+        "skipTaskbar": false,
+        "shadow": true
+      }  
+      ] ,
+      "bundle": {
+        "copyright": "MIT",
+        "active": true,
+        "resources": [
+          "./assets"
+     
+        ],
+        "icon": [
+          "icons/32x32.png",
+          "icons/128x128.png",
+          "icons/128x128@2x.png",
+          "icons/icon.icns",
+          "icons/icon.ico"
+        ],
+        "identifier": "com.MagicEye.dev",
+        "targets": "all",
+        "windows": {
+          "allowDowngrades": true,
+          "certificateThumbprint": null,
+          "digestAlgorithm": null,
+          "timestampUrl": null,
+          "tsp": false,
+          "webviewFixedRuntimePath": null,
+          "webviewInstallMode": {
+            "silent": true,
+            "type": "downloadBootstrapper"
+          },
+          "wix": null
+        },
+        "appimage": {
+          "bundleMediaFramework": true
+        }
+        
+     
+      },
+      "security": {
+        "csp": null,
+        "dangerousRemoteDomainIpcAccess": [
+          {
+            "windows": [
+              "main",
+              "settings"
+            ],
+            "domain": "localhost"
+   
+          }
         ]
-      },
-      "path": {
-        "all": true
-      },
-      "http": {
-        "all": true,
-        "request": true,
-        "scope": [
-          "http://*",
-          "https://*"
-        ]
-      },
+      }
+    },
+  
+    "plugins": {
+      "windows": [
+        {
+          "userAgent": "Chrome",
+          "close": true,
+          "title": "Magic Eye",
+          "titleBarStyle": "Overlay",
+          "minWidth": 1000,
+          "setResizable": true,
+          "minHeight": 600,
+          "resizable": true,
+          "fullscreen": false,
+      
+          "visible": false,
+          "decorations": false,
+          "alwaysOnTop": false,
+          "url": "index.html",
+          "label": "main",
+          "theme":"Dark"
+          
+        },
+        {
+          "title": "Magic Eye",
+          "titleBarStyle": "Visible",
+          "minWidth": 1000,
+          "minHeight": 600,
+          "resizable": true,
+          "fullscreen": false,
+          "decorations": false,
+          "alwaysOnTop": false,
+          "url": "splashscreen.html",
+          "label": "splashscreen"
+        }
+   
+      ],
       "dialog": {
         "all": true,
         "ask": false,
@@ -41,130 +133,22 @@
       "fs": {
         "all": true,
         "scope": [
-          "$RESOURCE/*"
+          "$XDG_DATA_HOME/com.MagicEye.dev/assets/*",
+          "$RESOURCE"
         ]
       },
-      "window": {
-        "all": false,
-        "center": false,
-        "close": true,
-        "create": false,
-        "hide": false,
-        "maximize": true,
-        "minimize": true,
-        "print": false,
-        "requestUserAttention": false,
-        "setAlwaysOnTop": false,
-        "setCursorGrab": true,
-        "setCursorIcon": true,
-        "setCursorPosition": false,
-        "setCursorVisible": false,
-        "setDecorations": true,
-        "setFocus": true,
-        "setFullscreen": true,
-        "setIcon": true,
-        "setMaxSize": false,
-        "setMinSize": false,
-        "setPosition": false,
-        "setResizable": true,
-        "setSize": true,
-        "setSkipTaskbar": false,
-        "setTitle": true,
-        "show": true,
-        "startDragging": true,
-        "unmaximize": true,
-        "unminimize": true
-      },
-      "all": false,
-      "shell": {
-        "all": false,
-        "open": true
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": [
+          "http://*",
+          "https://*"
+        ]
       }
-    },
-    "bundle": {
-      "copyright": "MIT",
-      "active": true,
-      "resources": [
-        "./assets/*"
-      ],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.MagicEye.dev",
-      "targets": "all",
-      "windows": {
-        "allowDowngrades": true,
-        "certificateThumbprint": null,
-        "digestAlgorithm": null,
-        "timestampUrl": null,
-        "tsp": false,
-        "webviewFixedRuntimePath": null,
-        "webviewInstallMode": {
-          "silent": true,
-          "type": "downloadBootstrapper"
-        },
-        "wix": null
-      },
-      "appimage": {
-        "bundleMediaFramework": true
-      }
+      
+    }
+    
    
-    },
-    "security": {
-      "csp": null,
-      "dangerousRemoteDomainIpcAccess": [
-        {
-          "windows": [
-            "main",
-            "settings"
-          ],
-          "domain": "localhost",
-          "plugins": [
-            "tauri-plugin-localhost"
-          ],
-          "enableTauriAPI": true
-        }
-      ]
-    },
-    "updater": {
-      "windows": {
-        "installMode": "passive"
-      },
-      "active": false
-    },
-    "windows": [
-      {
-        "userAgent": "Chrome",
-        "title": "Magic Eye",
-        "titleBarStyle": "Overlay",
-        "minWidth": 1000,
-        "minHeight": 600,
-        "resizable": true,
-        "fullscreen": false,
-        "visible": false,
-        "decorations": false,
-        "alwaysOnTop": false,
-        "url": "index.html",
-        "label": "main",
-        "theme":"Dark"
-      },
-      {
-        "title": "Magic Eye",
-        "titleBarStyle": "Visible",
-        "minWidth": 1000,
-        "minHeight": 600,
-        "resizable": true,
-        "fullscreen": false,
-        "decorations": false,
-        "alwaysOnTop": false,
-        "url": "splashscreen.html",
-        "label": "splashscreen"
-      }
- 
-    ]
+    
+  
   }
-}

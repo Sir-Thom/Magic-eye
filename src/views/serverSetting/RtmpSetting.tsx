@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function RtmpSetting({ settings, onSave, patchSetting }) {
     const [rtmp, setRtmp] = useState(settings.rtmp || true);
@@ -22,6 +23,29 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
     const [rtmpServerCert, setRtmpServerCert] = useState(
         settings.rtmpServerCert || "server.crt"
     );
+
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setRtmp(initialSettings.rtmp);
+        setRtmpAddress(initialSettings.rtmpAddress);
+        setRtmpsAddress(initialSettings.rtmpAddress);
+        setRtmpEncryption(initialSettings.rtmpEncryption);
+        setRtmpServerKey(initialSettings.rtmpServerKey);
+        setRtmpServerCert(initialSettings.rtmpServerCert);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     const handleRtmp = () => {
         setRtmp(!rtmp);
@@ -63,6 +87,7 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         const updatedSettings = {
             ...settings,
             rtmp: rtmp,
@@ -179,13 +204,14 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -193,6 +219,13 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            <ModalConfirm
+                isOpen={showConfirmationModal}
+                onClose={hideConfirmation}
+                onConfirm={handleSaveConfig}
+                confirmTitle={"Apply RTMP Setting ?"}
+                confirmText={"Are you sure you want to apply the changes?"}
+            />
         </div>
     );
 }

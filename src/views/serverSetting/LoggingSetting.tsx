@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Dropdown from "../../components/dropdowns/dropdown";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function LoggingSetting({ settings, onSave, patchSetting }) {
     const [logLevel, setLogLevel] = useState(settings.logLevel || "info");
@@ -11,6 +12,24 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
     );
     const [logFile, setLogFile] = useState(settings.logFile || "mediamtx.log");
     const logLevels = ["info", "debug", "warn", "error"];
+    const initialSettings = {
+        ...settings
+    };
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setLogDestinations(initialSettings.logDestinations);
+        setLogLevel(initialSettings.logLevel);
+        setLogFile(initialSettings.logFile);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     useEffect(() => {
         setLogLevel(settings.logLevel || "info");
@@ -32,6 +51,7 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
     };
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         // Create an updated settings object with the modified logging settings
         const updatedSettings = {
             ...settings,
@@ -109,13 +129,14 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -123,6 +144,15 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply Logging Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}
         </div>
     );
 }
