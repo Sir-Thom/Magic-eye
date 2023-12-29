@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
-
+import ModalConfirm from "../../components/modals/modalConfirm";
 import Toggle from "../../components/toggle/toggle";
 
 export default function RecordSetting({ settings, onSave, patchSetting }) {
@@ -14,6 +14,27 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
     const [recordDeleteAfter, setRecordDeleteAfter] = useState(
         settings.recordDeleteAfter
     );
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setRecord(initialSettings.record);
+        setRecordPath(initialSettings.recordPath);
+        setRecordFormat(initialSettings.recordFormat);
+        setRecordSegmentDuration(initialSettings.recordSegmentDuration);
+        setRecordDeleteAfter(initialSettings.recordDeleteAfter);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     const handleRecordChange = () => {
         setRecord(!record);
@@ -67,6 +88,7 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         const updatedSettings = {
             ...settings,
             record: record,
@@ -160,13 +182,14 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -174,6 +197,15 @@ export default function RecordSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply Record Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}        
         </div>
     );
 }

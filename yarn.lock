@@ -607,15 +607,15 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
+"@tauri-apps/api@2.0.0-alpha.13", "@tauri-apps/api@^2.0.0-alpha":
+  version "2.0.0-alpha.13"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-alpha.13.tgz#54a080fe7f61715a817828ab1041813a8b9136e6"
+  integrity sha512-sGgCkFahF3OZAHoGN5Ozt9WK7wJlbVZSgWpPQKNag4nSOX1+Py6VDRTEWriiJHDiV+gg31CWHnNXRy6TFoZmdA==
+
 "@tauri-apps/api@2.0.0-alpha.6":
   version "2.0.0-alpha.6"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-alpha.6.tgz#16b94359e5c8266ed2b774b4f2e1339c594c4cb4"
   integrity sha512-ZMOc3eu9amwvkC6M69h3hWt4/EsFaAXmtkiw4xd2LN59/lTb4ZQiVfq2QKlRcu1rj3n/Tcr7U30ZopvHwXBGIg==
-
-"@tauri-apps/api@^2.0.0-alpha":
-  version "2.0.0-alpha.13"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-alpha.13.tgz#54a080fe7f61715a817828ab1041813a8b9136e6"
-  integrity sha512-sGgCkFahF3OZAHoGN5Ozt9WK7wJlbVZSgWpPQKNag4nSOX1+Py6VDRTEWriiJHDiV+gg31CWHnNXRy6TFoZmdA==
 
 "@tauri-apps/cli-darwin-arm64@2.0.0-alpha.20":
   version "2.0.0-alpha.20"
@@ -689,6 +689,13 @@
   integrity sha512-DKlbG4ymoa8xDKdK36adPlZYeY8wcDQfi/XJG4qxhK6YC4GLrM1sG5eQgjVKheDI6wDQC5CiUjhnvddXVFUPTg==
   dependencies:
     "@tauri-apps/api" "2.0.0-alpha.6"
+
+"@tauri-apps/plugin-dialog@^2.0.0-alpha.5":
+  version "2.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-dialog/-/plugin-dialog-2.0.0-alpha.5.tgz#418338b2a51ba020a22984344ec5787d31ce128b"
+  integrity sha512-OHodi10R5an4nVq/kavU9HOATkc20RYNVdFYWMvPSVyI7rL1n55llPmbGXdWiZO94Tn10XZyZDVs7eJ1uKOkeA==
+  dependencies:
+    "@tauri-apps/api" "2.0.0-alpha.13"
 
 "@tauri-apps/plugin-window@^2.0.0-alpha":
   version "2.0.0-alpha.1"

@@ -102,9 +102,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             tauri::async_runtime::spawn(async move {
                 debug!("Initializing...");
                 let serve_dir = ServeDir::new(resource_path.to_str().expect("Failed to convert resource path to string"));
-                let _files = fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path()));
+                let _files = fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path())).expect("Failed to read dir");
                 debug!("files: {:?}", _files);
-
+                
                 let axum_app = Router::new().nest_service("/", serve_dir).layer(
                     CorsLayer::new()
                         .allow_origin("*".parse::<HeaderValue>().expect("Failed to parse header value"))

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function HlsSetting({ settings, onSave, patchSetting }) {
+  
     const [hlsEnabled, setHlsEnabled] = useState(settings.hls || true);
     const [hlsAddress, setHlsAddress] = useState(
         settings.hlsAddress || ":8888"
@@ -45,6 +47,28 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
     const [hlsVariant, setHlsVariant] = useState(
         settings.hlsVariant || "lowLatency"
     );
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const handleCancel = () => {
+        setHlsEnabled(initialSettings.hls);
+        setHlsAddress(initialSettings.hlsAddress);
+        setHlsAllowOrigin(initialSettings.hlsAllowOrigin);
+        setHlsAlwaysRemux(initialSettings.hlsAlwaysRemux);
+        setHlsDirectory(initialSettings.hlsDirectory);
+        setHlsDisable(initialSettings.hlsDisable);
+        setHlsEncryption(initialSettings.hlsEncryption);
+        setHlsPartDuration(initialSettings.hlsPartDuration);
+        setHlsSegmentCount(initialSettings.hlsSegmentCount);
+        setHlsSegmentDuration(initialSettings.hlsSegmentDuration);
+        setHlsSegmentMaxSize(initialSettings.hlsSegmentMaxSize);
+        setHlsServerCert(initialSettings.hlsServerCert);
+        setHlsServerKey(initialSettings.hlsServerKey);
+        setHlsTrustedProxies(initialSettings.hlsTrustedProxies);
+        setHlsVariant(initialSettings.hlsVariant);
+    }
 
     const handleHlsEnabledChange = () => {
         setHlsEnabled(!hlsEnabled);
@@ -104,6 +128,15 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
     const handleHlsVariantChange = (event) => {
         setHlsVariant(event.target.value);
     };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
+
     useEffect(() => {
         setHlsEnabled(settings.hls);
         setHlsAddress(settings.hlsAddress || ":8888");
@@ -123,6 +156,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         // Update the settings state with the modified values
         const updatedSettings = {
             ...settings,
@@ -324,7 +358,7 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                 <textarea
                     name="hlsTrustedProxies"
                     style={{ resize: "none" }}
-                    className="my-auto h-8 align-text-bottom place-content-center row-start-3 row-end-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                    className="my-auto h-20 align-text-bottom place-content-center row-start-3 row-end-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                     value={hlsTrustedProxies}
                     onChange={handleHlsTrustedProxiesChange}
                 />
@@ -356,13 +390,14 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -370,6 +405,15 @@ export default function HlsSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply HLS Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}
         </div>
     );
 }

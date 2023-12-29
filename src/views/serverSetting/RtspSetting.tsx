@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
 
 export default function RtspSetting({ settings, onSave, patchSetting }) {
     const [rtsp, setRtsp] = useState(settings.rtsp || true);
@@ -29,6 +30,34 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     const [multicastIPRange, setMulticastIPRange] = useState("224.1.0.0/16");
     const [multicastRTPPort, setMulticastRTPPort] = useState(8002);
     const [multicastRTCPPort, setMulticastRTCPPort] = useState(8003);
+
+    const initialSettings = {
+        ...settings
+    };
+
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+    const handleCancel = () => {
+        setRtsp(initialSettings.rtsp);
+        setRtspDisable(initialSettings.rtspDisable);
+        setProtocols(initialSettings.protocols);
+        setEncryption(initialSettings.encryption);
+        setRtspAddress(initialSettings.rtspAddress);
+        setRtspsAddress(initialSettings.rtspsAddress);
+        setRtpAddress(initialSettings.rtpAddress);
+        setRtcpAddress(initialSettings.rtcpAddress);
+        setMulticastIPRange(initialSettings.multicastIPRange);
+        setMulticastRTPPort(initialSettings.multicastRTPPort);
+        setMulticastRTCPPort(initialSettings.multicastRTCPPort);
+    };
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
+    };
 
     const handleRtsp = () => {
         setRtsp(!rtsp);
@@ -95,6 +124,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        hideConfirmation();
         const updatedSettings = {
             ...settings,
             rtsp: rtsp,
@@ -276,13 +306,14 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -290,6 +321,13 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply RTSP Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
         </div>
     );
 }

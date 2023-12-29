@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import {  motion } from "framer-motion";
 import { fadeIn } from "../../utils/animation/screenAnimation";
 import Toggle from "../../components/toggle/toggle";
+import ModalConfirm from "../../components/modals/modalConfirm";
+
 
 export default function ApiSetting({ settings, onSave, patchSetting }) {
     console.log("api setting:", settings);
+    const initialSettings = {
+        apiEnabled: Boolean(settings.api),
+        metricsEnabled: Boolean(settings.metrics),
+        metricsAddress: settings.metricsAddress,
+        pprofEnabled: Boolean(settings.pprof),
+        pprofAddress: settings.pprofAddress,
+        runOnConnect: settings.runOnConnect,
+        runOnConnectRestart: Boolean(settings.runOnConnectRestart),
+      };
+    
     const [apiEnabled, setApiEnabled] = useState(Boolean(settings.api));
     const [metricsEnabled, setMetricsEnabled] = useState(
         Boolean(settings.metrics)
@@ -12,23 +24,38 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
     const [metricsAddress, setMetricsAddress] = useState(
         settings.metricsAddress
     );
+    
     const [pprofEnabled, setPprofEnabled] = useState(Boolean(settings.pprof));
     const [pprofAddress, setPprofAddress] = useState(settings.pprofAddress);
     const [runOnConnect, setRunOnConnect] = useState(settings.runOnConnect);
     const [runOnConnectRestart, setRunOnConnectRestart] = useState(
         Boolean(settings.runOnConnectRestart)
     );
-
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const handleCancel = () => {
+        setApiEnabled(initialSettings.apiEnabled);
+        setMetricsEnabled(initialSettings.metricsEnabled);
+        setMetricsAddress(initialSettings.metricsAddress);
+        setPprofEnabled(initialSettings.pprofEnabled);
+        setPprofAddress(initialSettings.pprofAddress);
+        setRunOnConnect(initialSettings.runOnConnect);
+        setRunOnConnectRestart(initialSettings.runOnConnectRestart);
+      };
     const handleApiEnabledChange = () => {
         setApiEnabled(!apiEnabled); // Toggle the API state
+        
+       
+        
     };
 
     const handleMetricsChange = () => {
         setMetricsEnabled(!metricsEnabled); // Toggle the metrics state
+        
     };
 
     const handleMetricsAddressChange = (event) => {
-        setMetricsAddress(event.target.checked);
+        setMetricsAddress(event.target.value);
+       
     };
 
     const handlePprofChange = () => {
@@ -37,6 +64,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
 
     const handlePprofAddressChange = (event) => {
         setPprofAddress(event.target.value);
+       
     };
 
     const handleRunOnConnectChange = (event) => {
@@ -45,6 +73,15 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
 
     const handleRunOnConnectRestartChange = () => {
         setRunOnConnectRestart(!runOnConnectRestart); // Toggle the Run On Connect Restart state
+    };
+
+
+    const showConfirmation = () => {
+        setShowConfirmationModal(true);
+    };
+
+    const hideConfirmation = () => {
+        setShowConfirmationModal(false);
     };
 
     useEffect(() => {
@@ -59,6 +96,8 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
     }, [settings]);
 
     const handleSaveConfig = () => {
+        
+        hideConfirmation();
         // Create an updated settings object with the modified logging settings
         const updatedSettings = {
             ...settings,
@@ -71,12 +110,14 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
             runOnConnect: runOnConnect,
             runOnConnectRestart: runOnConnectRestart
         };
-        console.log("setting updated: " + JSON.stringify(updatedSettings));
+        
 
         // Call the onSave prop to save the changes
+      
         onSave(updatedSettings);
         patchSetting(updatedSettings);
     };
+
     const APISection = () => (
         <div className="grid  w-full  grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8 ">
             <div>
@@ -97,7 +138,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                 </label>
 
                 <Toggle
-                    className=" row-start-1 my-auto place-content-center row-end-2"
+                     className={`row-start-1 my-auto place-content-center row-end-2 `}
                     enabled={apiEnabled}
                     onChange={handleApiEnabledChange}
                 />
@@ -165,6 +206,7 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                     Pprof Address:
                 </label>
                 <Toggle
+                
                     className="place-content-center  my-auto  row-start-1 row-end-2"
                     value={pprofEnabled.toString()}
                     enabled={pprofEnabled}
@@ -204,13 +246,14 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 ml-4 font-bold py-2 px-4 rounded"
+                                onClick={handleCancel}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 className="dark:text-text-dark text-text-light bg-accent-color1-700 hover:bg-accent-color1-800 mx-4 font-bold py-2 px-4 rounded"
-                                onClick={handleSaveConfig}
+                                onClick={showConfirmation}
                             >
                                 Apply
                             </button>
@@ -218,6 +261,15 @@ export default function ApiSetting({ settings, onSave, patchSetting }) {
                     </div>
                 )}
             </motion.div>
+            {showConfirmationModal && (
+                <ModalConfirm
+                confirmText={"Are you sure you want to apply the changes?"}
+                confirmTitle={"Apply API Setting ?"}
+                    onConfirm={handleSaveConfig}
+                    isOpen={showConfirmationModal}
+                    onClose={hideConfirmation}
+                />
+            )}
         </div>
     );
 }
