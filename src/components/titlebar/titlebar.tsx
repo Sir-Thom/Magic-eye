@@ -82,6 +82,7 @@ export default function Titlebar() {
         (
             <div
                 data-tauri-drag-region
+                
                 className=" z-50   overflow-hidden flex top-0 justify-between items-center h-12 border-b-2  border-window-dark-500 bg-[#111111] p-2 text-text-dark w-screen fixed left-0 right-0"
             >
                 <Modal isOpen={isOpen} onClose={handleClose}>
@@ -224,7 +225,7 @@ export default function Titlebar() {
                             type="button"
                             title="Close"
                             className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600"
-                            onClick={async() => invoke("close_window")}
+                            onClick={async() =>await invoke("close_window")}
                         >
                             <VscChromeClose
                                 size={20}

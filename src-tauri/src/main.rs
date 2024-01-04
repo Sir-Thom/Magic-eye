@@ -21,10 +21,8 @@ use magic_eye::utils::config::{
 };
 use magic_eye::utils::window_function::{__cmd__close_window, close_window, __cmd__minimize_window, minimize_window, __cmd__maximize_window, maximize_window, __cmd__unmaximize_window, unmaximize_window};
 use tauri::path::BaseDirectory;
-use std::{env, fs};
 use tauri::{generate_handler, Manager};
 use tauri_plugin_log::{Target, TargetKind};
-//use tauri::{path::BaseDirectory};
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
 use utils::config::create_configuration_file_setting;
@@ -39,8 +37,9 @@ async fn close_splashscreen(window: tauri::Window) {
     if let Some(splashscreen) = window.get_window("splashscreen") {
         splashscreen.close().expect("Failed to close splashscreen");
     }
-    // Show main window
-    window.get_window("main").expect("Main window not found").show().expect("Failed to show main window");
+    window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
+    
+  
 
 }
 
@@ -86,12 +85,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     builder
         .setup(move |app| {
-            let main_window = app.get_window("main").expect("Main window not found");
-            debug!("main_window url: : {:?}", main_window.url());
            let asset_dir_path = app.path().app_data_dir().expect("Failed to get app data dir");
             debug!("asset_dir_path: {:?}", asset_dir_path);
 
             let resource_path = app.path().resolve("assets/", BaseDirectory::Resource)?;
+            
             //let resource_path = app.path().parse(path).expect("Failed to parse asset dir path");
                 
 
@@ -102,8 +100,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             tauri::async_runtime::spawn(async move {
                 debug!("Initializing...");
                 let serve_dir = ServeDir::new(resource_path.to_str().expect("Failed to convert resource path to string"));
-                let _files = fs::read_dir(resource_path).map(|res| res.map(|e| e.expect("error").path())).expect("Failed to read dir");
-                debug!("files: {:?}", _files);
+              
                 
                 let axum_app = Router::new().nest_service("/", serve_dir).layer(
                     CorsLayer::new()

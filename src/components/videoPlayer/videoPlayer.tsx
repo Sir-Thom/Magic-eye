@@ -7,12 +7,14 @@ import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api/core";
 import { Suspense } from "react";
 import Loader from "../loader/loader";
+
 export default function VidPlayer() {
     const [url, setUrl] = useState("");
     const [streamUrl, setStreamUrl] = useState("");
     const [isConnected, setIsConnected] = useState(false);
     const [placeholderUrl, setPlaceholderUrl] = useState("");
     const [error, setError] = useState<string | null>(null);
+
 
     const { height, width }: IVideoPlayer = useWindowDimensions();
 
@@ -21,6 +23,7 @@ export default function VidPlayer() {
     const handleDismissErrorToast = () => {
         setError(null);
     };
+
     useEffect(() => {
         (async () => {
             invoke("get_config_file_content").then((res: string) => {
@@ -38,13 +41,12 @@ export default function VidPlayer() {
 
     async function get_url() {
         try {
-
             const response = await fetch(url);
             console.log("response:", response);
+
             if (response.status === 200) {
                 setIsConnected(true);
                 setStreamUrl(url);
-                console.log("streamUrl:", url);
                 setError("");
             } else {
                 throw new Error(
@@ -53,7 +55,6 @@ export default function VidPlayer() {
             }
         } catch (err) {
             setIsConnected(false);
-
             handleDisconnect();
             handlePlayerError(err.message);
         }
@@ -71,9 +72,12 @@ export default function VidPlayer() {
     function handleDisconnect(): void {
         setIsConnected(false);
         setStreamUrl("");
+
+ 
+
+        // Clear the error only if it's different from the previous one
         if (error && error !== prevErrorRef.current) {
-            setError("");
-            setStreamUrl("");
+            setError(null);
         }
         prevErrorRef.current = error;
     }
@@ -84,13 +88,20 @@ export default function VidPlayer() {
                 <Suspense fallback={<Loader />}>
                     {streamUrl ? (
                         <ReactPlayer
+                     
                             playing={isConnected}
+                            onContextMenu={e => e.preventDefault()}                  
+                            onBufferEnd={() => console.log("onBufferEnd")}
+                            onProgress={() => console.log("onProgress")}
                             className="flex mx-16 mt-16"
-                            url={streamUrl.toString()}
+                            url={streamUrl}
                             width={width}
                             height={height - 150}
                             controls={false}
+                            onStart={() => console.log("onStart")}
                             onError={handlePlayerError}
+                            onReady={() => console.log("onReady")}
+                            onSeek={(e) => console.log("onSeek", e)}
                         />
                     ) : (
                         <StreamPlaceholder
