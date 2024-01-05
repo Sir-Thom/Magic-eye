@@ -6,29 +6,25 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoRTSP[]>([]);
     const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
-            console.log("apiIp:", apiIp);
             getAllRtspSessions();
         }
     }, [apiIp, loading]);
 
     async function getAllRtspSessions() {
         try {
-            console.log("apiIp:", apiIp);
             const response = await invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtspsessions/list`
             });
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
                 setItems(parsedResponse.items);
-            } else {
-                console.error("Response does not contain 'items'.");
             }
         } catch (error) {
-            console.error("Error fetching RTSP sessions:", error);
+            throw new Error("Error fetching RTSP sessions:" + error);
         }
     }
 
@@ -45,7 +41,7 @@ export default function RtspConnInfo() {
             // Update the UI by fetching the updated list of sessions
             getAllRtspSessions();
         } catch (error) {
-            console.error("Error kicking RTSP session:", error);
+            throw new Error("Error kicking RTSP session:" + error);
         }
     }
 

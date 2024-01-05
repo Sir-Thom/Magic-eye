@@ -9,10 +9,8 @@ repository = "https://github.com/Sir-Thom/Magic-eye"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+ 
 
-
-[toolchain]
-channel = "nightly"
 
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
@@ -39,8 +37,6 @@ tower-http = { version = "0.5.0", features = ["fs", "cors"] }
 reqwest = "^0.11.23"
 open = "5.0.1"
 log = "0.4.20"
-
-tauri-plugin-app = "2.0.0-alpha.2"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

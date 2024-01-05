@@ -78,7 +78,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
     const handleWebrtc = () => {
         setWebrtc(!webrtc);
     };
-    console.log(webrtc);
+    
 
     const handleWebrtcAddress = (event) => {
         setWebrtcAddress(event.target.value);
@@ -147,7 +147,7 @@ export default function WebrtcSetting({ settings, onSave, patchSetting }) {
         setWebrtcICEUDPMuxAddress(settings.webrtcICEUDPMuxAddress || "");
         setWebrtcICETCPMuxAddress(settings.webrtcICETCPMuxAddress || "");
     }, [settings]);
-    console.log(settings);
+    
 
     const handleSaveConfig = () => {
         hideConfirmation();

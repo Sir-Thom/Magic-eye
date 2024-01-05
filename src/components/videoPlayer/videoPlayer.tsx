@@ -31,7 +31,6 @@ export default function VidPlayer() {
                     const jsonObject = JSON.parse(res);
                     const placeholderValue = jsonObject.placeholder;
                     setPlaceholderUrl(placeholderValue.toString());
-                    console.log("placeholderUrl:", placeholderValue);
                 } catch (error) {
                     throw new Error("Error parsing JSON:" + error);
                 }
@@ -42,7 +41,6 @@ export default function VidPlayer() {
     async function get_url() {
         try {
             const response = await fetch(url);
-            console.log("response:", response);
 
             if (response.status === 200) {
                 setIsConnected(true);
@@ -91,17 +89,12 @@ export default function VidPlayer() {
                      
                             playing={isConnected}
                             onContextMenu={e => e.preventDefault()}                  
-                            onBufferEnd={() => console.log("onBufferEnd")}
-                            onProgress={() => console.log("onProgress")}
                             className="flex mx-16 mt-16"
                             url={streamUrl}
                             width={width}
                             height={height - 150}
                             controls={false}
-                            onStart={() => console.log("onStart")}
                             onError={handlePlayerError}
-                            onReady={() => console.log("onReady")}
-                            onSeek={(e) => console.log("onSeek", e)}
                         />
                     ) : (
                         <StreamPlaceholder

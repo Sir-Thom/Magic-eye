@@ -46,11 +46,8 @@ export default function Titlebar() {
     }, []);
 
     const ChangeMaximizedIcon = useCallback(async() => {
-        
         setMaximized((prevMaximized) => !prevMaximized);
-        
-        console.log("maximized:", maximized);
-       await invoke("maximize_window");
+        await invoke("maximize_window");
         
     }, []);
 
@@ -195,7 +192,7 @@ export default function Titlebar() {
                             type="button"
                             title="Minimize"
                             className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600 "
-                            onClick={async() => invoke("minimize_window")}
+                            onClick={async() => await invoke("minimize_window")}
                         >
                             <VscChromeMinimize size={20} />
                         </button>
@@ -225,7 +222,7 @@ export default function Titlebar() {
                             type="button"
                             title="Close"
                             className="flex items-center justify-center text-text-dark  w-8 h-8 rounded-full hover:bg-window-dark-600"
-                            onClick={async() =>await invoke("close_window")}
+                            onClick={async() => await invoke("close_window")}
                         >
                             <VscChromeClose
                                 size={20}

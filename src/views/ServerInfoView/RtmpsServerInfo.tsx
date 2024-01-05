@@ -6,28 +6,19 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtmpsConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoRTMP[]>([]);
     const { apiIp } = useServerData();
 
     useEffect(() => {
         if (apiIp !== null) {
-            console.log("apiIp:", apiIp);
-
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtmpsconns/list`
             }).then((response) => {
-                console.log("response:", response);
-                
-
-                console.log("response:", response);
                 if (response) {
                     response = JSON.parse(response.toString());
-                    console.log("Parsed Response:", response);
                 }
-                if (response && (response as { items: any[] }).items) {
-                    setItems((response as { items: any[] }).items);
-                } else {
-                    console.error("Response does not contain 'items'.");
+                if (response && (response as { items: ServerInfoRTMP[] }).items) {
+                    setItems((response as { items: ServerInfoRTMP[] }).items);
                 }
             });
         }
@@ -37,9 +28,7 @@ export default function RtmpsConnInfo() {
         invoke("post_server_request", {
             url: `http://${apiIp}/v3/rtmpsconns/kick/`,
             value: valueToSend
-        }).then((res) => {
-            console.log(res);
-        });
+        })
     }
 
     return (

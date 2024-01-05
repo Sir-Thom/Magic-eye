@@ -6,25 +6,21 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function HLSConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoHLS[]>([]);
     const { apiIp } = useServerData();
 
     useEffect(() => {
         if (apiIp !== null) {
-            console.log("apiIp:", apiIp);
-
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/hlsmuxers/list`
             }).then((response) => {
-                console.log("Response before parsing:", response);
                 if (response) {
                     response = JSON.parse(response.toString());
-                    console.log("Parsed Response:", response);
                 }
-                if (response && (response as { items: any[] }).items) {
-                    setItems((response as { items: any[] }).items);
+                if (response && (response as { items: ServerInfoHLS[] }).items) {
+                    setItems((response as { items: ServerInfoHLS[] }).items);
                 } else {
-                    console.error("Response does not contain 'items'.");
+                    throw new Error("Response does not contain 'items'.");
                 }
             });
         }
