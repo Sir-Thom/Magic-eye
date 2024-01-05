@@ -6,11 +6,10 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtspsConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoRTSP[]>([]);
     const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
-            console.log("apiIp:", apiIp);
             getAllRtspsSessions();
         }
     }, [apiIp, loading]);
@@ -28,7 +27,6 @@ export default function RtspsConnInfo() {
 
     async function getAllRtspsSessions() {
         try {
-            console.log("apiIp:", apiIp);
             const response = await invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtspssessions/list`
             });
@@ -39,7 +37,7 @@ export default function RtspsConnInfo() {
                 throw new Error("Response does not contain 'items'.");
             }
         } catch (error) {
-            console.error("Error fetching RTSPS sessions:", error);
+            throw new Error("Error fetching RTSP sessions:" + error);
         }
     }
 
@@ -56,7 +54,7 @@ export default function RtspsConnInfo() {
                 }, 100);
             });
         } catch (error) {
-            console.error("Error kicking RTSP session:", error);
+            throw new Error("Error kicking RTSP session:" + error);
         }
     }
 

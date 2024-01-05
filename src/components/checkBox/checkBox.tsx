@@ -1,6 +1,7 @@
 import { FaCheck } from "react-icons/fa";
 
 import ICheckbox from "../../interfaces/ICheckbox";
+import { ChangeEvent } from "react";
 
 export default function Checkbox({
     checked,
@@ -14,7 +15,7 @@ export default function Checkbox({
 
     const handleCheckboxChange = () => {
         // Toggle the checked state and call the onChange callback
-        onChange(!checked as any);
+        onChange(!checked as unknown as ChangeEvent<HTMLInputElement>);
     };
 
     return (

@@ -9,34 +9,48 @@
   },
   "package": {
     "productName": "Magic Eye",
-    "version": "0.9.1"
+    "version": "0.9.2"
   },
  
    
   "tauri": {
-      "windows": [
+    "windows": [
+      {
+        "userAgent": "Chrome",
+        "title": "Magic Eye",
+        "resizable":	true,
+        "shadow": true,
+        "minimizable": true,
+        "maximizable": true,
+        "minWidth": 1000,
+        "minHeight": 600,         
+        "decorations": false,
+        "alwaysOnTop": false,
+        "fullscreen": false,
+        "titleBarStyle": "Visible",
+        "width": 1000,
+        "visible": false,
+        "height": 600,
+        "closable": true,
+        "url": "index.html",
+        "label": "main",
+        "theme":"Dark"
+        
+      },
       {
         "title": "Magic Eye",
-        "center": false,
-        "closable": true,
-        "maximizable": true,
-       
-        
-        
-        "minimizable": true,
-       
-        
-        "alwaysOnTop": false,
-      
-        "resizable": true,
-        "decorations": false,
+        "titleBarStyle": "Visible",
         "minWidth": 1000,
         "minHeight": 600,
-        
-        "skipTaskbar": false,
-        "shadow": true
-      }  
-      ] ,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": false,
+        "alwaysOnTop": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
+      }
+ 
+    ],
       "bundle": {
         "copyright": "MIT",
         "active": true,
@@ -51,7 +65,7 @@
           "icons/icon.icns",
           "icons/icon.ico"
         ],
-        "identifier": "com.MagicEye.dev",
+        "identifier": "dev.MagicEye.magic",
         "targets": "all",
         "windows": {
           "allowDowngrades": true,
@@ -69,7 +83,10 @@
         "appimage": {
           "bundleMediaFramework": true
         }
+     
         
+
+    
      
       },
       "security": {
@@ -80,7 +97,7 @@
               "main",
               "settings"
             ],
-            "domain": "localhost"
+            "domain": "*"
    
           }
         ]
@@ -88,52 +105,9 @@
     },
   
     "plugins": {
-      "windows": [
-        {
-          "userAgent": "Chrome",
-          "close": true,
-          "title": "Magic Eye",
-          "titleBarStyle": "Overlay",
-          "minWidth": 1000,
-          "setResizable": true,
-          "minHeight": 600,
-          "resizable": true,
-          "fullscreen": false,
-      
-          "visible": false,
-          "decorations": false,
-          "alwaysOnTop": false,
-          "url": "index.html",
-          "label": "main",
-          "theme":"Dark"
-          
-        },
-        {
-          "title": "Magic Eye",
-          "titleBarStyle": "Visible",
-          "minWidth": 1000,
-          "minHeight": 600,
-          "resizable": true,
-          "fullscreen": false,
-          "decorations": false,
-          "alwaysOnTop": false,
-          "url": "splashscreen.html",
-          "label": "splashscreen"
-        }
-   
-      ],
-      "dialog": {
-        "all": true,
-        "ask": false,
-        "confirm": false,
-        "message": true,
-        "open": false,
-        "save": false
-      },
       "fs": {
         "all": true,
         "scope": [
-          "$XDG_DATA_HOME/com.MagicEye.dev/assets/*",
           "$RESOURCE"
         ]
       },
@@ -144,11 +118,40 @@
           "http://*",
           "https://*"
         ]
+      },
+    "allowlist":{
+      "all": true,
+      "window": {
+        "center": false,
+        "close": true,
+        "create": false,
+        "hide": false,
+        "maximize": true,
+        "minimize": true,
+        "print": false,
+        "requestUserAttention": false,
+        "setAlwaysOnTop": false,
+        "setCursorGrab": true,
+        "setCursorIcon": true,
+        "setCursorPosition": false,
+        "setCursorVisible": false,
+        "setDecorations": false,
+        "setFocus": true,
+        "setFullscreen": true,
+        "setIcon": true,
+        "setMaxSize": false,
+        "setMinSize": false,
+        "setPosition": false,
+        "setResizable": true,
+        "setSize": true,
+        "setSkipTaskbar": false,
+        "setTitle": true,
+        "show": true,
+        "startDragging": true,
+        "unmaximize": true,
+        "unminimize": true
+
       }
-      
     }
-    
-   
-    
-  
+    }
   }

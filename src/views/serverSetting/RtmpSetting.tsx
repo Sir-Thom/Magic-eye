@@ -56,8 +56,6 @@ export default function RtmpSetting({ settings, onSave, patchSetting }) {
     };
 
     const handleRtmpEncryption = () => {
-        console.log("toggle: " + rtmpEncryptionToggle);
-        console.log("rtmpEncryption: " + rtmpEncryption);
         setRtmpEncryptionToggle(!rtmpEncryptionToggle);
         setRtmpEncryption(rtmpEncryptionToggle ? "no" : "yes");
     };

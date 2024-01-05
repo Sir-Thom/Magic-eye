@@ -9,6 +9,7 @@
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
       "prettier"  ],
+      "ignorePatterns": ["**/tests/*.test.*"],
     "rules": {
       "no-unused-vars":1,
       "@typescript-eslint/no-unused-vars": 1,
@@ -16,4 +17,6 @@
       "no-console": 1,       // Means warning
       "prettier/prettier": 0 // Means error  }
   }
+  
+  
 }

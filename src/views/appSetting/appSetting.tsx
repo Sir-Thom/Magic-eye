@@ -9,7 +9,7 @@ import { ISetting } from "../../interfaces/ISetting";
 import { listen } from "@tauri-apps/api/event";
 import ModalConfirm from "../../components/modals/modalConfirm";
 
-export async function GetConfig() {
+export async function GetConfig():Promise<SettingApp> {
     try {
         const configData = await invoke("get_config_file_content");
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,7 +19,7 @@ export async function GetConfig() {
     }
 }
 
-export async function SetConfig(new_settings) {
+export async function SetConfig(new_settings: string) {
     try {
         await invoke("update_settings_file", {
             newSettings: new_settings
@@ -88,9 +88,7 @@ export default function GeneralSetting() {
         ...configData
       };
     
-      const handleCancel = () => {
-        console.log("initialSettings:", initialSettings);
-        
+      const handleCancel = () => {        
         setCurrentPlacholder(initialSettings.placeholder);
         setApi_ip(initialSettings.api_ip);
       };
@@ -106,8 +104,8 @@ export default function GeneralSetting() {
       useEffect(() => {
         async function fetchConfig() {
           try {
-            const configData = await GetConfig();
-            const parsedConfig = JSON.parse(configData);
+            const configData:SettingApp = await GetConfig();
+            const parsedConfig = JSON.parse(configData.toString());
             setTmpConf(parsedConfig);
             setCurrentPlacholder(parsedConfig.placeholder);
             setApi_ip(parsedConfig.api_ip);
@@ -120,15 +118,14 @@ export default function GeneralSetting() {
                 parsedConfig.placeholder
               ]);
             }
-          } catch (err) {
-            setError(err.message);
+            } catch (err: unknown) {
+            setError((err as Error).message);
           }
         }
     
         fetchConfig();
         listen("tauri://update_settings_file", () => {
           fetchConfig();
-          console.log("Settings file updated");
         });
       }, []);
     
@@ -140,7 +137,7 @@ export default function GeneralSetting() {
         setSuccessMessage("");
       }
     
-      function handlePlaceholderChange(event) {
+      function handlePlaceholderChange(event: { target: { value: string; }; }) {
         const newPlaceholder = event.target.value;
         setCurrentPlacholder(newPlaceholder);
         setTmpConf((prevTmpConf) => ({
@@ -148,7 +145,7 @@ export default function GeneralSetting() {
           placeholder: newPlaceholder
         }));
       }
-      function handleApi_ipChange(event) {
+      function handleApi_ipChange(event: { target: { value: string; }; }) {
         const newApi_ip = event.target.value;
         setApi_ip(newApi_ip);
         setTmpConf((prevTmpConf) => ({

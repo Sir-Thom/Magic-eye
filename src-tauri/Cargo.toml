@@ -1,6 +1,6 @@
 [package]
 name = "magic_eye"
-version = "0.9.1"
+version = "0.9.2"
 description = "A small gui application Made with Tauri, let you watch stream for a Mediamtx server."
 categories = ["utility", "network", "streaming"]
 authors = ["Thomas Toulouse"]
@@ -9,11 +9,12 @@ repository = "https://github.com/Sir-Thom/Magic-eye"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+ 
 
 
-[toolchain]
-channel = "nightly"
-
+[patch.crates-io]
+tauri = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
+tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 
 [build-dependencies]
 tauri-build = { version = "2.0.0-alpha", features = [] }
@@ -23,8 +24,6 @@ tauri = { version = "2.0.0-alpha", features = [] }
 
 tauri-plugin-log = { version = "2.0.0-alpha" }
 tauri-plugin-fs = {  version = "2.0.0-alpha" }
-tauri-plugin-clipboard-manager = {  version = "2.0.0-alpha" }
-tauri-plugin-dialog = {  version = "2.0.0-alpha" }
 tauri-plugin-http = {features = [ "multipart" ], version = "2.0.0-alpha" }
 tauri-plugin-notification = {version = "2.0.0-alpha", features = [ "windows7-compat" ] }
 tauri-plugin-os = {  version = "2.0.0-alpha" }
@@ -38,8 +37,6 @@ tower-http = { version = "0.5.0", features = ["fs", "cors"] }
 reqwest = "^0.11.23"
 open = "5.0.1"
 log = "0.4.20"
-
-tauri-plugin-app = "2.0.0-alpha.2"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

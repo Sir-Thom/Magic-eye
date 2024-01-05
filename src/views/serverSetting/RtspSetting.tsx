@@ -72,8 +72,6 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     };
 
     const handleEncryption = () => {
-        console.log("toggle: " + rtspEncryptionToggle);
-        console.log("rtmpEncryption: " + encryption);
         setRtspEncryptionToggle(!rtspEncryptionToggle);
         setEncryption(rtspEncryptionToggle ? "no" : "yes");
     };
@@ -107,7 +105,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
     };
 
     useEffect(() => {
-        console.log("setting updated:", settings);
+       
 
         setRtsp(settings.rtsp);
         setRtspDisable(settings.rtspDisable || false);
@@ -139,7 +137,7 @@ export default function RtspSetting({ settings, onSave, patchSetting }) {
             multicastRTPPort: multicastRTPPort,
             multicastRTCPPort: multicastRTCPPort
         };
-        console.log("setting updated:", settings);
+        
 
         onSave(updatedSettings);
         patchSetting(updatedSettings);
