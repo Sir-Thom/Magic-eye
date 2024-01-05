@@ -40,8 +40,7 @@ function useServerData() {
             const res = await invoke("get_api_ip");
             return res.toString().replace(/^"(.*)"$/, "$1");
         } catch (e) {
-            console.error(e);
-            return "unable to get API Ip address.";
+            throw new Error("Unable to get API Ip address.");
         }
     }
 

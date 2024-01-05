@@ -39,7 +39,6 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
 
     const handleLogLevelChange = (event) => {
         setLogLevel(event.target.value);
-        console.log("logLevel:", logLevel);
     };
 
     const handleLogDestinationsChange = (event) => {
@@ -59,7 +58,6 @@ export default function LoggingSetting({ settings, onSave, patchSetting }) {
             logDestinations: logDestinations,
             logFile: logFile
         };
-        console.log("updatedSettings:", updatedSettings);
 
         // Call the onSave prop to save the changes
         onSave(updatedSettings);

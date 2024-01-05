@@ -6,7 +6,6 @@ import ModalConfirm from "../../components/modals/modalConfirm";
 
 
 export default function ApiSetting({ settings, onSave, patchSetting }) {
-    console.log("api setting:", settings);
     const initialSettings = {
         apiEnabled: Boolean(settings.api),
         metricsEnabled: Boolean(settings.metrics),

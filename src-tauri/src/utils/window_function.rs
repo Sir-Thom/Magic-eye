@@ -1,3 +1,5 @@
+use tauri::Manager;
+
 #[tauri::command]
 pub fn close_window(window: tauri::Window) {
     window.close().expect("Failed to close window");
@@ -22,4 +24,15 @@ pub fn unmaximize_window(window: tauri::Window) {
     window.unmaximize().expect("Failed to unmaximize window");
 }
 
+#[tauri::command]
+pub fn close_splashscreen(window: tauri::Window) {
+    // Close splashscreen
+    if let Some(splashscreen) = window.get_window("splashscreen") {
+        splashscreen.close().expect("Failed to close splashscreen");
+    }
+    window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
+    
+  
+
+}
 

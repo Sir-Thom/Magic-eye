@@ -6,26 +6,21 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function RtmpConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoRTMP[]>([]);
     const { apiIp } = useServerData();
 
     useEffect(() => {
         if (apiIp !== null) {
-            console.log("apiIp:", apiIp);
-
             invoke("get_server_request", {
                 url: `http://${apiIp}/v3/rtmpconns/list`
             }).then((response) => {
-                console.log("Response before parsing:", response);
                 if (response) {
                     response = JSON.parse(response.toString());
-                    console.log("Parsed Response:", response);
                 }
-                console.log("response:", response);
-                if (response && (response as { items: any[] }).items) {
-                    setItems((response as { items: any[] }).items);
+                if (response && (response as { items: ServerInfoRTMP[] }).items) {
+                    setItems((response as { items: ServerInfoRTMP[] }).items);
                 } else {
-                    console.error("Response does not contain 'items'.");
+                    throw new Error("Response does not contain 'items'.");
                 }
             });
         }
@@ -45,18 +40,14 @@ export default function RtmpConnInfo() {
     async function getAllRTMPSessions() {
         invoke("get_server_request", {
             url: `http://${apiIp}/v3/rtmpconns/list`
-        }).then((response) => {
-            console.log("Response before parsing:", response);
-            
+        }).then((response) => {            
             if (response) {
                 response = JSON.parse(response.toString());
-                console.log("Parsed Response:", response);
             }
-            console.log("response:", response);
-            if (response && (response as { items: any[] }).items) {
-                setItems((response as { items: any[] }).items);
+            if (response && (response as { items: ServerInfoRTMP[] }).items) {
+                setItems((response as { items: ServerInfoRTMP[] }).items);
             } else {
-                console.error("Response does not contain 'items'.");
+                throw new Error("Response does not contain 'items'.");
             }
         });
     }
@@ -74,7 +65,7 @@ export default function RtmpConnInfo() {
                 }, 100);
             })
             .catch((error) => {
-                console.error("Error kicking RTMP session:", error);
+                throw new Error("Error kicking RTMP session:" + error);
             });
     }
 

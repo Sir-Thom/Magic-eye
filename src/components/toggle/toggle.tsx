@@ -1,22 +1,17 @@
 import { Switch } from "@headlessui/react";
-
+import { IToggle } from "../../interfaces/IToggle";
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
 }
 
-interface ToggleProps {
-    className?: string;
-    enabled: boolean;
-    value?: string;
-    onChange: (checked: boolean) => void;
-}
+
 
 export default function Toggle({
     enabled,
     onChange,
     className,
     value
-}: ToggleProps) {
+}: IToggle) {
     return (
         <Switch
             id="toggle"

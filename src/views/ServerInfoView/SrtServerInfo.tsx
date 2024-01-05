@@ -6,11 +6,10 @@ import ListView from "../../components/ListBox/listView";
 import useServerData from "../../utils/hooks/ServerData";
 
 export default function SRTConnInfo() {
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ServerInfoSRT[]>([]);
     const { apiIp, loading } = useServerData();
     useEffect(() => {
         if (!loading) {
-            console.log("apiIp:", apiIp);
             getAllSRTSessions();
         }
     }, [apiIp, loading]);
@@ -23,11 +22,9 @@ export default function SRTConnInfo() {
             const parsedResponse = JSON.parse(response.toString());
             if (parsedResponse && parsedResponse.items) {
                 setItems(parsedResponse.items);
-            } else {
-                console.error("Response does not contain 'items'.");
             }
         } catch (error) {
-            console.error("Error fetching RTSP sessions:", error);
+            throw new Error("Error fetching SRT sessions:" + error);
         }
     }
 
@@ -44,7 +41,8 @@ export default function SRTConnInfo() {
             // Update the UI by fetching the updated list of sessions
             getAllSRTSessions();
         } catch (error) {
-            console.error("Error kicking RTSP session:", error);
+            throw new Error("Error kicking RTSP session:" + error);
+
         }
     }
 

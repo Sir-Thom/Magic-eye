@@ -15,7 +15,6 @@ root.render(
                 onExitComplete={() => null}
                 mode={"sync"}
             >
-                {" "}
                 <Router></Router>
             </AnimatePresence>
         </React.StrictMode>

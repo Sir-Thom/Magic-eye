@@ -124,7 +124,6 @@ export default function Setting() {
                 }
                 // Make sure parsedResponse is an object before using it
                 if (response && typeof response === "object") {
-                    console.log("parsedResponse:", response);
                     const defaultSettings = getDefaultSettings(fetchConfigData);
                     const updatedSettings = {
                         ...defaultSettings,
@@ -134,7 +133,6 @@ export default function Setting() {
                     updateStateAndHandleActions(response as ISettings);
                 }
             } catch (e) {
-                console.log("serverError:", e);
                 setError("Error: " + e.message);
             }
         };
@@ -181,15 +179,11 @@ export default function Setting() {
 
             return updatedSettings;
         });
-
-        const apiIpValue = apiIp;
-        invoke("save_api_ip", { apiIp: apiIpValue });
     }
 
     async function patchSetting(PatchData) {
         try {
             const apiIpValue = apiIp; // Get the API IP
-            console.log("apiIpInPatch:", apiIpValue);
 
             if (!PatchData) {
                 throw new Error("ConfigData is empty.");
@@ -199,11 +193,10 @@ export default function Setting() {
             }
 
             const serverUrl = `http://${apiIpValue}/v3/config/global/patch`;
-            const response = await invoke("patch_server_request", {
+            await invoke("patch_server_request", {
                 configData: PatchData,
                 url: serverUrl
             });
-            console.log("patch response:", response);
 
             // Handle common actions
             updateStateAndHandleActions(PatchData);
