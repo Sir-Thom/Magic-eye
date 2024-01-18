@@ -37,7 +37,7 @@
     "use-interval": "^1.4.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.0.0-alpha.20",
+    "@tauri-apps/cli": "^2.0.0-alpha.21",
     "@testing-library/react": "^14.1.2",
     "@types/node": "^20.10.5",
     "@types/react": "^18.2.45",
