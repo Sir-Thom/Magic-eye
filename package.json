@@ -25,7 +25,7 @@
     "@tauri-apps/plugin-app": "^2.0.0-alpha",
     "@tauri-apps/plugin-dialog": "^2.0.0-alpha.5",
     "@tauri-apps/plugin-window": "^2.0.0-alpha",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.18.0",
     "hls-video-element": "^1.1.1",
     "hls.js": "^1.4.14",
     "media-chrome": "^2.0.1",
