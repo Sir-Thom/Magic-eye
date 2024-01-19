@@ -4,7 +4,7 @@
   <br>
   <a href=https://github.com/Sir-Thom><img src="https://img.shields.io/badge/Lead Dev-Thomas Toulouse-blue"></a>
   <img src="https://img.shields.io/badge/Os-Linux-brightgreen">
-  <a href=https://github.com/Sir-Thom/Magic-eye/releases/tag/v.0.9.2><img src="https://img.shields.io/badge/Version-0.9.2-informational"></a>
+  <a href=https://github.com/Sir-Thom/Magic-eye/releases/tag/v.0.9.3><img src="https://img.shields.io/badge/Version-0.9.3-informational"></a>
 </p>
 <br>
 <h3 align="center">
@@ -14,11 +14,12 @@
 
 ## Table of Contents
 
-- [Dependencies](#dependancies)
+- [Table of Contents](#table-of-contents)
+- [Dependancies](#dependancies)
 - [Installation](#installation)
-- [Installation Windows](#windows)
-- [Installation Ubuntu/Debian](#ubuntu-and-debian-based-linux-distribution)
-- [Installation Other linux distribution](#other-distribution)
+  - [Windows](#windows)
+  - [Ubuntu and Debian based linux distribution](#ubuntu-and-debian-based-linux-distribution)
+  - [Other Distribution](#other-distribution)
 - [Patterns](#patterns)
 
 ## Dependancies
