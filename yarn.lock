@@ -973,10 +973,10 @@
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.14.0"
 
-"@vitest/coverage-v8@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@vitest/coverage-v8/-/coverage-v8-1.2.1.tgz#e76d64c8f0a8cb882543f12f7a2bc7615b84cbee"
-  integrity sha512-fJEhKaDwGMZtJUX7BRcGxooGwg1Hl0qt53mVup/ZJeznhvL5EodteVnb/mcByhEcvVWbK83ZF31c7nPEDi4LOQ==
+"@vitest/coverage-v8@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@vitest/coverage-v8/-/coverage-v8-1.2.2.tgz#681f4f76de896d0d2484cca32285477e288fec3a"
+  integrity sha512-IHyKnDz18SFclIEEAHb9Y4Uxx0sPKC2VO1kdDCs1BF6Ip4S8rQprs971zIsooLUn7Afs71GRxWMWpkCGZpRMhw==
   dependencies:
     "@ampproject/remapping" "^2.2.1"
     "@bcoe/v8-coverage" "^0.2.3"
@@ -2007,10 +2007,10 @@ hls-video-element@^1.1.1:
     hls.js "^1.4.12"
     media-tracks "^0.2.4"
 
-hls.js@^1.4.12, hls.js@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.5.1.tgz#59ca4e82d64375478853f0bce58c31450ede6d34"
-  integrity sha512-SsUSlpyjOGnwBhVrVEG6vRFPU2SAJ0gUqrFdGeo7YPbOC0vuWK0TDMyp7n3QiaBC/Wkic771uqPnnVdT8/x+3Q==
+hls.js@^1.4.12, hls.js@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.5.2.tgz#10bcb1789e91a7d30f21fd2fad1aee7c568878cf"
+  integrity sha512-MJtx9GbfO1We1N6Zx5JbxdIAGLQWKPss56YzkR45GIdVcz+jBQVbLBZnsANpQpECvRBWZUcg9opEDo1biG/qVA==
 
 html-encoding-sniffer@^4.0.0:
   version "4.0.0"
