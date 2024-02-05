@@ -66,8 +66,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .level_for("tracing", LevelFilter::Info)
             .build(),
     )
+    .plugin(tauri_plugin_http::init()) 
     .plugin(tauri_plugin_fs::init())
-    .plugin(tauri_plugin_http::init())
     .plugin(tauri_plugin_notification::init())
     .plugin(tauri_plugin_os::init())
     .plugin(tauri_plugin_process::init());

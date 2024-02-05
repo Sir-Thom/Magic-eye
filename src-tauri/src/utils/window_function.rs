@@ -6,12 +6,12 @@ pub fn close_window(window: tauri::Window) {
 }
 
 #[tauri::command]
-pub fn minimize_window(window: tauri::Window) {
+pub fn minimize_window(window: tauri::WebviewWindow) {
     window.minimize().expect("Failed to minimize window");
 }
 
 #[tauri::command]
-pub fn maximize_window(window: tauri::Window) {
+pub fn maximize_window(window: tauri::WebviewWindow) {
     if window.is_maximized().unwrap() == true {
         window.unmaximize().expect("Failed to unmaximize window");
         
@@ -20,17 +20,17 @@ pub fn maximize_window(window: tauri::Window) {
 }
 
 #[tauri::command]
-pub fn unmaximize_window(window: tauri::Window) {
+pub fn unmaximize_window(window: tauri::WebviewWindow) {
     window.unmaximize().expect("Failed to unmaximize window");
 }
 
 #[tauri::command]
-pub fn close_splashscreen(window: tauri::Window) {
+pub fn close_splashscreen(window: tauri::WebviewWindow) {
     // Close splashscreen
-    if let Some(splashscreen) = window.get_window("splashscreen") {
+    if let Some(splashscreen) = window.get_webview_window("splashscreen"){
         splashscreen.close().expect("Failed to close splashscreen");
     }
-    window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
+    window.get_webview_window("main").expect("no window labeled 'main' found").show().unwrap();
     
   
 

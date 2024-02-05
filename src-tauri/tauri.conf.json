@@ -1,19 +1,53 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "version": "0.9.3",
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
-    "devPath": "http://127.0.0.1:1620/",
-    "distDir": "../dist",
-    "withGlobalTauri": true
+    "devUrl": "http://127.0.0.1:1620/",
+    "frontendDist": "../dist"
+
   },
-  "package": {
+
     "productName": "Magic Eye",
-    "version": "0.9.3"
-  },
+    "identifier": "dev.MagicEye.magic",
+
  
-   
-  "tauri": {
+    "bundle": {
+        "copyright": "MIT",
+        "active": true,
+        "resources": [
+          "./assets"
+     
+        ],
+        "icon": [
+          "icons/32x32.png",
+          "icons/128x128.png",
+          "icons/128x128@2x.png",
+          "icons/icon.icns",
+          "icons/icon.ico"
+        ],
+        
+        "targets": "all",
+        "windows": {
+          "allowDowngrades": true,
+          "certificateThumbprint": null,
+          "digestAlgorithm": null,
+          "timestampUrl": null,
+          "tsp": false,
+          "webviewFixedRuntimePath": null,
+          "webviewInstallMode": {
+            "silent": true,
+            "type": "downloadBootstrapper"
+          },
+          "wix": null
+        }
+        
+
+    
+     
+      },
+  "app": {
     "windows": [
       {
         "userAgent": "Chrome",
@@ -51,61 +85,10 @@
       }
  
     ],
-      "bundle": {
-        "copyright": "MIT",
-        "active": true,
-        "resources": [
-          "./assets"
      
-        ],
-        "icon": [
-          "icons/32x32.png",
-          "icons/128x128.png",
-          "icons/128x128@2x.png",
-          "icons/icon.icns",
-          "icons/icon.ico"
-        ],
-        "identifier": "dev.MagicEye.magic",
-        "targets": "all",
-        "windows": {
-          "allowDowngrades": true,
-          "certificateThumbprint": null,
-          "digestAlgorithm": null,
-          "timestampUrl": null,
-          "tsp": false,
-          "webviewFixedRuntimePath": null,
-          "webviewInstallMode": {
-            "silent": true,
-            "type": "downloadBootstrapper"
-          },
-          "wix": null
-        },
-        "appimage": {
-          "bundleMediaFramework": true
-        },
-        "rpm": {
-          "epoch": 0,
-          "files": {},
-          "release": "1"
-        }
-     
-        
-
-    
-     
-      },
       "security": {
-        "csp": null,
-        "dangerousRemoteDomainIpcAccess": [
-          {
-            "windows": [
-              "main",
-              "settings"
-            ],
-            "domain": "*"
-   
-          }
-        ]
+        "csp": null
+        
       }
     },
   
