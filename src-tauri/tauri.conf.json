@@ -1,5 +1,5 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+
   "version": "0.9.3",
   "build": {
     "beforeDevCommand": "yarn dev",
@@ -48,6 +48,7 @@
      
       },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "userAgent": "Chrome",
@@ -58,7 +59,7 @@
         "maximizable": true,
         "minWidth": 1000,
         "minHeight": 600,         
-        "decorations": false,
+        "decorations": true,
         "alwaysOnTop": false,
         "fullscreen": false,
         "titleBarStyle": "Visible",
@@ -123,7 +124,7 @@
         "setCursorIcon": true,
         "setCursorPosition": false,
         "setCursorVisible": false,
-        "setDecorations": false,
+        "setDecorations": true,
         "setFocus": true,
         "setFullscreen": true,
         "setIcon": true,

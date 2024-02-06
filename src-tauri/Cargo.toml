@@ -24,7 +24,7 @@ tauri = { version = "2.0.0-beta", features = [] }
 
 tauri-plugin-log = { version = "2.0.0-beta" }
 tauri-plugin-fs = {  version = "2.0.0-beta" }
-tauri-plugin-http = {features = [ "multipart" ], version = "2.0.0-beta" }
+tauri-plugin-http = "2.0.0-beta"
 tauri-plugin-notification = {version = "2.0.0-beta", features = [ "windows7-compat" ] }
 tauri-plugin-os = {  version = "2.0.0-beta" }
 tauri-plugin-process = { version = "2.0.0-beta" }
