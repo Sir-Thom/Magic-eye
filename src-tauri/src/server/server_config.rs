@@ -1,5 +1,5 @@
 use log::{debug, error, info, warn};
-use reqwest;
+use tauri_plugin_http::reqwest;
 use serde_json::Value;
 
 #[tauri::command]

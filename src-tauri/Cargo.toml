@@ -25,7 +25,6 @@ tauri = { version = "2.0.0-beta", features = [] }
 tauri-plugin-log = { version = "2.0.0-beta" }
 tauri-plugin-fs = {  version = "2.0.0-beta" }
 tauri-plugin-http = "2.0.0-beta"
-tauri-plugin-notification = {version = "2.0.0-beta", features = [ "windows7-compat" ] }
 tauri-plugin-os = {  version = "2.0.0-beta" }
 tauri-plugin-process = { version = "2.0.0-beta" }
 dirs-next = "2.0.0"
@@ -34,7 +33,7 @@ serde_json = "^1.0"
 axum = "0.7.3"
 tokio = { version = "1.35.1", features = ["full"] }
 tower-http = { version = "0.5.0", features = ["fs", "cors"] }
-reqwest = "^0.11.23"
+#reqwest = "^0.11.23"
 open = "5.0.1"
 log = "0.4.20"
 

@@ -1,7 +1,6 @@
 use log::{debug, error, info, warn};
-use reqwest;
 use serde_json::Value;
-
+use tauri_plugin_http::reqwest;
 
 #[tauri::command]
 pub async fn get_server_request(url: &str) -> Result<String, String> {

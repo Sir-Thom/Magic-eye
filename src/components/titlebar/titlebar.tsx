@@ -111,7 +111,7 @@ export default function Titlebar() {
                     </p>
                 </Modal>
                 {/* window title and controls */}
-                <div className="flex items-center">
+                <div data-tauri-drag-region  className="flex items-center">
                     <div className="flex items-center">
                         <img
                             className="justify-items-center flex justify-center items-center mr-2"
