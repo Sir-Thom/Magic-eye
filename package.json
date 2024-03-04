@@ -33,7 +33,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
-    "react-player": "^2.14.1",
+    "react-player": "^2.15.1",
     "react-router-dom": "^6.21.3",
     "use-interval": "^1.4.0"
   },
