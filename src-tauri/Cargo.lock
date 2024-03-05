@@ -3787,9 +3787,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-http"
-version = "2.0.0-beta.0"
+version = "2.0.0-beta.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e427755fd9229027cc859ae0d19a5d2952a314792c16a25ce50c50eccd4a2db6"
+checksum = "7f5c00ebdfdab74d9669460665a1158dacd0cc692bf95a3b7d7e5160ebbd8ad0"
 dependencies = [
  "data-url",
  "glob",
