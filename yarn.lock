@@ -2512,10 +2512,10 @@ make-dir@^4.0.0:
   dependencies:
     semver "^7.5.3"
 
-media-chrome@^2.1.0:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/media-chrome/-/media-chrome-2.2.5.tgz#4750716d6195612fb38ca78f7e38537ac5fc42e7"
-  integrity sha512-59peAYFlL9ZlFVkKJmIgIDNMkQr4nauYTwIQhLg3khmGfO6/25VNEI8Yn0aUMLb5IFB2gzjcPmfu1ktfOhQ8Ag==
+media-chrome@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/media-chrome/-/media-chrome-3.0.1.tgz#fed8810c6a79eecc71f88f82af25a4b370388a7c"
+  integrity sha512-RWr8jNnf9IhnMZprQmKYQuVaKeLPzAG3COBWCe0hwfa4fQcA4nhe1VzBx+jMyphusPB0COJhotT76CcyZe5beQ==
 
 media-tracks@^0.3.0:
   version "0.3.0"
