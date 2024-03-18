@@ -20,7 +20,7 @@ edition = "2021"
 tauri-build = { version = "2.0.0-beta.6", features = [] }
 
 [dependencies]
-tauri = { version = "2.0.0-beta.8", features = [] }
+tauri = { version = "2.0.0-beta.12", features = [] }
 
 tauri-plugin-log = { version = "2.0.0-beta.1" }
 tauri-plugin-fs = {  version = "2.0.0-beta.1" }
