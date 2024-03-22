@@ -17,7 +17,7 @@ edition = "2021"
 #tauri-build = { git = "https://github.com/tauri-apps/tauri", branch = "dev" }
 
 [build-dependencies]
-tauri-build = { version = "2.0.0-beta.6", features = [] }
+tauri-build = { version = "2.0.0-beta.10", features = [] }
 
 [dependencies]
 tauri = { version = "2.0.0-beta.8", features = [] }
