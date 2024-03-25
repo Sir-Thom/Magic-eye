@@ -21,7 +21,7 @@ use magic_eye::utils::config::{
 };
 use magic_eye::utils::window_function::{__cmd__close_splashscreen,close_splashscreen,__cmd__close_window, close_window, __cmd__minimize_window, minimize_window, __cmd__maximize_window, maximize_window, __cmd__unmaximize_window, unmaximize_window};
 use tauri::path::BaseDirectory;
-use tauri::{generate_handler, Manager};
+use tauri::{generate_handler, Manager, WindowEvent};
 use tauri_plugin_log::{Target, TargetKind};
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
@@ -74,6 +74,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
 
     builder
+        .on_window_event(|_window, event| {
+            if let WindowEvent::Resized(_) = event {
+                std::thread::sleep(std::time::Duration::from_nanos(1));
+            }
+        }) 
         .setup(move |app| {
             info!("Webkit version: {:?}", tauri::webview_version());
     

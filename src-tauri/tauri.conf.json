@@ -21,7 +21,7 @@
         "title": "Magic Eye",
         "titleBarStyle": "Visible",
         "url": "index.html",
-        "userAgent": "Chrome",
+       "userAgent": "Chrome",
         "visible": false,
         "width": 1000
       },

@@ -7,14 +7,14 @@ import Titlebar from "./components/titlebar/titlebar";
 
 function App() {
     useEffect(() => {
-        resizeWindow;
+resizeWindow;
        invoke("close_splashscreen");
     }, []);
 
     return (
         <>
             {/*https://react.dev/reference/react-dom/createPortal*/}
-            {createPortal(<Titlebar />, document.getElementById("titlebar")!)}
+{createPortal(<Titlebar />, document.getElementById("titlebar")!)}
             <VidPlayer />
         </>
     );
