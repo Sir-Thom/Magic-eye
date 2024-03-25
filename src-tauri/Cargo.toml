@@ -24,7 +24,7 @@ tauri = { version = "2.0.0-beta.13", features = [] }
 
 tauri-plugin-log = { version = "2.0.0-beta.3" }
 tauri-plugin-fs = {  version = "2.0.0-beta.3" }
-tauri-plugin-http = "2.0.0-beta.1"
+tauri-plugin-http = "2.0.0-beta.3"
 tauri-plugin-os = {  version = "2.0.0-beta.1" }
 tauri-plugin-process = { version = "2.0.0-beta.3" }
 dirs-next = "2.0.0"
