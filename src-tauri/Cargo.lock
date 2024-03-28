@@ -1489,13 +1489,8 @@ dependencies = [
  "futures-core",
  "futures-sink",
  "futures-util",
-<<<<<<< HEAD
  "http 0.2.12",
  "indexmap 2.2.6",
-=======
- "http 0.2.11",
- "indexmap 2.2.3",
->>>>>>> 216c4be66d1a8922dad8e1328691b26e9d527b16
  "slab",
  "tokio",
  "tokio-util",
@@ -1640,11 +1635,7 @@ dependencies = [
  "futures-core",
  "futures-util",
  "h2",
-<<<<<<< HEAD
  "http 0.2.12",
-=======
- "http 0.2.11",
->>>>>>> 216c4be66d1a8922dad8e1328691b26e9d527b16
  "http-body 0.4.6",
  "httparse",
  "httpdate",
@@ -1666,11 +1657,7 @@ dependencies = [
  "bytes",
  "futures-channel",
  "futures-util",
-<<<<<<< HEAD
  "http 1.1.0",
-=======
- "http 1.0.0",
->>>>>>> 216c4be66d1a8922dad8e1328691b26e9d527b16
  "http-body 1.0.0",
  "httparse",
  "httpdate",
@@ -2916,11 +2903,7 @@ dependencies = [
  "futures-core",
  "futures-util",
  "h2",
-<<<<<<< HEAD
  "http 0.2.12",
-=======
- "http 0.2.11",
->>>>>>> 216c4be66d1a8922dad8e1328691b26e9d527b16
  "http-body 0.4.6",
  "hyper 0.14.28",
  "ipnet",
@@ -3749,11 +3732,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a41e41d72f967b1c17417b9060bebf513f65895f94ba68c453218287d44346"
 dependencies = [
  "data-url",
-<<<<<<< HEAD
  "http 0.2.12",
-=======
- "http 0.2.11",
->>>>>>> 216c4be66d1a8922dad8e1328691b26e9d527b16
  "regex",
  "reqwest",
  "schemars",
