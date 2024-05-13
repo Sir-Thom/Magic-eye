@@ -1464,10 +1464,10 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
 
-custom-media-element@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/custom-media-element/-/custom-media-element-1.2.3.tgz#43ea828bea7d6b334530da1d031739250bab900c"
-  integrity sha512-xr9Hbrslkjm1fapJP5hL98pySeZmNepBSefQS/XTxynamqPTfRBK5MnhReMOiAj8xvJApVPrVnlYxIrknay8jg==
+custom-media-element@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/custom-media-element/-/custom-media-element-1.3.0.tgz#9d312f4f4e7bea4d9dcca32966c936778138c1b6"
+  integrity sha512-Kgi7u8oOZYhSdaV2/hTEfiPap1QdFUfaQjZiL6cFQmiGKU88P8PnAwic7UXInzTdyZyLb9DnjCAiTskh63jzMg==
 
 data-urls@^5.0.0:
   version "5.0.0"
@@ -2088,14 +2088,14 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
-hls-video-element@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/hls-video-element/-/hls-video-element-1.1.4.tgz#1e495f2230d1d762bcc758ddcbccdaaad14f1051"
-  integrity sha512-CrZB61010W7EMN8ArnzkF28w/gOaIrICrmkzo0+mh2x0ElkcitsCRgLte8dRCXbN/8+SAuMuONmD78SK2zGxGQ==
+hls-video-element@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/hls-video-element/-/hls-video-element-1.2.1.tgz#469b1d7acd74e92e93c336a0e72871705dc13a3f"
+  integrity sha512-H6IZQQn6n8iHQdR57Hgw2k6gCydOZ9YxQJXvXOQvYoP6nOqHSZYJ6kvYOtL8Jr6kAkpOAxiBpI8r1fF8noBJJg==
   dependencies:
-    custom-media-element "^1.2.3"
+    custom-media-element "^1.3.0"
     hls.js "^1.5.8"
-    media-tracks "^0.3.0"
+    media-tracks "^0.3.2"
 
 hls.js@^1.5.7, hls.js@^1.5.8:
   version "1.5.8"
@@ -2590,10 +2590,10 @@ media-chrome@^3.0.1:
   resolved "https://registry.yarnpkg.com/media-chrome/-/media-chrome-3.2.0.tgz#9d4b7ab9b3edb3651fe2f27f8436e2074a7b5c6a"
   integrity sha512-hJC8UWlRYqib02NhZbjB/CZsQYV7zpDRVgX4F2z2p+Foh+TPw64MXri9Na1fZA1xIrI52E5s6x8kAhqYr6dd9w==
 
-media-tracks@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/media-tracks/-/media-tracks-0.3.0.tgz#0f16a611268ceb1139800634be97c58ce9d7e45c"
-  integrity sha512-kicD8eOFwe6nD7jn7iM/0yuLzWuo6abWHURYwY7NhxL1dBif+lt0on4rLTs6VhKwAEE/BjT3wr+0vn1w8SBpag==
+media-tracks@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/media-tracks/-/media-tracks-0.3.2.tgz#1c22a0fc3753081d2296d87b3ebb0210663d632f"
+  integrity sha512-qz1MLcXPm0DuzeKm5vWm0kxHROSbwJJw/01h+pvanMAEwR8K4z3tzpLTZoF8sNNa1cy0FbQ8QzNDNU3Hwh0kJw==
 
 memoize-one@^5.1.1:
   version "5.2.1"
