@@ -2092,10 +2092,10 @@ hls-video-element@^1.2.5:
     hls.js "^1.5.8"
     media-tracks "^0.3.2"
 
-hls.js@^1.5.7, hls.js@^1.5.8:
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.5.8.tgz#73c3d2984a56f103e6900bf7a5e65b288dba846e"
-  integrity sha512-hJYMPfLhWO7/7+n4f9pn6bOheCGx0WgvVz7k3ouq3Pp1bja48NN+HeCQu3XCGYzqWQF/wo7Sk6dJAyWVJD8ECA==
+hls.js@^1.5.10, hls.js@^1.5.8:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-1.5.10.tgz#7eb2682d7c0c34bf5ef7fd4e135f32b2e4259d43"
+  integrity sha512-/6TVPMq6aZvX8Pv6qhU2I5OSe7LeEpkyl/GUQUCYsuRpNYyWW8SrRHxd/935HGYbLJiMc1koll1CQTF8HkJTRQ==
 
 html-encoding-sniffer@^4.0.0:
   version "4.0.0"
