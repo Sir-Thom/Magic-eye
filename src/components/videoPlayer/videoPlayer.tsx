@@ -64,7 +64,9 @@ export default function VidPlayer() {
     };
 
     function handleUrlChanged(e: React.ChangeEvent<HTMLInputElement>) {
-        setUrl(e.target.value);
+        setUrl(e.target.value+"index.m3u8");
+        console.log(url);
+
     }
 
     function handleDisconnect(): void {

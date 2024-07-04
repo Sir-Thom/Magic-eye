@@ -49,28 +49,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     config_task.await?;
     let context = tauri::generate_context!();
     let builder = tauri::Builder::default()
-    .plugin(
-        tauri_plugin_log::Builder::default().targets([
-            Target::new(
-                 TargetKind::Stdout
-             ),
-             Target::new(
-                 TargetKind::Webview,
-             ),
-             Target::new(
-                 TargetKind::LogDir { file_name: Some("magiceye".to_string()) })
-        ])
-        .level_for("tauri", LevelFilter::Info)
-        .level_for("hyper", LevelFilter::Error)
-        .level_for("reqwest", LevelFilter::Info)
-        .level_for("tracing", LevelFilter::Error)
-            .build(),
-    )
+    
+    
    
     .plugin(tauri_plugin_fs::init())
     .plugin(tauri_plugin_os::init())
-    .plugin(tauri_plugin_process::init());
-           
+    .plugin(tauri_plugin_process::init())
+    .plugin(tauri_plugin_devtools::init());
+
+
+
     
 
     builder
@@ -116,6 +104,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             });
             Ok(())
         })
+        
         .invoke_handler(generate_handler![
             get_config_dir,
             open_web_browser,
