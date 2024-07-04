@@ -1,14 +1,9 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { expect, test, describe, beforeAll, afterAll, vi } from "vitest";
+import { expect, test, describe, afterAll } from "vitest";
 import Server from "../src/views/Server";
 import RtspServerInfo from "../src/views/ServerInfoView/RtspServerInfo";
 
-import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/core";
-import Titlebar from "../src/components/titlebar/titlebar";
-import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { randomFillSync } from "crypto";
 
 describe("ServerInfo Component", () => {
     const titlebarContainer = document.createElement("div");
@@ -146,7 +141,7 @@ describe("ServerInfo Component", () => {
         };
 
         // Test with an error message
-        mockSetError("An example error message");
+        mockSetError("An example error message ");
 
         // Verify that the Notification component is rendered with the correct message
         const notificationElement = screen.findAllByLabelText("notification");

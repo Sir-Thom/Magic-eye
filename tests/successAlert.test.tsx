@@ -1,5 +1,4 @@
 import SuccessAlert from "../src/components/alert/sucessAlert";
-import React from "react";
 
 import { test, describe, expect } from "vitest";
 import { fireEvent, render, waitFor } from "@testing-library/react";

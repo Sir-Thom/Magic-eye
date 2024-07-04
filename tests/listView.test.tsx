@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import ListView from "../src/components/ListBox/listView";
 import { expect,describe,test, vi } from "vitest";

@@ -1,10 +1,10 @@
 import { expect, test, describe } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import Notification from "../src/components/notification/notification";
-import React from "react";
+
 describe("Notification Component", () => {
     test("renders notification with correct message and icon", () => {
-        const { getByText, getByTestId } = render(
+        const { getByText} = render(
             <Notification
                 onDismiss={() => {}}
                 timer={5000}
@@ -18,8 +18,8 @@ describe("Notification Component", () => {
         expect(messageElement).toBeTruthy();
     });
 
-    test("dismisses notification after a certain time", (done) => {
-        const { getByText, getByTestId } = render(
+    test("dismisses notification after a certain time", () => {
+        const { getByText} = render(
             <Notification
                 onDismiss={() => {}}
                 timer={5000}

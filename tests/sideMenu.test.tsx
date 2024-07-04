@@ -1,7 +1,6 @@
-import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import SideMenu from "../src/components/sideMenu/sideMenu";
-import { beforeAll, expect, test, afterAll, describe, vi } from "vitest";
+import { expect, test, describe, vi } from "vitest";
 import { IMenuItem } from "../src/interfaces/IMenuItem";
 import { MemoryRouter } from "react-router-dom";
 

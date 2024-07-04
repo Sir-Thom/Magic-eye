@@ -25,6 +25,7 @@ export default defineConfig(async () => ({
     // 1. use the same environment as jest
     env: "jsdom",
     globals: true,
+    setupFiles: './setupTests.ts',
     // 2. use the same transform as jest
    
   },

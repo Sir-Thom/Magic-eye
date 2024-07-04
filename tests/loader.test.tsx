@@ -1,7 +1,6 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Loader from "../src/components/loader/loader";
-import { expect,describe,test, vi } from "vitest";
+import { expect,describe,test } from "vitest";
 
 describe("Loader Component", () => {
 

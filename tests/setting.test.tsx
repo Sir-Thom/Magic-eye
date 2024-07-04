@@ -1,17 +1,8 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { expect, test, describe, beforeAll, afterAll, vi } from "vitest";
-import Server from "../src/views/Server";
-import RtspServerInfo from "../src/views/ServerInfoView/RtspServerInfo";
-
-import { mockIPC, mockWindows } from "@tauri-apps/api/mocks";
-import { invoke } from "@tauri-apps/api/core";
+import { render, screen } from "@testing-library/react";
+import { expect, test, describe } from "vitest";
 import Setting from "../src/views/Settings";
-import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { randomFillSync } from "crypto";
 
-import { ISettings } from "../src/interfaces/IServer";
-import { spyOn } from "@vitest/spy";
 
 describe("Setting Component", () => {
     const titlebarContainer = document.createElement("div");
