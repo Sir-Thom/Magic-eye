@@ -727,11 +727,6 @@
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-alpha.6.tgz#16b94359e5c8266ed2b774b4f2e1339c594c4cb4"
   integrity sha512-ZMOc3eu9amwvkC6M69h3hWt4/EsFaAXmtkiw4xd2LN59/lTb4ZQiVfq2QKlRcu1rj3n/Tcr7U30ZopvHwXBGIg==
 
-"@tauri-apps/api@2.0.0-beta.14":
-  version "2.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-beta.14.tgz#8c1c65c07559cd29c5103a99e0abe5331cc2246f"
-  integrity sha512-YLYgHqdwWswr4Y70+hRzaLD6kLIUgHhE3shLXNquPiTaQ9+cX3Q2dB0AFfqsua6NXYFNe7LfkmMzaqEzqv3yQg==
-
 "@tauri-apps/api@2.0.0-beta.15", "@tauri-apps/api@^2.0.0-beta.11":
   version "2.0.0-beta.15"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-beta.15.tgz#41d5fbeaccf3926b6f9f3f9fb5137ba2e272e5c1"
@@ -817,12 +812,12 @@
   dependencies:
     "@tauri-apps/api" "2.0.0-beta.15"
 
-"@tauri-apps/plugin-http@^2.0.0-beta.6":
-  version "2.0.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-http/-/plugin-http-2.0.0-beta.7.tgz#0472b6b71c9df5d889c8a81e136ce3dd824aeeb6"
-  integrity sha512-mxdhcpPPT2oHm0FWe6HS2UbQW2LFTbAv2vExrTYAPJSuXOp2kisgOjazZtswYqpmftpcSZ4dFpmzNlQp188e/g==
+"@tauri-apps/plugin-http@^2.0.0-beta.8":
+  version "2.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-http/-/plugin-http-2.0.0-beta.8.tgz#3472b6b825edef40691f482dbd60766b99844379"
+  integrity sha512-FhZP4WtS1o69Mn7z2RpNIdVS+2nPqmXyz6LhqweuP1FTjgTVraVxIfGLQCOMLpEUwo8zWY2uChllolV6WGYZ/A==
   dependencies:
-    "@tauri-apps/api" "2.0.0-beta.14"
+    "@tauri-apps/api" "2.0.0-beta.15"
 
 "@tauri-apps/plugin-window@^2.0.0-alpha":
   version "2.0.0-alpha.1"
