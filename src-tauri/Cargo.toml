@@ -33,7 +33,7 @@ tower-http = { version = "0.5.2", features = ["fs", "cors"] }
 #reqwest = "^0.11.23"
 open = "5.2.0"
 log = "0.4.22"
-tauri-plugin-devtools = { version = "2.0.0-beta.0" }
+tauri-plugin-devtools = { version = "2.0.0-beta.5" }
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

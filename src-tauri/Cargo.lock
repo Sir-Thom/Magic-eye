@@ -833,9 +833,9 @@ dependencies = [
 
 [[package]]
 name = "devtools-core"
-version = "0.3.3"
+version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28df654e4031290e3074c048e638aef7783a766414df344aaec23b9321c57b32"
+checksum = "7f21c374111065b917a9ed5d1e377cd5792cd19f641ee0bf316f72878908bb99"
 dependencies = [
  "async-stream",
  "bytes",
@@ -843,6 +843,7 @@ dependencies = [
  "futures",
  "http 0.2.12",
  "hyper 0.14.29",
+ "log",
  "prost-types",
  "ringbuf",
  "thiserror",
@@ -4022,9 +4023,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-devtools"
-version = "2.0.0-beta.3"
+version = "2.0.0-beta.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "89c178e8030ff673ee357804743c44db5c48716b39d6a54fc4b72886ec1696ef"
+checksum = "3d4ca4c8378668c832386b990259663ba0bfc60d4fce9d3714e43d3d99da9b56"
 dependencies = [
  "async-stream",
  "bytes",
@@ -4033,6 +4034,7 @@ dependencies = [
  "devtools-core",
  "futures",
  "local-ip-address",
+ "log",
  "objc",
  "serde",
  "serde_json",
