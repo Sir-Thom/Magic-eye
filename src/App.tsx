@@ -7,7 +7,6 @@ import Titlebar from "./components/titlebar/titlebar";
 
 function App() {
     useEffect(() => {
-resizeWindow;
        invoke("close_splashscreen");
     }, []);
 

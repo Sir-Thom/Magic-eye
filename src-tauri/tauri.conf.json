@@ -7,7 +7,7 @@
       {
         "alwaysOnTop": false,
         "closable": true,
-        "decorations": false, 
+        "decorations": false,
         "fullscreen": false,
         "height": 600,
         "label": "main",
@@ -21,7 +21,7 @@
         "title": "Magic Eye",
         "titleBarStyle": "Visible",
         "url": "index.html",
-       "userAgent": "Chrome",
+        "userAgent": "Chrome",
         "visible": false,
         "width": 1000
       },
@@ -43,7 +43,7 @@
   "build": {
     "beforeBuildCommand": "yarn build",
     "beforeDevCommand": "yarn dev",
-    "devUrl": "http://127.0.0.1:1620/",
+    "devUrl": "http://localhost:1420/",
     "frontendDist": "../dist"
   },
   "bundle": {
@@ -66,7 +66,7 @@
       "digestAlgorithm": null,
       "timestampUrl": null,
       "tsp": false,
-      "webviewFixedRuntimePath": null,
+      
       "webviewInstallMode": {
         "silent": true,
         "type": "downloadBootstrapper"
@@ -101,7 +101,7 @@
         "setPosition": false,
         "setResizable": true,
         "setSize": true,
-        "setSkipTaskbar": false,
+        "setSkipTaskbar": true,
         "setTitle": true,
         "show": true,
         "startDragging": true,

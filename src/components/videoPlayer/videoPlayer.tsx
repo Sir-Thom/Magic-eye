@@ -7,7 +7,7 @@ import StreamPlaceholder from "./placeholderStream";
 import { invoke } from "@tauri-apps/api/core";
 import { Suspense } from "react";
 import Loader from "../loader/loader";
-
+import { resolveResource } from '@tauri-apps/api/path';
 export default function VidPlayer() {
     const [url, setUrl] = useState("");
     const [streamUrl, setStreamUrl] = useState("");
@@ -26,10 +26,14 @@ export default function VidPlayer() {
 
     useEffect(() => {
         (async () => {
-            invoke("get_config_file_content").then((res: string) => {
+            invoke("get_config_file_content").then(async (res: string) => {
                 try {
                     const jsonObject = JSON.parse(res);
                     const placeholderValue = jsonObject.placeholder;
+                    console.log(placeholderValue);
+                    const resourcePath = await resolveResource('assets/'+placeholderValue.toString());
+                    console.log(resourcePath);
+                    //const resourcePath = await resolveResource();
                     setPlaceholderUrl(placeholderValue.toString());
                 } catch (error) {
                     throw new Error("Error parsing JSON:" + error);

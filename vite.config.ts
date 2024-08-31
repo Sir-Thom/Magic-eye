@@ -1,9 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
+const host = process.env.TAURI_DEV_HOST;
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
   plugins: [react()],
+
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -11,12 +13,22 @@ export default defineConfig(async () => ({
   clearScreen: false,
   // 2. tauri expects a fixed port, fail if that port is not available
   server: {
-    port: 1620,
+    host: host || false,
+    port: 1420,
     strictPort: true,
-
+    hmr: host
+      ? {
+          protocol: 'ws',
+          host: host,
+          port: 1430,
+        }
+      : undefined,
+  
     
    
   },
+
+  
   test: {
     testMatch: ["**/tests/*.test.ts", "**/tests/*.test.tsx"],
     // https://jestjs.io/docs/configuration#testenvironment-string

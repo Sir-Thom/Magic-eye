@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { currentMonitor, getCurrent } from "@tauri-apps/api/window";
+import { currentMonitor, getCurrent } from "@tauri-apps/plugin-window";
 function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
     return {

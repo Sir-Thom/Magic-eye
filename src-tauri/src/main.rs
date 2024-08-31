@@ -1,25 +1,25 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
+use std::path::{Path, PathBuf};
 use axum::Router;
 use log::{debug, trace, info, LevelFilter};
 use axum::http::{HeaderValue, Method};
-use magic_eye::server::server_http_verb::{
+use magic_eye_internal_lib::server::server_http_verb::{
     __cmd__get_server_request, get_server_request, __cmd__patch_server_request,
     patch_server_request, __cmd__get_json, get_json, __cmd__post_server_request,
     post_server_request,
 };
-use magic_eye::server::server_config::{
+use magic_eye_internal_lib::server::server_config::{
     __cmd__get_server_config_options, get_server_config_options,
 };
-use magic_eye::utils;
-use magic_eye::utils::browser::{__cmd__open_web_browser, open_web_browser};
-use magic_eye::utils::config::{
+use magic_eye_internal_lib::utils;
+use magic_eye_internal_lib::utils::browser::{__cmd__open_web_browser, open_web_browser};
+use magic_eye_internal_lib::utils::config::{
     __cmd__get_config_dir, __cmd__get_config_file, __cmd__get_config_file_content,
     __cmd__update_settings_file, __cmd__save_api_ip, get_config_dir, get_config_file,
     get_config_file_content, update_settings_file, save_api_ip, __cmd__get_api_ip,
     get_api_ip,
 };
-use magic_eye::utils::window_function::{__cmd__close_splashscreen,close_splashscreen,__cmd__close_window, close_window, __cmd__minimize_window, minimize_window, __cmd__maximize_window, maximize_window, __cmd__unmaximize_window, unmaximize_window};
+use magic_eye_internal_lib::utils::window_function::{__cmd__close_splashscreen,close_splashscreen,__cmd__close_window, close_window, __cmd__minimize_window, minimize_window, __cmd__maximize_window, maximize_window, __cmd__unmaximize_window, unmaximize_window};
 use tauri::path::BaseDirectory;
 use tauri::{generate_handler, Manager, WindowEvent};
 use tauri_plugin_log::{Target, TargetKind};
@@ -31,6 +31,27 @@ use utils::os_setup_and_info::setup_wayland;
 const PORT: u16 = 16780;
 
 
+#[tauri::command]
+fn hello(handle: tauri::AppHandle) -> Result<String, tauri::Error> {
+    let resource_path = handle.path().resolve("assets/", BaseDirectory::Resource)?;
+
+
+    let file = std::fs::File::open(&resource_path).unwrap();
+    let ressources = std::fs::read_dir(&resource_path).unwrap();
+    println!("{:?}", ressources);
+    // get all file in the directory
+    for entry in ressources {
+        let entry = entry.unwrap();
+        let path = entry.path();
+        let file_name = path.file_name().unwrap();
+       // give array of all file name
+        println!("{:?}", file_name);
+    }
+    
+    let file_path = resource_path.to_str().unwrap().to_string();
+    Ok(file_path)
+    
+}
 
 
 
@@ -82,7 +103,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
             let resource_path = app.path().resolve("assets/", BaseDirectory::Resource)?;
             
-          
+        
+            let ressources = std::fs::read_dir(&resource_path).unwrap();
+            println!("{:?}", ressources);
+            // get all file in the directory
+            for entry in ressources {
+                let entry = entry.unwrap();
+                let path = entry.path();
+                let file_name = path.file_name().unwrap();
+               // give array of all file name
+                println!("{:?}", file_name);
+            }
+
                 
 
             debug!("resource_path: {:?}", resource_path);
