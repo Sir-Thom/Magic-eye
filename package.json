@@ -52,7 +52,7 @@
     "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-prettier": "^5.2.1",
     "jsdom": "^25.0.0",
     "json-loader": "^0.5.7",
     "postcss": "^8.4.33",
