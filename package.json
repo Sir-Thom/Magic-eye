@@ -60,7 +60,7 @@
     "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2",
-    "vite": "^5.3.5",
+    "vite": "^5.4.7",
     "vitest": "^2.0.5"
   }
 }
