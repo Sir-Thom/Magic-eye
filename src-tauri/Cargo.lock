@@ -4162,9 +4162,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-devtools"
-version = "2.0.0-rc.1"
+version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4db4d0b3a0b5cd49d77900a236da574f717cc89919f64b6e030bf2990bd73cce"
+checksum = "8e5cd17faa36a826e5686bd0fda5bc3f4c903682263f00cd50f2f778fc4bb866"
 dependencies = [
  "async-stream",
  "bytes",
