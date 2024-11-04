@@ -28,7 +28,7 @@ dirs-next = "2.0.0"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 axum = "0.7.7"
-tokio = { version = "1.40.0", features = ["full"] }
+tokio = { version = "1.41.0", features = ["full"] }
 tower-http = { version = "0.6.1", features = ["fs", "cors"] }
 #reqwest = "^0.11.23"
 open = "5.3.0"
